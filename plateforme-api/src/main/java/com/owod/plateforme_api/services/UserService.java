@@ -1,5 +1,6 @@
 package com.owod.plateforme_api.services;
 
+import com.mongodb.DuplicateKeyException;
 import com.owod.plateforme_api.models.entities.User;
 import com.owod.plateforme_api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,11 @@ public class UserService {
      * @return the newly created User
      */
     public User save(User user) {
-        return userRepository.save(user);
+        try {
+            return userRepository.save(user);
+        } catch (DuplicateKeyException e) {
+            throw new IllegalArgumentException("Cet email est déjà utilisé !");
+        }
     }
 
 }

@@ -1,5 +1,7 @@
 package com.owod.plateforme_api.models.entities;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Set;
@@ -7,11 +9,17 @@ import java.util.Set;
 @Document(collection = "users")
 public class User {
 
+    @Id
     private String userId;
+
+    @Indexed(unique = true)
+    private String email;
+
     private String username;
     private String password;
-    private String email;
+
     private Set<String> roles;
+    private String designerId;
 
     public String getUserId() {
         return userId;
@@ -51,5 +59,13 @@ public class User {
 
     public void setRoles(Set<String> roles) {
         this.roles = roles;
+    }
+
+    public String getDesignerId() {
+        return designerId;
+    }
+
+    public void setDesignerId(String designerId) {
+        this.designerId = designerId;
     }
 }

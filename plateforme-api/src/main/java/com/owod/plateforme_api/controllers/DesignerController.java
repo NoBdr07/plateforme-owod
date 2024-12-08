@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/designer")
+@RequestMapping("/designers")
 public class DesignerController {
 
     @Autowired

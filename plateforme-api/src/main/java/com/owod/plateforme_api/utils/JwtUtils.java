@@ -77,7 +77,7 @@ public class JwtUtils {
     public Cookie createCookie(String name, String value, int maxAge, boolean secure) {
         Cookie cookie = new Cookie(name, value);
         cookie.setHttpOnly(true); // Empêche l'accès via JavaScript
-        cookie.setSecure(secure); // Utiliser HTTPS en production
+        cookie.setSecure(false); // REMETTRE A SECURE EN PRODUCTION
         cookie.setPath("/");
         cookie.setMaxAge(maxAge); // Durée de vie du cookie
         return cookie;
