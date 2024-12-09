@@ -1,0 +1,12 @@
+<div class="title-container">
+  <h1>Designers</h1>
+  <h2>Catalogue universel du design en Afrique</h2>
+</div>
+
+<div class="designers-container" *ngIf="designers$ | async as designers">
+    <div class="designer" *ngFor="let designer of designers">
+        <h3>{{ designer.firstName }} {{ designer.lastName }}</h3>
+        <p> {{ designer.biography }}</p>
+    </div>
+
+</div>

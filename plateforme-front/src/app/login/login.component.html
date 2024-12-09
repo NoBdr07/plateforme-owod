@@ -1,0 +1,6 @@
+<h1>Se connecter</h1>
+<form class="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <input placeholder="Entrez votre email" formControlName="email" />
+    <input type="password" placeholder="Entrez votre mot de passe" formControlName="password" />
+    <button type="submit">Se connecter</button>
+</form>

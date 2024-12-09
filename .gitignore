@@ -1,0 +1,18 @@
+# Ignorer les node_modules dans les sous-dossiers
+plateforme-front/node_modules/
+
+# Ignorer les fichiers de build Angular et Spring Boot
+plateforme-front/dist/
+plateforme-api/target/
+
+# Ignorer les fichiers de configuration locaux
+plateforme-front/.env
+plateforme-api/.env
+
+# Ignorer les fichiers journaux
+*.log
+*.tmp
+
+# Ignorer les fichiers générés par les IDE
+.idea/
+.vscode/

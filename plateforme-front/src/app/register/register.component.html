@@ -1,0 +1,8 @@
+<h1>S'inscrire</h1>
+<form class="registerForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <input placeholder="Entrez votre email" formControlName="email" />
+    <input placeholder="Confirmez votre email" formControlName="emailConfirmation" />
+    <input placeholder="Entrez votre nom d'utilisateur" formControlName="username" />
+    <input type="password" placeholder="Entrez votre mot de passe" formControlName="password" />
+    <button type="submit">Se connecter</button>
+</form>
