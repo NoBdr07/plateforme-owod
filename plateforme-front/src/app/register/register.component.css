@@ -53,4 +53,8 @@
     font-size: 14px;
     text-align: center;
   }
+
+  .mdc-text-field__input {
+    color: black !important;
+  }
   

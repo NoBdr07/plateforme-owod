@@ -45,4 +45,16 @@ public class UserService {
         }
     }
 
+    /**
+     * Method to check if a user is linked to a designer account or not
+     * @param userId
+     * @return a boolean
+     */
+    public boolean hasDesignerAccount(String userId) {
+        return userRepository.findByUserId(userId)
+                .map(user -> user.getDesignerId() != null)
+                .orElse(false);
+    }
+
+
 }

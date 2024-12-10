@@ -47,3 +47,7 @@ button {
 .bottom-container {
   text-align: center;
 }
+
+.mdc-text-field__input {
+  color: black !important;
+}

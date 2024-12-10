@@ -29,4 +29,6 @@ public class DesignerService {
     public List<Designer> findBySpecialty(String specialty) {
         return designerRepository.findBySpecialtiesContaining(specialty);
     }
+
+
 }

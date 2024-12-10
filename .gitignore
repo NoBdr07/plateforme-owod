@@ -16,3 +16,6 @@ plateforme-api/.env
 # Ignorer les fichiers générés par les IDE
 .idea/
 .vscode/
+
+# Ignorer les images uploader en local pour le développement
+uploads/
