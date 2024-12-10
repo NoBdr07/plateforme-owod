@@ -1,6 +1,28 @@
-<h1>Se connecter</h1>
-<form class="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <input placeholder="Entrez votre email" formControlName="email" />
-    <input type="password" placeholder="Entrez votre mot de passe" formControlName="password" />
-    <button type="submit">Se connecter</button>
-</form>
+<div class="global-container">
+  <h1>Se connecter</h1>
+  <p class="info">
+    Bienvenue ! Entrez vos informations pour vous connecter à votre espace
+    membre.
+  </p>
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" name="email" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Mot de passe</mat-label>
+      <input matInput formControlName="password" name="password" />
+    </mat-form-field>
+
+    <button mat-raised-button type="submit">Se connecter</button>
+  </form>
+
+  <div class="trait"></div>
+
+  <div class="bottom-container">
+    <a>Mot de passe oublié ?</a>
+    <p>
+      Vous n'avez pas de compte ? <a routerLink="/register">Inscrivez-vous</a>
+    </p>
+  </div>
+</div>

@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LoginRequest } from '../interfaces/login-request.interface';
+import { RegisterRequest } from '../interfaces/register-request.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,16 @@ export class AuthService {
   login(email: string, password: string): Observable<string> {
     const loginRequest: LoginRequest = { email, password };
     return this.http.post<string>(`${this.apiUrl}/login`, loginRequest, {
+      withCredentials: true,
+      responseType: 'text' as 'json',
+    });
+  }
+
+  /**
+   * Envoie un requête d'inscription
+   */
+  register(registerRequest: RegisterRequest): Observable<any>  {
+    return this.http.post(`${this.apiUrl}/register`, registerRequest, {
       withCredentials: true,
       responseType: 'text' as 'json',
     });

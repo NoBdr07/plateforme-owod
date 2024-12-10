@@ -3,11 +3,13 @@ import { DesignerService } from '../services/designer.service';
 import { Designer } from '../interfaces/designer.interface';
 import { Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatButtonModule, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

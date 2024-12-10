@@ -1,0 +1,72 @@
+/* CONTENEUR DU HAUT */
+
+.top-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 50px;
+}
+
+.top-text {
+  font-size: 20px;
+  font-weight: 400;
+  width: 30%;
+}
+
+button {
+  color: black !important;
+}
+
+.filtre {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+/* CONTENEUR DU CATALOGUE */
+
+.designers-container {
+  margin: 0 70px;
+  display: flex;
+  flex-direction: flex-row;
+  flex-wrap: wrap;
+  gap: 60px;
+}
+
+.designer {
+    width: 240px;
+    text-align: center;
+}
+
+.designer-name {
+  text-transform: uppercase;
+  top: -100px;
+  font-weight: bold;
+  font-size: 18px;
+  position: relative;
+  z-index: 4;
+}
+
+.designer-info {
+  font-size: 12px;
+  top: -90px;
+  position: relative;
+  z-index: 4;
+}
+
+.background {
+    width: 240px;
+    height: 240px;
+    position: absolute;
+    z-index: 1;
+}
+
+.photo {
+    width: 240px;
+    height: 240px;
+    object-fit: cover;
+    z-index: 2;
+    position: relative;
+  }

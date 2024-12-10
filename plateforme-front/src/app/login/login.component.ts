@@ -4,11 +4,15 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../services/auth.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, MatInputModule, MatButtonModule, MatFormFieldModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -35,12 +39,11 @@ export class LoginComponent implements OnDestroy {
 
       const sub = this.authService.login(email, password).subscribe({
         next: () => {
-          console.log("appel de next dans on submit");
           this.authService.checkTokenPresence();
           this.router.navigate(['account']);
         },
         error: (error) => {
-          this.errorMessage = error.error.message;
+          this.errorMessage = error.message;
         },
       });
       this.subscriptions.add(sub);

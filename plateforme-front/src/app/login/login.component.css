@@ -1,0 +1,49 @@
+.global-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: 700;
+  font-family: "Red Hat Display", sans-serif;
+}
+
+.info {
+  font-size: 18px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 480px;
+}
+
+::ng-deep .mdc-text-field {
+  border: solid 1px ;
+  border-radius: 5px ;
+}
+
+::ng-deep mat-label {
+    color :black;
+}
+
+button {
+  width: 480px !important;
+}
+
+.trait {
+  width: 480px;
+  border-bottom: solid 1px black;
+  height: 1px;
+}
+
+.bottom-container {
+  text-align: center;
+}

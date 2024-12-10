@@ -48,7 +48,7 @@ public class AuthController {
         }
 
         User user = optionalUser.get();
-        String token = jwtUtils.generateToken(user.getUsername());
+        String token = jwtUtils.generateToken(user.getEmail());
         Cookie cookie = jwtUtils.createCookie("jwt", token, 24 * 60 * 60, true);
 
         response.addCookie(cookie);
@@ -69,7 +69,8 @@ public class AuthController {
 
         User newUser = new User();
         newUser.setEmail(registerRequest.getEmail());
-        newUser.setUsername(registerRequest.getUsername());
+        newUser.setFirstname(registerRequest.getFirstname());
+        newUser.setLastname(registerRequest.getLastname());
         newUser.setPassword(passwordEncoder.encode(registerRequest.getPassword())); // Encodage sécurisé
 
         Set<String> roles = new HashSet<>(); // Utiliser HashSet pour initialiser
@@ -84,5 +85,4 @@ public class AuthController {
 
         return ResponseEntity.ok("User registered successfully");
     }
-
 }

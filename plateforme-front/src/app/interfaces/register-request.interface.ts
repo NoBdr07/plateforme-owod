@@ -1,5 +1,7 @@
 export interface RegisterRequest {
     email: String,
     password: String,
-    username: String
+    firstname: String,
+    lastname: String,
+    admin: boolean
 }

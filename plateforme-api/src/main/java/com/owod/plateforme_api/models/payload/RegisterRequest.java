@@ -4,7 +4,8 @@ public class RegisterRequest {
 
     String email;
     String password;
-    String username;
+    String firstname;
+    String lastname;
     Boolean admin;
 
     public String getEmail() {
@@ -23,12 +24,12 @@ public class RegisterRequest {
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public Boolean getAdmin() {
@@ -37,5 +38,13 @@ public class RegisterRequest {
 
     public void setAdmin(Boolean admin) {
         this.admin = admin;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 }

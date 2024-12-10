@@ -33,5 +33,12 @@ export const routes: Routes = [
             import(
               './my-account/my-account.component'
             ).then((c) => c.MyAccountComponent),
+    },
+    {
+        path: 'catalogue',
+        loadComponent: () =>
+            import(
+              './catalogue/catalogue.component'
+            ).then((c) => c.CatalogueComponent),
     }
 ];

@@ -1,0 +1,46 @@
+.header-container {
+  height: 96px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-right: 71px;
+  padding-left: 80px;
+  align-items: center;
+}
+
+.logo {
+  height: 52px;
+}
+
+.logo:hover {
+    cursor: pointer;
+}
+
+.title {
+  font-size: 32px;
+  position: absolute;
+  transform: translateX(-50%);
+  left: 50%;
+}
+
+.end-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: end;
+}
+
+.social-links {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.langue {
+  width: max-content;
+}
+
+.social {
+  width: 40px;
+  height: 40px;
+}

@@ -1,1 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Red Hat Display", sans-serif !important;
+  background-color: var(--background-color);
+  background-image: url("../src/assets/svg/lignes-fonce.svg"),
+    /* Lignes bleu foncé */ url("../src/assets/svg/lignes-clair.svg"); /* Lignes bleu clair */
+  background-repeat: repeat, repeat; /* Les deux SVG se répètent */
+  background-size: cover, cover;
+  background-position: center, center;
+}
+
+:root {
+  --primary-color: #eff2ff;
+  --dark-color: #0505c3;
+  --accent-color: #3b6b6b;
+  --warn-color: #0505c3;
+  --background-color: #eff2ff;
+  --text-color: black;
+
+  --mat-primary-color: var(--background-color);
+  --mat-accent-color: var(--accent-color);
+  --mat-warn-color: var(--warn-color);
+
+  --mdc-filled-text-field-container-color: var(--primary-color);
+
+  --mat-primary-contrast: var(--text-color);
+  --mat-accent-contrast: var(--text-color);
+  --mat-warn-contrast: var(--text-color);
+}
+
+body, .mat-typography {
+  font: 400 14px/20px "Red Hat Display", sans-serif !important;
+}
+
+.mat-mdc-raised-button:not(:disabled) {
+  background-color: var(--dark-color) !important;
+}

@@ -1,0 +1,29 @@
+<div class="top-container">
+  <div class="top-text">
+    Le catalogue OWOD est un annuaire digital référençant tous les designers à
+    travers les multiples disciplines du design.
+  </div>
+
+  <div class="filtre">
+    <img class="filtre-icon" src="assets/logos/filtre.png" alt="Filtre" />
+    <button mat-button [matMenuTriggerFor]="menu">Filtre de recherche</button>
+  </div>
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>Profession</button>
+    <button mat-menu-item>Spécialité</button>
+    <button mat-menu-item>Sphère d'influence</button>
+    <button mat-menu-item>Secteurs</button>
+    <button mat-menu-item>Pays de résidence</button>
+  </mat-menu>
+</div>
+
+<div class="designers-container" *ngIf="designers$ | async as designers">
+  <div class="designer" *ngFor="let designer of designers">
+    <img class="background" src="assets/images/back.png">
+    <img [src]="designer.profilePicture" class="photo" />
+    <p class="designer-name">{{ designer.firstName }} {{ designer.lastName }}</p>
+    <p class="designer-info">{{ designer.biography }}</p>
+    
+  </div>
+</div>

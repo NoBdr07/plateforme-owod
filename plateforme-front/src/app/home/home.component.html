@@ -1,12 +1,49 @@
-<div class="title-container">
-  <h1>Designers</h1>
-  <h2>Catalogue universel du design en Afrique</h2>
-</div>
-
-<div class="designers-container" *ngIf="designers$ | async as designers">
-    <div class="designer" *ngFor="let designer of designers">
-        <h3>{{ designer.firstName }} {{ designer.lastName }}</h3>
-        <p> {{ designer.biography }}</p>
+<div class="global-container">
+  <div class="main-container">
+    <div class="text-gauche">
+      <a class="link" routerLink="/login">Rejoignez gratuitement le catalogue ici</a>
     </div>
 
+    <div class="designer">
+      <img class="background" src="assets/images/back.png">
+      <img class="designer-image" src="assets/images/lady.png" />
+      <p class="designer-name">Laura Kanah-Bisseck</p>
+      <p class="designer-info">Product Desinger | AIPDA Europe</p>
+      <button mat-raised-button class="designer-semaine">Designer de la semaine</button>
+    </div>
+
+    <div class="text-gauche">
+      <p>A propos de l'AIPDA | Contacts</p>
+    </div>
+  </div>
+
+  <div class="bottom-container">
+    <div class="white-container">     
+
+      <div class="text-container">    
+        <p class="subtitle">Catalogue owod</p>    
+        <div class="arrow-container">
+          <p class="arrow-info">Visitez le catalogue maintenant</p>
+          <img class="arrow" routerLink="catalogue" src="assets/logos/arrow.png" />
+        </div>
+      </div>
+
+      <div class="designers-container"></div>
+    </div>
+
+    <div class="white-container">     
+
+      <div class="text-container">    
+        <p class="subtitle">Espace membres</p>   
+        <div class="arrow-container">
+          <p class="arrow-info">Accedez à votre espace</p>
+          <img class="arrow" src="assets/logos/arrow.png" />
+        </div>
+      </div>
+
+      <div class="icon-container">
+        <img class="user-icon" src="assets/logos/User.png" />
+      </div>
+    </div>
+  </div>
 </div>
