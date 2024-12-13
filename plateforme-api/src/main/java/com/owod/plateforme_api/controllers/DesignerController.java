@@ -56,14 +56,18 @@ public class DesignerController {
     public ResponseEntity<?> newDesigner(@RequestBody Designer designer, Principal principal) {
         try {
             // 1. Récupérer l'utilisateur en cours de session à partir du principal
-            String email = principal.getName(); // Récupère l'email de l'utilisateur authentifié
-            Optional<User> optionalUser = userService.findByEmail(email);
+            String userId = principal.getName(); // Récupère l'email de l'utilisateur authentifié
+            Optional<User> optionalUser = userService.findByUserId(userId);
 
             if (optionalUser.isEmpty()) {
                 return ResponseEntity.status(404).body("User not found");
             }
 
             User user = optionalUser.get();
+
+            designer.setEmail(user.getEmail());
+            designer.setFirstname(user.getFirstname());
+            designer.setLastname(user.getLastname());
 
             // 2. Sauvegarder le designer
             Designer newDesigner = designerService.save(designer);

@@ -21,12 +21,12 @@ public class JwtUtils {
 
     /**
      * Method to generate a token containing the username
-     * @param username
+     * @param userId
      * @return a string container the generated token
      */
-    public String generateToken(String username) {
+    public String generateToken(String userId) {
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(userId)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)

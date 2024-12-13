@@ -40,5 +40,12 @@ export const routes: Routes = [
             import(
               './catalogue/catalogue.component'
             ).then((c) => c.CatalogueComponent),
+    },
+    {
+        path: 'dashboard',
+        loadComponent: () =>
+            import(
+              './dashboard/dashboard.component'
+            ).then((c) => c.DashboardComponent),
     }
 ];

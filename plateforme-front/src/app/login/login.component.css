@@ -8,12 +8,6 @@
   height: 80vh;
 }
 
-h1 {
-  font-size: 48px;
-  font-weight: 700;
-  font-family: "Red Hat Display", sans-serif;
-}
-
 .info {
   font-size: 18px;
 }
@@ -25,14 +19,6 @@ h1 {
   width: 480px;
 }
 
-::ng-deep .mdc-text-field {
-  border: solid 1px ;
-  border-radius: 5px ;
-}
-
-::ng-deep mat-label {
-    color :black;
-}
 
 button {
   width: 480px !important;
@@ -48,6 +34,3 @@ button {
   text-align: center;
 }
 
-.mdc-text-field__input {
-  color: black !important;
-}

@@ -1,1 +1,66 @@
-<p>my-account works!</p>
+<div class="global-container">
+    
+    <h1>Bienvenue dans votre espace !</h1>
+
+    <div *ngIf="!hasAccount" class="not-created">
+        <p class="info">Vous n'avez pas encore crée votre profil designer.<br>
+            Pour le creer, remplissez les informations minimales ci-dessous.<br>
+            Vous pourrez ensuite modifier ou compléter votre profil en ayant
+            accès à votre dashboard.
+        </p>
+        <form class="form" [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="fill">
+              <mat-label>Profession</mat-label>
+              <mat-select formControlName="profession">
+                <mat-option *ngFor="let job of jobs" [value]="job">
+                  {{ job }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+        
+            <mat-form-field appearance="fill">
+              <mat-label>Spécialités</mat-label>
+              <mat-select formControlName="specialties" multiple>
+                <mat-option *ngFor="let specialty of specialties" [value]="specialty">
+                  {{ specialty }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+        
+            <mat-form-field appearance="fill">
+              <mat-label>Sphères d'influence</mat-label>
+              <mat-select formControlName="spheresOfInfluence" multiple>
+                <mat-option *ngFor="let sphere of spheresOfInfluence" [value]="sphere">
+                  {{ sphere }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+        
+            <mat-form-field appearance="fill">
+              <mat-label>Secteurs favoris</mat-label>
+              <mat-select formControlName="favoriteSectors" multiple>
+                <mat-option *ngFor="let sector of favoriteSectors" [value]="sector">
+                  {{ sector }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+        
+            <mat-form-field appearance="fill">
+              <mat-label>Pays de résidence</mat-label>
+              <input matInput formControlName="countryOfResidence" placeholder="Entrez votre pays de résidence" />
+            </mat-form-field>
+        
+            <button mat-raised-button color="primary" type="submit">Créer le designer</button>
+          </form>
+        
+    </div>
+
+    <div *ngIf="hasAccount" class="created">
+        <button mat-raised-button routerLink="/dashboard">Configurer votre profil</button>
+    </div>
+
+    <div class="bottom-container">
+        <button mat-raised-button (click)="logOut()">Se déconnecter</button>
+    </div>
+
+</div>

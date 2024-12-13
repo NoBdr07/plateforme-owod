@@ -13,8 +13,8 @@ public class Designer {
 
     private String email; // Adresse email
     private String profilePicture; // URL de la photo de profil
-    private String firstName; // Prénom
-    private String lastName; // Nom
+    private String firstname; // Prénom
+    private String lastname; // Nom
     private String biography; // Biographie
     private String phoneNumber; // Numéro de téléphone
     private String profession; // Profession
@@ -53,20 +53,20 @@ public class Designer {
         this.profilePicture = profilePicture;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getBiography() {

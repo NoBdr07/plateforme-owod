@@ -41,3 +41,32 @@ body, .mat-typography {
 .mat-mdc-raised-button:not(:disabled) {
   background-color: var(--dark-color) !important;
 }
+
+.mat-typography h1 {
+  font-family: "Red Hat Display", sans-serif !important;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.mdc-text-field {
+  border: solid 1px !important;
+  border-radius: 5px !important;
+}
+
+mat-label {
+    color :black !important;
+}
+
+.mdc-text-field__input {
+  color: black !important;
+}
+
+.mat-mdc-select {
+  color: black !important;
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: 700;
+  font-family: "Red Hat Display", sans-serif;
+}

@@ -38,7 +38,7 @@ export class AuthService {
   /**
    * Envoie un requête d'inscription
    */
-  register(registerRequest: RegisterRequest): Observable<any>  {
+  register(registerRequest: RegisterRequest): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, registerRequest, {
       withCredentials: true,
       responseType: 'text' as 'json',
@@ -58,7 +58,7 @@ export class AuthService {
   checkTokenPresence(): void {
     const token = this.getTokenFromCookie();
     this.isLogged = !!token;
-    console.log("islogged dans auth service : " + this.isLogged);
+    console.log('islogged dans auth service : ' + this.isLogged);
     this.next();
   }
 
@@ -127,5 +127,20 @@ export class AuthService {
       }
     }
     return null;
+  }
+
+  /**
+   * Décoder le JWT pour extraire l'userId.
+   */
+  public getUserIdFromToken(): string | null {
+    const token = this.getTokenFromCookie();
+    if (!token) return null;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1])); // Décoder le payload du JWT
+      return payload.userId; // Assurez-vous que le JWT contient `userId`
+    } catch {
+      return null;
+    }
   }
 }

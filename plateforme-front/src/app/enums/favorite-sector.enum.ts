@@ -1,0 +1,20 @@
+export enum FavoriteSector {
+    AGROALIMENTAIRE = 'Agroalimentaire',
+    BOIS = 'Bois / Papier / Carton / Imprimerie',
+    CHIMIE = 'Chimie / Parachimie',
+    MULTIMEDIA = 'Édition / Communication / Multimédia',
+    ETUDES = 'Études et conseils',
+    MACHINES = 'Machines et équipements / Automobile',
+    PLASTIQUE = 'Plastique / Caoutchouc',
+    TEXTILE = 'Textile / Habillement / Chaussure',
+    BANQUE = 'Banque / Assurance',
+    BTP = 'BTP / Matériaux de construction',
+    COMMERCE = 'Commerce / Négoce / Distribution',
+    ELECTRONIQUE = 'Électronique / Électricité',
+    PHARMA = 'Industrie pharmaceutique',
+    INFORMATIQUE = 'Informatique / Télécoms',
+    METALLURGIE = 'Métallurgie / Travail du métal',
+    SERVICES = 'Services aux entreprises',
+    TRANSPORTS = 'Transports / Logistique',
+  }
+  
