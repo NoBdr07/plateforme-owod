@@ -3,8 +3,8 @@ export interface Designer {
   
     email: string; // Adresse email
     profilePicture: string; // URL de la photo de profil
-    firstName: string; // Prénom
-    lastName: string; // Nom
+    firstname: string; // Prénom
+    lastname: string; // Nom
     biography: string; // Biographie
     phoneNumber: string; // Numéro de téléphone
     profession: string; // Profession

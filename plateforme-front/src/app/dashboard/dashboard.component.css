@@ -1,0 +1,76 @@
+/** GLOBAL **/
+
+.dashboard-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 200px;
+}
+
+/** SECTION DE GAUCHE : PHOTO **/
+
+.photo-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.background {
+    width: 420px;
+    height: 420px;
+  position: absolute;
+  z-index: 1;
+}
+
+.photo {
+  width: 420px;
+  height: 420px;
+  object-fit: cover;
+  z-index: 2;
+  position: relative;
+}
+
+.photo-button {
+  height: 50px;
+}
+
+/** SECTION DE DROITE : INFORMATIONS **/
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: white;
+  width: 40%;
+  padding: 40px;
+  border-radius: 8px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.group-title {
+    font-size: 1vw;
+    font-weight: 900;
+    letter-spacing: 5px;
+    font-variant: small-caps;
+}
+
+.underline {
+    height: 1px;
+  width: 100%;
+  border-top: solid 1px black;
+  margin-bottom: 20px;
+}
+
+::ng-deep .mdc-text-field {
+    border: none !important;
+    border-radius: 8px;
+}
+
+::ng-deep mat-label {
+    color: #0F132C66 !important;
+}

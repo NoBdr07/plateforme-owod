@@ -21,7 +21,7 @@ export const routes: Routes = [
             ).then((c) => c.RegisterComponent)
     },
     {
-        path: 'details',
+        path: 'details/:id',
         loadComponent: () => 
             import(
                 './designer-details/designer-details.component'

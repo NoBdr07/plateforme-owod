@@ -32,6 +32,30 @@ public class DesignerController {
         return designerService.getAll();
     }
 
+    @GetMapping("/designer/{userId}")
+    public ResponseEntity<?> getDesignerByUserId(@PathVariable String userId) {
+        Optional<User> optionalUser = userService.findByUserId(userId);
+
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.status(404).body("User not found");
+        }
+
+        User user = optionalUser.get();
+
+        if (user.getDesignerId() == null) {
+            return ResponseEntity.status(404).body("No designer account associated with this user.");
+        }
+
+        Optional<Designer> optionalDesigner = designerService.findById(user.getDesignerId());
+
+        if (optionalDesigner.isEmpty()) {
+            return ResponseEntity.status(404).body("Designer not found.");
+        }
+
+        return ResponseEntity.ok(optionalDesigner.get());
+    }
+
+
     /**
      * Endpoint to retrieve all designers that have a specific specialty
      * @param specialty
@@ -82,6 +106,44 @@ public class DesignerController {
             return ResponseEntity.status(400).body("Error creating designer: " + e.getMessage());
         }
     }
+
+    /**
+     *
+     * @param designerId
+     * @param updatedDesigner
+     * @param principal
+     * @return
+     */
+    @PutMapping("/{designerId}")
+    public ResponseEntity<?> updateDesigner(@PathVariable String designerId, @RequestBody Designer updatedDesigner, Principal principal) {
+        try {
+            // 1. Récupérer le designer existant
+            Optional<Designer> optionalDesigner = designerService.findById(designerId);
+
+            if (optionalDesigner.isEmpty()) {
+                return ResponseEntity.status(404).body("Designer not found");
+            }
+
+            // 2. Vérifier que l'utilisateur est bien propriétaire du designer
+            String userId = principal.getName(); // Récupérer l'userId via Principal
+            Optional<User> optionalUser = userService.findByUserId(userId);
+
+            if (optionalUser.isEmpty() || !optionalUser.get().getDesignerId().equals(designerId)) {
+                return ResponseEntity.status(403).body("You are not authorized to update this designer.");
+            }
+
+            // 3. Mettre à jour directement avec `save()`
+            updatedDesigner.setId(designerId); // Assurez-vous que l'id est défini
+            Designer savedDesigner = designerService.save(updatedDesigner);
+
+            // 4. Retourner le designer mis à jour
+            return ResponseEntity.ok(savedDesigner);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body("Error updating designer: " + e.getMessage());
+        }
+    }
+
 
 
 }

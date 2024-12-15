@@ -1,1 +1,118 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <!-- Photo et bouton -->
+  <div class="photo-section">
+    <img class="background" src="assets/images/back.png" />
+    <img
+      [src]="designerForm.value.profilePicture || 'assets/images/default-profile.png'"
+      alt="Photo de profil"
+      class="photo"
+    />
+    <button mat-raised-button class="photo-button" (click)="openPhotoDialog()">
+      Changer de photo
+    </button>
+  </div>
+
+  <!-- Formulaire -->
+  <div class="form-section">
+    <form [formGroup]="designerForm" (ngSubmit)="onSubmit()">
+      <!-- Informations personnelles -->
+      <p class="group-title">Informations personnelles</p>
+      <div class="underline"></div>
+      <div class="form-group">
+        <mat-form-field appearance="fill">
+          <mat-label>Prénom</mat-label>
+          <input matInput formControlName="firstname" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Nom</mat-label>
+          <input matInput formControlName="lastname" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Pays d'origine</mat-label>
+          <input matInput formControlName="countryOfOrigin" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Pays de résidence</mat-label>
+          <input matInput formControlName="countryOfResidence" />
+        </mat-form-field>
+      </div>
+
+      <!-- Informations de contact -->
+      <p class="group-title">Informations de contact</p>
+      <div class="underline"></div>
+      <div class="form-group">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Téléphone</mat-label>
+          <input matInput formControlName="phoneNumber" />
+        </mat-form-field>
+      </div>
+
+      <!-- Informations professionnelles -->
+      <p class="group-title">Informations professionnelles</p>
+      <div class="underline"></div>
+      <div class="form-group">
+        <mat-form-field appearance="fill">
+          <mat-label>Biographie</mat-label>
+          <textarea matInput formControlName="biography"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Profession</mat-label>
+          <mat-select formControlName="profession">
+            <mat-option *ngFor="let job of jobs" [value]="job">
+              {{ job }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Spécialités</mat-label>
+          <mat-select formControlName="specialties" multiple>
+            <mat-option
+              *ngFor="let specialty of specialties"
+              [value]="specialty"
+            >
+              {{ specialty }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Sphères d'influence</mat-label>
+          <mat-select formControlName="spheresOfInfluence" multiple>
+            <mat-option
+              *ngFor="let sphere of spheresOfInfluence"
+              [value]="sphere"
+            >
+              {{ sphere }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Secteurs favoris</mat-label>
+          <mat-select formControlName="favoriteSectors" multiple>
+            <mat-option *ngFor="let sector of favoriteSectors" [value]="sector">
+              {{ sector }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Niveau professionnel</mat-label>
+          <input matInput formControlName="professionalLevel" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Portfolio</mat-label>
+          <input matInput formControlName="portfolioUrl" />
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button type="submit">Sauvegarder</button>
+    </form>
+  </div>
+</div>

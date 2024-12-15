@@ -20,9 +20,10 @@ export class UserService {
    */
 
   hasAnAccount(userId: string): Observable<boolean> {
-    return this.http.get<boolean>(`${this.apiUrl}/${userId}/has-account`, {
+    return this.http.get<boolean>(`${this.apiUrl}/${userId}/has-designer`, {
       withCredentials: true
     });
   }
+  
   
 }

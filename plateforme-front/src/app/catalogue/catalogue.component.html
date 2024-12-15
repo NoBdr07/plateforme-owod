@@ -19,11 +19,16 @@
 </div>
 
 <div class="designers-container" *ngIf="designers$ | async as designers">
-  <div class="designer" *ngFor="let designer of designers">
-    <img class="background" src="assets/images/back.png">
+  <div
+    class="designer"
+    *ngFor="let designer of designers"
+    [routerLink]="['/designer-details', designer.id]"
+  >
+    <img class="background" src="assets/images/back.png" />
     <img [src]="designer.profilePicture" class="photo" />
-    <p class="designer-name">{{ designer.firstName }} {{ designer.lastName }}</p>
+    <p class="designer-name">
+      {{ designer.firstname }} {{ designer.lastname }}
+    </p>
     <p class="designer-info">{{ designer.biography }}</p>
-    
   </div>
 </div>

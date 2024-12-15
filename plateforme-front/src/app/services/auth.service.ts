@@ -58,7 +58,6 @@ export class AuthService {
   checkTokenPresence(): void {
     const token = this.getTokenFromCookie();
     this.isLogged = !!token;
-    console.log('islogged dans auth service : ' + this.isLogged);
     this.next();
   }
 
@@ -81,19 +80,8 @@ export class AuthService {
    * Déconnexion : supprime le token et notifie le backend.
    */
   logout(): void {
-    this.http
-      .post(`${this.apiUrl}/logout`, {}, { withCredentials: true })
-      .subscribe({
-        next: () => {
-          this.clearToken();
-          this.router.navigate(['/login']);
-        },
-        error: () => {
-          console.error('Erreur lors de la déconnexion.');
-          this.clearToken();
-          this.router.navigate(['/login']);
-        },
-      });
+    this.clearToken();
+    this.router.navigate(["/login"]);
   }
 
   /**
@@ -138,7 +126,7 @@ export class AuthService {
 
     try {
       const payload = JSON.parse(atob(token.split('.')[1])); // Décoder le payload du JWT
-      return payload.userId; // Assurez-vous que le JWT contient `userId`
+      return payload.sub; // Assurez-vous que le JWT contient `userId`
     } catch {
       return null;
     }

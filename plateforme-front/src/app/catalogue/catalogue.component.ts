@@ -5,11 +5,12 @@ import { DesignerService } from '../services/designer.service';
 import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu'
 import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-catalogue',
   standalone: true,
-  imports: [CommonModule, MatMenuModule, MatButtonModule],
+  imports: [CommonModule, MatMenuModule, MatButtonModule, RouterModule],
   templateUrl: './catalogue.component.html',
   styleUrl: './catalogue.component.css'
 })
