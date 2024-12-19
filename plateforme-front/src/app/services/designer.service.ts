@@ -39,13 +39,10 @@ export class DesignerService {
    * @returns le nouveau designer si sauvegarde en bdd ok
    */
   updateDesigner(designer: Designer, designerId: String): Observable<Designer> {
-    return this.http.put<Designer>(
-      `${this.apiUrl}/${designerId}`, 
-      designer,
-      { withCredentials: true } 
-    );
+    return this.http.put<Designer>(`${this.apiUrl}/${designerId}`, designer, {
+      withCredentials: true,
+    });
   }
-  
 
   /**
    * Création d'un nouveau designer
@@ -66,16 +63,58 @@ export class DesignerService {
   }
 
   /**
- * Récupération d'un designer spécifique parmi les designers chargés
- * @param designerId ID du designer à récupérer
- * @returns Un observable du designer trouvé
- */
-getDesignerById(designerId: string): Observable<Designer | undefined> {
-  return this.designers$.pipe(
-    // Transformer la liste en un seul élément correspondant
-    map((designers) => designers.find((designer) => designer.id === designerId))
-  );
-}
+   * Récupération d'un designer spécifique parmi les designers chargés
+   * @param designerId ID du designer à récupérer
+   * @returns Un observable du designer trouvé
+   */
+  getDesignerById(designerId: string): Observable<Designer | undefined> {
+    return this.designers$.pipe(
+      // Transformer la liste en un seul élément correspondant
+      map((designers) =>
+        designers.find((designer) => designer.id === designerId)
+      )
+    );
+  }
 
-  
+  updateDesignerFields(
+    designerId: string,
+    updatedDesigner: Designer
+  ): Observable<any> {
+    return this.http.put(
+      `${this.apiUrl}/${designerId}/update-fields`,
+      updatedDesigner,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  updateDesignerPicture(designerId: string, newPicture: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('profilePicture', newPicture);
+
+    return this.http.put(
+      `${this.apiUrl}/${designerId}/update-picture`,
+      formData,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  updateMajorWorks(designerId: string, realisations: File[]): Observable<any> {
+    const formData = new FormData();
+
+    realisations.forEach((file) => {
+      formData.append('realisations', file, file.name);
+    });
+
+    return this.http.put(
+      `${this.apiUrl}/${designerId}/update-major-works`,
+      formData,
+      {
+        withCredentials: true, 
+      }
+    );
+  }
 }

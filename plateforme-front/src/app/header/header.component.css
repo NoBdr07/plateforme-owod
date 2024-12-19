@@ -23,6 +23,10 @@
   left: 50%;
 }
 
+.title:hover {
+  cursor: pointer;
+}
+
 .end-container {
   display: flex;
   flex-direction: row;

@@ -1,15 +1,37 @@
 <div class="dashboard-container">
-  <!-- Photo et bouton -->
-  <div class="photo-section">
-    <img class="background" src="assets/images/back.png" />
-    <img
-      [src]="designerForm.value.profilePicture || 'assets/images/default-profile.png'"
-      alt="Photo de profil"
-      class="photo"
-    />
-    <button mat-raised-button class="photo-button" (click)="openPhotoDialog()">
-      Changer de photo
-    </button>
+  <div class="left-container">
+    <div class="photo-section">
+      <img class="background" src="assets/images/back.png" />
+      <img
+        [src]="
+          designerForm.value.profilePicture ||
+          'assets/logos/default-profile.png'
+        "
+        alt="Photo de profil"
+        class="photo"
+      />
+      <button
+        mat-raised-button
+        class="photo-button"
+        (click)="openPhotoDialog()"
+      >
+        Changer de photo
+      </button>
+    </div>
+
+    <div class="realisations-section">
+      <p class="group-title">Réalisations</p>
+      <div class="realisations-inner-section">
+        <div  class="realisations" *ngFor="let image of designerForm.value.majorWorks">
+          <img class="realisation" [src]="image" />
+        </div>
+
+        <input type="file" accept="image/*" multiple (change)="onRealisationSelected($event)" />
+        <button mat-raised-button (click)="updateWorks()">
+          Modifier les réalisations
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- Formulaire -->
@@ -106,6 +128,7 @@
           <mat-label>Niveau professionnel</mat-label>
           <input matInput formControlName="professionalLevel" />
         </mat-form-field>
+
         <mat-form-field appearance="fill">
           <mat-label>Portfolio</mat-label>
           <input matInput formControlName="portfolioUrl" />

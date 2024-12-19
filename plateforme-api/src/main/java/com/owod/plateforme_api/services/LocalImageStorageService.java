@@ -6,10 +6,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 
-@Service
 public class LocalImageStorageService implements ImageStorageService {
 
-    private final String uploadDir = "uploads/";
+    private final String uploadDir = "D:/plateforme-owod/plateforme-api/src/main/resources/static/uploads/";
 
     @Override
     public String uploadImage(MultipartFile file) throws IOException {
@@ -24,7 +23,9 @@ public class LocalImageStorageService implements ImageStorageService {
         File localFile = new File(filePath);
         file.transferTo(localFile);
 
+        String relativePath = "uploads/" + file.getOriginalFilename();
+
         // Retourne le chemin relatif ou l'URL de développement
-        return "http://localhost:8080/" + filePath;
+        return "http://localhost:8080/" + relativePath;
     }
 }

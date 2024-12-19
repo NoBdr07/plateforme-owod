@@ -10,25 +10,88 @@
   </div>
 
   <mat-menu #menu="matMenu">
-    <button mat-menu-item>Profession</button>
-    <button mat-menu-item>Spécialité</button>
-    <button mat-menu-item>Sphère d'influence</button>
-    <button mat-menu-item>Secteurs</button>
-    <button mat-menu-item>Pays de résidence</button>
+    <button mat-menu-item [matMenuTriggerFor]="menuProfession">
+      Profession
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="menuSpecialty">
+      Spécialité
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="menuSphere">Sphère d'influence</button>
+    <button mat-menu-item [matMenuTriggerFor]="menuSector">Secteurs</button>
+    <button mat-menu-item [matMenuTriggerFor]="menuCountry">Pays de résidence</button>
+  </mat-menu>
+
+  <mat-menu #menuProfession="matMenu">
+    <button mat-menu-item (click)="research('profession', 'étudiant')">
+      Etudiant
+    </button>
+    <button mat-menu-item (click)="research('profession', 'designer')">
+      Designer
+    </button>
+    <button mat-menu-item (click)="research('profession', 'artisan')">
+      Artisan
+    </button>
+  </mat-menu>
+
+  <!-- Specialties -->
+  <mat-menu #menuSpecialty="matMenu">
+    <button
+      mat-menu-item
+      *ngFor="let specialty of specialties"
+      (click)="research('specialty', specialty)"
+    >
+      {{ specialty }}
+    </button>
+  </mat-menu>
+
+  <!-- Sphère d'influence -->
+  <mat-menu #menuSphere="matMenu">
+    <button
+      mat-menu-item
+      *ngFor="let sphere of spheres"
+      (click)="research('sphere', sphere)"
+    >
+      {{ sphere }}
+    </button>
+  </mat-menu>
+
+  <!-- Secteurs -->
+  <mat-menu #menuSector="matMenu">
+    <button
+      mat-menu-item
+      *ngFor="let sector of sectors"
+      (click)="research('sector', sector)"
+    >
+      {{ sector }}
+    </button>
+  </mat-menu>
+
+  <!-- Pays de résidence -->
+  <mat-menu #menuCountry="matMenu">
+    <button
+      mat-menu-item
+      *ngFor="let country of countries"
+      (click)="research('country', country)"
+    >
+      {{ country }}
+    </button>
   </mat-menu>
 </div>
 
-<div class="designers-container" *ngIf="designers$ | async as designers">
+<div
+  class="designers-container"
+  *ngIf="researchDesigners$ | async as designers"
+>
   <div
     class="designer"
     *ngFor="let designer of designers"
-    [routerLink]="['/designer-details', designer.id]"
+    [routerLink]="['/details', designer.id]"
   >
     <img class="background" src="assets/images/back.png" />
     <img [src]="designer.profilePicture" class="photo" />
     <p class="designer-name">
       {{ designer.firstname }} {{ designer.lastname }}
     </p>
-    <p class="designer-info">{{ designer.biography }}</p>
+    <p class="designer-info">{{ designer.profession }}</p>
   </div>
 </div>

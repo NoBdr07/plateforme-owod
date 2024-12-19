@@ -4,7 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { RegisterRequest } from '../interfaces/register-request.interface';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -17,7 +17,8 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    RouterModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'

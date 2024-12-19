@@ -28,7 +28,15 @@
         </div>
       </div>
 
-      <div class="designers-container"></div>
+      <div class="preview-container" routerLink="/catalogue" *ngIf="designers$ | async as designers">
+        <div class="preview" *ngFor="let designer of designers">
+          <img src="/assets/images/back-blue.png" class="preview-background">
+          <img [src]="designer.profilePicture" class="preview-photo">
+          <p class="preview-name">{{ designer.firstname }} {{ designer.lastname }}</p>
+          <p class="preview-job">{{ designer.profession }}</p>
+        </div>
+      </div>
+
     </div>
 
     <div class="white-container">     

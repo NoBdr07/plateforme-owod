@@ -1,1 +1,77 @@
-<p>designer-details works!</p>
+<div class="arrow-container" routerLink="/catalogue">
+    <img src="/assets/logos/arrow-back.png">
+    <p>Retour au catalogue</p>
+</div>
+
+<div class="details-container">
+  <!-- Photo -->
+  <div class="photo-section">
+    <img class="background" src="assets/images/back.png" />
+    <img
+      [src]="designer.profilePicture || 'assets/images/default-profile.png'"
+      alt="Photo de profil"
+      class="photo"
+    />
+    <p class="photo-name">{{ designer.firstname }} {{ designer.lastname }}</p>
+    <p class="photo-job">{{ designer.profession }}</p>
+  </div>
+
+  <!-- Informations -->
+  <div class="info-section">
+    <p class="info-name">{{ designer.firstname }} {{ designer.lastname }}</p>
+    <p class="info-subtitle">
+      {{ designer.profession }} | {{ designer.countryOfResidence }}
+    </p>
+    <p class="biography">{{ designer.biography }}</p>
+
+    <div class="realisations">
+      <p class="group-title">Mes réalisations</p>
+      <div class="preview-container">
+        <div *ngFor="let realisationUrl of designer.majorWorks">
+          <img [src]="realisationUrl" class="realisation-photo" />
+        </div>
+      </div>
+    </div>
+
+    <div class="detail">
+      <p class="group-title">Mes informations</p>
+      <p>
+        Professions :
+        <span>{{ designer.profession }} </span>
+      </p>
+      <p>
+        Niveau : <span>{{ designer.professionalLevel }}</span>
+      </p>
+      <p>
+        Spécialités :
+        <span *ngFor="let specialty of designer.specialties"
+          >{{ specialty }}
+        </span>
+      </p>
+      <p>
+        Sphères d'influence :
+        <span *ngFor="let sphere of designer.spheresOfInfluence"
+          >{{ sphere }}
+        </span>
+      </p>
+      <p>
+        Secteurs favoris :
+        <span *ngFor="let sector of designer.favoriteSectors">{{
+          sector
+        }}</span>
+      </p>
+    </div>
+
+    <div class="contact">
+      <p class="group-title">Me contacter</p>
+      <p *ngIf="designer.email">Email : {{ designer.email }}</p>
+      <p *ngIf="designer.phoneNumber">Téléphone : {{ designer.phoneNumber }}</p>
+      <a
+        *ngIf="designer.portfolioUrl"
+        target="_blank"
+        [href]="designer.portfolioUrl"
+        >Lien vers mon portfolio</a
+      >
+    </div>
+  </div>
+</div>

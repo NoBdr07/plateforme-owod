@@ -4,12 +4,17 @@ import com.owod.plateforme_api.models.entities.Designer;
 import com.owod.plateforme_api.models.entities.User;
 import com.owod.plateforme_api.repositories.DesignerRepository;
 import com.owod.plateforme_api.services.DesignerService;
+import com.owod.plateforme_api.services.ImageStorageService;
+import com.owod.plateforme_api.services.LocalImageStorageService;
 import com.owod.plateforme_api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +27,9 @@ public class DesignerController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ImageStorageService imageStorageService;
 
     /**
      * Endpoint to retrieve all designers
@@ -108,14 +116,14 @@ public class DesignerController {
     }
 
     /**
-     *
+     * Endpoint pour la requête de mise à jour du designer (tous les champs sauf profilePicture et majorWorks)
      * @param designerId
      * @param updatedDesigner
      * @param principal
      * @return
      */
-    @PutMapping("/{designerId}")
-    public ResponseEntity<?> updateDesigner(@PathVariable String designerId, @RequestBody Designer updatedDesigner, Principal principal) {
+    @PutMapping("/{designerId}/update-fields")
+    public ResponseEntity<?> updateDesignerFields(@PathVariable String designerId, @RequestBody Designer updatedDesigner, Principal principal) {
         try {
             // 1. Récupérer le designer existant
             Optional<Designer> optionalDesigner = designerService.findById(designerId);
@@ -143,6 +151,75 @@ public class DesignerController {
             return ResponseEntity.status(400).body("Error updating designer: " + e.getMessage());
         }
     }
+
+    @PutMapping("/{designerId}/update-picture")
+    public ResponseEntity<?> updateDesignerPicture(@PathVariable String designerId, @RequestPart("profilePicture") MultipartFile profilePicture, Principal principal) {
+        try {
+            // Vérifier que l'utilisateur est bien autorisé
+            String userId = principal.getName();
+            Optional<User> user = userService.findByUserId(userId);
+            if (user.isEmpty() || !user.get().getDesignerId().equals(designerId)) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized");
+            }
+
+            // Charger le designer existant
+            Optional<Designer> optionalDesigner = designerService.findById(designerId);
+            if (optionalDesigner.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Designer not found");
+            }
+
+            // Upload de la photo de profil
+            String uploadedUrl = imageStorageService.uploadImage(profilePicture);
+            Designer designer = optionalDesigner.get();
+            designer.setProfilePicture(uploadedUrl);
+
+            // Sauvegarder
+            Designer savedDesigner = designerService.save(designer);
+            return ResponseEntity.ok(savedDesigner);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating profile picture: " + e.getMessage());
+        }
+    }
+
+    @PutMapping("/{designerId}/update-major-works")
+    public ResponseEntity<?> updateMajorWorks(
+            @PathVariable String designerId,
+            @RequestPart("realisations") List<MultipartFile> realisations,
+            Principal principal
+    ) {
+        try {
+            // Vérifier que l'utilisateur est bien autorisé
+            String userId = principal.getName();
+            Optional<User> user = userService.findByUserId(userId);
+            if (user.isEmpty() || !user.get().getDesignerId().equals(designerId)) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized");
+            }
+
+            // Charger le designer existant
+            Optional<Designer> optionalDesigner = designerService.findById(designerId);
+            if (optionalDesigner.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Designer not found");
+            }
+
+            // Upload des photos
+            List<String> uploadedUrls = new ArrayList<>();
+            for (MultipartFile file : realisations) {
+                String url = imageStorageService.uploadImage(file);
+                uploadedUrls.add(url);
+            }
+
+            // Mettre à jour les majorWorks
+            Designer designer = optionalDesigner.get();
+            designer.setMajorWorks(uploadedUrls);
+
+            // Sauvegarder
+            Designer savedDesigner = designerService.save(designer);
+            return ResponseEntity.ok(savedDesigner);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating major works: " + e.getMessage());
+        }
+    }
+
 
 
 

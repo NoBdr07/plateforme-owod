@@ -7,17 +7,25 @@
   margin-top: 200px;
 }
 
-/** SECTION DE GAUCHE : PHOTO **/
+/** SECTION DE GAUCHE **/
+
+.left-container {
+  display: flex;
+  flex-direction: column;
+  gap: 200px;
+}
+
+/** Section de gauche : photo **/
 
 .photo-section {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 40px;
 }
 
 .background {
-    width: 420px;
-    height: 420px;
+  width: 420px;
+  height: 420px;
   position: absolute;
   z-index: 1;
 }
@@ -32,6 +40,38 @@
 
 .photo-button {
   height: 50px;
+}
+
+/** Section de gauche : réalisations **/
+
+.realisations.section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 40px;
+}
+
+.realisations-inner-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.realisations {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  background-color: #eff2ff;
+  border-radius: 8px;
+}
+
+.realisation {
+  object-fit: cover;
+  width: 168px;
+  height: 119px;
+  border-radius: 4px;
 }
 
 /** SECTION DE DROITE : INFORMATIONS **/
@@ -53,24 +93,24 @@
 }
 
 .group-title {
-    font-size: 1vw;
-    font-weight: 900;
-    letter-spacing: 5px;
-    font-variant: small-caps;
+  font-size: 1vw;
+  font-weight: 900;
+  letter-spacing: 5px;
+  font-variant: small-caps;
 }
 
 .underline {
-    height: 1px;
+  height: 1px;
   width: 100%;
   border-top: solid 1px black;
   margin-bottom: 20px;
 }
 
 ::ng-deep .mdc-text-field {
-    border: none !important;
-    border-radius: 8px;
+  border: none !important;
+  border-radius: 8px;
 }
 
 ::ng-deep mat-label {
-    color: #0F132C66 !important;
+  color: #0f132c66 !important;
 }

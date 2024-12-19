@@ -1,10 +1,11 @@
 <h1 mat-dialog-title>Changer la photo</h1>
 <div mat-dialog-content>
   <p>Entrez l'URL de la nouvelle photo :</p>
-  <mat-form-field appearance="fill" style="width: 100%;">
-    <mat-label>URL de la photo</mat-label>
-    <input matInput [(ngModel)]="data.url" />
-  </mat-form-field>
+    <input
+      type="file"
+      (change)="onFileSelected($event)"
+      accept="image/*"
+    />
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancel()">Annuler</button>

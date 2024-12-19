@@ -40,6 +40,10 @@ button {
     text-align: center;
 }
 
+.designer:hover {
+  cursor: pointer;
+}
+
 .designer-name {
   text-transform: uppercase;
   top: -100px;

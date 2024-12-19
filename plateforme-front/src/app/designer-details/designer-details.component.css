@@ -1,0 +1,119 @@
+/** FLECHE DE RETOUR AU CATALOGUE **/
+
+.arrow-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: 50px;
+    font-size: 20px;
+    align-items: center;
+}
+
+.arrow-container p {
+    margin: 0;
+}
+
+.arrow-container:hover {
+    cursor: pointer;
+}
+
+/** GLOBAL **/
+
+.details-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 200px;
+}
+
+/** SECTION DE GAUCHE : PHOTO **/
+
+.photo-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+}
+
+.background {
+  width: 420px;
+  height: 420px;
+  position: absolute;
+  z-index: 1;
+}
+
+.photo {
+  width: 420px;
+  height: 420px;
+  object-fit: cover;
+  z-index: 2;
+  position: relative;
+}
+
+.photo-name {
+  position: relative;
+  top: -150px;
+  font-variant: small-caps;
+  font-size: 42px;
+  font-weight: 900;
+  z-index: 100;
+}
+
+.photo-job {
+  position: relative;
+  top: -150px;
+  font-size: 28px;
+  font-weight: 400;
+  z-index: 100;
+}
+
+/** SECTION DE DROITE : INFORMATIONS **/
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: white;
+  width: 40%;
+  padding: 40px;
+  border-radius: 8px;
+}
+
+.info-name {
+    font-size: 42px;
+    font-variant: small-caps;
+    font-weight: 700;
+}
+
+.info-subtitle {
+  color: #0f132c66;
+  font-size: 20px;
+}
+
+.group-title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.realisations {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.preview-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: #EFF2FF;
+    padding: 16px;
+    border-radius: 8px;
+    gap: 10px;
+}
+
+.realisation-photo {
+    object-fit: cover;
+    width: 168px;
+    height: 119px;
+    border-radius: 4px;
+}

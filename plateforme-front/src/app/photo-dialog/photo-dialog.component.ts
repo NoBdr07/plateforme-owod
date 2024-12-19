@@ -23,11 +23,18 @@ import { MatInputModule } from '@angular/material/input';
 export class PhotoDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<PhotoDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { url: string }
+    @Inject(MAT_DIALOG_DATA) public data: { picture: File }
   ) {}
 
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.data.picture = input.files[0]; // Stocker le fichier sélectionné
+    }
+  }  
+
   onConfirm(): void {
-    this.dialogRef.close(this.data.url);
+    this.dialogRef.close(this.data.picture);
   }
 
   onCancel(): void {

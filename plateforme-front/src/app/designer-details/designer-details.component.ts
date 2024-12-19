@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { Designer } from '../interfaces/designer.interface';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { DesignerService } from '../services/designer.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-designer-details',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, RouterModule],
   templateUrl: './designer-details.component.html',
   styleUrl: './designer-details.component.css',
 })

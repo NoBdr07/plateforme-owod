@@ -28,7 +28,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
     MatInputModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
@@ -36,7 +36,11 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 export class DashboardComponent {
   designerForm: FormGroup;
   private subscriptions = new Subscription();
-  designerId!: String;
+  designerId!: string;
+
+  // Gestion des photos
+  majorWorks!: String[];
+  newMajorWorks!: File[];
 
   // Enums converted to arrays
   specialties = Object.values(Specialty);
@@ -54,7 +58,6 @@ export class DashboardComponent {
       firstname: [''],
       lastname: [''],
       email: [''],
-      profilePicture: [''],
       biography: [''],
       phoneNumber: [''],
       profession: [''],
@@ -64,24 +67,26 @@ export class DashboardComponent {
       countryOfOrigin: [''],
       countryOfResidence: [''],
       professionalLevel: [''],
-      majorWorks: [[]],
       portfolioUrl: [''],
+      realisations: [[]],
+      profilePicture: [],
+      majorWorks: [[]]
     });
   }
 
   ngOnInit(): void {
     const userId = this.authService.getUserIdFromToken();
-    console.log("UserId : " + userId);
+    console.log('UserId : ' + userId);
 
     if (userId) {
       const sub = this.designerService.getDesignerByUserId(userId).subscribe({
         next: (designer: Designer) => {
           this.designerId = designer.id;
+          this.majorWorks = designer.majorWorks;
           this.designerForm.patchValue({
             firstname: designer.firstname,
             lastname: designer.lastname,
             email: designer.email,
-            profilePicture: designer.profilePicture,
             biography: designer.biography,
             phoneNumber: designer.phoneNumber,
             profession: designer.profession,
@@ -91,8 +96,9 @@ export class DashboardComponent {
             countryOfOrigin: designer.countryOfOrigin,
             countryOfResidence: designer.countryOfResidence,
             professionalLevel: designer.professionalLevel,
-            majorWorks: designer.majorWorks,
             portfolioUrl: designer.portfolioUrl,
+            realisations: designer.majorWorks,
+            profilePicture: designer.profilePicture,
           });
         },
         error: (err) => {
@@ -111,9 +117,11 @@ export class DashboardComponent {
 
   onSubmit(): void {
     if (this.designerForm.valid) {
-      const updatedDesigner = this.designerForm.value;
+      const updatedDesigner = this.designerForm.value as Designer;
+
+      // Envoi des données au backend
       const sub = this.designerService
-        .updateDesigner(updatedDesigner, this.designerId)
+        .updateDesignerFields(this.designerId, updatedDesigner)
         .subscribe({
           next: (response) => {
             console.log('Designer mis à jour avec succès :', response);
@@ -124,6 +132,7 @@ export class DashboardComponent {
             alert('Une erreur est survenue lors de la mise à jour.');
           },
         });
+
       this.subscriptions.add(sub);
     } else {
       console.error('Le formulaire est invalide.');
@@ -134,17 +143,65 @@ export class DashboardComponent {
   openPhotoDialog(): void {
     const dialogRef = this.dialog.open(PhotoDialogComponent, {
       width: '400px',
-      data: { url: this.designerForm.value.profilePicture },
+      data: { picture: null },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.designerForm.patchValue({ profilePicture: result });
-        console.log('Nouvelle URL de la photo:', result);
+    dialogRef.afterClosed().subscribe((file: File) => {
+      if (file) {
+        // Mettre à jour la photo de profil avec le fichier sélectionné
+        this.designerService
+          .updateDesignerPicture(this.designerId, file)
+          .subscribe({
+            next: (response) => {
+              console.log(
+                'Photo de profil mise à jour avec succès :',
+                response
+              );
+              this.designerForm.patchValue({
+                profilePicture: response.profilePicture,
+              }); // Mettez à jour l'affichage
+            },
+            error: (err) => {
+              console.error('Erreur lors de la mise à jour de la photo :', err);
+              alert(
+                'Une erreur est survenue lors de la mise à jour de la photo.'
+              );
+            },
+          });
       }
     });
   }
 
+  onRealisationSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+
+    if(input.files && input.files.length > 0) {
+      const fileList = Array.from(input.files);
+      this.newMajorWorks = [...fileList]
+    }
+  }
+
+  updateWorks(): void {
+    if (this.newMajorWorks.length > 0) {
+      const formData = new FormData();
+      this.newMajorWorks.forEach((file) => {
+        formData.append('realisations', file, file.name);
+      });
+
+      this.designerService.updateMajorWorks(this.designerId, this.newMajorWorks).subscribe({
+        next: (response) => {
+          this.designerForm.patchValue({
+            majorWorks: response.majorWorks,
+          });
+
+          alert('Les réalisations ont été mises à jour !');
+        },
+        error : (err) => {
+          alert('Une erreur est survenue lors de la mise à jour des réalisations.')
+        }
+      })
+    }
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe(); // Nettoie les souscriptions pour éviter les fuites de mémoire
