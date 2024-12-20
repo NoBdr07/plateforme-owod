@@ -4,8 +4,10 @@ import com.mongodb.DuplicateKeyException;
 import com.owod.plateforme_api.models.entities.User;
 import com.owod.plateforme_api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @Service
@@ -60,5 +62,17 @@ public class UserService {
                 .orElse(false);
     }
 
+    /**
+     * Method to check if the user that send the request is the owner of the designer
+     * @param designerId
+     * @param principal
+     * @return
+     */
+    public boolean isDesignerOwner(String designerId, Principal principal) {
+        String userId = principal.getName();
+        Optional<User> optionalUser = findByUserId(userId);
+
+        return optionalUser.isPresent() && optionalUser.get().getDesignerId().equals(designerId);
+    }
 
 }

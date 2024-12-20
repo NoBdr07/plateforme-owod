@@ -76,6 +76,12 @@ export class DesignerService {
     );
   }
 
+  /**
+   * Mise à jour des informations du designer, hors photo et réalisations
+   * @param designerId 
+   * @param updatedDesigner 
+   * @returns 
+   */
   updateDesignerFields(
     designerId: string,
     updatedDesigner: Designer
@@ -89,6 +95,12 @@ export class DesignerService {
     );
   }
 
+  /**
+   * Mise à jour de la photo de profil du designer
+   * @param designerId 
+   * @param newPicture 
+   * @returns 
+   */
   updateDesignerPicture(designerId: string, newPicture: File): Observable<any> {
     const formData = new FormData();
     formData.append('profilePicture', newPicture);
@@ -102,6 +114,12 @@ export class DesignerService {
     );
   }
 
+  /**
+   * Ajout d'une ou plusieurs images de réalisation
+   * @param designerId 
+   * @param realisations 
+   * @returns 
+   */
   updateMajorWorks(designerId: string, realisations: File[]): Observable<any> {
     const formData = new FormData();
 
@@ -117,4 +135,18 @@ export class DesignerService {
       }
     );
   }
+
+  /**
+   * Suppression d'une réalisation
+   * @param designerId 
+   * @param workUrl 
+   * @returns 
+   */
+  deleteMajorWork(designerId: string, workUrl: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${designerId}/delete-major-work`, {
+      params: { url: workUrl },
+      withCredentials: true,
+    });
+  }
+  
 }

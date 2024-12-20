@@ -44,7 +44,7 @@
 
 /** Section de gauche : réalisations **/
 
-.realisations.section {
+.realisations-section {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -56,15 +56,18 @@
 .realisations-inner-section {
   display: flex;
   flex-direction: column;
+  background-color: #eff2ff;
   gap: 20px;
+  border-radius: 8px;
+  padding: 20px;
+  align-items: center;
 }
 
-.realisations {
+.realisation-item {
   display: flex;
   flex-direction: row;
   gap: 10px;
-  background-color: #eff2ff;
-  border-radius: 8px;
+  align-items: center;
 }
 
 .realisation {

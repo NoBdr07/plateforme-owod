@@ -116,4 +116,36 @@
     width: 168px;
     height: 119px;
     border-radius: 4px;
+    z-index: 1000;
+}
+
+
+/* Grossissement des réalisations au survol */
+.preview-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.overlay-image {
+  max-width: 80vw;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.realisation-photo:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
 }

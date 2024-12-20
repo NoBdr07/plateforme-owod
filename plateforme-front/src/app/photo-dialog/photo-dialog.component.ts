@@ -34,7 +34,9 @@ export class PhotoDialogComponent {
   }  
 
   onConfirm(): void {
-    this.dialogRef.close(this.data.picture);
+    if (this.data.picture) {
+      this.dialogRef.close(this.data.picture);
+    }
   }
 
   onCancel(): void {

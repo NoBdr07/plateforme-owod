@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 })
 export class DesignerDetailsComponent {
   designer!: Designer;
+  previewImage: string | null = null; 
 
   constructor(
     private route: ActivatedRoute,
@@ -28,5 +29,14 @@ export class DesignerDetailsComponent {
         }
       });
     }
+  }
+
+  showPreview(imageUrl: string): void {
+    console.log("appel de preview");
+    this.previewImage = imageUrl; 
+  }
+
+  hidePreview(): void {
+    this.previewImage = null; 
   }
 }

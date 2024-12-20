@@ -12,6 +12,12 @@
   width: 60%;
 }
 
+/* STYLE SI DESIGNER CREE */
+
+.created {
+  margin-top: 200px;
+}
+
 /* STYLES SI DESIGNER NON CREE */
 
 .not-created {
@@ -23,4 +29,5 @@
 .info {
     font-size: 20px;
     text-align: center;
+    line-height: initial;
 }

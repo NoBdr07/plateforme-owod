@@ -1,6 +1,6 @@
 <div class="arrow-container" routerLink="/catalogue">
-    <img src="/assets/logos/arrow-back.png">
-    <p>Retour au catalogue</p>
+  <img src="/assets/logos/arrow-back.png" />
+  <p>Retour au catalogue</p>
 </div>
 
 <div class="details-container">
@@ -24,48 +24,62 @@
     </p>
     <p class="biography">{{ designer.biography }}</p>
 
-    <div class="realisations">
+    <div *ngIf="designer.majorWorks" class="realisations">
       <p class="group-title">Mes réalisations</p>
       <div class="preview-container">
         <div *ngFor="let realisationUrl of designer.majorWorks">
-          <img [src]="realisationUrl" class="realisation-photo" />
+          <img
+            [src]="realisationUrl"
+            class="realisation-photo"
+            (mouseover)="showPreview(realisationUrl)"
+            (mouseout)="hidePreview()"
+          />
         </div>
+      </div>
+
+      <!-- Zone pour afficher l'agrandissement -->
+      <div *ngIf="previewImage" class="preview-overlay">
+        <img [src]="previewImage" class="overlay-image" />
       </div>
     </div>
 
     <div class="detail">
       <p class="group-title">Mes informations</p>
       <p>
-        Professions :
+        <strong>Professions : </strong>
         <span>{{ designer.profession }} </span>
       </p>
-      <p>
-        Niveau : <span>{{ designer.professionalLevel }}</span>
+      <p *ngIf="designer.professionalLevel">
+        <strong>Niveau : </strong><span>{{ designer.professionalLevel }}</span>
       </p>
       <p>
-        Spécialités :
+        <strong>Spécialités : </strong>
         <span *ngFor="let specialty of designer.specialties"
-          >{{ specialty }}
+          >{{ specialty }} |
         </span>
       </p>
       <p>
-        Sphères d'influence :
+        <strong>Sphères d'influence : </strong>
         <span *ngFor="let sphere of designer.spheresOfInfluence"
-          >{{ sphere }}
+          >{{ sphere }} |
         </span>
       </p>
       <p>
-        Secteurs favoris :
-        <span *ngFor="let sector of designer.favoriteSectors">{{
-          sector
-        }}</span>
+        <strong>Secteurs favoris : </strong>
+        <span *ngFor="let sector of designer.favoriteSectors"
+          >{{ sector }} |
+        </span>
       </p>
     </div>
 
     <div class="contact">
       <p class="group-title">Me contacter</p>
-      <p *ngIf="designer.email">Email : {{ designer.email }}</p>
-      <p *ngIf="designer.phoneNumber">Téléphone : {{ designer.phoneNumber }}</p>
+      <p *ngIf="designer.email">
+        <strong>Email : </strong>{{ designer.email }}
+      </p>
+      <p *ngIf="designer.phoneNumber">
+        <strong>Téléphone : </strong>{{ designer.phoneNumber }}
+      </p>
       <a
         *ngIf="designer.portfolioUrl"
         target="_blank"

@@ -4,6 +4,7 @@
 }
 
 .main-container {
+  display: grid;
   align-items: center;
   grid-template-columns: 1fr 1fr 1fr;
   justify-items: center;
@@ -39,6 +40,7 @@
   font-size: 32px;
   position: relative;
   z-index: 4;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 }
 
 .designer-info {
@@ -46,6 +48,7 @@
   top: -90px;
   position: relative;
   z-index: 4;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 }
 
 .background {
@@ -75,6 +78,15 @@
   align-items: center;
 }
 
+.left {
+  width: 60%;
+}
+
+.right {
+  width: 30%;
+  justify-content: space-around;
+}
+
 .preview-container {
   display: flex;
   flex-direction: row;
@@ -84,6 +96,8 @@
   height: 155px;
   align-items: center;
   padding: 0 20px;
+  overflow: hidden;
+  width: 70%;
 }
 
 .preview-container:hover {
@@ -93,7 +107,10 @@
 .preview {
   height: 128px;
   width: 128px;
+  min-width: 128px;
   text-align: center;
+  overflow: hidden;
+  position: relative;
 }
 
 .preview-name {
@@ -102,12 +119,14 @@
   top: -50px;
   font-variant: small-caps;
   z-index: 100;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 }
 
 .preview-job {
   position: relative;
   top: -60px;
   z-index: 100;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 }
 
 .preview-background {

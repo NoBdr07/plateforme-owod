@@ -97,7 +97,7 @@ export class DashboardComponent {
             countryOfResidence: designer.countryOfResidence,
             professionalLevel: designer.professionalLevel,
             portfolioUrl: designer.portfolioUrl,
-            realisations: designer.majorWorks,
+            majorWorks: designer.majorWorks,
             profilePicture: designer.profilePicture,
           });
         },
@@ -142,7 +142,7 @@ export class DashboardComponent {
 
   openPhotoDialog(): void {
     const dialogRef = this.dialog.open(PhotoDialogComponent, {
-      width: '400px',
+      width: '60%',
       data: { picture: null },
     });
 
@@ -202,6 +202,25 @@ export class DashboardComponent {
       })
     }
   }
+
+  deleteWork(imageUrl: string): void {
+    if (confirm('Voulez-vous vraiment supprimer cette réalisation ?')) {
+      this.designerService.deleteMajorWork(this.designerId, imageUrl).subscribe({
+        next: (response) => {
+          // Mettre à jour les réalisations localement après suppression
+          this.designerForm.patchValue({
+            majorWorks: response.majorWorks, // Met à jour les réalisations avec celles renvoyées par le backend
+          });
+          alert('Réalisation supprimée avec succès.');
+        },
+        error: (err) => {
+          console.error('Erreur lors de la suppression de la réalisation :', err);
+          alert('Une erreur est survenue lors de la suppression de la réalisation.');
+        },
+      });
+    }
+  }
+  
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe(); // Nettoie les souscriptions pour éviter les fuites de mémoire

@@ -2,10 +2,8 @@ package com.owod.plateforme_api.controllers;
 
 import com.owod.plateforme_api.models.entities.Designer;
 import com.owod.plateforme_api.models.entities.User;
-import com.owod.plateforme_api.repositories.DesignerRepository;
 import com.owod.plateforme_api.services.DesignerService;
 import com.owod.plateforme_api.services.ImageStorageService;
-import com.owod.plateforme_api.services.LocalImageStorageService;
 import com.owod.plateforme_api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,6 +38,11 @@ public class DesignerController {
         return designerService.getAll();
     }
 
+    /**
+     * Endpoint to get a specific designer
+     * @param userId
+     * @return
+     */
     @GetMapping("/designer/{userId}")
     public ResponseEntity<?> getDesignerByUserId(@PathVariable String userId) {
         Optional<User> optionalUser = userService.findByUserId(userId);
@@ -116,7 +119,7 @@ public class DesignerController {
     }
 
     /**
-     * Endpoint pour la requête de mise à jour du designer (tous les champs sauf profilePicture et majorWorks)
+     * Endpoint to update info about designer (all fields except profilePicture and majorWorks)
      * @param designerId
      * @param updatedDesigner
      * @param principal
@@ -133,14 +136,11 @@ public class DesignerController {
             }
 
             // 2. Vérifier que l'utilisateur est bien propriétaire du designer
-            String userId = principal.getName(); // Récupérer l'userId via Principal
-            Optional<User> optionalUser = userService.findByUserId(userId);
-
-            if (optionalUser.isEmpty() || !optionalUser.get().getDesignerId().equals(designerId)) {
+            if (!this.userService.isDesignerOwner(designerId, principal)) {
                 return ResponseEntity.status(403).body("You are not authorized to update this designer.");
             }
 
-            // 3. Mettre à jour directement avec `save()`
+            // 3. Mettre à jour directement avec save
             updatedDesigner.setId(designerId); // Assurez-vous que l'id est défini
             Designer savedDesigner = designerService.save(updatedDesigner);
 
@@ -152,14 +152,19 @@ public class DesignerController {
         }
     }
 
+    /**
+     * Endpoint to change the designer profile picture
+     * @param designerId
+     * @param profilePicture
+     * @param principal
+     * @return
+     */
     @PutMapping("/{designerId}/update-picture")
     public ResponseEntity<?> updateDesignerPicture(@PathVariable String designerId, @RequestPart("profilePicture") MultipartFile profilePicture, Principal principal) {
         try {
             // Vérifier que l'utilisateur est bien autorisé
-            String userId = principal.getName();
-            Optional<User> user = userService.findByUserId(userId);
-            if (user.isEmpty() || !user.get().getDesignerId().equals(designerId)) {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized");
+            if (!this.userService.isDesignerOwner(designerId, principal)) {
+                return ResponseEntity.status(403).body("You are not authorized to update this designer.");
             }
 
             // Charger le designer existant
@@ -181,6 +186,13 @@ public class DesignerController {
         }
     }
 
+    /**
+     * Endpoint to add one or several picture of major works
+     * @param designerId
+     * @param realisations
+     * @param principal
+     * @return
+     */
     @PutMapping("/{designerId}/update-major-works")
     public ResponseEntity<?> updateMajorWorks(
             @PathVariable String designerId,
@@ -189,10 +201,8 @@ public class DesignerController {
     ) {
         try {
             // Vérifier que l'utilisateur est bien autorisé
-            String userId = principal.getName();
-            Optional<User> user = userService.findByUserId(userId);
-            if (user.isEmpty() || !user.get().getDesignerId().equals(designerId)) {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized");
+            if (!this.userService.isDesignerOwner(designerId, principal)) {
+                return ResponseEntity.status(403).body("You are not authorized to update this designer.");
             }
 
             // Charger le designer existant
@@ -210,7 +220,14 @@ public class DesignerController {
 
             // Mettre à jour les majorWorks
             Designer designer = optionalDesigner.get();
-            designer.setMajorWorks(uploadedUrls);
+            List<String> existingWorks = designer.getMajorWorks();
+
+            // Initialiser la liste majorWorks si elle est nulle
+            if (designer.getMajorWorks() == null) {
+                designer.setMajorWorks(new ArrayList<>());
+            }
+            existingWorks.addAll(uploadedUrls);
+            designer.setMajorWorks(existingWorks);
 
             // Sauvegarder
             Designer savedDesigner = designerService.save(designer);
@@ -219,6 +236,52 @@ public class DesignerController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating major works: " + e.getMessage());
         }
     }
+
+    /**
+     * Endpoint to delete one of the major works picture
+     * @param designerId
+     * @param workUrl
+     * @param principal
+     * @return
+     */
+    @DeleteMapping("/{designerId}/delete-major-work")
+    public ResponseEntity<?> deleteMajorWork(
+            @PathVariable String designerId,
+            @RequestParam("url") String workUrl,
+            Principal principal
+    ) {
+        try {
+            // Vérifier que l'utilisateur est bien autorisé
+            if (!this.userService.isDesignerOwner(designerId, principal)) {
+                return ResponseEntity.status(403).body("You are not authorized to update this designer.");
+            }
+
+            // Charger le designer existant
+            Optional<Designer> optionalDesigner = designerService.findById(designerId);
+            if (optionalDesigner.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Designer not found");
+            }
+
+            Designer designer = optionalDesigner.get();
+
+            // Supprimer la réalisation de la liste
+            List<String> currentMajorWorks = designer.getMajorWorks();
+            if (currentMajorWorks == null || !currentMajorWorks.remove(workUrl)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Realisation not found in the designer's major works.");
+            }
+
+            // Sauvegarder les modifications
+            designer.setMajorWorks(currentMajorWorks);
+            Designer savedDesigner = designerService.save(designer);
+
+            return ResponseEntity.ok(savedDesigner);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error deleting major work: " + e.getMessage());
+        }
+    }
+
 
 
 

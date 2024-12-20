@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DesignerService } from '../services/designer.service';
 import { Designer } from '../interfaces/designer.interface';
-import { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
@@ -15,9 +15,9 @@ import { RouterModule } from '@angular/router';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  designers$!: Observable<Designer[]>;
+  designers$!: Observable<Designer[]>;  
   subs = new Subscription();
-
+  
   constructor(private readonly designerService: DesignerService) {}
 
   ngOnInit(): void {

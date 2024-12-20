@@ -22,16 +22,31 @@
     <div class="realisations-section">
       <p class="group-title">Réalisations</p>
       <div class="realisations-inner-section">
-        <div  class="realisations" *ngFor="let image of designerForm.value.majorWorks">
+        <div
+          *ngFor="let image of designerForm.value.majorWorks; let i = index"
+          class="realisation-item"
+        >
           <img class="realisation" [src]="image" />
+          <button
+            mat-raised-button
+            color="warn"
+            (click)="deleteWork(image)"
+          >
+            Supprimer
+          </button>
         </div>
-
-        <input type="file" accept="image/*" multiple (change)="onRealisationSelected($event)" />
-        <button mat-raised-button (click)="updateWorks()">
-          Modifier les réalisations
-        </button>
       </div>
+      <input
+        type="file"
+        accept="image/*"
+        multiple
+        (change)="onRealisationSelected($event)"
+      />
+      <button mat-raised-button (click)="updateWorks()">
+        Ajouter des réalisations
+      </button>
     </div>
+    
   </div>
 
   <!-- Formulaire -->

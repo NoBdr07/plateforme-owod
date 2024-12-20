@@ -3,6 +3,7 @@ package com.owod.plateforme_api.models.entities;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "designers")
@@ -24,7 +25,7 @@ public class Designer {
     private String countryOfOrigin; // Pays d'origine
     private String countryOfResidence; // Pays de résidence
     private String professionalLevel; // Niveau professionnel (par exemple : junior, senior, expert)
-    private List<String> majorWorks; // URL des photos des réalisations majeures (<= 5)
+    private List<String> majorWorks = new ArrayList<>(); // URL des photos des réalisations majeures (<= 5)
     private String portfolioUrl; // URL du portfolio
 
     // Getters et Setters

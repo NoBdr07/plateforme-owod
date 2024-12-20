@@ -1,13 +1,21 @@
-<h1 mat-dialog-title>Changer la photo</h1>
-<div mat-dialog-content>
-  <p>Entrez l'URL de la nouvelle photo :</p>
-    <input
-      type="file"
-      (change)="onFileSelected($event)"
-      accept="image/*"
-    />
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onCancel()">Annuler</button>
-  <button mat-button color="primary" (click)="onConfirm()">Valider</button>
+<div class="global-container">
+  <h1 mat-dialog-title>Changer la photo</h1>
+  <p class="explication">
+    Pour garantir l’harmonie visuelle sur le site, nous vous demandons de
+    télécharger une photo avec un fond transparent. Vous pouvez facilement
+    retirer le fond de votre photo en utilisant ce site :
+    <a target="_blank" href="https://www.remove.bg/">Remove.bg</a>. Cela ne
+    prendra que quelques secondes ! <br /><br />
+    Nous vous invitons également à choisir une photo de format carré, où vous
+    êtes visible de face, de la tête à la ceinture. <br /><br />
+    Ces consignes permettent d’assurer une présentation uniforme et esthétique
+    du site. Merci pour votre compréhension et votre coopération !
+  </p>
+  <div mat-dialog-content>
+    <input class="input" type="file" (change)="onFileSelected($event)" accept="image/*" />
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button class="annuler" (click)="onCancel()">Annuler</button>
+    <button mat-button class="valider" (click)="onConfirm()">Valider</button>
+  </div>
 </div>
