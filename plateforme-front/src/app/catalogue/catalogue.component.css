@@ -36,8 +36,8 @@ button {
 }
 
 .designer {
-    width: 240px;
-    text-align: center;
+  width: 240px;
+  text-align: center;
 }
 
 .designer:hover {
@@ -65,16 +65,33 @@ button {
 }
 
 .background {
-    width: 240px;
-    height: 240px;
-    position: absolute;
-    z-index: 1;
+  width: 240px;
+  height: 240px;
+  position: absolute;
+  z-index: 1;
 }
 
 .photo {
-    width: 240px;
-    height: 240px;
-    object-fit: cover;
-    z-index: 2;
-    position: relative;
-  }
+  width: 240px;
+  height: 240px;
+  object-fit: cover;
+  z-index: 2;
+  position: relative;
+}
+
+/* BOUTONS POUR LA PAGINATION */
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  justify-content: center;
+}
+
+.mat-mdc-raised-button {
+  color: white !important;
+}
+
+.mat-mdc-raised-button[disabled] {
+  background-color: darkgray !important;
+}

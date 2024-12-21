@@ -1,6 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Designer } from '../interfaces/designer.interface';
-import { BehaviorSubject, combineLatest, filter, map, Observable, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  map,
+  Observable,
+  Subscription,
+} from 'rxjs';
 import { DesignerService } from '../services/designer.service';
 import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
@@ -16,6 +22,8 @@ import { RouterModule } from '@angular/router';
 })
 export class CatalogueComponent implements OnInit, OnDestroy {
   designers$!: Observable<Designer[]>;
+
+  // Variables pour les recherches
   researchDesigners$!: Observable<Designer[]>;
   private researchCriteria = new BehaviorSubject<{
     category: string;
@@ -27,6 +35,12 @@ export class CatalogueComponent implements OnInit, OnDestroy {
   countries!: string[];
   spheres!: string[];
   sectors!: string[];
+
+  // Variables pour la pagination
+  paginatedDesigners$!: Observable<Designer[]>; // Observable pour les designers paginés
+  currentPage = new BehaviorSubject<number>(1);
+  maxPage = new BehaviorSubject<number>(1);
+  pageSize: number = 50;
 
   subs = new Subscription();
 
@@ -69,6 +83,28 @@ export class CatalogueComponent implements OnInit, OnDestroy {
         });
       })
     );
+
+    // Calcul du nombre max de page
+    this.subs.add(
+      this.researchDesigners$.subscribe((filteredDesigners) => {
+        const total = filteredDesigners.length;
+        const maxPages = Math.ceil(total / this.pageSize);
+        this.maxPage.next(maxPages);
+      })
+    )
+
+    // Pagination
+    this.paginatedDesigners$ = combineLatest([
+      this.researchDesigners$,
+      this.currentPage
+    ]).pipe(
+      map(([designers, page]) => {
+        const startIndex = (page - 1) * this.pageSize;
+        const endIndex = startIndex + this.pageSize;
+        
+        return designers.slice(startIndex, endIndex);
+      })
+    )
   }
 
   /**
@@ -78,6 +114,23 @@ export class CatalogueComponent implements OnInit, OnDestroy {
    */
   research(category: string, item: string): void {
     this.researchCriteria.next({ category, item });
+    this.currentPage.next(1);
+  }
+
+  /**
+   * Passe à la pge suivante
+   */
+  nextPage(): void {
+    this.currentPage.next(this.currentPage.value + 1);
+  }
+
+  /**
+   * Passe à la page précédente
+   */
+  prevPage(): void {
+    if (this.currentPage.value > 1) {
+      this.currentPage.next(this.currentPage.value - 1);
+    }
   }
 
   /**
@@ -85,16 +138,15 @@ export class CatalogueComponent implements OnInit, OnDestroy {
    */
   private getUniqueValues<T>(array: T[], key: keyof T): string[] {
     const values: string[] = array
-      .map(item => {
+      .map((item) => {
         const val = item[key];
         // Vérifie si val est un tableau, sinon convertit en tableau
         return Array.isArray(val) ? val : [val];
       })
       .flat() as string[]; // Cast pour s'assurer que les valeurs sont des strings
-  
+
     return [...new Set(values)];
   }
-  
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();

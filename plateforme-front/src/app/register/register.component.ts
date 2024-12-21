@@ -70,7 +70,7 @@ export class RegisterComponent implements OnDestroy {
       registerRequest.admin= false;
 
       const sub = this.authService.register(registerRequest).subscribe({
-        next: () => {
+        next: () => {          
           this.router.navigate(['login']);
         },
         error: (error) => {

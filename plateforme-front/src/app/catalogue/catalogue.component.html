@@ -16,9 +16,13 @@
     <button mat-menu-item [matMenuTriggerFor]="menuSpecialty">
       Spécialité
     </button>
-    <button mat-menu-item [matMenuTriggerFor]="menuSphere">Sphère d'influence</button>
+    <button mat-menu-item [matMenuTriggerFor]="menuSphere">
+      Sphère d'influence
+    </button>
     <button mat-menu-item [matMenuTriggerFor]="menuSector">Secteurs</button>
-    <button mat-menu-item [matMenuTriggerFor]="menuCountry">Pays de résidence</button>
+    <button mat-menu-item [matMenuTriggerFor]="menuCountry">
+      Pays de résidence
+    </button>
   </mat-menu>
 
   <mat-menu #menuProfession="matMenu">
@@ -80,7 +84,7 @@
 
 <div
   class="designers-container"
-  *ngIf="researchDesigners$ | async as designers"
+  *ngIf=" paginatedDesigners$ | async as designers"
 >
   <div
     class="designer"
@@ -94,4 +98,25 @@
     </p>
     <p class="designer-info">{{ designer.profession }}</p>
   </div>
+</div>
+
+<!-- Pagination -->
+<div class="pagination">
+  <button
+    mat-raised-button
+    (click)="prevPage()"
+    [disabled]="currentPage.value === 1"
+  >
+    Précedent
+  </button>
+
+  <span>Page {{ currentPage | async }} sur {{ maxPage |async }}</span>
+
+  <button
+    mat-raised-button
+    (click)="nextPage()"
+    [disabled]="currentPage.value === maxPage.value"
+  >
+    Suivant
+  </button>
 </div>

@@ -15,6 +15,7 @@ export class DesignerService {
   private designersSubject = new BehaviorSubject<Designer[]>([]);
   designers$: Observable<Designer[]> = this.designersSubject.asObservable();
 
+
   /**
    * Récupération de tous les designers depuis l'API
    * @returns Un observable de la liste de tous les designers
@@ -78,9 +79,9 @@ export class DesignerService {
 
   /**
    * Mise à jour des informations du designer, hors photo et réalisations
-   * @param designerId 
-   * @param updatedDesigner 
-   * @returns 
+   * @param designerId
+   * @param updatedDesigner
+   * @returns
    */
   updateDesignerFields(
     designerId: string,
@@ -97,9 +98,9 @@ export class DesignerService {
 
   /**
    * Mise à jour de la photo de profil du designer
-   * @param designerId 
-   * @param newPicture 
-   * @returns 
+   * @param designerId
+   * @param newPicture
+   * @returns
    */
   updateDesignerPicture(designerId: string, newPicture: File): Observable<any> {
     const formData = new FormData();
@@ -116,9 +117,9 @@ export class DesignerService {
 
   /**
    * Ajout d'une ou plusieurs images de réalisation
-   * @param designerId 
-   * @param realisations 
-   * @returns 
+   * @param designerId
+   * @param realisations
+   * @returns
    */
   updateMajorWorks(designerId: string, realisations: File[]): Observable<any> {
     const formData = new FormData();
@@ -131,16 +132,16 @@ export class DesignerService {
       `${this.apiUrl}/${designerId}/update-major-works`,
       formData,
       {
-        withCredentials: true, 
+        withCredentials: true,
       }
     );
   }
 
   /**
    * Suppression d'une réalisation
-   * @param designerId 
-   * @param workUrl 
-   * @returns 
+   * @param designerId
+   * @param workUrl
+   * @returns
    */
   deleteMajorWork(designerId: string, workUrl: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${designerId}/delete-major-work`, {
@@ -148,5 +149,5 @@ export class DesignerService {
       withCredentials: true,
     });
   }
-  
+
 }
