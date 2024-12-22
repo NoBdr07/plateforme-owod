@@ -4,11 +4,11 @@
       <a class="link" routerLink="/register">Rejoignez gratuitement le catalogue ici</a>
     </div>
 
-    <div class="designer">
+    <div class="designer" *ngIf="weeklyDesigner$ | async as designer">
       <img class="background" src="assets/images/back.png">
-      <img class="designer-image" src="assets/images/lady.png" />
-      <p class="designer-name">Laura Kanah-Bisseck</p>
-      <p class="designer-info">Product Designer | AIPDA Europe</p>
+      <img class="designer-image"  [src]="designer.profilePicture">
+      <p class="designer-name">{{ designer.firstname }} {{ designer.lastname }}</p>
+      <p class="designer-info">{{ designer.profession }} | {{ designer.countryOfResidence }}</p>
       <button mat-raised-button class="designer-semaine">Designer de la semaine</button>
     </div>
 

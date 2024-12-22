@@ -37,7 +37,7 @@ public class SecurityConfig {
                 }))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Pas de sessions
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/designers/**", "/users/**", "/uploads/**").permitAll() // Routes publiques
+                        .requestMatchers("/auth/**", "/designers/**", "/users/**", "/uploads/**", "/weekly").permitAll() // Routes publiques
                         .anyRequest().authenticated() // Toute autre route nécessite une authentification
                 );
 

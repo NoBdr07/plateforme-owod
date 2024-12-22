@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { WeeklyDesignerService } from '../services/weekly-designer.service';
 
 @Component({
   selector: 'app-home',
@@ -16,9 +17,10 @@ import { RouterModule } from '@angular/router';
 export class HomeComponent implements OnInit, OnDestroy {
 
   designers$!: Observable<Designer[]>;  
+  weeklyDesigner$ = this.weeklyDesignerService.weeklyDesigner$;
   subs = new Subscription();
   
-  constructor(private readonly designerService: DesignerService) {}
+  constructor(private readonly designerService: DesignerService, private readonly weeklyDesignerService: WeeklyDesignerService) {}
 
   ngOnInit(): void {
       this.subs.add(this.designerService.loadDesigners().subscribe());
