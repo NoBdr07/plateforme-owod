@@ -3,11 +3,12 @@ import { Designer } from '../interfaces/designer.interface';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { DesignerService } from '../services/designer.service';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-designer-details',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './designer-details.component.html',
   styleUrl: './designer-details.component.css',
 })

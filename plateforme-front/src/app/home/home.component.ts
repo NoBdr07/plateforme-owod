@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { WeeklyDesignerService } from '../services/weekly-designer.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, RouterModule],
+  imports: [CommonModule, MatButtonModule, RouterModule, TranslateModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

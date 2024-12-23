@@ -1,0 +1,90 @@
+{
+    "HEADER": {
+        "CATALOGUE_OWOD": "CATALOGUE OWOD"
+    },
+    "HOME": {
+        "JOIN": "Rejoignez gratuitement le catalogue ici",
+        "A_PROPOS": "A propos de l'AIPDA | Contacts",
+        "CATALOG": "Catalogue OWOD",
+        "VISIT": "Visitez le catalogue maintenant",
+        "ESPACE_MEMBRE": "Espace membres",
+        "ACCEDER": "Accédez à votre espace"
+    },
+    "CATALOGUE": {
+        "TOP_TEXT": "Le catalogue OWOD est un annuaire digital référençant tous les designers à travers les multiples disciplines du design.",
+        "FILTRE": "Filtre de recherche",
+        "PROFESSION": "Profession",
+        "SPECIALITE": "Spécialité",
+        "SPHERE": "Sphère d'influence",
+        "SECTEUR": "Secteurs",
+        "PAYS": "Pays de résidence",
+        "ETUDIANT": "Student",
+        "ARTISAN": "Artisan",
+        "PRECEDENT": "Précédent",
+        "SUR": "sur",
+        "SUIVANT": "Suivant"
+    },
+    "DASHBOARD": {
+        "CHANGE_PHOTO": "Changer de photo",
+        "REALISATIONS": "Réalisations",
+        "SUPPRIMER": "Supprimer",
+        "AJOUT_REAL": "Ajouter des réalisations",
+        "INFO_PERSO": "Informations personnelles",
+        "PRENOM": "Prénom",
+        "NOM": "Nom",
+        "PAYS_ORIGINE": "Pays d'origine",
+        "PAYS_RESIDENCE": "Pays de résidence",
+        "INFO_CONTACT": "Informations de contact",
+        "TELEPHONE": "Téléphone",
+        "INFO_PRO": "Informations professionnelles",
+        "BIO": "Biographie",
+        "PROFESSION": "Profession",
+        "SPECIALITE": "Spécialités",
+        "SPHERE": "Sphères d'influence",
+        "SECTEUR": "Secteurs favoris",
+        "NIVEAU": "Niveau professionnel",
+        "SAUVEGARDER": "Sauvegarder"
+    },
+    "DESIGNER_DETAILS": {
+        "RETOUR": "Retour au catalogue",
+        "REALISATIONS": "Mes réalisations",
+        "INFORMATIONS": "Mes informations",
+        "CONTACT": "Me contacter",
+        "PORTFOLIO": "Lien vers mon portfolio"
+    },
+    "LOGIN": {
+        "TITRE": "Se connecter",
+        "BIENVENUE" : "Bienvenue ! Entrez vos informations pour vous connecter à votre espace membre.",
+        "MDP": "Mot de passe",
+        "MDP_OUBLIE": "Mot de passe oublié ?",
+        "PAS_DE_COMPTE": "Vous n'avez pas de compte ?",
+        "INSCRIPTION": "Inscrivez-vous"
+    },
+    "REGISTER": {
+        "TITRE": "Créer un compte membre",
+        "JOIN": "Rejoins le catalogue OWO maintenant !",
+        "CONFIRM_EMAIL": "Confirmer l'email",
+        "CONFIRM_MDP": "Confirmer le mot de passe",
+        "CONSENT_1": "J'accepte que mes données soient collectées et utilisées conformément à la",
+        "CONSENT_2": "politique de confidentialité",
+        "INSCRIRE": "S'inscrire",
+        "DEJA_COMPTE": "Vous avez déjà un compte ?",
+        "CONNECTER": "Connectez-vous"
+     },
+    "MON_COMPTE": {
+        "BIENVENUE": "Bienvenue dans votre espace !",
+        "INFO": "Vous n'avez pas encore crée votre profil designer.<br> Pour le creer, remplissez les informations minimales ci-dessous.<br> Vous pourrez ensuite modifier ou compléter votre profil en ayant accès à votre dashboard.",
+        "CREER_DESIGNER": "Créer le designer",
+        "CONFIGURER": "Configurer votre profil",
+        "DECONNECTER": "Se déconnecter"
+    },
+    "PHOTO": {
+        "CHANGER": "Changer la photo",
+        "EXPLICATION_1": "Pour garantir l’harmonie visuelle sur le site, nous vous demandons de télécharger une photo avec un fond transparent. Vous pouvez facilement retirer le fond de votre photo en utilisant ce site :",
+        "EXPLICATION_2": "Cela ne prendra que quelques secondes ! <br /><br /> Nous vous invitons également à choisir une photo de format carré, où vous êtes visible de face, de la tête à la ceinture. <br /><br /> Ces consignes permettent d’assurer une présentation uniforme et esthétique du site. Merci pour votre compréhension et votre coopération !",
+        "ANNULER": "Annuler",
+        "VALIDER": "Valider"
+    }
+    
+    
+}

@@ -8,11 +8,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, MatInputModule, MatButtonModule, MatFormFieldModule],
+  imports: [CommonModule, TranslateModule, RouterModule, ReactiveFormsModule, MatInputModule, MatButtonModule, MatFormFieldModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

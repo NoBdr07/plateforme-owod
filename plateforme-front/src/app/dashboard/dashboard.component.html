@@ -15,7 +15,7 @@
         class="photo-button"
         (click)="openPhotoDialog()"
       >
-        Changer de photo
+        {{ "DASHBOARD.CHANGE_PHOTO" | translate }}
       </button>
     </div>
 
@@ -32,7 +32,7 @@
             color="warn"
             (click)="deleteWork(image)"
           >
-            Supprimer
+          {{ "DASHBOARD.SUPPRIMER" | translate }}
           </button>
         </div>
       </div>
@@ -43,7 +43,7 @@
         (change)="onRealisationSelected($event)"
       />
       <button mat-raised-button (click)="updateWorks()">
-        Ajouter des réalisations
+        {{ "DASHBOARD.AJOUT_REAL" | translate }}
       </button>
     </div>
     
@@ -53,29 +53,29 @@
   <div class="form-section">
     <form [formGroup]="designerForm" (ngSubmit)="onSubmit()">
       <!-- Informations personnelles -->
-      <p class="group-title">Informations personnelles</p>
+      <p class="group-title">{{ "DASHBOARD.INFO_PERSO" | translate }}</p>
       <div class="underline"></div>
       <div class="form-group">
         <mat-form-field appearance="fill">
-          <mat-label>Prénom</mat-label>
+          <mat-label>{{ "DASHBOARD.PRENOM" | translate }}</mat-label>
           <input matInput formControlName="firstname" />
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Nom</mat-label>
+          <mat-label>{{ "DASHBOARD.NOM" | translate }}</mat-label>
           <input matInput formControlName="lastname" />
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Pays d'origine</mat-label>
+          <mat-label>{{ "DASHBOARD.PAYS_ORIGINE" | translate }}</mat-label>
           <input matInput formControlName="countryOfOrigin" />
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Pays de résidence</mat-label>
+          <mat-label>{{ "DASHBOARD.PAYS_RESIDENCE" | translate }}</mat-label>
           <input matInput formControlName="countryOfResidence" />
         </mat-form-field>
       </div>
 
       <!-- Informations de contact -->
-      <p class="group-title">Informations de contact</p>
+      <p class="group-title">{{ "DASHBOARD.INFO_CONTACT" | translate }}</p>
       <div class="underline"></div>
       <div class="form-group">
         <mat-form-field appearance="fill">
@@ -83,22 +83,22 @@
           <input matInput formControlName="email" />
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Téléphone</mat-label>
+          <mat-label>{{ "DASHBOARD.TELEPHONE" | translate }}</mat-label>
           <input matInput formControlName="phoneNumber" />
         </mat-form-field>
       </div>
 
       <!-- Informations professionnelles -->
-      <p class="group-title">Informations professionnelles</p>
+      <p class="group-title">{{ "DASHBOARD.INFO_PRO" | translate }}</p>
       <div class="underline"></div>
       <div class="form-group">
         <mat-form-field appearance="fill">
-          <mat-label>Biographie</mat-label>
+          <mat-label>{{ "DASHBOARD.BIOGRAPHIE" | translate }}</mat-label>
           <textarea matInput formControlName="biography"></textarea>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-          <mat-label>Profession</mat-label>
+          <mat-label>{{ "DASHBOARD.PROFESSION" | translate }}</mat-label>
           <mat-select formControlName="profession">
             <mat-option *ngFor="let job of jobs" [value]="job">
               {{ job }}
@@ -107,7 +107,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-          <mat-label>Spécialités</mat-label>
+          <mat-label>{{ "DASHBOARD.SPECIALITE" | translate }}</mat-label>
           <mat-select formControlName="specialties" multiple>
             <mat-option
               *ngFor="let specialty of specialties"
@@ -119,7 +119,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-          <mat-label>Sphères d'influence</mat-label>
+          <mat-label>{{ "DASHBOARD.SPHERE" | translate }}</mat-label>
           <mat-select formControlName="spheresOfInfluence" multiple>
             <mat-option
               *ngFor="let sphere of spheresOfInfluence"
@@ -131,7 +131,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-          <mat-label>Secteurs favoris</mat-label>
+          <mat-label>{{ "DASHBOARD.SECTEUR" | translate }}</mat-label>
           <mat-select formControlName="favoriteSectors" multiple>
             <mat-option *ngFor="let sector of favoriteSectors" [value]="sector">
               {{ sector }}
@@ -140,7 +140,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-          <mat-label>Niveau professionnel</mat-label>
+          <mat-label>{{ "DASHBOARD.NIVEAU" | translate }}</mat-label>
           <input matInput formControlName="professionalLevel" />
         </mat-form-field>
 
@@ -150,7 +150,7 @@
         </mat-form-field>
       </div>
 
-      <button mat-raised-button type="submit">Sauvegarder</button>
+      <button mat-raised-button type="submit">{{ "DASHBOARD.SAUVEGARDER" | translate }}</button>
     </form>
   </div>
 </div>

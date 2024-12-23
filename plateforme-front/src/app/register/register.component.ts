@@ -8,6 +8,8 @@ import { Router, RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +20,9 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
-    RouterModule
+    RouterModule,
+    MatCheckboxModule,
+    TranslateModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
@@ -41,6 +45,7 @@ export class RegisterComponent implements OnDestroy {
       lastname: ['', [Validators.required]],
       password: ['', Validators.required],
       passwordConfirmation: ['', Validators.required],
+      dataConsent: ['', Validators.requiredTrue]
     }, {validators: [this.emailMatchValidator(), this.passwordMatchValidator()]});
   }
 

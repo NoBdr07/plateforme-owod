@@ -24,7 +24,7 @@ public class WeeklyDesignerService {
     @Autowired
     private DesignerService designerService;
 
-    @Scheduled(cron = "0 0 0 * * MON")
+    @Scheduled(cron = "0 0 18 * * *")
     public void selectNewWeeklyDesigner() {
         List<Designer> allDesigners = designerService.getAll();
 

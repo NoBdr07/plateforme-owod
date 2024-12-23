@@ -1,39 +1,38 @@
 <div class="top-container">
   <div class="top-text">
-    Le catalogue OWOD est un annuaire digital référençant tous les designers à
-    travers les multiples disciplines du design.
+    {{ "CATALOGUE.TOP_TEXT" | translate }}
   </div>
 
   <div class="filtre">
     <img class="filtre-icon" src="assets/logos/filtre.png" alt="Filtre" />
-    <button mat-button [matMenuTriggerFor]="menu">Filtre de recherche</button>
+    <button mat-button [matMenuTriggerFor]="menu">{{ "CATALOGUE.FILTRE" | translate }}</button>
   </div>
 
   <mat-menu #menu="matMenu">
     <button mat-menu-item [matMenuTriggerFor]="menuProfession">
-      Profession
+      {{ "CATALOGUE.PROFESSION" | translate }}
     </button>
     <button mat-menu-item [matMenuTriggerFor]="menuSpecialty">
-      Spécialité
+      {{ "CATALOGUE.SPECIALITE" | translate }}
     </button>
     <button mat-menu-item [matMenuTriggerFor]="menuSphere">
-      Sphère d'influence
+      {{ "CATALOGUE.SPHERE" | translate }}
     </button>
-    <button mat-menu-item [matMenuTriggerFor]="menuSector">Secteurs</button>
+    <button mat-menu-item [matMenuTriggerFor]="menuSector">{{ "CATALOGUE.SECTEUR" | translate }}</button>
     <button mat-menu-item [matMenuTriggerFor]="menuCountry">
-      Pays de résidence
+      {{ "CATALOGUE.PAYS" | translate }}
     </button>
   </mat-menu>
 
   <mat-menu #menuProfession="matMenu">
     <button mat-menu-item (click)="research('profession', 'étudiant')">
-      Etudiant
+      {{ "CATALOGUE.ETUDIANT" | translate }}
     </button>
     <button mat-menu-item (click)="research('profession', 'designer')">
       Designer
     </button>
     <button mat-menu-item (click)="research('profession', 'artisan')">
-      Artisan
+      {{ "CATALOGUE.ETUDIANT" | translate }}
     </button>
   </mat-menu>
 
@@ -107,16 +106,16 @@
     (click)="prevPage()"
     [disabled]="currentPage.value === 1"
   >
-    Précedent
+    {{ "CATALOGUE.PRECEDENT " | translate }}
   </button>
 
-  <span>Page {{ currentPage | async }} sur {{ maxPage |async }}</span>
+  <span>Page {{ currentPage | async }} {{ "CATALOGUE.SUR " | translate }} {{ maxPage |async }}</span>
 
   <button
     mat-raised-button
     (click)="nextPage()"
     [disabled]="currentPage.value === maxPage.value"
   >
-    Suivant
+  {{ "CATALOGUE.SUIVANT " | translate }}
   </button>
 </div>

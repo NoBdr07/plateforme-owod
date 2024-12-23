@@ -12,11 +12,12 @@ import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-catalogue',
   standalone: true,
-  imports: [CommonModule, MatMenuModule, MatButtonModule, RouterModule],
+  imports: [CommonModule, MatMenuModule, MatButtonModule, RouterModule, TranslateModule],
   templateUrl: './catalogue.component.html',
   styleUrl: './catalogue.component.css',
 })

@@ -16,6 +16,7 @@ import { SphereOfInfluence } from '../enums/sphere-of-influence.enum';
 import { Specialty } from '../enums/specialty.enum';
 import { PhotoDialogComponent } from '../photo-dialog/photo-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,6 +30,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
     MatSelectModule,
     ReactiveFormsModule,
     MatDialogModule,
+    TranslateModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',

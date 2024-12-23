@@ -1,7 +1,7 @@
 <div class="global-container">
   <div class="main-container">
     <div class="text-gauche">
-      <a class="link" routerLink="/register">Rejoignez gratuitement le catalogue ici</a>
+      <a class="link" routerLink="/register">{{ "HOME.JOIN" | translate }}</a>
     </div>
 
     <div class="designer" *ngIf="weeklyDesigner$ | async as designer">
@@ -9,11 +9,11 @@
       <img class="designer-image"  [src]="designer.profilePicture">
       <p class="designer-name">{{ designer.firstname }} {{ designer.lastname }}</p>
       <p class="designer-info">{{ designer.profession }} | {{ designer.countryOfResidence }}</p>
-      <button mat-raised-button class="designer-semaine">Designer de la semaine</button>
+      <button mat-raised-button class="designer-semaine" [routerLink]="['/details', designer.id]">Designer de la semaine</button>
     </div>
 
     <div class="text-gauche">
-      <p>A propos de l'AIPDA | Contacts</p>
+      <p>{{ "HOME.A_PROPOS" | translate }}</p>
     </div>
   </div>
 
@@ -21,9 +21,9 @@
     <div class="white-container left">     
 
       <div class="text-container">    
-        <p class="subtitle">Catalogue owod</p>    
+        <p class="subtitle">{{ "HOME.CATALOG" | translate }}</p>    
         <div class="arrow-container">
-          <p class="arrow-info">Visitez le catalogue maintenant</p>
+          <p class="arrow-info">{{ "HOME.VISIT" | translate }}</p>
           <img class="arrow" routerLink="catalogue" src="assets/logos/arrow.png" />
         </div>
       </div>
@@ -42,9 +42,9 @@
     <div class="white-container right">     
 
       <div class="text-container">    
-        <p class="subtitle">Espace membres</p>   
+        <p class="subtitle">{{ "HOME.ESPACE_MEMBRE" | translate }}</p>   
         <div class="arrow-container">
-          <p class="arrow-info">Accedez à votre espace</p>
+          <p class="arrow-info">{{ "HOME.ACCEDER" | translate }}</p>
           <img class="arrow" src="assets/logos/arrow.png" routerLink="login" />
         </div>
       </div>

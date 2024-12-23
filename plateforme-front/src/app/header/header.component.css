@@ -30,7 +30,7 @@
 .end-container {
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 30px;
   align-items: end;
 }
 
@@ -42,6 +42,15 @@
 
 .langue {
   width: max-content;
+  font-size: 20px;
+}
+
+.langue .active {
+  font-weight: bolder;
+}
+
+.clickable:hover {
+  cursor: pointer;
 }
 
 .social {

@@ -1,0 +1,88 @@
+{
+    "HEADER": {
+        "CATALOGUE_OWOD": "OWOD CATALOGUE"
+    },
+    "HOME": {
+        "JOIN": "Join the catalog for free here",
+        "A_PROPOS": "About AIPDA | Contacts",
+        "CATALOG": "OWOD Catalog",
+        "VISIT": "Visit the catalog now",
+        "ESPACE_MEMBRE": "Member area",
+        "ACCEDER": "Access your space"
+    },
+    "CATALOGUE": {
+        "TOP_TEXT": "The OWOD catalog is a digital directory referencing all designers across multiple design disciplines.",
+        "FILTRE": "Search filter",
+        "PROFESSION": "Profession",
+        "SPECIALITE": "Specialty",
+        "SPHERE": "Sphere of influence",
+        "SECTEUR": "Sectors",
+        "PAYS": "Country of residence",
+        "ETUDIANT": "Student",
+        "ARTISAN": "Craftsman",
+        "PRECEDENT": "Previous",
+        "SUR": "of",
+        "SUIVANT": "Next"
+    },
+    "DASHBOARD": {
+        "CHANGE_PHOTO": "Change photo",
+        "REALISATIONS": "Projects",
+        "SUPPRIMER": "Delete",
+        "AJOUT_REAL": "Add projects",
+        "INFO_PERSO": "Personal information",
+        "PRENOM": "First name",
+        "NOM": "Last name",
+        "PAYS_ORIGINE": "Country of origin",
+        "PAYS_RESIDENCE": "Country of residence",
+        "INFO_CONTACT": "Contact information",
+        "TELEPHONE": "Phone",
+        "INFO_PRO": "Professional information",
+        "BIO": "Biography",
+        "PROFESSION": "Profession",
+        "SPECIALITE": "Specialties",
+        "SPHERE": "Spheres of influence",
+        "SECTEUR": "Favorite sectors",
+        "NIVEAU": "Professional level",
+        "SAUVEGARDER": "Save"
+    },
+    "DESIGNER_DETAILS": {
+        "RETOUR": "Back to catalog",
+        "REALISATIONS": "My projects",
+        "INFORMATIONS": "My information",
+        "CONTACT": "Contact me",
+        "PORTFOLIO": "Link to my portfolio"
+    },
+    "LOGIN": {
+        "TITRE": "Login",
+        "BIENVENUE": "Welcome! Enter your information to access your member area.",
+        "MDP": "Password",
+        "MDP_OUBLIE": "Forgot password?",
+        "PAS_DE_COMPTE": "Don't have an account?",
+        "INSCRIPTION": "Sign up"
+    },
+    "REGISTER": {
+        "TITRE": "Create a member account",
+        "JOIN": "Join the OWOD catalog now!",
+        "CONFIRM_EMAIL": "Confirm email",
+        "CONFIRM_MDP": "Confirm password",
+        "CONSENT_1": "I agree that my data will be collected and used in accordance with the",
+        "CONSENT_2": "privacy policy",
+        "INSCRIRE": "Sign up",
+        "DEJA_COMPTE": "Already have an account?",
+        "CONNECTER": "Log in"
+    },
+    "MON_COMPTE": {
+        "BIENVENUE": "Welcome to your space!",
+        "INFO": "You haven't created your designer profile yet.<br> To create it, fill in the minimal information below.<br> You can then edit or complete your profile by accessing your dashboard.",
+        "CREER_DESIGNER": "Create designer",
+        "CONFIGURER": "Set up your profile",
+        "DECONNECTER": "Log out"
+    },
+    "PHOTO": {
+        "CHANGER": "Change photo",
+        "EXPLICATION_1": "To ensure visual harmony on the site, we ask you to upload a photo with a transparent background. You can easily remove the background of your photo using this website:",
+        "EXPLICATION_2": "This will only take a few seconds! <br /><br /> We also invite you to choose a square-format photo, where you are visible from the front, head to waist. <br /><br /> These guidelines ensure a uniform and aesthetic presentation of the site. Thank you for your understanding and cooperation!",
+        "ANNULER": "Cancel",
+        "VALIDER": "Validate"
+    }
+}

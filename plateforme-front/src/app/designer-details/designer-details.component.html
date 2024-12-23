@@ -1,6 +1,6 @@
 <div class="arrow-container" routerLink="/catalogue">
   <img src="/assets/logos/arrow-back.png" />
-  <p>Retour au catalogue</p>
+  <p>{{ "DESIGNER_DETAILS.RETOUR" | translate }}</p>
 </div>
 
 <div class="details-container">
@@ -25,7 +25,7 @@
     <p class="biography">{{ designer.biography }}</p>
 
     <div *ngIf="designer.majorWorks" class="realisations">
-      <p class="group-title">Mes réalisations</p>
+      <p class="group-title">{{ "DESIGNER_DETAILS.REALISATIONS" | translate }}</p>
       <div class="preview-container">
         <div *ngFor="let realisationUrl of designer.majorWorks">
           <img
@@ -44,28 +44,28 @@
     </div>
 
     <div class="detail">
-      <p class="group-title">Mes informations</p>
+      <p class="group-title">{{ "DESIGNER_DETAILS.REALISATIONS" | translate }}</p>
       <p>
-        <strong>Professions : </strong>
+        <strong>{{ "DASHBOARD.PROFESSION" | translate }} : </strong>
         <span>{{ designer.profession }} </span>
       </p>
       <p *ngIf="designer.professionalLevel">
-        <strong>Niveau : </strong><span>{{ designer.professionalLevel }}</span>
+        <strong>{{ "DASHBOARD.NIVEAU" | translate }} : </strong><span>{{ designer.professionalLevel }}</span>
       </p>
       <p>
-        <strong>Spécialités : </strong>
+        <strong>{{ "DASHBOARD.SPECIALITE" | translate }} : </strong>
         <span *ngFor="let specialty of designer.specialties"
           >{{ specialty }} |
         </span>
       </p>
       <p>
-        <strong>Sphères d'influence : </strong>
+        <strong>{{ "DASHBOARD.SPHERE" | translate }} : </strong>
         <span *ngFor="let sphere of designer.spheresOfInfluence"
           >{{ sphere }} |
         </span>
       </p>
       <p>
-        <strong>Secteurs favoris : </strong>
+        <strong>{{ "DASHBOARD.PROFESSION" | translate }} : </strong>
         <span *ngFor="let sector of designer.favoriteSectors"
           >{{ sector }} |
         </span>
@@ -73,18 +73,18 @@
     </div>
 
     <div class="contact">
-      <p class="group-title">Me contacter</p>
+      <p class="group-title">{{ "DESIGNER_DETAILS.CONTACT" | translate }}</p>
       <p *ngIf="designer.email">
         <strong>Email : </strong>{{ designer.email }}
       </p>
       <p *ngIf="designer.phoneNumber">
-        <strong>Téléphone : </strong>{{ designer.phoneNumber }}
+        <strong>{{ "DASHBOARD.TELEPHONE" | translate }} : </strong>{{ designer.phoneNumber }}
       </p>
       <a
         *ngIf="designer.portfolioUrl"
         target="_blank"
         [href]="designer.portfolioUrl"
-        >Lien vers mon portfolio</a
+        >{{ "DESIGNER_DETAILS.PORTFOLIO" | translate }}</a
       >
     </div>
   </div>

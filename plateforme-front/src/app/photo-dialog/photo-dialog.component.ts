@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-photo-dialog',
@@ -15,7 +16,8 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule,
     FormsModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    TranslateModule
   ],
   templateUrl: './photo-dialog.component.html',
   styleUrl: './photo-dialog.component.css',

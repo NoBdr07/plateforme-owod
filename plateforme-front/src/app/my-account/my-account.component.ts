@@ -14,6 +14,7 @@ import { SphereOfInfluence } from '../enums/sphere-of-influence.enum';
 import { FavoriteSector } from '../enums/favorite-sector.enum';
 import { Job } from '../enums/job.enum';
 import { DesignerService } from '../services/designer.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-my-account',
@@ -25,7 +26,8 @@ import { DesignerService } from '../services/designer.service';
     MatButtonModule,
     MatInputModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   templateUrl: './my-account.component.html',
   styleUrl: './my-account.component.css',

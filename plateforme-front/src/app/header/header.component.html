@@ -1,12 +1,15 @@
 <div class="header-container">
-    <img class="logo" routerLink="/" src="assets/logos/LogoAIPDA.png">
-    <p class="title" routerLink="/">CATALOGUE OWOD</p>
-    <div class="end-container">
-        <p class="langue">FR | EN</p>
-        <div class="social-links">
-            <img class="social" src="assets/logos/linkedin.png">
-            <img class="social" src="assets/logos/youtube.png">
-            <img class="social" src="assets/logos/insta.png">
-        </div>
+  <img class="logo" routerLink="/" src="assets/logos/LogoAIPDA.png" />
+  <p class="title" routerLink="/">{{ "HEADER.CATALOGUE_OWOD" | translate }}</p>
+  <div class="end-container">
+    <p class="langue">
+      <span class="clickable" [class.active]="currentLang === 'fr'" (click)="switchLanguage('fr')">FR</span> |
+      <span class="clickable" [class.active]="currentLang === 'en'" (click)="switchLanguage('en')">EN</span>
+    </p>
+    <div class="social-links">
+      <img class="social" src="assets/logos/linkedin.png" />
+      <img class="social" src="assets/logos/youtube.png" />
+      <img class="social" src="assets/logos/insta.png" />
     </div>
+  </div>
 </div>
