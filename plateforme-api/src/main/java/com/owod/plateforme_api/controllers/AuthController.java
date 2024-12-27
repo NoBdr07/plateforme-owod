@@ -57,6 +57,18 @@ public class AuthController {
     }
 
     /**
+     * Endpoint to logout user
+     * @param response
+     * @return
+     */
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletResponse response) {
+        Cookie cookie = jwtUtils.createCookie("jwt", "", 0, true);
+        response.addCookie(cookie);
+        return ResponseEntity.ok("Logout successful");
+    }
+
+    /**
      * Endpoint to register a new user
      * @param registerRequest that contains infos about user and a boolean admin
      * @return 404 if email is already taken, 200 if ok

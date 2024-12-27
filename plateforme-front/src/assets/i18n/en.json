@@ -38,6 +38,7 @@
         "TELEPHONE": "Phone",
         "INFO_PRO": "Professional information",
         "BIO": "Biography",
+        "BIO_WARN": "Your biography will not be automatically translated into English or French. If you wish to be visible to both English and French audiences, we recommend writing your biography in both languages.",
         "PROFESSION": "Profession",
         "SPECIALITE": "Specialties",
         "SPHERE": "Spheres of influence",
@@ -73,16 +74,20 @@
     },
     "MON_COMPTE": {
         "BIENVENUE": "Welcome to your space!",
-        "INFO": "You haven't created your designer profile yet.<br> To create it, fill in the minimal information below.<br> You can then edit or complete your profile by accessing your dashboard.",
+        "INFO_1": "You haven't created your designer profile yet." ,
+        "INFO_2": "To create it, fill in the minimal information below.",
+        "INFO_3": "You can then edit or complete your profile by accessing your dashboard.",
         "CREER_DESIGNER": "Create designer",
         "CONFIGURER": "Set up your profile",
         "DECONNECTER": "Log out"
     },
     "PHOTO": {
-        "CHANGER": "Change photo",
-        "EXPLICATION_1": "To ensure visual harmony on the site, we ask you to upload a photo with a transparent background. You can easily remove the background of your photo using this website:",
-        "EXPLICATION_2": "This will only take a few seconds! <br /><br /> We also invite you to choose a square-format photo, where you are visible from the front, head to waist. <br /><br /> These guidelines ensure a uniform and aesthetic presentation of the site. Thank you for your understanding and cooperation!",
-        "ANNULER": "Cancel",
-        "VALIDER": "Validate"
-    }
+    "CHANGER": "Change Photo",
+    "EXPLICATION_1": "To ensure visual harmony on the site, we ask you to upload a photo with a transparent background. You can easily remove the background from your photo using this site:",
+    "EXPLICATION_2": "It will only take a few seconds!",
+    "EXPLICATION_3": "We also encourage you to choose a square-format photo where you are visible from the front, from head to waist. These guidelines help ensure a consistent and aesthetic presentation of the site.",
+    "EXPLICATION_4": "Thank you for your understanding and cooperation!",
+    "ANNULER": "Cancel",
+    "VALIDER": "Validate"
+}
 }

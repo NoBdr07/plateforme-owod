@@ -1,9 +1,11 @@
 <div class="global-container">
   <h1 mat-dialog-title>{{ "PHOTO.CHANGER" | translate }}</h1>
-  <p class="explication">
+  <p class="explication" >
     {{ "PHOTO.EXPLICATION_1" | translate }}
-    <a target="_blank" href="https://www.remove.bg/">Remove.bg</a>. 
-    {{ "PHOTO.EXPLICATION_2" | translate }} 
+    <a target="_blank" href="https://www.remove.bg/">Remove.bg</a>. <br /><br />
+    {{ "PHOTO.EXPLICATION_2" | translate }} <br /><br />
+    {{ "PHOTO.EXPLICATION_3" | translate }} <br /><br />
+    {{ "PHOTO.EXPLICATION_4" | translate }} <br /><br />
   </p>
   <div mat-dialog-content>
     <input class="input" type="file" (change)="onFileSelected($event)" accept="image/*" />

@@ -38,6 +38,7 @@
         "TELEPHONE": "Téléphone",
         "INFO_PRO": "Informations professionnelles",
         "BIO": "Biographie",
+        "BIO_WARN": "Votre biographie ne sera pas traduite automatiquement en anglais ou en français. Si vous souhaitez être visible à la fois auprès du public anglais et français, nous vous conseillons d'écrire votre biographie dans les deux langues.",
         "PROFESSION": "Profession",
         "SPECIALITE": "Spécialités",
         "SPHERE": "Sphères d'influence",
@@ -62,7 +63,7 @@
     },
     "REGISTER": {
         "TITRE": "Créer un compte membre",
-        "JOIN": "Rejoins le catalogue OWO maintenant !",
+        "JOIN": "Rejoins le catalogue OWOD maintenant !",
         "CONFIRM_EMAIL": "Confirmer l'email",
         "CONFIRM_MDP": "Confirmer le mot de passe",
         "CONSENT_1": "J'accepte que mes données soient collectées et utilisées conformément à la",
@@ -73,7 +74,9 @@
      },
     "MON_COMPTE": {
         "BIENVENUE": "Bienvenue dans votre espace !",
-        "INFO": "Vous n'avez pas encore crée votre profil designer.<br> Pour le creer, remplissez les informations minimales ci-dessous.<br> Vous pourrez ensuite modifier ou compléter votre profil en ayant accès à votre dashboard.",
+        "INFO_1": "Vous n'avez pas encore crée votre profil designer.",
+        "INFO_2" : "Pour le creer, remplissez les informations minimales ci-dessous.",
+        "INFO_3": "Vous pourrez ensuite modifier ou compléter votre profil en ayant accès à votre dashboard.",
         "CREER_DESIGNER": "Créer le designer",
         "CONFIGURER": "Configurer votre profil",
         "DECONNECTER": "Se déconnecter"
@@ -81,7 +84,9 @@
     "PHOTO": {
         "CHANGER": "Changer la photo",
         "EXPLICATION_1": "Pour garantir l’harmonie visuelle sur le site, nous vous demandons de télécharger une photo avec un fond transparent. Vous pouvez facilement retirer le fond de votre photo en utilisant ce site :",
-        "EXPLICATION_2": "Cela ne prendra que quelques secondes ! <br /><br /> Nous vous invitons également à choisir une photo de format carré, où vous êtes visible de face, de la tête à la ceinture. <br /><br /> Ces consignes permettent d’assurer une présentation uniforme et esthétique du site. Merci pour votre compréhension et votre coopération !",
+        "EXPLICATION_2": "Cela ne prendra que quelques secondes !",
+        "EXPLICATION_3": "Nous vous invitons également à choisir une photo de format carré, où vous êtes visible de face, de la tête à la ceinture. Ces consignes permettent d’assurer une présentation uniforme et esthétique du site. ",
+        "EXPLICATION_4": "Merci pour votre compréhension et votre coopération !",
         "ANNULER": "Annuler",
         "VALIDER": "Valider"
     }

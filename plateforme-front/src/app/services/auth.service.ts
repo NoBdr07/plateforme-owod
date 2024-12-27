@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LoginRequest } from '../interfaces/login-request.interface';
@@ -22,6 +22,7 @@ export class AuthService {
     private readonly router: Router
   ) {
     this.checkTokenPresence();
+    
   }
 
   /**
@@ -32,8 +33,18 @@ export class AuthService {
     return this.http.post<string>(`${this.apiUrl}/login`, loginRequest, {
       withCredentials: true,
       responseType: 'text' as 'json',
-    });
-  }
+    }).pipe(
+      tap(() => {
+        this.isLogged = true;
+        this.next();
+      }),
+      catchError(error => {
+        this.isLogged = false;
+        this.next();
+        return throwError(() => error);
+      })
+    );
+}
 
   /**
    * Envoie un requête d'inscription
@@ -80,8 +91,19 @@ export class AuthService {
    * Déconnexion : supprime le token et notifie le backend.
    */
   logout(): void {
-    this.clearToken();
-    this.router.navigate(["/login"]);
+    this.http
+      .post(
+        `${this.apiUrl}/logout`,
+        {},
+        {
+          withCredentials: true,
+          responseType: 'text' as 'json',
+        }
+      )
+      .subscribe(() => {
+        this.clearToken();
+        this.router.navigate(['/login']);
+      });
   }
 
   /**

@@ -24,7 +24,8 @@ public class WeeklyDesignerService {
     @Autowired
     private DesignerService designerService;
 
-    @Scheduled(cron = "0 0 18 * * *")
+    // @Scheduled(cron = "0 0 18 * * *") pour le remettre à une heure souhaitée, ne fonctionne pas si back pas en cours à l'heure donnée
+    @Scheduled(cron = "0 0 0 * * MON")
     public void selectNewWeeklyDesigner() {
         List<Designer> allDesigners = designerService.getAll();
 

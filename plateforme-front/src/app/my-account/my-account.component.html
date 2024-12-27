@@ -3,7 +3,7 @@
     <h1>{{ "MON_COMPTE.BIENVENUE" | translate }}</h1>
 
     <div *ngIf="!hasAccount" class="not-created">
-        <p class="info"> {{ "MON_COMPTE.INFO" | translate }}
+        <p class="info"> {{ "MON_COMPTE.INFO_1" | translate }} <br /><br /> {{ "MON_COMPTE.INFO_2" | translate }} <br /><br /> {{ "MON_COMPTE.INFO_3" | translate }} <br /><br /> 
         </p>
         <form class="form" [formGroup]="accountForm" (ngSubmit)="onSubmit()">
             <mat-form-field appearance="fill">
