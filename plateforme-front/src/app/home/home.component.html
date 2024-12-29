@@ -5,11 +5,23 @@
     </div>
 
     <div class="designer" *ngIf="weeklyDesigner$ | async as designer">
-      <img class="background" src="assets/images/back.png">
-      <img class="designer-image"  [src]="designer.profilePicture">
-      <p class="designer-name">{{ designer.firstname }} {{ designer.lastname }}</p>
-      <p class="designer-info">{{ designer.profession }} | {{ designer.countryOfResidence }}</p>
-      <button mat-raised-button class="designer-semaine" [routerLink]="['/details', designer.id]">Designer de la semaine</button>
+      <div class="img-container">
+        <img class="background" src="assets/images/back.png" />
+        <img class="designer-image" [src]="designer.profilePicture" />
+      </div>
+      <p class="designer-name">
+        {{ designer.firstname }} {{ designer.lastname }}
+      </p>
+      <p class="designer-info">
+        {{ designer.profession }} | {{ designer.countryOfResidence }}
+      </p>
+      <button
+        mat-raised-button
+        class="designer-semaine"
+        [routerLink]="['/details', designer.id]"
+      >
+        Designer de la semaine
+      </button>
     </div>
 
     <div class="text-gauche">
@@ -18,39 +30,54 @@
   </div>
 
   <div class="bottom-container">
-    <div class="white-container left">     
-
-      <div class="text-container">    
-        <p class="subtitle">{{ "HOME.CATALOG" | translate }}</p>    
+    <div class="white-container left">
+      <div class="text-container">
+        <p class="subtitle">{{ "HOME.CATALOG" | translate }}</p>
         <div class="arrow-container">
           <p class="arrow-info">{{ "HOME.VISIT" | translate }}</p>
-          <img class="arrow" routerLink="catalogue" src="assets/logos/arrow.png" />
+          <img
+            class="arrow"
+            routerLink="catalogue"
+            src="assets/logos/arrow.png"
+          />
         </div>
       </div>
 
-      <div class="preview-container" routerLink="/catalogue" *ngIf="designers$ | async as designers">
+      <div
+        class="preview-container"
+        routerLink="/catalogue"
+        *ngIf="designers$ | async as designers"
+      >
         <div class="preview" *ngFor="let designer of designers">
-          <img src="/assets/images/back-blue.png" class="preview-background">
-          <img [src]="designer.profilePicture" class="preview-photo">
-          <p class="preview-name">{{ designer.firstname }} {{ designer.lastname }}</p>
+          <img src="/assets/images/back-blue.png" class="preview-background" />
+          <img [src]="designer.profilePicture" class="preview-photo" />
+          <p class="preview-name">
+            {{ designer.firstname }} {{ designer.lastname }}
+          </p>
           <p class="preview-job">{{ designer.profession }}</p>
         </div>
       </div>
-
     </div>
 
-    <div class="white-container right">     
-
-      <div class="text-container">    
-        <p class="subtitle">{{ "HOME.ESPACE_MEMBRE" | translate }}</p>   
+    <div class="white-container right">
+      <div class="text-container">
+        <p class="subtitle">{{ "HOME.ESPACE_MEMBRE" | translate }}</p>
         <div class="arrow-container">
           <p class="arrow-info">{{ "HOME.ACCEDER" | translate }}</p>
-          <img class="arrow" src="assets/logos/arrow.png" routerLink="account" />
+          <img
+            class="arrow"
+            src="assets/logos/arrow.png"
+            routerLink="account"
+          />
         </div>
       </div>
 
       <div class="icon-container">
-        <img class="user-icon" src="assets/logos/User.png" routerLink="account" />
+        <img
+          class="user-icon"
+          src="assets/logos/User.png"
+          routerLink="account"
+        />
       </div>
     </div>
   </div>

@@ -3,13 +3,50 @@
   <p class="title" routerLink="/">{{ "HEADER.CATALOGUE_OWOD" | translate }}</p>
   <div class="end-container">
     <p class="langue">
-      <span class="clickable" [class.active]="currentLang === 'fr'" (click)="switchLanguage('fr')">FR</span> |
-      <span class="clickable" [class.active]="currentLang === 'en'" (click)="switchLanguage('en')">EN</span>
+      <span
+        class="clickable"
+        [class.active]="currentLang === 'fr'"
+        (click)="switchLanguage('fr')"
+        >FR</span
+      >
+      |
+      <span
+        class="clickable"
+        [class.active]="currentLang === 'en'"
+        (click)="switchLanguage('en')"
+        >EN</span
+      >
     </p>
     <div class="social-links">
-      <img class="social" src="assets/logos/linkedin.png" />
-      <img class="social" src="assets/logos/youtube.png" />
-      <img class="social" src="assets/logos/insta.png" />
+      <a
+        href="https://www.linkedin.com/company/aipda/posts/?feedView=all"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          class="social clickable"
+          src="assets/logos/linkedin.png"
+          alt="LinkedIn"
+        />
+      </a>
+      <a
+        href="https://www.youtube.com/@ledesignenafrique"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img class="social clickable" src="assets/logos/youtube.png" alt="youtube"/>
+      </a>
+      <a
+        href="https://www.instagram.com/ledesignenafrique/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          class="social clickable"
+          src="assets/logos/insta.png"
+          alt="instagram"
+        />
+      </a>
     </div>
   </div>
 </div>

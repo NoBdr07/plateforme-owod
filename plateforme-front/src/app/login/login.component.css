@@ -19,7 +19,6 @@
   width: 480px;
 }
 
-
 button {
   width: 480px !important;
 }
@@ -34,3 +33,31 @@ button {
   text-align: center;
 }
 
+/* STYLES POUR MOBILE */
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 32px;
+  }
+
+  .global-container {
+    justify-content: start;
+  }
+
+  .info {
+    text-align: center;
+  }
+
+  .login-form {
+    width: 90%;
+  }
+
+  button {
+    width: 90% !important;
+    align-self: center;
+  }
+
+  .trait {
+    width: 90%;
+  }
+}

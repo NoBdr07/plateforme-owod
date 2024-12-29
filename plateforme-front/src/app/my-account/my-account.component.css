@@ -27,7 +27,26 @@
 }
 
 .info {
-    font-size: 20px;
-    text-align: center;
-    line-height: initial;
+  font-size: 20px;
+  text-align: center;
+  line-height: initial;
+}
+
+/* STYLES POUR MOBILE */
+
+h1 {
+  font-size: 32px;
+  text-align: center;
+}
+
+.global-container {
+  margin: 20px;
+}
+
+.created {
+  margin-top: 50px;
+}
+
+.info {
+  font-size: 12px;
 }

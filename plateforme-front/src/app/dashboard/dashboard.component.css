@@ -117,3 +117,107 @@
 ::ng-deep mat-label {
   color: #0f132c66 !important;
 }
+
+/* STYLES POUR MOBILE */
+
+@media screen and (max-width: 768px) {
+  /* GLOBAL */
+  .dashboard-container {
+    flex-direction: column;
+    margin-top: 80px;
+    padding: 16px;
+    gap: 32px;
+  }
+
+  /* SECTION DE GAUCHE */
+  .left-container {
+    gap: 32px;
+    width: 100%;
+  }
+
+  /* Section photo */
+  .photo-section {
+    gap: 20px;
+    align-items: center;
+  }
+
+  .background,
+  .photo {
+    width: 280px;
+    height: 280px;
+  }
+
+  .photo-button {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  /* Section réalisations */
+  .realisations-section {
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .realisations-inner-section {
+    padding: 12px;
+  }
+
+  .realisation-item {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .realisation {
+    width: 100%;
+    height: auto;
+    max-width: 280px;
+  }
+
+  .realisation-item button {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  /* SECTION DE DROITE : INFORMATIONS */
+  .form-section {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .group-title {
+    font-size: 16px;
+    letter-spacing: 3px;
+  }
+
+  /* Ajustement des champs de formulaire */
+  .form-group mat-form-field {
+    width: 100%;
+  }
+
+  /* Ajustement des boutons */
+  button[mat-raised-button] {
+    width: 100%;
+  }
+
+  /* Ajustement des select multiples */
+  ::ng-deep .mat-mdc-select-panel {
+    max-width: 100vw !important;
+    max-height: 50vh !important;
+  }
+}
+
+/* Media Query pour les très petits écrans */
+@media screen and (max-width: 320px) {
+  .background,
+  .photo {
+    width: 240px;
+    height: 240px;
+  }
+
+  .realisations-section,
+  .form-section {
+    padding: 16px;
+  }
+}

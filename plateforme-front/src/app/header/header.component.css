@@ -57,3 +57,45 @@
   width: 40px;
   height: 40px;
 }
+
+/** STYLES POUR MOBILE **/
+@media screen and (max-width: 768px) {
+  .header-container {
+    padding: 15px;
+    height: auto;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+  }
+
+  .logo {
+    height: 40px; /* Logo légèrement plus petit */
+  }
+
+  .title {
+    position: static; /* Enlève le positionnement absolu */
+    transform: none; /* Enlève la transformation */
+    font-size: 24px; /* Texte plus petit */
+    text-align: center;
+  }
+
+  .end-container {
+    width: 100%;
+    justify-content: space-between; /* Répartit l'espace entre les éléments */
+    align-items: center;
+    gap: 15px;
+  }
+
+  .social-links {
+    gap: 10px;
+  }
+
+  .social {
+    width: 30px; /* Icônes sociales plus petites */
+    height: 30px;
+  }
+
+  .langue {
+    font-size: 16px;
+  }
+}

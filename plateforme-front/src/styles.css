@@ -15,6 +15,17 @@ body {
   /*background-position: center, center;*/
 }
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 :root {
   --primary-color: #eff2ff;
   --dark-color: #0505c3;
@@ -69,4 +80,14 @@ h1 {
   font-size: 48px;
   font-weight: 700;
   font-family: "Red Hat Display", sans-serif;
+}
+
+.success-snackbar {
+  background: #144416;
+  color: white;
+}
+
+.error-snackbar {
+  background: #7c1811;
+  color: white;
 }

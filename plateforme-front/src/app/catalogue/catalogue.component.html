@@ -106,16 +106,16 @@
     (click)="prevPage()"
     [disabled]="currentPage.value === 1"
   >
-    {{ "CATALOGUE.PRECEDENT " | translate }}
+    {{ "CATALOGUE.PRECEDENT" | translate }}
   </button>
 
-  <span>Page {{ currentPage | async }} {{ "CATALOGUE.SUR " | translate }} {{ maxPage |async }}</span>
+  <span>Page {{ currentPage | async }} {{ "CATALOGUE.SUR" | translate }} {{ maxPage |async }}</span>
 
   <button
     mat-raised-button
     (click)="nextPage()"
     [disabled]="currentPage.value === maxPage.value"
   >
-  {{ "CATALOGUE.SUIVANT " | translate }}
+  {{ "CATALOGUE.SUIVANT" | translate }}
   </button>
 </div>

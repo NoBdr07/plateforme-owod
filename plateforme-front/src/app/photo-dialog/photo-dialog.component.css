@@ -1,39 +1,63 @@
 .global-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
 }
 
 .explication {
-    color: white;
-    margin: 0 50px;
-    font-size: 20px;
+  color: white;
+  margin: 0 50px;
+  font-size: 20px;
   line-height: initial;
   text-align: center;
 }
 
 .mat-mdc-button:not(:disabled) {
-    color: var(--background-color);
+  color: var(--background-color);
 }
 
 h1 {
-    font-size: 40px !important;
+  font-size: 40px !important;
 }
 
-.input, button {
-    font-size: 20px;
+.input,
+button {
+  font-size: 20px;
 }
 
 a {
-    color: white;
-    text-decoration: underline;
+  color: white;
+  text-decoration: underline;
 }
 
 .annuler {
-    background-color: rgb(61, 13, 13);
+  background-color: rgb(61, 13, 13);
 }
 
 .valider {
-    background-color: rgb(11, 48, 11);
+  background-color: rgb(11, 48, 11);
+}
+
+/* STYLES POUR MOBILE */
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 20px !important;
+    text-align: center;
+  }
+
+  .input,
+  button {
+    font-size: 12px;
+  }
+
+  .global-container {
+    padding: 10px;
+  }
+
+  .explication {
+    font-size: 12px;
+    margin: 0 10px;
+  }
 }

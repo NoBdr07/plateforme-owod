@@ -53,7 +53,15 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/register`, registerRequest, {
       withCredentials: true,
       responseType: 'text' as 'json',
-    });
+    }).pipe(
+      catchError(error => {
+        if (error.status === 400) {
+          // Renvoie le message d'erreur du backend
+          return throwError(() => ({ message: error.error }));
+        }
+        return throwError(() => ({ message: "Une erreur est survenue lors de l'inscription" }));
+      })
+    );
   }
 
   /**

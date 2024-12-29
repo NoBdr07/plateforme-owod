@@ -67,3 +67,97 @@ button {
   background-color: var(--dark-color);
   border-radius: 8px;
 }
+
+/* STYLES POUR MOBILES */
+
+@media screen and (max-width: 768px) {
+  .global-container {
+    padding: 20px;
+    gap: 15px;
+  }
+
+  h1 {
+    font-size: 32px;
+    text-align: center;
+  }
+
+  .info {
+    font-size: 16px;
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  /* Formulaire */
+  .register-form {
+    width: 100%;
+    max-width: 360px;
+    gap: 8px;
+  }
+
+  /* Bouton */
+  button {
+    width: 100% !important;
+    height: 45px;
+  }
+
+  /* Trait de séparation */
+  .trait {
+    width: 100%;
+    max-width: 360px;
+    margin: 10px 0;
+  }
+
+  /* Conteneur du bas */
+  .bottom-container {
+    width: 100%;
+    max-width: 360px;
+    font-size: 14px;
+  }
+
+  /* Checkbox */
+  .checkbox {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  /* Message d'erreur */
+  .error {
+    font-size: 13px;
+    padding: 0 10px;
+  }
+
+  /* Ajustements pour les champs Material */
+  ::ng-deep .mat-mdc-form-field {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  ::ng-deep .mdc-text-field {
+    height: 45px !important;
+  }
+
+  ::ng-deep .mat-mdc-form-field-infix {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+
+  ::ng-deep .mdc-checkbox {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Ajustements pour très petits écrans */
+@media screen and (max-width: 360px) {
+  h1 {
+    font-size: 28px;
+  }
+
+  .info {
+    font-size: 14px;
+  }
+
+  .register-form {
+    max-width: 300px;
+  }
+}

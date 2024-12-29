@@ -10,6 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { TranslateModule } from '@ngx-translate/core';
+import { NotificationService } from '../services/notifcation.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +24,8 @@ import { TranslateModule } from '@ngx-translate/core';
     MatInputModule,
     RouterModule,
     MatCheckboxModule,
-    TranslateModule
+    TranslateModule,
+    MatSnackBarModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
@@ -36,7 +39,8 @@ export class RegisterComponent implements OnDestroy {
   constructor(
     private readonly authService: AuthService,
     private readonly fb: FormBuilder,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly notificationService: NotificationService
   ) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -72,11 +76,14 @@ export class RegisterComponent implements OnDestroy {
   onSubmit() {
     if(this.registerForm.valid) {
       const registerRequest = this.registerForm.value as RegisterRequest;
-      registerRequest.admin= false;
+      registerRequest.admin = false;
 
       const sub = this.authService.register(registerRequest).subscribe({
         next: () => {          
-          this.router.navigate(['login']);
+          console.log("appel de next dans register");
+          this.router.navigate(['login'], {
+            state: { registrationSuccess: true }
+          });
         },
         error: (error) => {
           this.errorMessage = error.message;

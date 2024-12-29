@@ -57,6 +57,7 @@
   font-size: 42px;
   font-weight: 900;
   z-index: 100;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 }
 
 .photo-job {
@@ -65,6 +66,7 @@
   font-size: 28px;
   font-weight: 400;
   z-index: 100;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 }
 
 /** SECTION DE DROITE : INFORMATIONS **/
@@ -149,3 +151,136 @@
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
 }
+
+/* REGLES POUR MOBILE */
+
+@media screen and (max-width: 768px) {
+  /* Flèche de retour */
+  .arrow-container {
+    margin: 20px;
+    font-size: 16px;
+  }
+ 
+  /* Container principal */
+  .details-container {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    gap: 0;
+  }
+  
+  /* Section photo */
+  .photo-section {
+    width: 90%;
+    gap: 10px;
+    position: relative;
+  }
+
+  .background,
+  .photo {
+    width: 100%;
+    height: 100vw;
+    max-height: 90vw;
+    max-width: 90vw;
+    object-fit: cover;
+  }
+
+  .background {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .photo {
+    position: relative;
+  }
+ 
+  .photo-name {
+    top: -80px;
+    font-size: 24px;
+  }
+ 
+  .photo-job {
+    top: -90px;
+    font-size: 18px;
+  }
+ 
+  /* Section informations */
+  .info-section {
+    width: 90%;
+    padding: 20px;
+    gap: 15px;
+    margin-bottom: 50px;
+    margin-top: -50px;
+  }
+ 
+  .info-name {
+    font-size: 24px;
+  }
+ 
+  .info-subtitle {
+    font-size: 16px;
+  }
+ 
+  .group-title {
+    font-size: 18px;
+  }
+ 
+  .biography {
+    font-size: 14px;
+  }
+ 
+  /* Section réalisations */
+  .preview-container {
+    padding: 10px;
+    justify-content: center;
+  }
+ 
+  .realisation-photo {
+    width: 140px;
+    height: 100px;
+  }
+ 
+  /* Overlay pour les images */
+  .preview-overlay {
+    padding: 20px;
+  }
+ 
+  .overlay-image {
+    max-width: 95vw;
+    max-height: 70vh;
+  }
+ 
+  /* Section détails */
+  .detail {
+    font-size: 14px;
+  }
+ 
+  .detail p {
+    margin: 5px 0;
+  }
+ 
+  /* Section contact */
+  .contact {
+    font-size: 14px;
+  }
+ 
+  .contact p {
+    margin: 5px 0;
+    word-break: break-word; /* Pour les longs emails */
+  }
+ 
+  .contact a {
+    display: inline-block;
+    margin-top: 10px;
+  }
+ }
+ 
+ /* Ajustements pour très petits écrans */
+ @media screen and (max-width: 360px) {
+  .realisation-photo {
+    width: 100%;
+    height: auto;
+  }
+ }

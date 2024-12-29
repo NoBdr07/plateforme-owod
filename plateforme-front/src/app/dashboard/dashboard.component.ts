@@ -144,7 +144,7 @@ export class DashboardComponent {
 
   openPhotoDialog(): void {
     const dialogRef = this.dialog.open(PhotoDialogComponent, {
-      width: '60%',
+      width: '80%',
       data: { picture: null },
     });
 
