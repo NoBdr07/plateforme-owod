@@ -4,7 +4,8 @@
     },
     "HOME": {
         "JOIN": "Rejoignez gratuitement le catalogue ici",
-        "A_PROPOS": "A propos de l'AIPDA | Contacts",
+        "A_PROPOS": "A propos de l'AIPDA",
+        "CONTACT": "Contact",
         "CATALOG": "CATALOGUE OWOD",
         "VISIT": "Visitez le catalogue maintenant",
         "ESPACE_MEMBRE": "ESPACE MEMBRES",
@@ -89,7 +90,167 @@
         "EXPLICATION_4": "Merci pour votre compréhension et votre coopération !",
         "ANNULER": "Annuler",
         "VALIDER": "Valider"
+    },
+        "ABOUT": {
+          "TITRE": "À propos de l'AIPDA",
+          "TITRE_P1": "Qui sommes-nous ?",
+          "P1": "L'AIPDA (Alliance Internationale pour la Promotion du Design en Afrique) est une organisation qui valorise le design comme un outil stratégique pour le développement durable et l'innovation en Afrique. Nous soutenons les designers, entreprises, institutions et territoires à travers des projets, des formations et des événements inspirants.",
+          "TITRE_P2": "Manifeste de l’AIPDA",
+          "P2_1": "Le monde entier assiste à un changement de paradigme politique, culturel, économique, social et environnemental.",
+          "P2_2": "L'Afrique émerge et prend conscience de ses atouts grâce à sa jeunesse dynamique, sa diaspora et ses citoyens engagés.",
+          "P2_3": "Nous avons jugé pertinent de fonder une organisation de design d'utilité publique pour apporter des solutions adaptées aux défis de l'Afrique.",
+          "TITRE_P3": "Missions de l’AIPDA",
+          "MISSION_PRINCIPALE": "Mission principale",
+          "MISSION_PRINCIPALE_TEXTE": "Renforcer la présence du Design en Afrique, dans les territoires afrodescendants tout en soutenant les acteurs.",
+          "AXES_DEV": "Axes de développement",
+          "DIFFUSER": "Diffuser le Design",
+          "DIFFUSER_TEXTE": "Faire en sorte que le design ne soit plus simplement perçu comme un processus esthétique, mais comme un atout stratégique.",
+          "RENFORCER": "Renforcer les capacités",
+          "RENFORCER_TEXTE": "Mettre en place des programmes d’éducation et intégrer l'excellence du design à divers niveaux.",
+          "ENCOURAGER": "Encourager l’innovation",
+          "ENCOURAGER_TEXTE": "Créer des cadres propices à l’expression et à l'innovation.",
+          "CONTRIBUER": "Contribuer au développement",
+          "CONTRIBUER_TEXTE": "Recourir aux principes du design pour élaborer des solutions favorisant le progrès.",
+          "FAQ_TITRE": "Foire aux Questions (FAQ)",
+          "FAQ_1": "Qu’est-ce que OWOD ?",
+          "FAQ_1_TEXTE": "OWOD est une plateforme collaborative initiée par l’AIPDA pour connecter les designers africains et leur diaspora.",
+          "FAQ_2": "Qui peut utiliser OWOD ?",
+          "FAQ_2_TEXTE": "Toute personne intéressée par le design africain peut rejoindre la plateforme.",
+          "FAQ_3": "Comment puis-je m’inscrire sur OWOD ?",
+          "FAQ_3_TEXTE": "Pour vous inscrire, rendez-vous sur owod.aipda-design.org.",
+          "FAQ_4": "Quelles sont les principales fonctionnalités de OWOD ?",
+          "FAQ_4_TEXTE": "Portfolio en ligne, réseautage, appels à projets, bibliothèque de ressources.",
+          "FAQ_5": "L’utilisation de OWOD est-elle gratuite ?",
+          "FAQ_5_TEXTE": "OWOD propose une version gratuite avec des fonctionnalités de base.",
+          "FAQ_6": "Puis-je partager mes projets personnels sur la plateforme ?",
+          "FAQ_6_TEXTE": "Oui, OWOD encourage le partage de projets personnels pour obtenir des retours.",
+          "FAQ_7": "Comment OWOD contribue-t-elle à la valorisation du design en Afrique ?",
+          "FAQ_7_TEXTE": "OWOD met en avant les créateurs africains et de la diaspora.",
+          "FAQ_8": "Que faire en cas de problème technique ?",
+          "FAQ_8_TEXTE": "Contactez notre support à support@aipda-design.org.",
+          "FAQ_9": "Comment mes données personnelles sont-elles protégées ?",
+          "FAQ_9_TEXTE": "Vos données sont protégées conformément au RGPD.",
+          "FAQ_10": "Comment rejoindre l’AIPDA en tant que membre ?",
+          "FAQ_10_TEXTE": "Rendez-vous sur www.aipda-design.org pour adhérer.",
+          "FAQ_11": "Puis-je proposer des idées ou des suggestions pour OWOD ?",
+          "FAQ_11_TEXTE": "Envoyez vos suggestions à feedback@aipda-design.org.",
+          "FAQ_12": "Quels types de contenus sont interdits sur OWOD ?",
+          "FAQ_12_TEXTE": "OWOD interdit les contenus illégaux ou offensants.",
+          "FAQ_13": "Y a-t-il des événements organisés via OWOD ?",
+          "FAQ_13_TEXTE": "OWOD propose des webinaires, workshops, et concours.",
+          "FAQ_14": "Comment signaler un abus ou un contenu inapproprié ?",
+          "FAQ_14_TEXTE": "Signalez un contenu via le bouton « Signaler » ou contactez info@aipda-design.org.",
+          "FAQ_15": "OWOD est-elle accessible depuis un smartphone ?",
+          "FAQ_15_TEXTE": "OWOD est optimisée pour mobile et une application est en cours de développement.",
+          "AUTRE": "Pour toute autre question, n’hésitez pas à nous contacter à l’adresse : info@aipda-design.org"
+        },
+    "LEGAL": {
+    "TITLE": "Mentions Légales",
+    "EDITOR": {
+      "TITLE": "1. Éditeur du Site",
+      "CONTENT": "La plateforme OWOD est éditée par l’AIPDA (Alliance Internationale pour la Promotion du Design en Afrique), association loi 1901, enregistrée sous le numéro W772011095 et située au 62 Avenue de Meaux, 77000 Melun. Directeur de la publication : Élie Kouamé, Président de l’AIPDA. Contact : info@aipda-design.org, +33 (0)973359268."
+    },
+    "HOST": {
+      "TITLE": "2. Hébergeur du Site",
+      "CONTENT": "La plateforme OWOD est hébergée par Heroku. Site web : https://www.heroku.com/"
+    },
+    "INTELLECTUAL_PROPERTY": {
+      "TITLE": "3. Propriété intellectuelle",
+      "CONTENT": "Tous les contenus présents sur la plateforme OWOD sont la propriété exclusive de l’AIPDA ou de leurs auteurs respectifs et protégés par les lois en vigueur. Toute reproduction ou modification est interdite sans autorisation écrite."
+    },
+    "PERSONAL_DATA": {
+      "TITLE": "4. Données personnelles",
+      "CONTENT": "L’AIPDA s’engage à protéger vos données conformément au RGPD. Vous disposez de droits d’accès, rectification et suppression en nous contactant à info@aipda-design.org."
+    },
+    "LIABILITY": {
+      "TITLE": "5. Responsabilité",
+      "CONTENT": "L’AIPDA ne peut garantir l’exactitude des contenus et ne saurait être tenue responsable des dommages résultant de l’utilisation du site."
+    },
+    "HYPERLINKS": {
+      "TITLE": "6. Liens hypertextes",
+      "CONTENT": "La plateforme peut contenir des liens vers des sites tiers. L’AIPDA décline toute responsabilité quant à leur contenu."
+    },
+    "MODIFICATIONS": {
+      "TITLE": "7. Modification des mentions légales",
+      "CONTENT": "L’AIPDA se réserve le droit de modifier ces mentions légales à tout moment."
+    },
+    "APPLICABLE_LAW": {
+      "TITLE": "8. Loi applicable",
+      "CONTENT": "Ces mentions légales sont régies par la loi française. Tout litige sera soumis aux tribunaux français."
     }
+  },
+  "CGU": {
+    "TITLE": "Conditions Générales d'Utilisation (CGU)",
+    "SECTIONS": {
+      "0": {
+        "TITLE": "1. Objet",
+        "CONTENT": "Les présentes CGU définissent les modalités d’utilisation de la plateforme OWOD."
+      },
+      "1": {
+        "TITLE": "2. Acceptation des CGU",
+        "CONTENT": "L’utilisation de la plateforme implique l’acceptation sans réserve des présentes CGU."
+      },
+      "2": {
+        "TITLE": "3. Accès à la plateforme",
+        "CONTENT": "L’accès est ouvert à toute personne disposant d’une connexion Internet."
+      },
+      "3": {
+        "TITLE": "4. Inscription et compte utilisateur",
+        "CONTENT": "La création d’un compte peut être nécessaire pour accéder à certaines fonctionnalités."
+      },
+      "4": {
+        "TITLE": "5. Utilisation de la plateforme",
+        "CONTENT": "L’utilisateur s’engage à respecter les lois en vigueur et les présentes CGU."
+      },
+      "5": {
+        "TITLE": "6. Propriété intellectuelle",
+        "CONTENT": "Tous les contenus de la plateforme sont protégés par les lois sur la propriété intellectuelle."
+      },
+      "6": {
+        "TITLE": "7. Responsabilité de l’utilisateur",
+        "CONTENT": "L’utilisateur est seul responsable des contenus qu’il publie sur la plateforme."
+      },
+      "7": {
+        "TITLE": "8. Limitation de responsabilité",
+        "CONTENT": "L’AIPDA ne peut être tenue responsable des interruptions ou dysfonctionnements."
+      },
+      "8": {
+        "TITLE": "9. Données personnelles",
+        "CONTENT": "L’utilisation de la plateforme implique la collecte et le traitement de certaines données personnelles."
+      },
+      "9": {
+        "TITLE": "10. Résiliation",
+        "CONTENT": "L’AIPDA se réserve le droit de suspendre ou supprimer un compte utilisateur en cas de non-respect des CGU."
+      },
+      "10": {
+        "TITLE": "11. Modification des CGU",
+        "CONTENT": "Les CGU peuvent être modifiées à tout moment et s’appliquent dès leur publication."
+      },
+      "11": {
+        "TITLE": "12. Loi applicable",
+        "CONTENT": "Les CGU sont régies par la loi française. Les litiges seront soumis aux tribunaux français."
+      }
+  }},
+  "CONTACT": {
+    "TITLE": "Contactez-nous",
+    "EMAIL_LABEL": "Adresse email",
+    "EMAIL_REQUIRED": "L'adresse email est requise.",
+    "EMAIL_INVALID": "Entrez une adresse email valide.",
+    "SUBJECT_LABEL": "Sujet",
+    "SUBJECT_REQUIRED": "Le sujet est requis.",
+    "REASON_LABEL": "Raison de contact",
+    "REASON_HELP_LOGIN": "J’ai besoin d’aide pour me connecter",
+    "REASON_MEMBERSHIP": "Adhésion à l’AIPDA",
+    "REASON_PROJECT_PUBLICATION": "Publication de projet",
+    "REASON_NETWORK_CONNECTION": "Connecter avec un membre du réseau",
+    "REASON_DONATION": "Faire un don",
+    "REASON_REQUIRED": "Sélectionnez une raison.",
+    "DESCRIPTION_LABEL": "Description",
+    "DESCRIPTION_REQUIRED": "La description est requise.",
+    "SEND_BUTTON": "Envoyer"
+  }
+      
+      
     
     
 }

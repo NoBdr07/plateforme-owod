@@ -1,0 +1,56 @@
+<div class="contact-container">
+    <h1>{{ "CONTACT.TITLE" | translate }}</h1>
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+      <!-- Adresse Email -->
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "CONTACT.EMAIL_LABEL" | translate }}</mat-label>
+        <input matInput formControlName="email" type="email" required />
+        <mat-error *ngIf="contactForm.get('email')?.hasError('required')">
+          {{ "CONTACT.EMAIL_REQUIRED" | translate }}
+        </mat-error>
+        <mat-error *ngIf="contactForm.get('email')?.hasError('email')">
+          {{ "CONTACT.EMAIL_INVALID" | translate }}
+        </mat-error>
+      </mat-form-field>
+  
+      <!-- Sujet -->
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "CONTACT.SUBJECT_LABEL" | translate }}</mat-label>
+        <input matInput formControlName="subject" required />
+        <mat-error *ngIf="contactForm.get('subject')?.hasError('required')">
+          {{ "CONTACT.SUBJECT_REQUIRED" | translate }}
+        </mat-error>
+      </mat-form-field>
+  
+      <!-- Liste déroulante -->
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "CONTACT.REASON_LABEL" | translate }}</mat-label>
+        <mat-select formControlName="reason" required>
+          <mat-option value="aide_plateforme">{{ "CONTACT.REASON_HELP_LOGIN" | translate }}</mat-option>
+          <mat-option value="adhesion">{{ "CONTACT.REASON_MEMBERSHIP" | translate }}</mat-option>
+          <mat-option value="projet_publication">{{ "CONTACT.REASON_PROJECT_PUBLICATION" | translate }}</mat-option>
+          <mat-option value="connecter_reseau">{{ "CONTACT.REASON_NETWORK_CONNECTION" | translate }}</mat-option>
+          <mat-option value="donation">{{ "CONTACT.REASON_DONATION" | translate }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="contactForm.get('reason')?.hasError('required')">
+          {{ "CONTACT.REASON_REQUIRED" | translate }}
+        </mat-error>
+      </mat-form-field>
+  
+      <!-- Description -->
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "CONTACT.DESCRIPTION_LABEL" | translate }}</mat-label>
+        <textarea matInput formControlName="description" rows="5" required></textarea>
+        <mat-error *ngIf="contactForm.get('description')?.hasError('required')">
+          {{ "CONTACT.DESCRIPTION_REQUIRED" | translate }}
+        </mat-error>
+      </mat-form-field>
+  
+      <!-- Bouton Envoyer -->
+      <button mat-raised-button color="primary" type="submit" [disabled]="isLoading || contactForm.invalid">
+        <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+        <span *ngIf="!isLoading">{{ "CONTACT.SEND_BUTTON" | translate }}</span>
+      </button>
+    </form>
+  </div>
+  

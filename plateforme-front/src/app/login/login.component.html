@@ -19,7 +19,7 @@
   <div class="trait"></div>
 
   <div class="bottom-container">
-    <a>{{ "LOGIN.MDP_OUBLIE" | translate }}</a>
+    <a (click)="onForgotPassword()">{{ "LOGIN.MDP_OUBLIE" | translate }}</a>
     <p>
       {{ "LOGIN.PAS_DE_COMPTE" | translate }} <a routerLink="/register">{{ "LOGIN.INSCRIPTION" | translate }}</a>
     </p>

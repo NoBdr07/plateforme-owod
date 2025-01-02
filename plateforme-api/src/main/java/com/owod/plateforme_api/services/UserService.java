@@ -74,4 +74,8 @@ public class UserService {
         return optionalUser.isPresent() && optionalUser.get().getDesignerId().equals(designerId);
     }
 
+    public Optional<User> findByResetToken(String token) {
+        return userRepository.findByResetToken(token);
+    }
+
 }

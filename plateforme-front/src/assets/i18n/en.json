@@ -4,7 +4,8 @@
     },
     "HOME": {
         "JOIN": "Join the catalog for free here",
-        "A_PROPOS": "About AIPDA | Contacts",
+        "A_PROPOS": "About AIPDA",
+        "CONTACT": "Contact",
         "CATALOG": "OWOD CATALOG",
         "VISIT": "Visit the catalog now",
         "ESPACE_MEMBRE": "MEMBER AREA",
@@ -89,5 +90,165 @@
     "EXPLICATION_4": "Thank you for your understanding and cooperation!",
     "ANNULER": "Cancel",
     "VALIDER": "Validate"
-}
+    },
+    "ABOUT": {
+    "TITRE": "About the AIPDA",
+    "TITRE_P1": "Who are we?",
+    "P1": "The AIPDA (International Alliance for the Promotion of Design in Africa) is an organization that promotes design as a strategic tool for sustainable development and innovation in Africa.",
+    "TITRE_P2": "Manifesto of the AIPDA",
+    "P2_1": "The world is witnessing a paradigm shift in politics, culture, economy, society, and the environment.",
+    "P2_2": "Africa is emerging and realizing its strengths through its dynamic youth, diaspora, and committed citizens.",
+    "P2_3": "We deemed it relevant to establish a public utility design organization to address Africa's challenges.",
+    "TITRE_P3": "AIPDA Missions",
+    "MISSION_PRINCIPALE": "Main mission",
+    "MISSION_PRINCIPALE_TEXTE": "Strengthening the presence of Design in Africa and its diasporic territories while supporting stakeholders.",
+    "AXES_DEV": "Development axes",
+    "DIFFUSER": "Promoting Design",
+    "DIFFUSER_TEXTE": "Making design more than just an aesthetic process, but a strategic asset.",
+    "RENFORCER": "Strengthening capacities",
+    "RENFORCER_TEXTE": "Establishing educational programs and integrating design excellence.",
+    "ENCOURAGER": "Encouraging innovation",
+    "ENCOURAGER_TEXTE": "Creating frameworks conducive to innovation.",
+    "CONTRIBUER": "Contributing to development",
+    "CONTRIBUER_TEXTE": "Using design principles to foster progress and improve quality of life.",
+    "FAQ_TITRE": "Frequently Asked Questions (FAQ)",
+    "FAQ_1": "What is OWOD?",
+    "FAQ_1_TEXTE": "OWOD is a collaborative platform initiated by the AIPDA to connect African designers and their diaspora.",
+    "FAQ_2": "Who can use OWOD?",
+    "FAQ_2_TEXTE": "Anyone interested in African design can join the platform.",
+    "FAQ_3": "How do I register on OWOD?",
+    "FAQ_3_TEXTE": "To register, visit owod.aipda-design.org.",
+    "FAQ_4": "What are OWOD's main features?",
+    "FAQ_4_TEXTE": "Online portfolio, networking, project calls, and resource library.",
+    "FAQ_5": "Is OWOD free to use?",
+    "FAQ_5_TEXTE": "OWOD offers a free version with basic features.",
+    "FAQ_6": "Can I share personal projects on the platform?",
+    "FAQ_6_TEXTE": "Yes, OWOD encourages sharing personal projects.",
+    "FAQ_7": "How does OWOD promote African design?",
+    "FAQ_7_TEXTE": "OWOD highlights African and diasporic creators.",
+    "FAQ_8": "What should I do in case of technical issues?",
+    "FAQ_8_TEXTE": "Contact support at support@aipda-design.org.",
+    "FAQ_9": "How is my personal data protected?",
+    "FAQ_9_TEXTE": "Your data is protected in compliance with GDPR.",
+    "FAQ_10": "How can I join AIPDA as a member?",
+    "FAQ_10_TEXTE": "Visit www.aipda-design.org to join.",
+    "FAQ_11": "Can I propose ideas or suggestions for OWOD?",
+    "FAQ_11_TEXTE": "Send your suggestions to feedback@aipda-design.org.",
+    "FAQ_12": "What types of content are prohibited on OWOD?",
+    "FAQ_12_TEXTE": "OWOD prohibits illegal or offensive content.",
+    "FAQ_13": "Are there events organized through OWOD?",
+    "FAQ_13_TEXTE": "OWOD organizes webinars, workshops, and competitions.",
+    "FAQ_14": "How can I report abuse or inappropriate content?",
+    "FAQ_14_TEXTE": "Report content via the 'Report' button or contact info@aipda-design.org.",
+    "FAQ_15": "Is OWOD accessible from a smartphone?",
+    "FAQ_15_TEXTE": "OWOD is mobile-friendly, and an app is under development.",
+    "AUTRE": "For any other question, don't hesitate to contact us at : info@aipda-design.org"
+  },
+  "LEGAL": {
+    "TITLE": "Legal Notice",
+    "EDITOR": {
+      "TITLE": "1. Site Publisher",
+      "CONTENT": "The OWOD platform is published by AIPDA (International Alliance for the Promotion of Design in Africa), a non-profit organization registered under French law with registration number W772011095, located at 62 Avenue de Meaux, 77000 Melun. Director of publication: Élie Kouamé, President of AIPDA. Contact: info@aipda-design.org, +33 (0)973359268."
+    },
+    "HOST": {
+      "TITLE": "2. Site Hosting",
+      "CONTENT": "The OWOD platform is hosted by Heroku. Website: https://www.heroku.com/"
+    },
+    "INTELLECTUAL_PROPERTY": {
+      "TITLE": "3. Intellectual Property",
+      "CONTENT": "All content on the OWOD platform is the exclusive property of AIPDA or their respective authors and is protected by applicable laws."
+    },
+    "PERSONAL_DATA": {
+      "TITLE": "4. Personal Data",
+      "CONTENT": "AIPDA is committed to protecting your data in accordance with GDPR. You can contact info@aipda-design.org to exercise your rights."
+    },
+    "LIABILITY": {
+      "TITLE": "5. Liability",
+      "CONTENT": "AIPDA cannot guarantee the accuracy of the content and is not liable for any damages resulting from the site's use."
+    },
+    "HYPERLINKS": {
+      "TITLE": "6. Hyperlinks",
+      "CONTENT": "The platform may contain links to third-party websites. AIPDA is not responsible for their content."
+    },
+    "MODIFICATIONS": {
+      "TITLE": "7. Modifications to Legal Notice",
+      "CONTENT": "AIPDA reserves the right to modify this legal notice at any time."
+    },
+    "APPLICABLE_LAW": {
+      "TITLE": "8. Governing Law",
+      "CONTENT": "This legal notice is governed by French law. Disputes will be resolved by French courts."
+    }
+  },
+  "CGU": {
+    "TITLE": "Terms of Use",
+    "SECTIONS": {
+      "0": {
+        "TITLE": "1. Purpose",
+        "CONTENT": "These terms define the conditions of use for the OWOD platform."
+      },
+      "1": {
+        "TITLE": "2. Acceptance of Terms",
+        "CONTENT": "Using the platform implies acceptance of these terms."
+      },
+      "2": {
+        "TITLE": "3. Access to the Platform",
+        "CONTENT": "Access is open to anyone with an internet connection."
+      },
+      "3": {
+        "TITLE": "4. Registration and User Account",
+        "CONTENT": "Account creation may be required for certain features."
+      },
+      "4": {
+        "TITLE": "5. Platform Use",
+        "CONTENT": "Users agree to comply with applicable laws and these terms."
+      },
+      "5": {
+        "TITLE": "6. Intellectual Property",
+        "CONTENT": "All content is protected by intellectual property laws."
+      },
+      "6": {
+        "TITLE": "7. User Responsibility",
+        "CONTENT": "Users are solely responsible for content they publish."
+      },
+      "7": {
+        "TITLE": "8. Limitation of Liability",
+        "CONTENT": "AIPDA is not liable for interruptions or malfunctions."
+      },
+      "8": {
+        "TITLE": "9. Personal Data",
+        "CONTENT": "The use of the platform implies data collection in compliance with GDPR."
+      },
+      "9": {
+        "TITLE": "10. Termination",
+        "CONTENT": "AIPDA may suspend or delete user accounts in case of non-compliance."
+      },
+      "10": {
+        "TITLE": "11. Modifications to Terms",
+        "CONTENT": "Terms may be modified at any time and apply upon publication."
+      },
+      "11": {
+        "TITLE": "12. Governing Law",
+        "CONTENT": "Terms are governed by French law. Disputes will be resolved by French courts."
+      }
+      
+    }
+  },
+  "CONTACT": {
+    "TITLE": "Contact Us",
+    "EMAIL_LABEL": "Email Address",
+    "EMAIL_REQUIRED": "Email address is required.",
+    "EMAIL_INVALID": "Please enter a valid email address.",
+    "SUBJECT_LABEL": "Subject",
+    "SUBJECT_REQUIRED": "Subject is required.",
+    "REASON_LABEL": "Reason for Contact",
+    "REASON_HELP_LOGIN": "I need help logging in",
+    "REASON_MEMBERSHIP": "AIPDA Membership",
+    "REASON_PROJECT_PUBLICATION": "Project Publication",
+    "REASON_NETWORK_CONNECTION": "Connect with a network member",
+    "REASON_DONATION": "Make a donation",
+    "REASON_REQUIRED": "Please select a reason.",
+    "DESCRIPTION_LABEL": "Description",
+    "DESCRIPTION_REQUIRED": "Description is required.",
+    "SEND_BUTTON": "Send"
+  }
 }

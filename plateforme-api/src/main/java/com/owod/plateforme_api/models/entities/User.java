@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Document(collection = "users")
@@ -21,6 +22,9 @@ public class User {
 
     private Set<String> roles;
     private String designerId;
+
+    private String resetToken;
+    private LocalDateTime resetTokenExpiry;
 
     public String getUserId() {
         return userId;
@@ -76,5 +80,21 @@ public class User {
 
     public void setDesignerId(String designerId) {
         this.designerId = designerId;
+    }
+
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
+
+    public LocalDateTime getResetTokenExpiry() {
+        return resetTokenExpiry;
+    }
+
+    public void setResetTokenExpiry(LocalDateTime resetTokenExpiry) {
+        this.resetTokenExpiry = resetTokenExpiry;
     }
 }

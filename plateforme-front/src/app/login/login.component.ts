@@ -17,6 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NotificationService } from '../services/notifcation.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
+import { PasswordResetService } from '../services/password-reset.service';
 
 @Component({
   selector: 'app-login',
@@ -45,7 +46,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private readonly fb: FormBuilder,
     private readonly router: Router,
     private readonly notificationService: NotificationService,
-    private readonly location: Location
+    private readonly location: Location,
+    private readonly passwordResetService: PasswordResetService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -80,6 +82,20 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.subscriptions.add(sub);
     } else {
       this.errorMessage = "Le formulaire n'est pas rempli correctement.";
+    }
+  }
+
+  onForgotPassword() {
+    const email = prompt("Veuillez saisir votre adresse email pour réinitialiser votre mot de passe :");
+    if (email) {
+      this.passwordResetService.requestReset(email).subscribe({
+        next: () => {
+          this.notificationService.success("Un email de réinitialisation a été envoyé !");
+        },
+        error: () => {
+          this.notificationService.error("Erreur lors de l'envoie de l'email. Veuillez réessayer.");
+        }
+      })
     }
   }
 

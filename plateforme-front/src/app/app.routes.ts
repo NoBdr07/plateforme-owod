@@ -50,5 +50,33 @@ export const routes: Routes = [
               './dashboard/dashboard.component'
             ).then((c) => c.DashboardComponent),
         canActivate: [authGuard]
+    },
+    {
+        path: 'reset-password',
+        loadComponent: () => 
+            import(
+                './reset-password/reset-password.component'
+            ).then((c) => c.ResetPasswordComponent),
+    },
+    {
+        path: 'about',
+        loadComponent: () => 
+            import(
+                './about/about.component'
+            ).then((c) => c.AboutComponent),
+    },
+    {
+        path: 'mentions-legales',
+        loadComponent: () => 
+            import(
+                './mentions-legales/mentions-legales.component'
+            ).then((c) => c.MentionsLegalesComponent),
+    },
+    {
+        path: 'contact',
+        loadComponent: () => 
+            import(
+                './contact/contact.component'
+            ).then((c) => c.ContactComponent),
     }
 ];

@@ -27,26 +27,36 @@
 }
 
 .info {
-  font-size: 20px;
+  font-size: 1vw;
   text-align: center;
   line-height: initial;
 }
 
 /* STYLES POUR MOBILE */
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 6vw;
+    text-align: center;
+    margin: 0;
+  }
 
-h1 {
-  font-size: 32px;
-  text-align: center;
-}
+  .global-container {
+    margin: 20px;
+  }
 
-.global-container {
-  margin: 20px;
-}
+  .created {
+    margin-top: 50px;
+  }
 
-.created {
-  margin-top: 50px;
-}
+  .info {
+    font-size: 4vw;
+  }
 
-.info {
-  font-size: 12px;
+  .form {
+    width: 80%;
+  }
+
+  mat-label {
+    font-size: 4vw;
+  }
 }

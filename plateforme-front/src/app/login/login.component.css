@@ -33,6 +33,10 @@ button {
   text-align: center;
 }
 
+a:hover {
+  cursor: pointer
+}
+
 /* STYLES POUR MOBILE */
 
 @media screen and (max-width: 768px) {
