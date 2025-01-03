@@ -33,12 +33,13 @@
             class="realisation-photo"
             (mouseover)="showPreview(realisationUrl)"
             (mouseout)="hidePreview()"
+            (click)="showPreviewMobile(realisationUrl)"
           />
         </div>
       </div>
 
       <!-- Zone pour afficher l'agrandissement -->
-      <div *ngIf="previewImage" class="preview-overlay">
+      <div *ngIf="previewImage" class="preview-overlay" (click)="hidePreviewMobile()">
         <img [src]="previewImage" class="overlay-image" />
       </div>
     </div>

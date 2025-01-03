@@ -148,11 +148,15 @@
     "TITLE": "Mentions Légales",
     "EDITOR": {
       "TITLE": "1. Éditeur du Site",
-      "CONTENT": "La plateforme OWOD est éditée par l’AIPDA (Alliance Internationale pour la Promotion du Design en Afrique), association loi 1901, enregistrée sous le numéro W772011095 et située au 62 Avenue de Meaux, 77000 Melun. Directeur de la publication : Élie Kouamé, Président de l’AIPDA. Contact : info@aipda-design.org, +33 (0)973359268."
+      "CONTENT_1": "La plateforme OWOD est éditée par l’AIPDA (Alliance Internationale pour la Promotion du Design en Afrique), association loi 1901, enregistrée sous le numéro W772011095 et située au 62 Avenue de Meaux, 77000 Melun. ",
+      "CONTENT_2": "Directeur de la publication : Élie Kouamé, Président de l’AIPDA. ",
+      "CONTENT_3": "Contact : info@aipda-design.org, +33 (0)973359268."
     },
     "HOST": {
       "TITLE": "2. Hébergeur du Site",
-      "CONTENT": "La plateforme OWOD est hébergée par Heroku. Site web : https://www.heroku.com/"
+      "CONTENT_1": "La plateforme OWOD est hébergée par Heroku." ,
+      "CONTENT_2": "Site web : https://www.heroku.com/ ",
+      "CONTENT_3": "Adresse : 415 Mission Street, 94105 San Francisco, CA, Etats-Unis"
     },
     "INTELLECTUAL_PROPERTY": {
       "TITLE": "3. Propriété intellectuelle",
@@ -248,6 +252,15 @@
     "DESCRIPTION_LABEL": "Description",
     "DESCRIPTION_REQUIRED": "La description est requise.",
     "SEND_BUTTON": "Envoyer"
+  },
+  "FOOTER": {
+    "CONTACT": "Nous contacter",
+    "LIENS_UTILES": "Liens utiles",
+    "CATALOGUE": "Catalogue",
+    "A_PROPOS": "À propos",
+    "CONTACTEZ_NOUS": "Contactez-nous",
+    "CGV": "Mentions légales",
+    "DROITS": "Tous droits réservés"
   }
       
       

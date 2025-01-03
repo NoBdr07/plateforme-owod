@@ -13,6 +13,8 @@
       <input matInput type="password" formControlName="password" name="password" />
     </mat-form-field>
 
+    <mat-error *ngIf="errorMessage">{{ errorMessage }}</mat-error>
+
     <button mat-raised-button type="submit">{{ "LOGIN.TITRE" | translate }}</button>
   </form>
 

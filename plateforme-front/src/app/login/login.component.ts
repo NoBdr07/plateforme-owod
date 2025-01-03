@@ -59,7 +59,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     const state = this.location.getState() as { registrationSuccess?: boolean };
 
     if (state.registrationSuccess) {
-      console.log('Notification déclenchée dans le ngOnInit');
       this.notificationService.success(
         'Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter !'
       );

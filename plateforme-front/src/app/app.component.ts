@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FooterComponent } from './footer/footer.component';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     RouterOutlet, 
     HeaderComponent,
     TranslateModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    FooterComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

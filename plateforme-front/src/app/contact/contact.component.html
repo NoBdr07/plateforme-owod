@@ -47,7 +47,7 @@
       </mat-form-field>
   
       <!-- Bouton Envoyer -->
-      <button mat-raised-button color="primary" type="submit" [disabled]="isLoading || contactForm.invalid">
+      <button mat-raised-button type="submit" [disabled]="isLoading || contactForm.invalid">
         <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
         <span *ngIf="!isLoading">{{ "CONTACT.SEND_BUTTON" | translate }}</span>
       </button>

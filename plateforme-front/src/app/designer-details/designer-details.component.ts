@@ -33,11 +33,20 @@ export class DesignerDetailsComponent {
   }
 
   showPreview(imageUrl: string): void {
-    console.log("appel de preview");
     this.previewImage = imageUrl; 
   }
 
   hidePreview(): void {
     this.previewImage = null; 
+  }
+
+  showPreviewMobile(realisationUrl: string): void {
+    console.log("appel de show preview mobile");
+    this.previewImage = realisationUrl;
+  }
+  
+  hidePreviewMobile(): void {
+    this.previewImage = null;
+    console.log("appel de hide preview mobile");
   }
 }

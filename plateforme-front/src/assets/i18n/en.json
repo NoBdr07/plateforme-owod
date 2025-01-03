@@ -56,7 +56,7 @@
     },
     "LOGIN": {
         "TITRE": "Login",
-        "BIENVENUE": "Welcome! Enter your information to access your member area.",
+        "BIENVENUE": "Welcome ! Enter your information to access your member area.",
         "MDP": "Password",
         "MDP_OUBLIE": "Forgot password?",
         "PAS_DE_COMPTE": "Don't have an account?",
@@ -148,11 +148,14 @@
     "TITLE": "Legal Notice",
     "EDITOR": {
       "TITLE": "1. Site Publisher",
-      "CONTENT": "The OWOD platform is published by AIPDA (International Alliance for the Promotion of Design in Africa), a non-profit organization registered under French law with registration number W772011095, located at 62 Avenue de Meaux, 77000 Melun. Director of publication: Élie Kouamé, President of AIPDA. Contact: info@aipda-design.org, +33 (0)973359268."
+      "CONTENT_1": "The OWOD platform is published by AIPDA (International Alliance for the Promotion of Design in Africa), a non-profit organization registered under French law with registration number W772011095, located at 62 Avenue de Meaux, 77000 Melun. ",
+      "CONTENT_2": "Director of publication: Élie Kouamé, President of AIPDA. ",
+      "CONTENT_3": "Contact: info@aipda-design.org, +33 (0)973359268."
     },
     "HOST": {
       "TITLE": "2. Site Hosting",
-      "CONTENT": "The OWOD platform is hosted by Heroku. Website: https://www.heroku.com/"
+      "CONTENT": "The OWOD platform is hosted by Heroku. Website: https://www.heroku.com/",
+      "CONTENT_3": "Address : 415 Mission Street, 94105 San Francisco, CA, United States"
     },
     "INTELLECTUAL_PROPERTY": {
       "TITLE": "3. Intellectual Property",
@@ -250,5 +253,14 @@
     "DESCRIPTION_LABEL": "Description",
     "DESCRIPTION_REQUIRED": "Description is required.",
     "SEND_BUTTON": "Send"
+  },
+  "FOOTER": {
+    "CONTACT": "Contact Us",
+    "LIENS_UTILES": "Useful Links",
+    "CATALOGUE": "Catalogue",
+    "A_PROPOS": "About Us",
+    "CONTACTEZ_NOUS": "Contact Us",
+    "CGV": "Terms and Conditions",
+    "DROITS": "All rights reserved"
   }
 }

@@ -23,7 +23,7 @@ public class WeeklyDesignerController {
     @GetMapping("/weekly")
     public ResponseEntity<?> getWeeklyDesigner() {
         try {
-            WeeklyDesigner weeklyDesigner = weeklyDesignerService.getCurrentWeeklyDesigner();
+            WeeklyDesigner weeklyDesigner = weeklyDesignerService.getLastWeeklyDesigner();
             if(weeklyDesigner == null) {
                 return ResponseEntity.notFound().build();
             }
