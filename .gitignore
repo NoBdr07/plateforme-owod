@@ -21,4 +21,4 @@ plateforme-api/.env
 uploads/
 
 .angular/cache/
-
+plateforme-front/.angular/cache/
