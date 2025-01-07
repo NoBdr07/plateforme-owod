@@ -26,7 +26,7 @@ public class DesignerController {
     @Autowired
     private UserService userService;
 
-    @Autowired
+    @Autowired(required = false)
     private ImageStorageService imageStorageService;
 
     /**

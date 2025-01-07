@@ -28,7 +28,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Désactiver CSRF pour une API stateless
+                .csrf(csrf -> csrf.disable()) // ActiveRecord CSRF pour une API stateless
                 .cors(cors -> cors.configurationSource(request -> {
                     var corsConfig = new CorsConfiguration();
                     corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:4200", "https://your-domain.com"));

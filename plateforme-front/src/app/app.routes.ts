@@ -66,6 +66,13 @@ export const routes: Routes = [
             ).then((c) => c.AboutComponent),
     },
     {
+        path: 'faq',
+        loadComponent: () => 
+            import(
+                './faq/faq.component'
+            ).then((c) => c.FaqComponent),
+    },
+    {
         path: 'mentions-legales',
         loadComponent: () => 
             import(

@@ -1,150 +1,185 @@
 {
-    "HEADER": {
-        "CATALOGUE_OWOD": "CATALOGUE OWOD"
+  "HEADER": {
+    "CATALOGUE_OWOD": "CATALOGUE OWOD"
+  },
+  "HOME": {
+    "JOIN": "Rejoignez gratuitement le catalogue ici",
+    "A_PROPOS": "A propos de l'AIPDA",
+    "CONTACT": "Contact",
+    "CATALOG": "CATALOGUE OWOD",
+    "VISIT": "Visitez le catalogue maintenant",
+    "ESPACE_MEMBRE": "ESPACE MEMBRES",
+    "ACCEDER": "Accédez à votre espace"
+  },
+  "CATALOGUE": {
+    "TOP_TEXT": "Le catalogue OWOD est un annuaire digital référençant tous les designers à travers les multiples disciplines du design.",
+    "FILTRE": "Filtre de recherche",
+    "PROFESSION": "Profession",
+    "SPECIALITE": "Spécialité",
+    "SPHERE": "Sphère d'influence",
+    "SECTEUR": "Secteurs",
+    "PAYS": "Pays de résidence",
+    "ETUDIANT": "Student",
+    "ARTISAN": "Artisan",
+    "PRECEDENT": "Précédent",
+    "SUR": "sur",
+    "SUIVANT": "Suivant"
+  },
+  "DASHBOARD": {
+    "CHANGE_PHOTO": "Changer de photo",
+    "REALISATIONS": "Réalisations",
+    "SUPPRIMER": "Supprimer",
+    "AJOUT_REAL": "Ajouter des réalisations",
+    "INFO_PERSO": "Informations personnelles",
+    "PRENOM": "Prénom",
+    "NOM": "Nom",
+    "PAYS_ORIGINE": "Pays d'origine",
+    "PAYS_RESIDENCE": "Pays de résidence",
+    "INFO_CONTACT": "Informations de contact",
+    "TELEPHONE": "Téléphone",
+    "INFO_PRO": "Informations professionnelles",
+    "BIO": "Biographie",
+    "BIO_WARN": "Votre biographie ne sera pas traduite automatiquement en anglais ou en français. Si vous souhaitez être visible à la fois auprès du public anglais et français, nous vous conseillons d'écrire votre biographie dans les deux langues.",
+    "PROFESSION": "Profession",
+    "SPECIALITE": "Spécialités",
+    "SPHERE": "Sphères d'influence",
+    "SECTEUR": "Secteurs favoris",
+    "NIVEAU": "Niveau professionnel",
+    "SAUVEGARDER": "Sauvegarder"
+  },
+  "DESIGNER_DETAILS": {
+    "RETOUR": "Retour au catalogue",
+    "REALISATIONS": "Mes réalisations",
+    "INFORMATIONS": "Mes informations",
+    "CONTACT": "Me contacter",
+    "PORTFOLIO": "Lien vers mon portfolio"
+  },
+  "LOGIN": {
+    "TITRE": "Se connecter",
+    "BIENVENUE": "Bienvenue ! Entrez vos informations pour vous connecter à votre espace membre.",
+    "MDP": "Mot de passe",
+    "MDP_OUBLIE": "Mot de passe oublié ?",
+    "PAS_DE_COMPTE": "Vous n'avez pas de compte ?",
+    "INSCRIPTION": "Inscrivez-vous"
+  },
+  "REGISTER": {
+    "TITRE": "Créer un compte membre",
+    "JOIN": "Rejoins le catalogue OWOD maintenant !",
+    "CONFIRM_EMAIL": "Confirmer l'email",
+    "CONFIRM_MDP": "Confirmer le mot de passe",
+    "CONSENT_1": "J'accepte que mes données soient collectées et utilisées conformément à la",
+    "CONSENT_2": "politique de confidentialité",
+    "INSCRIRE": "S'inscrire",
+    "DEJA_COMPTE": "Vous avez déjà un compte ?",
+    "CONNECTER": "Connectez-vous"
+  },
+  "MON_COMPTE": {
+    "BIENVENUE": "Bienvenue dans votre espace !",
+    "INFO_1": "Vous n'avez pas encore crée votre profil designer.",
+    "INFO_2": "Pour le creer, remplissez les informations minimales ci-dessous.",
+    "INFO_3": "Vous pourrez ensuite modifier ou compléter votre profil en ayant accès à votre dashboard.",
+    "CREER_DESIGNER": "Créer le designer",
+    "CONFIGURER": "Configurer votre profil",
+    "DECONNECTER": "Se déconnecter"
+  },
+  "PHOTO": {
+    "CHANGER": "Changer la photo",
+    "EXPLICATION_1": "Pour garantir l’harmonie visuelle sur le site, nous vous demandons de télécharger une photo avec un fond transparent. Vous pouvez facilement retirer le fond de votre photo en utilisant ce site :",
+    "EXPLICATION_2": "Cela ne prendra que quelques secondes !",
+    "EXPLICATION_3": "Nous vous invitons également à choisir une photo de format carré, où vous êtes visible de face, de la tête à la ceinture. Ces consignes permettent d’assurer une présentation uniforme et esthétique du site. ",
+    "EXPLICATION_4": "Merci pour votre compréhension et votre coopération !",
+    "ANNULER": "Annuler",
+    "VALIDER": "Valider"
+  },
+  "ABOUT": {
+    "TITRE": "À propos de l'AIPDA",
+    "TITRE_P1": "Qui sommes-nous ?",
+    "P1": "L'AIPDA (Alliance Internationale pour la Promotion du Design en Afrique) est une organisation qui valorise le design comme un outil stratégique pour le développement durable et l'innovation en Afrique. Nous soutenons les designers, entreprises, institutions et territoires à travers des projets, des formations et des événements inspirants.",
+    "TITRE_P2": "Manifeste de l’AIPDA",
+    "P2_1": "Le monde entier assiste à un changement de paradigme politique, culturel, économique, social et environnemental.",
+    "P2_2": "L'Afrique émerge et prend conscience de ses atouts grâce à sa jeunesse dynamique, sa diaspora et ses citoyens engagés.",
+    "P2_3": "Nous avons jugé pertinent de fonder une organisation de design d'utilité publique pour apporter des solutions adaptées aux défis de l'Afrique.",
+    "TITRE_P3": "Missions de l’AIPDA",
+    "MISSION_PRINCIPALE": "Mission principale",
+    "MISSION_PRINCIPALE_TEXTE": "Renforcer la présence du Design en Afrique, dans les territoires afrodescendants tout en soutenant les acteurs.",
+    "AXES_DEV": "Axes de développement",
+    "DIFFUSER": "Diffuser le Design",
+    "DIFFUSER_TEXTE": "Faire en sorte que le design ne soit plus simplement perçu comme un processus esthétique, mais comme un atout stratégique.",
+    "RENFORCER": "Renforcer les capacités",
+    "RENFORCER_TEXTE": "Mettre en place des programmes d’éducation et intégrer l'excellence du design à divers niveaux.",
+    "ENCOURAGER": "Encourager l’innovation",
+    "ENCOURAGER_TEXTE": "Créer des cadres propices à l’expression et à l'innovation.",
+    "CONTRIBUER": "Contribuer au développement",
+    "CONTRIBUER_TEXTE": "Recourir aux principes du design pour élaborer des solutions favorisant le progrès."
+  },
+
+  "FAQ": {
+    "TITRE": "Foire aux Questions (FAQ)",
+    "1": {
+      "TITRE": "Qu’est-ce que OWOD ?",
+      "TEXTE": "OWOD est une plateforme collaborative initiée par l’AIPDA pour connecter les designers africains et leur diaspora."
     },
-    "HOME": {
-        "JOIN": "Rejoignez gratuitement le catalogue ici",
-        "A_PROPOS": "A propos de l'AIPDA",
-        "CONTACT": "Contact",
-        "CATALOG": "CATALOGUE OWOD",
-        "VISIT": "Visitez le catalogue maintenant",
-        "ESPACE_MEMBRE": "ESPACE MEMBRES",
-        "ACCEDER": "Accédez à votre espace"
+    "2": {
+      "TITRE": "Qui peut utiliser OWOD ?",
+      "TEXTE": "Toute personne intéressée par le design africain peut rejoindre la plateforme."
     },
-    "CATALOGUE": {
-        "TOP_TEXT": "Le catalogue OWOD est un annuaire digital référençant tous les designers à travers les multiples disciplines du design.",
-        "FILTRE": "Filtre de recherche",
-        "PROFESSION": "Profession",
-        "SPECIALITE": "Spécialité",
-        "SPHERE": "Sphère d'influence",
-        "SECTEUR": "Secteurs",
-        "PAYS": "Pays de résidence",
-        "ETUDIANT": "Student",
-        "ARTISAN": "Artisan",
-        "PRECEDENT": "Précédent",
-        "SUR": "sur",
-        "SUIVANT": "Suivant"
+    "3": {
+      "TITRE": "Comment puis-je m’inscrire sur OWOD ?",
+      "TEXTE": "Pour vous inscrire, rendez-vous sur owod.aipda-design.org."
     },
-    "DASHBOARD": {
-        "CHANGE_PHOTO": "Changer de photo",
-        "REALISATIONS": "Réalisations",
-        "SUPPRIMER": "Supprimer",
-        "AJOUT_REAL": "Ajouter des réalisations",
-        "INFO_PERSO": "Informations personnelles",
-        "PRENOM": "Prénom",
-        "NOM": "Nom",
-        "PAYS_ORIGINE": "Pays d'origine",
-        "PAYS_RESIDENCE": "Pays de résidence",
-        "INFO_CONTACT": "Informations de contact",
-        "TELEPHONE": "Téléphone",
-        "INFO_PRO": "Informations professionnelles",
-        "BIO": "Biographie",
-        "BIO_WARN": "Votre biographie ne sera pas traduite automatiquement en anglais ou en français. Si vous souhaitez être visible à la fois auprès du public anglais et français, nous vous conseillons d'écrire votre biographie dans les deux langues.",
-        "PROFESSION": "Profession",
-        "SPECIALITE": "Spécialités",
-        "SPHERE": "Sphères d'influence",
-        "SECTEUR": "Secteurs favoris",
-        "NIVEAU": "Niveau professionnel",
-        "SAUVEGARDER": "Sauvegarder"
+    "4": {
+      "TITRE": "Quelles sont les principales fonctionnalités de OWOD ?",
+      "TEXTE": "Portfolio en ligne, réseautage, appels à projets, bibliothèque de ressources."
     },
-    "DESIGNER_DETAILS": {
-        "RETOUR": "Retour au catalogue",
-        "REALISATIONS": "Mes réalisations",
-        "INFORMATIONS": "Mes informations",
-        "CONTACT": "Me contacter",
-        "PORTFOLIO": "Lien vers mon portfolio"
+    "5": {
+      "TITRE": "L’utilisation de OWOD est-elle gratuite ?",
+      "TEXTE": "OWOD propose une version gratuite avec des fonctionnalités de base."
     },
-    "LOGIN": {
-        "TITRE": "Se connecter",
-        "BIENVENUE" : "Bienvenue ! Entrez vos informations pour vous connecter à votre espace membre.",
-        "MDP": "Mot de passe",
-        "MDP_OUBLIE": "Mot de passe oublié ?",
-        "PAS_DE_COMPTE": "Vous n'avez pas de compte ?",
-        "INSCRIPTION": "Inscrivez-vous"
+    "6": {
+      "TITRE": "Puis-je partager mes projets personnels sur la plateforme ?",
+      "TEXTE": "Oui, OWOD encourage le partage de projets personnels pour obtenir des retours."
     },
-    "REGISTER": {
-        "TITRE": "Créer un compte membre",
-        "JOIN": "Rejoins le catalogue OWOD maintenant !",
-        "CONFIRM_EMAIL": "Confirmer l'email",
-        "CONFIRM_MDP": "Confirmer le mot de passe",
-        "CONSENT_1": "J'accepte que mes données soient collectées et utilisées conformément à la",
-        "CONSENT_2": "politique de confidentialité",
-        "INSCRIRE": "S'inscrire",
-        "DEJA_COMPTE": "Vous avez déjà un compte ?",
-        "CONNECTER": "Connectez-vous"
-     },
-    "MON_COMPTE": {
-        "BIENVENUE": "Bienvenue dans votre espace !",
-        "INFO_1": "Vous n'avez pas encore crée votre profil designer.",
-        "INFO_2" : "Pour le creer, remplissez les informations minimales ci-dessous.",
-        "INFO_3": "Vous pourrez ensuite modifier ou compléter votre profil en ayant accès à votre dashboard.",
-        "CREER_DESIGNER": "Créer le designer",
-        "CONFIGURER": "Configurer votre profil",
-        "DECONNECTER": "Se déconnecter"
+    "7": {
+      "TITRE": "Comment OWOD contribue-t-elle à la valorisation du design en Afrique ?",
+      "TEXTE": "OWOD met en avant les créateurs africains et de la diaspora."
     },
-    "PHOTO": {
-        "CHANGER": "Changer la photo",
-        "EXPLICATION_1": "Pour garantir l’harmonie visuelle sur le site, nous vous demandons de télécharger une photo avec un fond transparent. Vous pouvez facilement retirer le fond de votre photo en utilisant ce site :",
-        "EXPLICATION_2": "Cela ne prendra que quelques secondes !",
-        "EXPLICATION_3": "Nous vous invitons également à choisir une photo de format carré, où vous êtes visible de face, de la tête à la ceinture. Ces consignes permettent d’assurer une présentation uniforme et esthétique du site. ",
-        "EXPLICATION_4": "Merci pour votre compréhension et votre coopération !",
-        "ANNULER": "Annuler",
-        "VALIDER": "Valider"
+    "8": {
+      "TITRE": "Que faire en cas de problème technique ?",
+      "TEXTE": "Contactez notre support à support@aipda-design.org."
     },
-        "ABOUT": {
-          "TITRE": "À propos de l'AIPDA",
-          "TITRE_P1": "Qui sommes-nous ?",
-          "P1": "L'AIPDA (Alliance Internationale pour la Promotion du Design en Afrique) est une organisation qui valorise le design comme un outil stratégique pour le développement durable et l'innovation en Afrique. Nous soutenons les designers, entreprises, institutions et territoires à travers des projets, des formations et des événements inspirants.",
-          "TITRE_P2": "Manifeste de l’AIPDA",
-          "P2_1": "Le monde entier assiste à un changement de paradigme politique, culturel, économique, social et environnemental.",
-          "P2_2": "L'Afrique émerge et prend conscience de ses atouts grâce à sa jeunesse dynamique, sa diaspora et ses citoyens engagés.",
-          "P2_3": "Nous avons jugé pertinent de fonder une organisation de design d'utilité publique pour apporter des solutions adaptées aux défis de l'Afrique.",
-          "TITRE_P3": "Missions de l’AIPDA",
-          "MISSION_PRINCIPALE": "Mission principale",
-          "MISSION_PRINCIPALE_TEXTE": "Renforcer la présence du Design en Afrique, dans les territoires afrodescendants tout en soutenant les acteurs.",
-          "AXES_DEV": "Axes de développement",
-          "DIFFUSER": "Diffuser le Design",
-          "DIFFUSER_TEXTE": "Faire en sorte que le design ne soit plus simplement perçu comme un processus esthétique, mais comme un atout stratégique.",
-          "RENFORCER": "Renforcer les capacités",
-          "RENFORCER_TEXTE": "Mettre en place des programmes d’éducation et intégrer l'excellence du design à divers niveaux.",
-          "ENCOURAGER": "Encourager l’innovation",
-          "ENCOURAGER_TEXTE": "Créer des cadres propices à l’expression et à l'innovation.",
-          "CONTRIBUER": "Contribuer au développement",
-          "CONTRIBUER_TEXTE": "Recourir aux principes du design pour élaborer des solutions favorisant le progrès.",
-          "FAQ_TITRE": "Foire aux Questions (FAQ)",
-          "FAQ_1": "Qu’est-ce que OWOD ?",
-          "FAQ_1_TEXTE": "OWOD est une plateforme collaborative initiée par l’AIPDA pour connecter les designers africains et leur diaspora.",
-          "FAQ_2": "Qui peut utiliser OWOD ?",
-          "FAQ_2_TEXTE": "Toute personne intéressée par le design africain peut rejoindre la plateforme.",
-          "FAQ_3": "Comment puis-je m’inscrire sur OWOD ?",
-          "FAQ_3_TEXTE": "Pour vous inscrire, rendez-vous sur owod.aipda-design.org.",
-          "FAQ_4": "Quelles sont les principales fonctionnalités de OWOD ?",
-          "FAQ_4_TEXTE": "Portfolio en ligne, réseautage, appels à projets, bibliothèque de ressources.",
-          "FAQ_5": "L’utilisation de OWOD est-elle gratuite ?",
-          "FAQ_5_TEXTE": "OWOD propose une version gratuite avec des fonctionnalités de base.",
-          "FAQ_6": "Puis-je partager mes projets personnels sur la plateforme ?",
-          "FAQ_6_TEXTE": "Oui, OWOD encourage le partage de projets personnels pour obtenir des retours.",
-          "FAQ_7": "Comment OWOD contribue-t-elle à la valorisation du design en Afrique ?",
-          "FAQ_7_TEXTE": "OWOD met en avant les créateurs africains et de la diaspora.",
-          "FAQ_8": "Que faire en cas de problème technique ?",
-          "FAQ_8_TEXTE": "Contactez notre support à support@aipda-design.org.",
-          "FAQ_9": "Comment mes données personnelles sont-elles protégées ?",
-          "FAQ_9_TEXTE": "Vos données sont protégées conformément au RGPD.",
-          "FAQ_10": "Comment rejoindre l’AIPDA en tant que membre ?",
-          "FAQ_10_TEXTE": "Rendez-vous sur www.aipda-design.org pour adhérer.",
-          "FAQ_11": "Puis-je proposer des idées ou des suggestions pour OWOD ?",
-          "FAQ_11_TEXTE": "Envoyez vos suggestions à feedback@aipda-design.org.",
-          "FAQ_12": "Quels types de contenus sont interdits sur OWOD ?",
-          "FAQ_12_TEXTE": "OWOD interdit les contenus illégaux ou offensants.",
-          "FAQ_13": "Y a-t-il des événements organisés via OWOD ?",
-          "FAQ_13_TEXTE": "OWOD propose des webinaires, workshops, et concours.",
-          "FAQ_14": "Comment signaler un abus ou un contenu inapproprié ?",
-          "FAQ_14_TEXTE": "Signalez un contenu via le bouton « Signaler » ou contactez info@aipda-design.org.",
-          "FAQ_15": "OWOD est-elle accessible depuis un smartphone ?",
-          "FAQ_15_TEXTE": "OWOD est optimisée pour mobile et une application est en cours de développement.",
-          "AUTRE": "Pour toute autre question, n’hésitez pas à nous contacter à l’adresse : info@aipda-design.org"
-        },
-    "LEGAL": {
+    "9": {
+      "TITRE": "Comment mes données personnelles sont-elles protégées ?",
+      "TEXTE": "Vos données sont protégées conformément au RGPD."
+    },
+    "10": {
+      "TITRE": "Comment rejoindre l’AIPDA en tant que membre ?",
+      "TEXTE": "Rendez-vous sur www.aipda-design.org pour adhérer."
+    },
+    "11": {
+      "TITRE": "Puis-je proposer des idées ou des suggestions pour OWOD ?",
+      "TEXTE": "Envoyez vos suggestions à feedback@aipda-design.org."
+    },
+    "12": {
+      "TITRE": "Quels types de contenus sont interdits sur OWOD ?",
+      "TEXTE": "OWOD interdit les contenus illégaux ou offensants."
+    },
+    "13": {
+      "TITRE": "Y a-t-il des événements organisés via OWOD ?",
+      "TEXTE": "OWOD propose des webinaires, workshops, et concours."
+    },
+    "14": {
+      "TITRE": "Comment signaler un abus ou un contenu inapproprié ?",
+      "TEXTE": "Signalez un contenu via le bouton « Signaler » ou contactez info@aipda-design.org."
+    },
+    "15": {
+      "TITRE": "OWOD est-elle accessible depuis un smartphone ?",
+      "TEXTE": "OWOD est optimisée pour mobile et une application est en cours de développement."
+    },
+    "AUTRE": "Pour toute autre question, n’hésitez pas à nous contacter à l’adresse : info@aipda-design.org"
+
+  },
+
+  "LEGAL": {
     "TITLE": "Mentions Légales",
     "EDITOR": {
       "TITLE": "1. Éditeur du Site",
@@ -154,7 +189,7 @@
     },
     "HOST": {
       "TITLE": "2. Hébergeur du Site",
-      "CONTENT_1": "La plateforme OWOD est hébergée par Heroku." ,
+      "CONTENT_1": "La plateforme OWOD est hébergée par Heroku.",
       "CONTENT_2": "Site web : https://www.heroku.com/ ",
       "CONTENT_3": "Adresse : 415 Mission Street, 94105 San Francisco, CA, Etats-Unis"
     },
@@ -234,7 +269,8 @@
         "TITLE": "12. Loi applicable",
         "CONTENT": "Les CGU sont régies par la loi française. Les litiges seront soumis aux tribunaux français."
       }
-  }},
+    }
+  },
   "CONTACT": {
     "TITLE": "Contactez-nous",
     "EMAIL_LABEL": "Adresse email",
@@ -257,13 +293,10 @@
     "CONTACT": "Nous contacter",
     "LIENS_UTILES": "Liens utiles",
     "CATALOGUE": "Catalogue",
+    "FAQ": "Foire aux questions",
     "A_PROPOS": "À propos",
     "CONTACTEZ_NOUS": "Contactez-nous",
     "CGV": "Mentions légales",
     "DROITS": "Tous droits réservés"
   }
-      
-      
-    
-    
 }

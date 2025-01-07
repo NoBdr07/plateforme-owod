@@ -39,8 +39,8 @@
       </div>
 
       <!-- Zone pour afficher l'agrandissement -->
-      <div *ngIf="previewImage" class="preview-overlay" (click)="hidePreviewMobile()">
-        <img [src]="previewImage" class="overlay-image" />
+      <div *ngIf="previewImage" class="preview-overlay" (click)="hidePreviewMobile()" >
+        <img [src]="previewImage" class="overlay-image" (click)="$event.stopPropagation()" />
       </div>
     </div>
 
@@ -56,19 +56,19 @@
       <p>
         <strong>{{ "DASHBOARD.SPECIALITE" | translate }} : </strong>
         <span *ngFor="let specialty of designer.specialties"
-          >{{ specialty }} |
+          >{{ specialty }}  
         </span>
       </p>
       <p>
         <strong>{{ "DASHBOARD.SPHERE" | translate }} : </strong>
         <span *ngFor="let sphere of designer.spheresOfInfluence"
-          >{{ sphere }} |
+          >{{ sphere }}  
         </span>
       </p>
       <p>
         <strong>{{ "DASHBOARD.PROFESSION" | translate }} : </strong>
         <span *ngFor="let sector of designer.favoriteSectors"
-          >{{ sector }} |
+          >{{ sector }}  
         </span>
       </p>
     </div>

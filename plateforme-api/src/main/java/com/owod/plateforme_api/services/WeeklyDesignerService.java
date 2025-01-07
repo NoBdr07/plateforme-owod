@@ -8,14 +8,12 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.data.mongodb.core.query.Criteria;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 @Service
 public class WeeklyDesignerService {
@@ -61,7 +59,7 @@ public class WeeklyDesignerService {
             }
         }
     }
-    
+
 
     public WeeklyDesigner getLastWeeklyDesigner() {
         Query query = new Query();

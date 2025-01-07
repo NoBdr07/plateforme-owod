@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CatalogueComponent } from './catalogue.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('CatalogueComponent', () => {
   let component: CatalogueComponent;
@@ -8,7 +10,7 @@ describe('CatalogueComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CatalogueComponent]
+      imports: [CatalogueComponent, HttpClientTestingModule, TranslateModule.forRoot()]
     })
     .compileComponents();
     

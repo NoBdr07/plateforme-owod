@@ -134,7 +134,7 @@
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 1000;
-  pointer-events: none;
+  cursor: pointer;
 }
 
 .overlay-image {
@@ -143,7 +143,6 @@
   object-fit: contain;
   border-radius: 8px;
   transition: transform 0.3s ease-in-out;
-  z-index: 1000;
 }
 
 .realisation-photo:hover {
