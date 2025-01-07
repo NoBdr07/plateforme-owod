@@ -19,3 +19,6 @@ plateforme-api/.env
 
 # Ignorer les images uploader en local pour le développement
 uploads/
+
+.angular/cache
+
