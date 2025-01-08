@@ -24,17 +24,6 @@ h2 {
   padding-left: 10px;
 }
 
-ol,
-ul {
-  margin: 0 0 20px 20px;
-  padding: 0;
-  list-style-position: outside;
-}
-
-li {
-  margin-bottom: 10px;
-}
-
 p {
   margin: 10px 0;
 }
@@ -48,4 +37,10 @@ strong {
   font-size: larger;
   text-align: center;
   margin-top: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .faq-title {
+    margin-top: 0;
+  }
 }

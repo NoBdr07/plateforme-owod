@@ -10,7 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { TranslateModule } from '@ngx-translate/core';
-import { NotificationService } from '../services/notifcation.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
@@ -39,15 +38,14 @@ export class RegisterComponent implements OnDestroy {
   constructor(
     private readonly authService: AuthService,
     private readonly fb: FormBuilder,
-    private readonly router: Router,
-    private readonly notificationService: NotificationService
+    private readonly router: Router
   ) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       emailConfirmation: ['', [Validators.required, Validators.email]],
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       passwordConfirmation: ['', Validators.required],
       dataConsent: ['', Validators.requiredTrue]
     }, {validators: [this.emailMatchValidator(), this.passwordMatchValidator()]});

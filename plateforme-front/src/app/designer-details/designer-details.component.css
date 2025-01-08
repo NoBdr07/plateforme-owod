@@ -121,6 +121,17 @@
     z-index: 1000;
 }
 
+.bubble {
+  background-color: lightgray;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.more-line-height {
+  line-height: 40px;
+}
+
 
 /* Grossissement des réalisations au survol */
 .preview-overlay {

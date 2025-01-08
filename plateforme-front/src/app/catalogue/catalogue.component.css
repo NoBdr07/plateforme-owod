@@ -14,10 +14,6 @@
   width: 30%;
 }
 
-button {
-  color: black !important;
-}
-
 .filtre {
   display: flex;
   flex-direction: row;
@@ -89,11 +85,19 @@ button {
 }
 
 .mat-mdc-raised-button {
-  color: white !important;
+  color: white !important ;
+}
+
+.black {
+  color: black !important;
 }
 
 .mat-mdc-raised-button[disabled] {
   background-color: darkgray !important;
+}
+
+button {
+  font-family: "Red Hat Display", sans-serif !important;
 }
 
 /** REGLES POUR MOBILES **/
@@ -140,7 +144,7 @@ button {
  
   .designer-info {
     font-size: 12px; /* Taille fixe au lieu de vw */
-    top: -55px;
+    top: -65px;
   }
  
   /* Pagination */

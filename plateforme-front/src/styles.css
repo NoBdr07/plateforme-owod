@@ -79,7 +79,11 @@ mat-label {
 h1 {
   font-size: 48px;
   font-weight: 700;
-  font-family: "Red Hat Display", sans-serif;
+  font-family: "Red Hat Display", sans-serif !important;
+}
+
+h2 {
+  font-family: "Red Hat Display", sans-serif !important;
 }
 
 .success-snackbar {

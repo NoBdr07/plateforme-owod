@@ -67,6 +67,7 @@
     "JOIN": "Join the OWOD catalog now!",
     "CONFIRM_EMAIL": "Confirm email",
     "CONFIRM_MDP": "Confirm password",
+    "MDP_TROP_COURT": "Your password must contain at least 8 characters.",
     "CONSENT_1": "I agree that my data will be collected and used in accordance with the",
     "CONSENT_2": "privacy policy",
     "INSCRIRE": "Sign up",

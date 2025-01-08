@@ -53,21 +53,21 @@
       <p *ngIf="designer.professionalLevel">
         <strong>{{ "DASHBOARD.NIVEAU" | translate }} : </strong><span>{{ designer.professionalLevel }}</span>
       </p>
-      <p>
+      <p class="more-line-height">
         <strong>{{ "DASHBOARD.SPECIALITE" | translate }} : </strong>
-        <span *ngFor="let specialty of designer.specialties"
+        <span class="bubble" *ngFor="let specialty of designer.specialties"
           >{{ specialty }}  
         </span>
       </p>
-      <p>
+      <p class="more-line-height">
         <strong>{{ "DASHBOARD.SPHERE" | translate }} : </strong>
-        <span *ngFor="let sphere of designer.spheresOfInfluence"
+        <span class="bubble" *ngFor="let sphere of designer.spheresOfInfluence"
           >{{ sphere }}  
         </span>
       </p>
-      <p>
+      <p class="more-line-height">
         <strong>{{ "DASHBOARD.PROFESSION" | translate }} : </strong>
-        <span *ngFor="let sector of designer.favoriteSectors"
+        <span class="bubble" *ngFor="let sector of designer.favoriteSectors"
           >{{ sector }}  
         </span>
       </p>
