@@ -19,6 +19,12 @@ public class JwtUtils {
     @Value("${owod.plateforme-api.jwtExpirationMs}")
     private int jwtExpirationMs;
 
+    @Value("${cookie.secure}")
+    private boolean cookieSecure;
+
+    @Value("${cookie.httpOnly}")
+    private boolean cookieHttpOnly;
+
     /**
      * Method to generate a token containing the username
      * @param userId
@@ -76,10 +82,10 @@ public class JwtUtils {
      */
     public Cookie createCookie(String name, String value, int maxAge, boolean secure) {
         Cookie cookie = new Cookie(name, value);
-        cookie.setHttpOnly(false); // REMMETTRE A TRUE EN PRODUCTION
-        cookie.setSecure(false); // REMETTRE A SECURE EN PRODUCTION
+        cookie.setHttpOnly(cookieHttpOnly);
+        cookie.setSecure(cookieSecure);
         cookie.setPath("/");
-        cookie.setMaxAge(maxAge); // Durée de vie du cookie
+        cookie.setMaxAge(maxAge);
         return cookie;
     }
 }
