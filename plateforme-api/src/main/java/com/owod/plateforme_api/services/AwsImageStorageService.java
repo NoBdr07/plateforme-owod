@@ -1,5 +1,6 @@
 package com.owod.plateforme_api.services;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -8,35 +9,30 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectResponse;
-import software.amazon.awssdk.services.s3.presigner.S3Presigner;
-import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.time.Duration;
 import java.util.UUID;
 
-@Service
 public class AwsImageStorageService implements ImageStorageService {
 
-    @Value("${aws.s3.bucket}")
+    @Value("${aws.s3.bucket-name}")
     private String bucketName;
 
-    @Value("${aws.region}")
+    @Value("${aws.s3.region}")
     private String region;
 
-    @Value("${aws.accessKey}")
+    @Value("${aws.s3.access-key}")
     private String accessKey;
 
-    @Value("${aws.secretKey}")
+    @Value("${aws.s3.secret-key}")
     private String secretKey;
 
     private S3Client s3Client;
 
-    public AwsImageStorageService() {
+    @PostConstruct
+    public void init() {
         this.s3Client = S3Client.builder()
                 .region(Region.of(region))
                 .credentialsProvider(
@@ -53,7 +49,6 @@ public class AwsImageStorageService implements ImageStorageService {
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
                 .key(fileName)
-                .acl("public-read") // Rendre le fichier accessible publiquement
                 .build();
 
         s3Client.putObject(putObjectRequest, convertedFile.toPath());

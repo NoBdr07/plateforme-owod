@@ -3,7 +3,6 @@ package com.owod.plateforme_api.controllers;
 import com.owod.plateforme_api.configuration.TestSecurityConfig;
 import com.owod.plateforme_api.models.entities.Designer;
 import com.owod.plateforme_api.models.entities.User;
-import com.owod.plateforme_api.services.ImageStorageService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +32,6 @@ class DesignerControllerIntegrationTest {
 
     @Autowired
     private MongoTemplate mongoTemplate;
-
-    @Autowired
-    private ImageStorageService imageStorageService;
 
     @BeforeEach
     void setup() {

@@ -18,7 +18,7 @@ public class ImageStorageConfig {
 
     @Bean
     @Profile("prod")
-    public ImageStorageService ionosImageStorageService() {
+    public ImageStorageService awsImageStorageService() {
         return new AwsImageStorageService();
     }
 }
