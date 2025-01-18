@@ -24,7 +24,7 @@
     </p>
     <p class="biography">{{ designer.biography }}</p>
 
-    <div *ngIf="designer.majorWorks" class="realisations">
+    <div *ngIf="designer.majorWorks.length > 0" class="realisations">
       <p class="group-title">{{ "DESIGNER_DETAILS.REALISATIONS" | translate }}</p>
       <div class="preview-container">
         <div *ngFor="let realisationUrl of designer.majorWorks">
