@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) // ActiveRecord CSRF pour une API stateless
                 .cors(cors -> cors.configurationSource(request -> {
                     var corsConfig = new CorsConfiguration();
-                    corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:4200", "https://main.d1lf0fuh3iusdk.amplifyapp.com", "https://owod.aipda-design.org"));
+                    corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:4200", "https://owod.aipda-design.org"));
                     corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
                     corsConfig.setAllowedHeaders(Arrays.asList("Authorization",
                             "Content-Type",

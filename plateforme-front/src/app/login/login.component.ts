@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
       const sub = this.authService.login(email, password).subscribe({
         next: () => {
-          this.authService.checkTokenPresence();
+          this.authService.checkAuthStatus();
           this.router.navigate(['account']);
         },
         error: (error) => {

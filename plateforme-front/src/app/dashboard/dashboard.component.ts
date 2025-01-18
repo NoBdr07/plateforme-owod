@@ -77,8 +77,7 @@ export class DashboardComponent {
   }
 
   ngOnInit(): void {
-    const userId = this.authService.getUserIdFromToken();
-    console.log('UserId : ' + userId);
+    const userId = this.authService.getUserId();
 
     if (userId) {
       const sub = this.designerService.getDesignerByUserId(userId).subscribe({

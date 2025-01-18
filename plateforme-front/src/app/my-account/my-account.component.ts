@@ -59,7 +59,7 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const userId = this.authService.getUserIdFromToken(); // Récupère l'userId
+    const userId = this.authService.getUserId(); // Récupère l'userId
     if (userId) {
       const sub = this.userService.hasAnAccount(userId).subscribe({
         next: (hasAccount: boolean) => {

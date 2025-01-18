@@ -11,12 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -68,6 +66,14 @@ public class AuthController {
         return ResponseEntity.ok("Logout successful");
     }
 
+    @GetMapping("/check-token")
+    public ResponseEntity<?> checkToken(@CookieValue(name = "jwt", required=false) String token) {
+        if(token != null && jwtUtils.validateToken(token)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
     /**
      * Endpoint to register a new user
      * @param registerRequest that contains infos about user and a boolean admin
@@ -96,5 +102,19 @@ public class AuthController {
         userService.save(newUser);
 
         return ResponseEntity.ok("User registered successfully");
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getCurrentUser(@CookieValue(name = "jwt", required = false) String token) {
+        if (token == null || !jwtUtils.validateToken(token)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String userId = jwtUtils.getUsernameFromToken(token);
+        if (userService.findByUserId(userId).isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        return ResponseEntity.ok(Map.of("userId", userId));
     }
 }

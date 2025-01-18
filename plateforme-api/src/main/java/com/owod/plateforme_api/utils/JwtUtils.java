@@ -25,6 +25,9 @@ public class JwtUtils {
     @Value("${cookie.httpOnly}")
     private boolean cookieHttpOnly;
 
+    @Value("${cookie.domain}")
+    private String domain;
+
     /**
      * Method to generate a token containing the username
      * @param userId
@@ -84,6 +87,7 @@ public class JwtUtils {
         Cookie cookie = new Cookie(name, value);
         cookie.setHttpOnly(cookieHttpOnly);
         cookie.setSecure(cookieSecure);
+        cookie.setDomain(domain);
         cookie.setAttribute("SameSite", "None");
         cookie.setPath("/");
         cookie.setMaxAge(maxAge);
