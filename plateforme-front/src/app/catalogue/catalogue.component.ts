@@ -79,7 +79,7 @@ export class CatalogueComponent implements OnInit, OnDestroy {
           if (category === 'sector')
             return designer.favoriteSectors.includes(item);
           if (category === 'country')
-            return designer.countryOfResidence === item;
+            return designer.countryOfResidence.trim() == item.trim();
           return true;
         });
       })
