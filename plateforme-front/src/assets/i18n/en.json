@@ -21,6 +21,7 @@
     "PAYS": "Country of residence",
     "ETUDIANT": "Student",
     "ARTISAN": "Craftsman",
+    "AUTRE": "Other",
     "PRECEDENT": "Previous",
     "SUR": "of",
     "SUIVANT": "Next"

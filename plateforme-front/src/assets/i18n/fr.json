@@ -19,8 +19,9 @@
     "SPHERE": "Sphère d'influence",
     "SECTEUR": "Secteurs",
     "PAYS": "Pays de résidence",
-    "ETUDIANT": "Student",
+    "ETUDIANT": "Etudiant",
     "ARTISAN": "Artisan",
+    "AUTRE": "Autre",
     "PRECEDENT": "Précédent",
     "SUR": "sur",
     "SUIVANT": "Suivant"
