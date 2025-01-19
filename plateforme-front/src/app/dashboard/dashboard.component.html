@@ -1,14 +1,19 @@
+<div class="arrow-container" routerLink="/account">
+  <img src="/assets/logos/arrow-back.png" alt="retour"/>
+  <p>{{ "DASHBOARD.BACK" | translate }}</p>
+</div>
+
 <div class="dashboard-container">
   <div class="left-container">
     <div class="photo-section">
-      <img class="background" src="assets/images/back.png" />
+      <img class="background" src="assets/images/back.png" alt="logo de l'association internationale pour le design en Afrique"/>
       <img
         [src]="
           designerForm.value.profilePicture ||
           'assets/logos/default-profile.png'
         "
         alt="Photo de profil"
-        class="photo"
+        class="photo de profil du designer"
       />
       <button
         mat-raised-button
@@ -26,7 +31,7 @@
           *ngFor="let image of designerForm.value.majorWorks; let i = index"
           class="realisation-item"
         >
-          <img class="realisation" [src]="image" />
+          <img class="realisation" [src]="image" alt="réalisation d'un des designer de la plateforme de l'AIPDA"/>
           <button
             mat-raised-button
             color="warn"

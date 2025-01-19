@@ -26,6 +26,7 @@
     "SUIVANT": "Next"
   },
   "DASHBOARD": {
+    "BACK": "Back to your account",
     "CHANGE_PHOTO": "Change photo",
     "REALISATIONS": "Projects",
     "SUPPRIMER": "Delete",

@@ -7,6 +7,23 @@
   margin-top: 200px;
 }
 
+.arrow-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin: 50px;
+  font-size: 20px;
+  align-items: center;
+}
+
+.arrow-container p {
+  margin: 0;
+}
+
+.arrow-container:hover {
+  cursor: pointer;
+}
+
 /** SECTION DE GAUCHE **/
 
 .left-container {

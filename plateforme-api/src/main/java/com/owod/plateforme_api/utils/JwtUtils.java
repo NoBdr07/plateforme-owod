@@ -25,8 +25,9 @@ public class JwtUtils {
     @Value("${cookie.httpOnly}")
     private boolean cookieHttpOnly;
 
-    @Value("${cookie.domain}")
-    private String domain;
+    @Value("${cookie.sameSite}")
+    private boolean sameSite;
+
 
     /**
      * Method to generate a token containing the username
@@ -87,8 +88,9 @@ public class JwtUtils {
         Cookie cookie = new Cookie(name, value);
         cookie.setHttpOnly(cookieHttpOnly);
         cookie.setSecure(cookieSecure);
-        cookie.setDomain(domain);
-        cookie.setAttribute("SameSite", "None");
+        if(sameSite) {
+            cookie.setAttribute("SameSite", "None");
+        }
         cookie.setPath("/");
         cookie.setMaxAge(maxAge);
         return cookie;

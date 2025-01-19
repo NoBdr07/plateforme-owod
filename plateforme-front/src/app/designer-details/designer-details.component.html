@@ -1,15 +1,15 @@
 <div class="arrow-container" routerLink="/catalogue">
-  <img src="/assets/logos/arrow-back.png" />
+  <img src="/assets/logos/arrow-back.png" alt="retour"/>
   <p>{{ "DESIGNER_DETAILS.RETOUR" | translate }}</p>
 </div>
 
 <div class="details-container">
   <!-- Photo -->
   <div class="photo-section">
-    <img class="background" src="assets/images/back.png" />
+    <img class="background" src="assets/images/back.png" alt="logo de l'AIPDA, association internationale pour la promotion du design en Afrique"/>
     <img
       [src]="designer.profilePicture || 'assets/images/default-profile.png'"
-      alt="Photo de profil"
+      alt="Photo de profil d'un des designers de la plateforme OWOD, our World of Design"
       class="photo"
     />
     <p class="photo-name">{{ designer.firstname }} {{ designer.lastname }}</p>
@@ -34,13 +34,14 @@
             (mouseover)="showPreview(realisationUrl)"
             (mouseout)="hidePreview()"
             (click)="showPreviewMobile(realisationUrl)"
+            alt="réalisation d'un des designers de la plateforme OWOD de l'AIPDA"
           />
         </div>
       </div>
 
       <!-- Zone pour afficher l'agrandissement -->
       <div *ngIf="previewImage" class="preview-overlay" (click)="hidePreviewMobile()" >
-        <img [src]="previewImage" class="overlay-image" (click)="$event.stopPropagation()" />
+        <img [src]="previewImage" class="overlay-image" (click)="$event.stopPropagation()" alt="réalisation d'un des designers de la plateforme OWOD de l'AIPDA"/>
       </div>
     </div>
 

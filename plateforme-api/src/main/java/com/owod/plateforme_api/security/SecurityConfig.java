@@ -33,6 +33,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(request -> {
                     var corsConfig = new CorsConfiguration();
                     corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:4200", "https://owod.aipda-design.org"));
+
                     corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
                     corsConfig.setAllowedHeaders(Arrays.asList("Authorization",
                             "Content-Type",

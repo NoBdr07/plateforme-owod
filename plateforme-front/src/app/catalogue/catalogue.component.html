@@ -90,8 +90,8 @@
     *ngFor="let designer of designers"
     [routerLink]="['/details', designer.id]"
   >
-    <img class="background" src="assets/images/back.png" />
-    <img [src]="designer.profilePicture" class="photo" />
+    <img class="background" src="assets/images/back.png" alt="Retour"/>
+    <img [src]="designer.profilePicture" class="photo" alt="Photo de profil d'un designer"/>
     <p class="designer-name">
       {{ designer.firstname }} {{ designer.lastname }}
     </p>

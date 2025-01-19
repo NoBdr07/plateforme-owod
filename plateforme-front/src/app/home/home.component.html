@@ -6,8 +6,8 @@
 
     <div class="designer" *ngIf="weeklyDesigner$ | async as designer">
       <div class="img-container">
-        <img class="background" src="assets/images/back.png" />
-        <img class="designer-image" [src]="designer.profilePicture" />
+        <img class="background" src="assets/images/back.png" alt="logo de l'AIPDA (association internationale pour le design en Afrique) pour OWOD, our World of Design."/>
+        <img class="designer-image" [src]="designer.profilePicture" alt="photo de profil d'un designer de la plateforme OWOD" />
       </div>
       <p class="designer-name">
         {{ designer.firstname }} {{ designer.lastname }}
@@ -39,6 +39,7 @@
             class="arrow"
             routerLink="catalogue"
             src="assets/logos/arrow.png"
+            alt="flèche"
           />
         </div>
       </div>
@@ -49,8 +50,8 @@
         *ngIf="designers$ | async as designers"
       >
         <div class="preview" *ngFor="let designer of designers">
-          <img src="/assets/images/back-blue.png" class="preview-background" />
-          <img [src]="designer.profilePicture" class="preview-photo" />
+          <img src="/assets/images/back-blue.png" class="preview-background" alt="logo de l'AIPDA, OWOD"/>
+          <img [src]="designer.profilePicture" class="preview-photo" alt="photo de profil d'un des designers d'OWOD"/>
           <p class="preview-name">
             {{ designer.firstname }} {{ designer.lastname }}
           </p>
@@ -67,6 +68,7 @@
             class="arrow"
             src="assets/logos/arrow.png"
             routerLink="account"
+            alt="fleche"
           />
         </div>
       </div>
@@ -76,6 +78,7 @@
           class="user-icon"
           src="assets/logos/User.png"
           routerLink="account"
+          alt="compte utilisateur"
         />
       </div>
     </div>
