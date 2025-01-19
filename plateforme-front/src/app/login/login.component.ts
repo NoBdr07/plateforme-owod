@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { Subscription } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -69,15 +69,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
 
-      const sub = this.authService.login(email, password).subscribe({
+      const sub = this.authService.login(email, password).pipe(
+        switchMap(() => this.authService.checkAuthStatus())
+      ).subscribe({
         next: () => {
-          this.authService.checkAuthStatus();
           this.router.navigate(['account']);
         },
         error: (error) => {
           this.errorMessage = error.error.message;
-        },
-      });
+        }
+      })
       this.subscriptions.add(sub);
     } else {
       this.errorMessage = "Le formulaire n'est pas rempli correctement.";

@@ -218,6 +218,11 @@ public class DesignerController {
                 uploadedUrls.add(url);
             }
 
+            // Vérifier qu'il n'y pas plus de 3 réalisations
+            if (uploadedUrls.size() > 3) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("3 majorWorks maximum");
+            }
+
             // Mettre à jour les majorWorks
             Designer designer = optionalDesigner.get();
             List<String> existingWorks = designer.getMajorWorks();

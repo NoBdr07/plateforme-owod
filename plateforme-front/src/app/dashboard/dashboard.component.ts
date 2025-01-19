@@ -178,6 +178,16 @@ export class DashboardComponent {
 
     if(input.files && input.files.length > 0) {
       const fileList = Array.from(input.files);
+      const maxSizeMB = 3;
+
+      // Vérifier la taille de chaque fichier selectionné
+      for (let file of fileList) {
+        if (file.size > maxSizeMB * 1024 * 1024) {
+          alert(`Le fichier ${file.name} est trop volumineux. Taille maximale : ${maxSizeMB} Mo.`);
+          return;
+        }
+      }
+
       this.newMajorWorks = [...fileList]
     }
   }

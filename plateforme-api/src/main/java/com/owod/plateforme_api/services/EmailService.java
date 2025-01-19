@@ -16,6 +16,9 @@ public class EmailService {
     @Value("${MAIL_USERNAME}")
     private String fromEmail;
 
+    @Value("${mail.contact}")
+    private String toEmail;
+
     public void sendPasswordResetEmail(String toEmail, String resetLink) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(fromEmail);
@@ -39,7 +42,7 @@ public class EmailService {
     public void sendContactEmail(ContactRequest request) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(request.getEmail());
-        message.setTo("baudry.ddf@gmail.com"); // REMPLACER EN PROD
+        message.setTo(toEmail);
         message.setSubject("Plateforme OWOD - demande de contact :  " + request.getSubject());
         message.setText(
                 "Email: " + request.getEmail() + "\n" +

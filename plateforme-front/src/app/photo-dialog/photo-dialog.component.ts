@@ -31,7 +31,16 @@ export class PhotoDialogComponent {
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      this.data.picture = input.files[0]; // Stocker le fichier sélectionné
+      const file = input.files[0];
+
+      // Vérification de la taille du fichier (max 2 Mo)
+      const maxSizeMB = 3;
+      if (file.size > maxSizeMB * 1024 * 1024) {
+        alert(`Le fichier est trop volumineux. Taille maximale : ${maxSizeMB} Mo.`);
+        return
+      }
+
+      this.data.picture = file;
     }
   }  
 

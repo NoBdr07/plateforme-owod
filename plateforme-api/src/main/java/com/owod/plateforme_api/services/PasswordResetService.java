@@ -3,6 +3,7 @@ package com.owod.plateforme_api.services;
 import com.owod.plateforme_api.models.entities.User;
 import com.owod.plateforme_api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,9 @@ public class PasswordResetService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Value("${app.frontend.url}")
+    private String frontUrl;
+
     public void initiatePasswordReset(String email) {
         User user = userService.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
@@ -36,7 +40,7 @@ public class PasswordResetService {
         user.setResetTokenExpiry(expiryDate);
         userRepository.save(user);
 
-        String resetLink = "http://localhost:4200/reset-password?token="+ token; // URL A CHANGER EN PROD
+        String resetLink = frontUrl + "/reset-password?token="+ token;
         emailService.sendPasswordResetEmail(email, resetLink);
     }
 

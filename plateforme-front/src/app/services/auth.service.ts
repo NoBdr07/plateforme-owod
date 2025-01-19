@@ -19,8 +19,6 @@ export class AuthService {
 
   public isLogged = false;
   private isLoggedSubject = new BehaviorSubject<boolean>(this.isLogged);
-  private lastTokenCheck: number = 0;
-  private readonly TOKEN_CHECK_INTERVAL = 30000; // 30 secondes
 
   constructor(
     private readonly http: HttpClient,
@@ -86,30 +84,24 @@ export class AuthService {
   /**
    * Vérifie la présence d'un token et met à jour l'état de connexion.
    */
-  checkAuthStatus(): void {
-    const now = Date.now();
-    if (now - this.lastTokenCheck < this.TOKEN_CHECK_INTERVAL) {
-      return;
-    }
-
-    this.lastTokenCheck = now;
-
-    this.http
+  checkAuthStatus(): Observable<UserInfo> {
+    return this.http
       .get<UserInfo>(`${this.apiUrl}/me`, {
         withCredentials: true,
       })
-      .subscribe({
-        next: (userInfo) => {
+      .pipe(
+        tap((userInfo) => {
           this.isLogged = true;
           this.userId = userInfo.userId;
           this.next();
-        },
-        error: () => {
+        }),
+        catchError((error) => {
           this.isLogged = false;
           this.userId = null;
           this.next();
-        },
-      });
+          throw error;
+        })
+    );
   }
 
   /**

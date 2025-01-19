@@ -47,7 +47,7 @@
         multiple
         (change)="onRealisationSelected($event)"
       />
-      <button mat-raised-button (click)="updateWorks()">
+      <button  mat-raised-button (click)="updateWorks()" [disabled]="designerForm.value.majorWorks?.length >= 3">
         {{ "DASHBOARD.AJOUT_REAL" | translate }}
       </button>
     </div>
