@@ -79,7 +79,7 @@ export class CatalogueComponent implements OnInit, OnDestroy {
           if (category === 'sector')
             return designer.favoriteSectors.includes(item);
           if (category === 'country')
-            return designer.countryOfResidence.trim() == item.trim();
+            return designer.countryOfResidence.trim() === item.trim();
           return true;
         });
       })
@@ -142,10 +142,12 @@ export class CatalogueComponent implements OnInit, OnDestroy {
       .map((item) => {
         const val = item[key];
         // Vérifie si val est un tableau, sinon convertit en tableau
-        return Array.isArray(val) ? val : [val];
+        return Array.isArray(val) 
+          ? val.map(v => typeof v === 'string' ? v.trim() : v)
+          : [typeof val === 'string' ? val.trim() : val];
       })
-      .flat() as string[]; // Cast pour s'assurer que les valeurs sont des strings
-
+      .flat() as string[];
+  
     return [...new Set(values)];
   }
 
