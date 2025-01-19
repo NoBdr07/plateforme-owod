@@ -85,5 +85,10 @@ export const routes: Routes = [
             import(
                 './contact/contact.component'
             ).then((c) => c.ContactComponent),
+    },
+    {
+        path: '**',
+        redirectTo: '',
+        pathMatch: 'full'
     }
 ];
