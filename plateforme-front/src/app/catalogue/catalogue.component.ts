@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component,
+  OnInit,
+  OnDestroy,
+  AfterViewInit,
+  ElementRef,
+  ViewChildren,
+  QueryList,
+  HostListener } from '@angular/core';
 import { Designer } from '../interfaces/designer.interface';
 import {
   BehaviorSubject,
@@ -21,7 +28,7 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './catalogue.component.html',
   styleUrl: './catalogue.component.css',
 })
-export class CatalogueComponent implements OnInit, OnDestroy {
+export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
   designers$!: Observable<Designer[]>;
 
   // Variables pour les recherches
@@ -42,6 +49,10 @@ export class CatalogueComponent implements OnInit, OnDestroy {
   currentPage = new BehaviorSubject<number>(1);
   maxPage = new BehaviorSubject<number>(1);
   pageSize: number = 50;
+
+  // Variables pour l'affichage mobile (infos des designers qui s'affichent au scroll)
+  @ViewChildren('designerCard') designerCards!: QueryList<ElementRef>;
+  myDesignersInView: boolean[] = [];
 
   subs = new Subscription();
 
@@ -69,6 +80,9 @@ export class CatalogueComponent implements OnInit, OnDestroy {
       map(([designers, criteria]) => {
         if (!criteria) return designers; // Retourne tous les designers si aucun filtre
         const { category, item } = criteria;
+
+        // liste pour l'affichage des designers sur mobile
+        this.myDesignersInView = new Array(designers.length).fill(false);
 
         return designers.filter((designer) => {
           if (category === 'profession') return designer.profession === item;
@@ -106,6 +120,34 @@ export class CatalogueComponent implements OnInit, OnDestroy {
         return designers.slice(startIndex, endIndex);
       })
     )
+  }
+
+  ngAfterViewInit(): void {
+      this.onWindowScroll();
+  }
+
+  /**
+   * Gestion du scroll pour l'affichage dynamique des infos des
+   * designers sur mobile
+   */
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    console.log("appel de window scroll");
+    if(window.innerWidth >= 768) {
+      return;
+    }
+
+    const centerY = window.innerHeight / 2;
+
+    // On vérifie la position de chaque designer card
+    this.designerCards.forEach((card, i) => {
+      const rect = card.nativeElement.getBoundingClientRect();
+      if (rect.top < centerY && rect.bottom > centerY ) {
+        this.myDesignersInView[i] = true;
+      } else {
+        this.myDesignersInView[i] = false;
+      }
+    })
   }
 
   /**

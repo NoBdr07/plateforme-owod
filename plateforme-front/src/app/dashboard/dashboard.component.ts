@@ -120,6 +120,13 @@ export class DashboardComponent {
     if (this.designerForm.valid) {
       const updatedDesigner = this.designerForm.value as Designer;
 
+      let country = updatedDesigner.countryOfResidence;
+      if (country !== 'USA') {
+        country =
+          country.charAt(0).toUpperCase() + country.slice(1).toLowerCase();
+        updatedDesigner.countryOfResidence = country;
+      }
+
       // Envoi des données au backend
       const sub = this.designerService
         .updateDesignerFields(this.designerId, updatedDesigner)
@@ -212,6 +219,11 @@ export class DashboardComponent {
         }
       })
     }
+  }
+
+  getProfilePicture(): string {
+    const picture = this.designerForm.get('profilePicture')?.value;
+    return picture && picture.trim() !== '' ? picture : 'assets/logos/default-profile.png';
   }
 
   deleteWork(imageUrl: string): void {

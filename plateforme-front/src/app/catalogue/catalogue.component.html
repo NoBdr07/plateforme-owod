@@ -5,7 +5,9 @@
 
   <div class="filtre">
     <img class="filtre-icon" src="assets/logos/filtre.png" alt="Filtre" />
-    <button mat-button class="black" [matMenuTriggerFor]="menu">{{ "CATALOGUE.FILTRE" | translate }}</button>
+    <button mat-button class="black" [matMenuTriggerFor]="menu">
+      {{ "CATALOGUE.FILTRE" | translate }}
+    </button>
   </div>
 
   <mat-menu #menu="matMenu">
@@ -18,7 +20,9 @@
     <button mat-menu-item [matMenuTriggerFor]="menuSphere">
       {{ "CATALOGUE.SPHERE" | translate }}
     </button>
-    <button mat-menu-item [matMenuTriggerFor]="menuSector">{{ "CATALOGUE.SECTEUR" | translate }}</button>
+    <button mat-menu-item [matMenuTriggerFor]="menuSector">
+      {{ "CATALOGUE.SECTEUR" | translate }}
+    </button>
     <button mat-menu-item [matMenuTriggerFor]="menuCountry">
       {{ "CATALOGUE.PAYS" | translate }}
     </button>
@@ -86,19 +90,26 @@
 
 <div
   class="designers-container"
-  *ngIf=" paginatedDesigners$ | async as designers"
+  *ngIf="paginatedDesigners$ | async as designers"
 >
   <div
     class="designer"
-    *ngFor="let designer of designers"
+    *ngFor="let designer of designers; let i = index"
+    #designerCard
     [routerLink]="['/details', designer.id]"
   >
-    <img class="background" src="assets/images/back.png" alt="Retour"/>
-    <img [src]="designer.profilePicture" class="photo" alt="Photo de profil d'un designer"/>
-    <p class="designer-name">
-      {{ designer.firstname }} {{ designer.lastname }}
-    </p>
-    <p class="designer-info">{{ designer.profession }}</p>
+    <img class="background" src="assets/images/back.png" alt="Retour" />
+    <img
+      [src]="designer.profilePicture || 'assets/logos/default-profile.png'"
+      class="photo"
+      alt="Photo de profil d'un designer"
+    />
+    <div class="info-overlay" [class.show-overlay]="myDesignersInView[i]">      
+      <p class="designer-name">
+        {{ designer.firstname }} {{ designer.lastname }}
+      </p>
+      <p class="designer-info">{{ designer.profession }} | {{ designer.countryOfResidence }}</p>
+    </div>
   </div>
 </div>
 
@@ -112,13 +123,16 @@
     {{ "CATALOGUE.PRECEDENT" | translate }}
   </button>
 
-  <span>Page {{ currentPage | async }} {{ "CATALOGUE.SUR" | translate }} {{ maxPage |async }}</span>
+  <span
+    >Page {{ currentPage | async }} {{ "CATALOGUE.SUR" | translate }}
+    {{ maxPage | async }}</span
+  >
 
   <button
     mat-raised-button
     (click)="nextPage()"
     [disabled]="currentPage.value === maxPage.value"
   >
-  {{ "CATALOGUE.SUIVANT" | translate }}
+    {{ "CATALOGUE.SUIVANT" | translate }}
   </button>
 </div>

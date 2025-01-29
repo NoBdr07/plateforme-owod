@@ -8,12 +8,10 @@
   <div class="photo-section">
     <img class="background" src="assets/images/back.png" alt="logo de l'AIPDA, association internationale pour la promotion du design en Afrique"/>
     <img
-      [src]="designer.profilePicture || 'assets/images/default-profile.png'"
+      [src]="designer.profilePicture || 'assets/logos/default-profile.png'"
       alt="Photo de profil d'un des designers de la plateforme OWOD, our World of Design"
       class="photo"
     />
-    <p class="photo-name">{{ designer.firstname }} {{ designer.lastname }}</p>
-    <p class="photo-job">{{ designer.profession }}</p>
   </div>
 
   <!-- Informations -->
@@ -46,7 +44,7 @@
     </div>
 
     <div class="detail">
-      <p class="group-title">{{ "DESIGNER_DETAILS.REALISATIONS" | translate }}</p>
+      <p class="group-title">{{ "DESIGNER_DETAILS.INFORMATIONS" | translate }}</p>
       <p>
         <strong>{{ "DASHBOARD.PROFESSION" | translate }} : </strong>
         <span>{{ designer.profession }} </span>
@@ -67,7 +65,7 @@
         </span>
       </p>
       <p class="more-line-height">
-        <strong>{{ "DASHBOARD.PROFESSION" | translate }} : </strong>
+        <strong>{{ "DASHBOARD.SECTEUR" | translate }} : </strong>
         <span class="bubble" *ngFor="let sector of designer.favoriteSectors"
           >{{ sector }}  
         </span>

@@ -6,15 +6,25 @@
 
     <div class="designer" *ngIf="weeklyDesigner$ | async as designer">
       <div class="img-container">
-        <img class="background" src="assets/images/back.png" alt="logo de l'AIPDA (association internationale pour le design en Afrique) pour OWOD, our World of Design."/>
-        <img class="designer-image" [src]="designer.profilePicture" alt="photo de profil d'un designer de la plateforme OWOD" />
+        <img
+          class="background"
+          src="assets/images/back.png"
+          alt="logo de l'AIPDA (association internationale pour le design en Afrique) pour OWOD, our World of Design."
+        />
+        <img
+          class="designer-image"
+          [src]="designer.profilePicture"
+          alt="photo de profil d'un designer de la plateforme OWOD"
+        />
       </div>
-      <p class="designer-name">
-        {{ designer.firstname }} {{ designer.lastname }}
-      </p>
-      <p class="designer-info">
-        {{ designer.profession }} | {{ designer.countryOfResidence }}
-      </p>
+      <div class="photo-info-container">
+        <p class="designer-name">
+          {{ designer.firstname }} {{ designer.lastname }}
+        </p>
+        <p class="designer-info">
+          {{ designer.profession }} | {{ designer.countryOfResidence }}
+        </p>
+      </div>
       <button
         mat-raised-button
         class="designer-semaine"
@@ -25,7 +35,10 @@
     </div>
 
     <div class="text-gauche">
-      <p class="link"><a routerLink="/about">{{ "HOME.A_PROPOS" | translate }}</a> | <a routerLink="/contact">{{ "HOME.CONTACT" | translate }}</a> </p>
+      <p class="link">
+        <a routerLink="/about">{{ "HOME.A_PROPOS" | translate }}</a> |
+        <a routerLink="/contact">{{ "HOME.CONTACT" | translate }}</a>
+      </p>
     </div>
   </div>
 
@@ -50,11 +63,16 @@
         *ngIf="designers$ | async as designers"
       >
         <div class="preview" *ngFor="let designer of designers">
-          <img src="/assets/images/back-blue.png" class="preview-background" alt="logo de l'AIPDA, OWOD"/>
-          <img [src]="designer.profilePicture" class="preview-photo" alt="photo de profil d'un des designers d'OWOD"/>
-          <p class="preview-name">
-            {{ designer.firstname }} {{ designer.lastname }}
-          </p>
+          <img
+            src="/assets/logos/logo-blanc.png"
+            class="preview-background"
+            alt="logo de l'AIPDA, OWOD"
+          />
+          <img
+            [src]="designer.profilePicture"
+            class="preview-photo"
+            alt="photo de profil d'un des designers d'OWOD"
+          />
         </div>
       </div>
     </div>

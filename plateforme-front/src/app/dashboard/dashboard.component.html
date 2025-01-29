@@ -8,10 +8,7 @@
     <div class="photo-section">
       <img class="background" src="assets/images/back.png" alt="logo de l'association internationale pour le design en Afrique"/>
       <img
-        [src]="
-          designerForm.value.profilePicture ||
-          'assets/logos/default-profile.png'
-        "
+        [src]="getProfilePicture()"
         alt="Photo de profil"
         class="photo de profil du designer"
       />

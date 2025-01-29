@@ -37,6 +37,7 @@ import { PasswordResetService } from '../services/password-reset.service';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
+  badCredentials = false;
   errorMessage = '';
 
   subscriptions = new Subscription();
@@ -76,7 +77,12 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.router.navigate(['account']);
         },
         error: (error) => {
-          this.errorMessage = error.error.message;
+          if(error.message.includes("401")) {
+            this.badCredentials = true;
+          } else {
+            this.errorMessage = error.error.message;
+          }
+          
         }
       })
       this.subscriptions.add(sub);

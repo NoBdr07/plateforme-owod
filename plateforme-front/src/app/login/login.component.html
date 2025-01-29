@@ -14,6 +14,7 @@
     </mat-form-field>
 
     <mat-error *ngIf="errorMessage">{{ errorMessage }}</mat-error>
+    <mat-error *ngIf="badCredentials"> {{ "LOGIN.MAUVAIS_LOGIN" | translate }} </mat-error>
 
     <button mat-raised-button type="submit">{{ "LOGIN.TITRE" | translate }}</button>
   </form>

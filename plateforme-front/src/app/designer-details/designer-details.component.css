@@ -50,25 +50,6 @@
   position: relative;
 }
 
-.photo-name {
-  position: relative;
-  top: -150px;
-  font-variant: small-caps;
-  font-size: 42px;
-  font-weight: 900;
-  z-index: 100;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
-}
-
-.photo-job {
-  position: relative;
-  top: -150px;
-  font-size: 28px;
-  font-weight: 400;
-  z-index: 100;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
-}
-
 /** SECTION DE DROITE : INFORMATIONS **/
 
 .info-section {
@@ -222,7 +203,7 @@
     padding: 20px;
     gap: 15px;
     margin-bottom: 50px;
-    margin-top: -50px;
+    margin-top: 40px;
   }
  
   .info-name {

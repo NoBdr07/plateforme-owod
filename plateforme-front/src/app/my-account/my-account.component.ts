@@ -7,8 +7,13 @@ import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select'
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Specialty } from '../enums/specialty.enum';
 import { SphereOfInfluence } from '../enums/sphere-of-influence.enum';
 import { FavoriteSector } from '../enums/favorite-sector.enum';
@@ -27,7 +32,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MatInputModule,
     MatSelectModule,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
   ],
   templateUrl: './my-account.component.html',
   styleUrl: './my-account.component.css',
@@ -66,7 +71,10 @@ export class MyAccountComponent implements OnInit, OnDestroy {
           this.hasAccount = hasAccount;
         },
         error: (err) => {
-          console.error('Erreur lors de la vérification du compte designer:', err);
+          console.error(
+            'Erreur lors de la vérification du compte designer:',
+            err
+          );
         },
       });
       this.subscriptions.add(sub);
@@ -78,6 +86,12 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     if (this.accountForm.valid) {
       const formData = this.accountForm.value;
+      let country = formData.countryOfResidence;
+      if (country !== 'USA') {
+        country =
+          country.charAt(0).toUpperCase() + country.slice(1).toLowerCase();
+        formData.countryOfResidence = country;
+      }
 
       // Envoyer la requête pour créer le designer
       const sub = this.designerService.createDesigner(formData).subscribe({

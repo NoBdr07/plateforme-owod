@@ -62,7 +62,8 @@
     "MDP": "Password",
     "MDP_OUBLIE": "Forgot password?",
     "PAS_DE_COMPTE": "Don't have an account?",
-    "INSCRIPTION": "Sign up"
+    "INSCRIPTION": "Sign up",
+    "MAUVAIS_LOGIN": "Wrong email or password"
   },
   "REGISTER": {
     "TITRE": "Create a member account",
