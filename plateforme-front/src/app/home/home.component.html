@@ -13,7 +13,7 @@
         />
         <img
           class="designer-image"
-          [src]="designer.profilePicture"
+          [src]="designer.profilePicture || 'assets/logos/default-profile.png'"
           alt="photo de profil d'un designer de la plateforme OWOD"
         />
       </div>
@@ -69,7 +69,7 @@
             alt="logo de l'AIPDA, OWOD"
           />
           <img
-            [src]="designer.profilePicture"
+          [src]="designer.profilePicture || 'assets/logos/default-profile.png'"
             class="preview-photo"
             alt="photo de profil d'un des designers d'OWOD"
           />
