@@ -11,6 +11,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 })
 export class HeaderComponent {
   currentLang!: string;
+  isMenuOpen = false;
 
   constructor(private translateService: TranslateService) {
     // Initialiser avec la langue courante
@@ -20,6 +21,12 @@ export class HeaderComponent {
   switchLanguage(lang: string) {
     this.currentLang = lang;
     this.translateService.use(lang);
+  }
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+    const burgerBtn = document.querySelector('.burger-menu');
+    burgerBtn?.classList.toggle('active');
   }
 
 }

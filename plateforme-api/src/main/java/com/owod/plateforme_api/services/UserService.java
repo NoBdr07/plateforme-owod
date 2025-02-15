@@ -78,4 +78,13 @@ public class UserService {
         return userRepository.findByResetToken(token);
     }
 
+    public void deleteDesignerId(String userId) {
+        Optional<User> optUser = findByUserId(userId);
+        if(optUser.isPresent()) {
+            User user = optUser.get();
+            user.setDesignerId(null);
+            save(user);
+        }
+    }
+
 }

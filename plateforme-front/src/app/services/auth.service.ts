@@ -105,7 +105,7 @@ export class AuthService {
   }
 
   /**
-   * Déconnexion : supprime le token et notifie le backend.
+   * Déconnexion : envoie la requête de deconnexion au back end puis appelle handleLogout().
    */
   logout(): void {
     this.http
@@ -124,6 +124,9 @@ export class AuthService {
       });
   }
 
+  /**
+   * Gère le logout avec un reset sur les valeurs et en redirigeant vers la page de login
+   */
   private handleLogout(): void {
     this.isLogged = false;
     this.userId = null;
@@ -131,10 +134,12 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
+  /**
+   * Récupère le userId
+   */
   getUserId(): string | null {
     return this.userId;
   }
-
 
   /**
    * Notifie les abonnés de l'état de connexion.

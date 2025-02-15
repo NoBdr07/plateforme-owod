@@ -28,11 +28,11 @@ body {
 
 :root {
   --primary-color: #eff2ff;
-  --dark-color: #0505c3;
-  --accent-color: #3b6b6b;
-  --warn-color: #0505c3;
+  --dark-color: #12095F;
+  --accent-color: #D4DFFF;
+  --warn-color: #12095F;
   --background-color: #eff2ff;
-  --text-color: black;
+  --text-color: #eff2ff;
 
   --mat-primary-color: var(--background-color);
   --mat-accent-color: var(--accent-color);
@@ -94,4 +94,12 @@ h2 {
 .error-snackbar {
   background: #7c1811;
   color: white;
+}
+
+.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text {
+  color: var(--dark-color) !important;
+}
+
+.mat-pseudo-checkbox-full.mat-pseudo-checkbox-checked {
+  background-color: var(--dark-color) !important;
 }

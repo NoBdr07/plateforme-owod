@@ -66,6 +66,44 @@ public class DesignerController {
         return ResponseEntity.ok(optionalDesigner.get());
     }
 
+    /**
+     *
+     * @param userId
+     * @param designerId
+     * @param principal
+     * @return
+     */
+    @DeleteMapping("/delete/{userId}/{designerId}")
+    public ResponseEntity<?> deleteDesigner(@PathVariable String userId, @PathVariable String designerId, Principal principal) {
+        try {
+            // Récupérer l'utilisateur en cours de session à partir du principal
+            String currentUserId = principal.getName(); // Récupère l'email de l'utilisateur authentifié
+
+            if (!userId.equals(currentUserId)) {
+                return ResponseEntity.status(401).body("Request user id is different than current authenticated user");
+            }
+
+            Optional<User> optionalUser = userService.findByUserId(userId);
+
+            if (optionalUser.isEmpty()) {
+                return ResponseEntity.status(404).body("User not found");
+            }
+
+            User user = optionalUser.get();
+
+            if (!user.getDesignerId().equals(designerId)) {
+                return ResponseEntity.status(401).body("Designer not paired to current user");
+            }
+
+            designerService.delete(userId, designerId);
+
+            return ResponseEntity.status(200).body("Designer deleted successfully");
+
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body("Error deleting designer: " + e.getMessage());
+        }
+    }
+
 
     /**
      * Endpoint to retrieve all designers that have a specific specialty

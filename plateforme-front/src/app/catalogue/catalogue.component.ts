@@ -45,7 +45,7 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
   sectors!: string[];
 
   // Variables pour la pagination
-  paginatedDesigners$!: Observable<Designer[]>; // Observable pour les designers paginés
+  paginatedDesigners$!: Observable<Designer[]>;
   currentPage = new BehaviorSubject<number>(1);
   maxPage = new BehaviorSubject<number>(1);
   pageSize: number = 50;
@@ -81,9 +81,10 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
         if (!criteria) return designers; // Retourne tous les designers si aucun filtre
         const { category, item } = criteria;
 
-        // liste pour l'affichage des designers sur mobile
+        // liste pour l'affichage des designers sur mobile, initialisée à false pour tous les designers
         this.myDesignersInView = new Array(designers.length).fill(false);
 
+        // si un critère est présent, filtre des designers selon le critère
         return designers.filter((designer) => {
           if (category === 'profession') return designer.profession === item;
           if (category === 'specialty')
@@ -122,6 +123,9 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
     )
   }
 
+  /**
+   * Une fois la page initialisée, écoute du scroll
+   */
   ngAfterViewInit(): void {
       this.onWindowScroll();
   }
@@ -132,14 +136,14 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
-    console.log("appel de window scroll");
     if(window.innerWidth >= 768) {
       return;
     }
 
     const centerY = window.innerHeight / 2;
 
-    // On vérifie la position de chaque designer card
+    // On vérifie la position de chaque designer card pour lui accorder true si il est 
+    // au milieu de l'écran
     this.designerCards.forEach((card, i) => {
       const rect = card.nativeElement.getBoundingClientRect();
       if (rect.top < centerY && rect.bottom > centerY ) {

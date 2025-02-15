@@ -20,6 +20,8 @@ import { FavoriteSector } from '../enums/favorite-sector.enum';
 import { Job } from '../enums/job.enum';
 import { DesignerService } from '../services/designer.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { NotificationService } from '../services/notifcation.service';
+import { Designer } from '../interfaces/designer.interface';
 
 @Component({
   selector: 'app-my-account',
@@ -39,6 +41,8 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class MyAccountComponent implements OnInit, OnDestroy {
   hasAccount: boolean = false;
+  designerId!: string;
+  userId!: string;
   accountForm: FormGroup;
   private subscriptions = new Subscription();
 
@@ -52,7 +56,8 @@ export class MyAccountComponent implements OnInit, OnDestroy {
     private readonly userService: UserService,
     private readonly authService: AuthService,
     private readonly designerService: DesignerService,
-    private readonly fb: FormBuilder
+    private readonly fb: FormBuilder,
+    private readonly notificationService: NotificationService
   ) {
     this.accountForm = this.fb.group({
       profession: ['', Validators.required],
@@ -64,11 +69,25 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const userId = this.authService.getUserId(); // Récupère l'userId
-    if (userId) {
-      const sub = this.userService.hasAnAccount(userId).subscribe({
+    const retrievedUserId = this.authService.getUserId(); // Récupère l'userId
+    if (retrievedUserId) {
+      this.userId = retrievedUserId;
+      const sub = this.userService.hasAnAccount(this.userId).subscribe({
         next: (hasAccount: boolean) => {
           this.hasAccount = hasAccount;
+          if (hasAccount === true) {
+            this.designerService.getDesignerByUserId(this.userId).subscribe({
+              next: (designer: Designer) => {
+                this.designerId = designer.id;
+                console.log('designer id : ' + this.designerId);
+              },
+              error: (err) => {
+                console.log(
+                  'Erreur lors de la récupération du designer associé : ' + err
+                );
+              },
+            });
+          }
         },
         error: (err) => {
           console.error(
@@ -96,15 +115,18 @@ export class MyAccountComponent implements OnInit, OnDestroy {
       // Envoyer la requête pour créer le designer
       const sub = this.designerService.createDesigner(formData).subscribe({
         next: (response) => {
-          console.log('Designer créé avec succès :', response);
+          this.notificationService.success(
+            'Profil designer créé avec succès !'
+          );
           this.hasAccount = true; // Met à jour le boolean après succès
+          this.designerId = response.id;
         },
         error: (err) => {
           console.error('Erreur lors de la création du designer :', err);
         },
       });
 
-      this.subscriptions.add(sub); // Ajouter la souscription pour nettoyage ultérieur
+      this.subscriptions.add(sub);
     } else {
       console.error('Formulaire invalide.');
     }
@@ -114,7 +136,27 @@ export class MyAccountComponent implements OnInit, OnDestroy {
     this.authService.logout();
   }
 
+  deleteDesigner(): void {
+    console.log('userId : ' + this.userId);
+    this.designerService
+      .deleteDesigner(this.userId, this.designerId)
+      .subscribe({
+        next: () => {
+          this.hasAccount = false;
+          this.designerId = '';
+          this.notificationService.success(
+            'Profil designer supprimé avec succès.'
+          );
+        },
+        error: (err) => {
+          this.notificationService.error(
+            'Une erreur est survenue pendant la suppression.'
+          );
+        },
+      });
+  }
+
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe(); // Nettoyer les subscriptions
+    this.subscriptions.unsubscribe();
   }
 }

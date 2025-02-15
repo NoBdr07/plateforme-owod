@@ -31,10 +31,17 @@ button {
 
 .bottom-container {
   text-align: center;
+  font-size: 18px;
+  line-height: normal;
 }
 
 a:hover {
   cursor: pointer
+}
+
+mat-error {
+  font-size: 18px !important;
+  text-align: center;
 }
 
 /* STYLES POUR MOBILE */

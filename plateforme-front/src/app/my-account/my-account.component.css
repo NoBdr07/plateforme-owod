@@ -15,7 +15,26 @@
 /* STYLE SI DESIGNER CREE */
 
 .created {
-  margin-top: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.button {
+  width: fit-content;
+}
+
+.error-button {
+  background-color: rgb(121, 5, 5) !important;
+}
+
+.created p {
+  font-size: 2rem;
+  width: 700px;
+  line-height: normal;
+  text-align: center;
 }
 
 /* STYLES SI DESIGNER NON CREE */
@@ -42,10 +61,17 @@
 
   .global-container {
     margin: 20px;
+    gap: 0;
   }
 
   .created {
-    margin-top: 50px;
+    margin-top: 20px;
+    gap: 20px;
+  }
+
+  .created p {
+    font-size: 1rem;
+    width: 400px;
   }
 
   .info {

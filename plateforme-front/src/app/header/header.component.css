@@ -1,3 +1,4 @@
+/* CSS */
 .header-container {
   height: 96px;
   display: flex;
@@ -10,21 +11,60 @@
 
 .logo {
   height: 52px;
+  cursor: pointer;
 }
 
-.logo:hover {
-    cursor: pointer;
-}
-
-.title {
-  font-size: 32px;
+.burger-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1000;
   position: absolute;
-  transform: translateX(-50%);
   left: 50%;
 }
 
-.title:hover {
+.burger-line {
+  width: 100%;
+  height: 2px;
+  background-color: #000;
+  transition: all 0.3s ease;
+}
+
+.links-container {
+  position: relative;
+  top: 49px;
+  left: 1vw;
+  width: 800px;
+  height: 200px;
+  background-color: var(--primary-color);
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  z-index: 999;
+  display: none;
+  padding-top: 60px;
+}
+
+.links-container.active {
+  display: flex;
+}
+
+.link {
+  font-size: 1.2rem;
   cursor: pointer;
+}
+
+.active-link {
+  box-shadow: 5px 5px 1px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  border-radius: 20px;
 }
 
 .end-container {
@@ -32,12 +72,6 @@
   flex-direction: row;
   gap: 30px;
   align-items: end;
-}
-
-.social-links {
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
 }
 
 .langue {
@@ -53,49 +87,56 @@
   cursor: pointer;
 }
 
-.social {
-  width: 40px;
-  height: 40px;
+/* Animation du burger menu */
+.burger-menu.active .burger-line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
 }
 
-/** STYLES POUR MOBILE **/
+.burger-menu.active .burger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-menu.active .burger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* STYLES POUR MOBILE */
 @media screen and (max-width: 768px) {
   .header-container {
     padding: 15px;
     height: auto;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
+    position: relative;
   }
 
   .logo {
-    height: 40px; /* Logo légèrement plus petit */
+    height: 40px;
   }
 
-  .title {
-    position: static; /* Enlève le positionnement absolu */
-    transform: none; /* Enlève la transformation */
-    font-size: 24px; /* Texte plus petit */
-    text-align: center;
+  .links-container {
+    width: 100%;
+    height: 100vh;
+    flex-direction: column;
+  }
+
+  .links-container.active {
+    display: flex;
+    position: fixed;
   }
 
   .end-container {
-    width: 100%;
-    justify-content: space-between; /* Répartit l'espace entre les éléments */
+    width: auto;
+    justify-content: flex-end;
     align-items: center;
     gap: 15px;
   }
 
-  .social-links {
-    gap: 10px;
-  }
-
-  .social {
-    width: 30px; /* Icônes sociales plus petites */
-    height: 30px;
+  .link {
+    font-size: 1.2rem;
   }
 
   .langue {
     font-size: 16px;
   }
+
+  
 }

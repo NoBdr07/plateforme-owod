@@ -1,63 +1,83 @@
 <div class="global-container">
-    
-    <h1>{{ "MON_COMPTE.BIENVENUE" | translate }} </h1>
+  <h1>{{ "MON_COMPTE.BIENVENUE" | translate }}</h1>
 
-    <div *ngIf="!hasAccount" class="not-created">
-        <p class="info"> {{ "MON_COMPTE.INFO_1" | translate }} <br /><br /> {{ "MON_COMPTE.INFO_2" | translate }} <br /><br /> {{ "MON_COMPTE.INFO_3" | translate }} <br /><br /> 
-        </p>
-        <form class="form" [formGroup]="accountForm" (ngSubmit)="onSubmit()">
-            <mat-form-field appearance="fill">
-              <mat-label>{{ "DASHBOARD.PROFESSION" | translate }}</mat-label>
-              <mat-select formControlName="profession">
-                <mat-option *ngFor="let job of jobs" [value]="job">
-                  {{ job }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-        
-            <mat-form-field appearance="fill">
-              <mat-label>{{ "DASHBOARD.SPECIALITE" | translate }}</mat-label>
-              <mat-select formControlName="specialties" multiple>
-                <mat-option *ngFor="let specialty of specialties" [value]="specialty">
-                  {{ specialty }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-        
-            <mat-form-field appearance="fill">
-              <mat-label>{{ "DASHBOARD.SPHERE" | translate }}</mat-label>
-              <mat-select formControlName="spheresOfInfluence" multiple>
-                <mat-option *ngFor="let sphere of spheresOfInfluence" [value]="sphere">
-                  {{ sphere }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-        
-            <mat-form-field appearance="fill">
-              <mat-label>{{ "DASHBOARD.SECTEUR" | translate }}</mat-label>
-              <mat-select formControlName="favoriteSectors" multiple>
-                <mat-option *ngFor="let sector of favoriteSectors" [value]="sector">
-                  {{ sector }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-        
-            <mat-form-field appearance="fill">
-              <mat-label>Pays de résidence</mat-label>
-              <input matInput formControlName="countryOfResidence" />
-            </mat-form-field>
-        
-            <button mat-raised-button color="primary" type="submit">{{ "MON_COMPTE.CREER_DESIGNER" | translate }}</button>
-          </form>
-        
-    </div>
+  <div *ngIf="!hasAccount" class="not-created">
+    <p class="info">
+      {{ "MON_COMPTE.INFO_1" | translate }} <br /><br />
+      {{ "MON_COMPTE.INFO_2" | translate }} <br /><br />
+      {{ "MON_COMPTE.INFO_3" | translate }} <br /><br />
+    </p>
+    <form class="form" [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "DASHBOARD.PROFESSION" | translate }}</mat-label>
+        <mat-select formControlName="profession">
+          <mat-option *ngFor="let job of jobs" [value]="job">
+            {{ job }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <div *ngIf="hasAccount" class="created">
-        <button mat-raised-button routerLink="/dashboard">{{ "MON_COMPTE.CONFIGURER" | translate }}</button>
-    </div>
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "DASHBOARD.SPECIALITE" | translate }}</mat-label>
+        <mat-select formControlName="specialties" multiple>
+          <mat-option *ngFor="let specialty of specialties" [value]="specialty">
+            {{ specialty }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <div class="bottom-container">
-        <button mat-raised-button (click)="logOut()">{{ "MON_COMPTE.DECONNECTER" | translate }}</button>
-    </div>
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "DASHBOARD.SPHERE" | translate }}</mat-label>
+        <mat-select formControlName="spheresOfInfluence" multiple>
+          <mat-option
+            *ngFor="let sphere of spheresOfInfluence"
+            [value]="sphere"
+          >
+            {{ sphere }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "DASHBOARD.SECTEUR" | translate }}</mat-label>
+        <mat-select formControlName="favoriteSectors" multiple>
+          <mat-option *ngFor="let sector of favoriteSectors" [value]="sector">
+            {{ sector }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Pays de résidence</mat-label>
+        <input matInput formControlName="countryOfResidence" />
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">
+        {{ "MON_COMPTE.CREER_DESIGNER" | translate }}
+      </button>
+    </form>
+  </div>
+
+  <div *ngIf="hasAccount" class="created">
+    <p>
+      {{ "MON_COMPTE.CREATED_1" | translate }} <br /> {{ "MON_COMPTE.CREATED_2" | translate}}
+    </p>
+    <button class="button" mat-raised-button routerLink="/dashboard">
+      {{ "MON_COMPTE.CONFIGURER" | translate }}
+    </button>
+
+    <button class="button error-button" mat-raised-button (click)="deleteDesigner()">
+      {{ "MON_COMPTE.SUPPRIMER" | translate }}
+    </button>
+
+    <button class="button" mat-raised-button routerLink="/">
+      {{ "MON_COMPTE.RETOUR" | translate }}
+    </button>
+  </div>
+
+  <div class="bottom-container">
+    <button mat-raised-button (click)="logOut()">
+      {{ "MON_COMPTE.DECONNECTER" | translate }}
+    </button>
+  </div>
 </div>

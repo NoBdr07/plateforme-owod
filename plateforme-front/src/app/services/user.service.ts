@@ -17,7 +17,6 @@ export class UserService {
   /**
    * Envoie une requete pour tester si l'utilisateur a déjà un compte designer
    */
-
   hasAnAccount(userId: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/${userId}/has-designer`, {
       withCredentials: true

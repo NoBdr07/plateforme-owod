@@ -17,12 +17,19 @@ export class WeeklyDesignerService {
     this.loadWeeklyDesigner();
   }
 
+  /**
+   * Récuperation du designer de la semaine
+   */
   loadWeeklyDesigner(): void {
     this.http.get<Designer>(this.apiUrl).subscribe((designer) => {
       this.weeklyDesignerSubject.next(designer);
     });
   }
 
+  /**
+   * Méthode utilisée par les composants pour demander le designer de la semaine
+   * @returns 
+   */
   getCurrentDesigner(): Designer | null {
     return this.weeklyDesignerSubject.value;
   }

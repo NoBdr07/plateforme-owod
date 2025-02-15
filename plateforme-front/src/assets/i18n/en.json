@@ -1,15 +1,40 @@
 {
   "HEADER": {
-    "CATALOGUE_OWOD": "OWOD CATALOGUE"
+    "CATALOGUE_OWOD": "OWOD CATALOGUE",
+    "CATALOGUE": "Catalog",
+    "INSCRIPTION": "Register",
+    "CONNEXION": "Log In",
+    "CONTACT": "Contact",
+    "FAQ": "Frequently asked questions",
+    "ABOUT": "About"
   },
   "HOME": {
-    "JOIN": "Join the catalog for free here",
-    "A_PROPOS": "About AIPDA",
-    "CONTACT": "Contact",
-    "CATALOG": "OWOD CATALOG",
-    "VISIT": "Visit the catalog now",
-    "ESPACE_MEMBRE": "MEMBER AREA",
-    "ACCEDER": "Access your space"
+    "TITRE": "OWOD, our world of design",
+    "SOUS_TITRE": "You are on the first universal directory of design in Africa and Afro-descendant territories. OWOD lists design actors and projects in Africa and Afro-descendant territories from 1960 to today.",
+    "CONSULTER": "Browse directory",
+    "INSCRIRE": "Sign up",
+    "FICHE": "Create your profile",
+    "ANNUAIRE": "Explore directory",
+    "CONTACT": "Get in touch",
+    "INFO_TITRE1": "OWOD, a free directory",
+    "INFO_TITRE2": "and secure",
+    "INFO1": {
+      "TITRE": "Open to all designers and design objects",
+      "TEXTE": "OWOD is an inclusive directory that welcomes designers, studios, artisans, researchers and all initiatives that shape African and Afro-descendant design. A platform to discover, connect and collaborate."
+    },
+    "INFO2": {
+      "TITRE": "Verified and authenticated content",
+      "TEXTE": "Each project and profile is validated by a scientific committee to ensure the reliability of information and the promotion of design rooted in its historical, cultural and social context."
+    },
+    "INFO3": {
+      "TITRE": "Data protection and privacy",
+      "TEXTE": "OWOD complies with personal data protection standards, including GDPR, thus ensuring the security and confidentiality of registered members' information."
+    },
+    "REF": {
+      "TITRE": "Ready to be listed?",
+      "TEXTE": "Join us and participate in the influence of design in Africa",
+      "TEXTE2": " designers have already joined us !"
+    }
   },
   "CATALOGUE": {
     "TOP_TEXT": "The OWOD catalog is a digital directory referencing all designers across multiple design disciplines.",
@@ -75,7 +100,10 @@
     "CONSENT_2": "privacy policy",
     "INSCRIRE": "Sign up",
     "DEJA_COMPTE": "Already have an account?",
-    "CONNECTER": "Log in"
+    "CONNECTER": "Log in",
+    "MDP_DONT_MATCH": "Passwords don't match",
+    "MAIL_DONT_MATCH": "Emails don't match",
+    "CASE_NON_COCHE": "You must check the box to continue."
   },
   "MON_COMPTE": {
     "BIENVENUE": "Welcome to your space!",
@@ -84,7 +112,11 @@
     "INFO_3": "You can then edit or complete your profile by accessing your dashboard.",
     "CREER_DESIGNER": "Create designer",
     "CONFIGURER": "Set up your profile",
-    "DECONNECTER": "Log out"
+    "DECONNECTER": "Log out",
+    "RETOUR": "Back to website home",
+    "SUPPRIMER": "Delete your designer profile",
+    "CREATED_1": "You have already created your designer profile.",
+    "CREATED_2": "You can complete or modify it in \"Set up your profile\"."
   },
   "PHOTO": {
     "CHANGER": "Change Photo",
@@ -179,7 +211,6 @@
       "TEXTE": "OWOD is mobile-friendly, and an app is under development."
     },
     "AUTRE": "For any other question, don't hesitate to contact us at: info@aipda-design.org."
-    
   },
   "LEGAL": {
     "TITLE": "Legal Notice",

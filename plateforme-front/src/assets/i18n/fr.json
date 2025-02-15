@@ -1,15 +1,40 @@
 {
   "HEADER": {
-    "CATALOGUE_OWOD": "CATALOGUE OWOD"
+    "CATALOGUE_OWOD": "CATALOGUE OWOD",
+    "CATALOGUE": "Catalogue",
+    "INSCRIPTION": "Inscription",
+    "CONNEXION": "Connexion",
+    "CONTACT": "Contact",
+    "FAQ": "Foire aux questions",
+    "ABOUT": "À propos"
   },
   "HOME": {
-    "JOIN": "Rejoignez gratuitement le catalogue ici",
-    "A_PROPOS": "A propos de l'AIPDA",
-    "CONTACT": "Contact",
-    "CATALOG": "CATALOGUE OWOD",
-    "VISIT": "Visitez le catalogue maintenant",
-    "ESPACE_MEMBRE": "ESPACE MEMBRES",
-    "ACCEDER": "Accédez à votre espace"
+    "TITRE": "OWOD, notre monde du design",
+    "SOUS_TITRE": "Vous êtes sur le premier annuaire universel du design en Afrique et dans les territoires afrodescendants. OWOD répertorie les acteurs et projets de design en Afrique et dans les territoires afrodescendants de 1960 à aujourd’hui.",
+    "CONSULTER": "Consulter l'annuaire",
+    "INSCRIRE": "S'inscrire",
+    "FICHE": "Créez votre fiche",
+    "ANNUAIRE": "Explorez l'annuaire",
+    "CONTACT": "Entrez en contact",
+    "INFO_TITRE1": "OWOD, un annuaire gratuit",
+    "INFO_TITRE2": "et sécurisé",
+    "INFO1": {
+      "TITRE": "Ouvert à tous les designers et objets de design",
+      "TEXTE": "OWOD est un annuaire inclusif qui accueille les designers, studios, artisans, chercheurs et toutes les initiatives qui façonnent le design africain et afrodescendant. Une plateforme pour découvrir, se connecter et collaborer."
+    },
+    "INFO2": {
+      "TITRE": "Un contenu vérifié et authentifié",
+      "TEXTE": "Chaque projet et profil est validé par un comité scientifique afin d’assurer la fiabilité des informations et la mise en avant d’un design ancré dans son contexte historique, culturel et social."
+    },
+    "INFO3": {
+      "TITRE": "Protection et confidentialité des données",
+      "TEXTE": "OWOD respecte les normes de protection des données personnelles, notamment le RGPD, garantissant ainsi la sécurité et la confidentialité des informations des membres inscrits."
+    },
+    "REF": {
+      "TITRE": "Prêt à être référencé ?",
+      "TEXTE": "Rejoignez-nous et participez au rayonnement du design en Afrique.",
+      "TEXTE2": "designers nous ont déjà rejoints ! "
+    }
   },
   "CATALOGUE": {
     "TOP_TEXT": "Le catalogue OWOD est un annuaire digital référençant tous les designers à travers les multiples disciplines du design.",
@@ -75,16 +100,23 @@
     "CONSENT_2": "politique de confidentialité",
     "INSCRIRE": "S'inscrire",
     "DEJA_COMPTE": "Vous avez déjà un compte ?",
-    "CONNECTER": "Connectez-vous"
+    "CONNECTER": "Connectez-vous",
+    "MDP_DONT_MATCH": "Les mots de passe ne correspondent pas",
+    "MAIL_DONT_MATCH": "Les emails ne correspondent pas",
+    "CASE_NON_COCHE": "Vous devez cocher la case pour continuer."
   },
   "MON_COMPTE": {
-    "BIENVENUE": "Bienvenue dans votre espace !",
+    "BIENVENUE": "Bienvenue dans votre espace ! ",
     "INFO_1": "Vous n'avez pas encore crée votre profil designer.",
     "INFO_2": "Pour le creer, remplissez les informations minimales ci-dessous.",
     "INFO_3": "Vous pourrez ensuite modifier ou compléter votre profil en ayant accès à votre dashboard.",
     "CREER_DESIGNER": "Créer le designer",
     "CONFIGURER": "Configurer votre profil",
-    "DECONNECTER": "Se déconnecter"
+    "DECONNECTER": "Se déconnecter",
+    "RETOUR": "Retour à l'accueil du site",
+    "SUPPRIMER": "Supprimer votre profil designer",
+    "CREATED_1": "Votre profil designer est actuellement actif.",
+    "CREATED_2": "Vous pouvez le compléter ou le modifier dans \"configurer le profil\"."
   },
   "PHOTO": {
     "CHANGER": "Changer la photo",

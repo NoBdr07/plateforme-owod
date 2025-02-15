@@ -14,6 +14,9 @@ public class DesignerService {
     @Autowired
     private DesignerRepository designerRepository;
 
+    @Autowired
+    private UserService userService;
+
     public List<Designer> getAll() {
         return designerRepository.findAll();
     }
@@ -28,6 +31,11 @@ public class DesignerService {
 
     public List<Designer> findBySpecialty(String specialty) {
         return designerRepository.findBySpecialtiesContaining(specialty);
+    }
+
+    public void delete(String userId, String designerId) {
+        designerRepository.deleteById(designerId);
+        userService.deleteDesignerId(userId);
     }
 
 

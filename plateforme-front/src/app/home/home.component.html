@@ -1,104 +1,106 @@
 <div class="global-container">
-  <div class="main-container">
-    <div class="text-gauche">
-      <a class="link" routerLink="/register">{{ "HOME.JOIN" | translate }}</a>
+  <div class="title-container">
+    <div class="titles">
+      <h1 class="title">{{ "HOME.TITRE" | translate }}</h1>
+      <h2 class="subtitle">
+        {{ "HOME.SOUS_TITRE" | translate }}
+      </h2>
     </div>
 
-    <div class="designer" *ngIf="weeklyDesigner$ | async as designer">
-      <div class="img-container">
-        <img
-          class="background"
-          src="assets/images/back.png"
-          alt="logo de l'AIPDA (association internationale pour le design en Afrique) pour OWOD, our World of Design."
-        />
-        <img
-          class="designer-image"
-          [src]="designer.profilePicture || 'assets/logos/default-profile.png'"
-          alt="photo de profil d'un designer de la plateforme OWOD"
-        />
-      </div>
-      <div class="photo-info-container">
-        <p class="designer-name">
-          {{ designer.firstname }} {{ designer.lastname }}
-        </p>
-        <p class="designer-info">
-          {{ designer.profession }} | {{ designer.countryOfResidence }}
-        </p>
-      </div>
-      <button
-        mat-raised-button
-        class="designer-semaine"
-        [routerLink]="['/details', designer.id]"
-      >
-        Designer de la semaine
+    <div class="button-container">
+      <button mat-button routerLink="/catalogue" class="full-button">
+        {{ "HOME.CONSULTER" | translate }}
+      </button>
+      <button mat-button routerLink="/register" class="empty-button">
+        {{ "HOME.INSCRIRE" | translate }}
       </button>
     </div>
 
-    <div class="text-gauche">
-      <p class="link">
-        <a routerLink="/about">{{ "HOME.A_PROPOS" | translate }}</a> |
-        <a routerLink="/contact">{{ "HOME.CONTACT" | translate }}</a>
+    <img class="gros-logo" src="../../assets/logos/gros-logo.png" />
+  </div>
+
+  <div class="features-container">
+    <div class="feature">
+      <img class="feature-background" src="../../assets/logos/forme-bas.png" />
+      <img
+        class="icon"
+        id="icon-personne"
+        src="../../assets/logos/personne.png"
+      />
+      <h3 class="feature-title" id="feature-title1">
+        {{ "HOME.FICHE" | translate }}
+      </h3>
+    </div>
+
+    <div class="feature">
+      <img class="feature-background" src="../../assets/logos/forme-haut.png" />
+      <img class="icon" id="icon-livre" src="../../assets/logos/livre.png" />
+      <h3 class="feature-title" id="feature-title2">
+        {{ "HOME.ANNUAIRE" | translate }}
+      </h3>
+    </div>
+
+    <div class="feature">
+      <img class="feature-background" src="../../assets/logos/forme-bas.png" />
+      <img
+        class="icon"
+        id="icon-contact"
+        src="../../assets/logos/contact.png"
+      />
+      <h3 class="feature-title" id="feature-title3">
+        {{ "HOME.CONTACT" | translate }}
+      </h3>
+    </div>
+  </div>
+
+  <div class="info-container">
+    <h2 class="info-container-title">
+      {{ "HOME.INFO_TITRE1" | translate }}<br />{{
+        "HOME.INFO_TITRE2" | translate
+      }}
+    </h2>
+
+    <div class="info" id="info1">
+      <img class="info-background" src="../../assets/logos/forme-gauche.png" />
+      <p class="info-title">{{ "HOME.INFO1.TITRE" | translate }}</p>
+      <p class="info-text">
+        {{ "HOME.INFO1.TEXTE" | translate }}
+      </p>
+    </div>
+
+    <div class="info" id="info2">
+      <img class="info-background" src="../../assets/logos/forme-gauche.png" />
+      <p class="info-title">{{ "HOME.INFO2.TITRE" | translate }}</p>
+      <p class="info-text">
+        {{ "HOME.INFO2.TEXTE" | translate }}
+      </p>
+    </div>
+
+    <div class="info" id="info3">
+      <img class="info-background" src="../../assets/logos/forme-gauche.png" />
+      <p class="info-title">{{ "HOME.INFO3.TITRE" | translate }}</p>
+      <p class="info-text">
+        {{ "HOME.INFO3.TEXTE" | translate }}
       </p>
     </div>
   </div>
 
-  <div class="bottom-container">
-    <div class="white-container left">
-      <div class="text-container">
-        <p class="subtitle">{{ "HOME.CATALOG" | translate }}</p>
-        <div class="arrow-container">
-          <p class="arrow-info">{{ "HOME.VISIT" | translate }}</p>
-          <img
-            class="arrow"
-            routerLink="catalogue"
-            src="assets/logos/arrow.png"
-            alt="flèche"
-          />
-        </div>
-      </div>
-
-      <div
-        class="preview-container"
-        routerLink="/catalogue"
-        *ngIf="designers$ | async as designers"
-      >
-        <div class="preview" *ngFor="let designer of designers">
-          <img
-            src="/assets/logos/logo-blanc.png"
-            class="preview-background"
-            alt="logo de l'AIPDA, OWOD"
-          />
-          <img
-          [src]="designer.profilePicture || 'assets/logos/default-profile.png'"
-            class="preview-photo"
-            alt="photo de profil d'un des designers d'OWOD"
-          />
-        </div>
+  <div class="reference-container">
+    <p class="reference-title">{{ "HOME.REF.TITRE" | translate }}</p>
+    <p class="reference-text">
+      {{ "HOME.REF.TEXTE" | translate }}
+    </p>
+    <p class="reference-text">
+      {{ (designers$ | async)?.length || 0 }}
+      {{ "HOME.REF.TEXTE2" | translate }}
+    </p>
+    <div class="mini-container" *ngIf="designers$ | async as designers">
+      <div *ngFor="let designer of designers | slice:0:9"  class="mini">
+        <img class="mini-image" [src]="designer.profilePicture || 'assets/logos/default-profile.png'">
       </div>
     </div>
-
-    <div class="white-container right">
-      <div class="text-container">
-        <p class="subtitle">{{ "HOME.ESPACE_MEMBRE" | translate }}</p>
-        <div class="arrow-container">
-          <p class="arrow-info">{{ "HOME.ACCEDER" | translate }}</p>
-          <img
-            class="arrow"
-            src="assets/logos/arrow.png"
-            routerLink="account"
-            alt="fleche"
-          />
-        </div>
-      </div>
-
-      <div class="icon-container">
-        <img
-          class="user-icon"
-          src="assets/logos/User.png"
-          routerLink="account"
-          alt="compte utilisateur"
-        />
-      </div>
-    </div>
+    <button routerLink="/register" mat-button class="empty-white-button">
+      {{ "HOME.INSCRIRE" | translate }}
+    </button>
   </div>
 </div>

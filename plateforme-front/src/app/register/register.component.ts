@@ -56,8 +56,13 @@ export class RegisterComponent implements OnDestroy {
       const email = formGroup.get('email')?.value;
       const confirmedEmail = formGroup.get('emailConfirmation')?.value;
   
-      // Si les emails ne correspondent pas, retourne une erreur
-      return email && confirmedEmail && email !== confirmedEmail ? { emailsDoNotMatch: true } : null;
+      if (email && confirmedEmail && email !== confirmedEmail) {
+        formGroup.get('emailConfirmation')?.setErrors({ emailsDoNotMatch: true });
+        return { emailsDoNotMatch: true };
+      } else {
+        formGroup.get('emailConfirmation')?.setErrors(null);
+        return null;
+      }
     };
   }
 
@@ -66,8 +71,13 @@ export class RegisterComponent implements OnDestroy {
       const password = formGroup.get('password')?.value;
       const confirmedPassword = formGroup.get('passwordConfirmation')?.value;
   
-      // Si les emails ne correspondent pas, retourne une erreur
-      return password && confirmedPassword && password !== confirmedPassword ? { emailsDoNotMatch: true } : null;
+      if (password && confirmedPassword && password !== confirmedPassword) {
+        formGroup.get('passwordConfirmation')?.setErrors({ passwordsDoNotMatch: true });
+        return { passwordsDoNotMatch: true };
+      } else {
+        formGroup.get('passwordConfirmation')?.setErrors(null);
+        return null;
+      }
     };
   }
 

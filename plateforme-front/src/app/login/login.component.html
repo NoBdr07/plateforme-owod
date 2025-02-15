@@ -10,13 +10,22 @@
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>{{ "LOGIN.MDP" | translate }}</mat-label>
-      <input matInput type="password" formControlName="password" name="password" />
+      <input
+        matInput
+        type="password"
+        formControlName="password"
+        name="password"
+      />
     </mat-form-field>
 
     <mat-error *ngIf="errorMessage">{{ errorMessage }}</mat-error>
-    <mat-error *ngIf="badCredentials"> {{ "LOGIN.MAUVAIS_LOGIN" | translate }} </mat-error>
+    <mat-error *ngIf="badCredentials">
+      {{ "LOGIN.MAUVAIS_LOGIN" | translate }}
+    </mat-error>
 
-    <button mat-raised-button type="submit">{{ "LOGIN.TITRE" | translate }}</button>
+    <button mat-raised-button type="submit">
+      {{ "LOGIN.TITRE" | translate }}
+    </button>
   </form>
 
   <div class="trait"></div>
@@ -24,7 +33,8 @@
   <div class="bottom-container">
     <a (click)="onForgotPassword()">{{ "LOGIN.MDP_OUBLIE" | translate }}</a>
     <p>
-      {{ "LOGIN.PAS_DE_COMPTE" | translate }} <a routerLink="/register">{{ "LOGIN.INSCRIPTION" | translate }}</a>
+      {{ "LOGIN.PAS_DE_COMPTE" | translate }}
+      <a routerLink="/register">{{ "LOGIN.INSCRIPTION" | translate }}</a>
     </p>
   </div>
 </div>

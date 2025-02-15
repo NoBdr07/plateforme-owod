@@ -3,7 +3,7 @@
 .top-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin: 50px;
 }
@@ -110,6 +110,8 @@
 
 .black {
   color: black !important;
+  font-size: 20px;
+  font-weight: 400;
 }
 
 .mat-mdc-raised-button[disabled] {

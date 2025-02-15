@@ -29,6 +29,11 @@ a {
   width: 480px;
 }
 
+mat-error {
+  text-align: center;
+  font-size: 14px;
+}
+
 ::ng-deep .mdc-text-field {
   border: solid 1px;
   border-radius: 5px;

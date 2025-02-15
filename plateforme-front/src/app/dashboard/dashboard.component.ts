@@ -40,7 +40,7 @@ export class DashboardComponent {
   private subscriptions = new Subscription();
   designerId!: string;
 
-  // Gestion des photos
+  // Gestion des photos de réalisations
   majorWorks!: String[];
   newMajorWorks!: File[];
 
