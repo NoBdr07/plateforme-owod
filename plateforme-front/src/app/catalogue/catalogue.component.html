@@ -1,5 +1,4 @@
 <div class="top-container">
-
   <div class="filtre">
     <img class="filtre-icon" src="assets/logos/filtre.png" alt="Filtre" />
     <button mat-button class="black" [matMenuTriggerFor]="menu">
@@ -95,18 +94,39 @@
     #designerCard
     [routerLink]="['/details', designer.id]"
   >
-    <img class="background" src="assets/images/back.png" alt="Retour" />
-    <img
-      [src]="designer.profilePicture || 'assets/logos/default-profile.png'"
-      class="photo"
-      alt="Photo de profil d'un designer"
-    />
-    <div class="info-overlay" [class.show-overlay]="myDesignersInView[i]">      
-      <p class="designer-name">
-        {{ designer.firstname }} {{ designer.lastname }}
-      </p>
-      <p class="designer-info">{{ designer.profession }} | {{ designer.countryOfResidence }}</p>
+    <div class="designer-top">
+      <div class="designer-top-left">
+        <img
+          *ngIf="designer.profilePicture"
+          [src]="designer.profilePicture"
+          class="photo"
+          alt="Photo de profil d'un designer"
+        />
+        <p class="designer-name">
+          {{ designer.firstname }} {{ designer.lastname }}
+        </p>
+      </div>
+
+      <div class="designer-widgets">
+        <img src="assets/logos/calendar.svg" class="widget" />
+        <img src="assets/logos/group-add.svg" class="widget" />
+        <img src="assets/logos/person-add.svg" class="widget" />
+      </div>
     </div>
+
+    <div class="designer-middle">
+      <p class="text-middle">Appeler</p>
+      <img src="assets/logos/call.svg" class="widget" />
+      <p class="text-middle">Écrire</p>
+      <img src="assets/logos/mail.svg" class="widget" />
+    </div>
+
+    <div class="designer-bottom">
+      <p class="bottom-text bold">{{ designer.profession }}</p>
+      <p class="bottom-text">{{ designer.countryOfResidence }}</p>
+    </div>
+
+    <img class="background" src="assets/images/back.png">
   </div>
 </div>
 

@@ -1,7 +1,7 @@
 {
   "HEADER": {
-    "CATALOGUE_OWOD": "OWOD CATALOGUE",
-    "CATALOGUE": "Catalog",
+    "CATALOGUE_OWOD": "OWOD DIRECTORY",
+    "CATALOGUE": "Directory",
     "INSCRIPTION": "Register",
     "CONNEXION": "Log In",
     "CONTACT": "Contact",
@@ -37,7 +37,7 @@
     }
   },
   "CATALOGUE": {
-    "TOP_TEXT": "The OWOD catalog is a digital directory referencing all designers across multiple design disciplines.",
+    "TOP_TEXT": "The OWOD directory is a digital directory referencing all designers across multiple design disciplines.",
     "FILTRE": "Search filter",
     "PROFESSION": "Profession",
     "SPECIALITE": "Specialty",
@@ -75,7 +75,7 @@
     "SAUVEGARDER": "Save"
   },
   "DESIGNER_DETAILS": {
-    "RETOUR": "Back to catalog",
+    "RETOUR": "Back to directory",
     "REALISATIONS": "My projects",
     "INFORMATIONS": "My information",
     "CONTACT": "Contact me",
@@ -92,7 +92,7 @@
   },
   "REGISTER": {
     "TITRE": "Create a member account",
-    "JOIN": "Join the OWOD catalog now!",
+    "JOIN": "Join the OWOD directory now!",
     "CONFIRM_EMAIL": "Confirm email",
     "CONFIRM_MDP": "Confirm password",
     "MDP_TROP_COURT": "Your password must contain at least 8 characters.",
@@ -120,10 +120,7 @@
   },
   "PHOTO": {
     "CHANGER": "Change Photo",
-    "EXPLICATION_1": "To ensure visual harmony on the site, we ask you to upload a photo with a transparent background. You can easily remove the background from your photo using this site:",
-    "EXPLICATION_2": "It will only take a few seconds!",
-    "EXPLICATION_3": "We also encourage you to choose a square-format photo where you are visible from the front, from head to waist. These guidelines help ensure a consistent and aesthetic presentation of the site.",
-    "EXPLICATION_4": "Thank you for your understanding and cooperation!",
+    "EXPLICATION_1": "Choose your profile picture.",
     "ANNULER": "Cancel",
     "VALIDER": "Validate"
   },
@@ -324,7 +321,7 @@
   "FOOTER": {
     "CONTACT": "Contact Us",
     "LIENS_UTILES": "Useful Links",
-    "CATALOGUE": "Catalogue",
+    "CATALOGUE": "Directory",
     "FAQ": "Frequently asked questions",
     "A_PROPOS": "About Us",
     "CONTACTEZ_NOUS": "Contact Us",

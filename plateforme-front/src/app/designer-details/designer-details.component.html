@@ -29,16 +29,14 @@
           <img
             [src]="realisationUrl"
             class="realisation-photo"
-            (mouseover)="showPreview(realisationUrl)"
-            (mouseout)="hidePreview()"
-            (click)="showPreviewMobile(realisationUrl)"
+            (click)="showPreview(realisationUrl)"
             alt="réalisation d'un des designers de la plateforme OWOD de l'AIPDA"
           />
         </div>
       </div>
 
       <!-- Zone pour afficher l'agrandissement -->
-      <div *ngIf="previewImage" class="preview-overlay" (click)="hidePreviewMobile()" >
+      <div *ngIf="previewImage" class="preview-overlay" (click)="hidePreview()" >
         <img [src]="previewImage" class="overlay-image" (click)="$event.stopPropagation()" alt="réalisation d'un des designers de la plateforme OWOD de l'AIPDA"/>
       </div>
     </div>

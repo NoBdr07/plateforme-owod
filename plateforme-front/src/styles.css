@@ -8,11 +8,6 @@ body {
   margin: 0;
   font-family: "Red Hat Display", sans-serif !important;
   background-color: var(--background-color);
-  /*background-image: url("../src/assets/svg/lignes-fonce.svg"),*/
-    /* Lignes bleu foncé  url("../src/assets/svg/lignes-clair.svg");  Lignes bleu clair */
-  /*background-repeat: repeat, repeat; /* Les deux SVG se répètent */
-  /*background-size: cover, cover;*/
-  /*background-position: center, center;*/
 }
 
 * {

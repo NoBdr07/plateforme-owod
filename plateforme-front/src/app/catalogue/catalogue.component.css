@@ -32,67 +32,101 @@
 }
 
 .designer {
-  width: 240px;
-  height: 240px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  border: solid black 2px;
+  border-radius: 20px;
+  padding: 30px;
+  height: 200px;
+  width: 500px;
+  overflow: hidden;
+  gap: 20px;
+  cursor: pointer;
 }
 
-.info-overlay {
-  position: relative;
-  z-index: 100;
-  opacity: 0;
-  background: linear-gradient( to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 70%);
-  transition: opacity 0.3s ease-in-out;
-  top: -245px;
-  height: 240px;
-  width: 240px;
-  border-radius: 10px;
+.designer-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-height: 50px;
 }
 
-.info-overlay.show-overlay {
-  opacity: 1;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .designer:hover .info-overlay {
-    opacity: 1;
-    cursor: pointer;
-  }
-}
-
-.designer-name {
-  text-transform: uppercase;
-  top:180px;
-  font-weight: bold;
-  font-size: 1.2rem;
-  position: relative;
-  z-index: 4;
-  max-width: 240px;
-  color: white;
-}
-
-.designer-info {
-  font-size: 1rem;
-  top:170px;
-  position: relative;
-  z-index: 4;
-  max-width: 240px;
-  color: white;
-}
-
-.background {
-  width: 240px;
-  height: 240px;
-  position: absolute;
-  z-index: 1;
+.designer-top-left {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 .photo {
-  width: 240px;
-  height: 240px;
+  height: 50px;
+  width: 50px;
   object-fit: cover;
-  z-index: 2;
+  border-radius: 5px;
+}
+
+.designer-name {
+  font-weight: bold;
+  font-size: 2rem;
+  color: black;
+  margin-bottom: 0;
+  text-transform: capitalize;
+  width: 250px;
+  line-height: 26px;
+}
+
+.designer-widgets {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.widget {
+  filter: brightness(0);
+}
+
+.designer-middle {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 10px;
+  align-items: center;
+}
+
+.text-middle {
+  font-size: 1.2rem;
+  color: black;
+  margin-bottom: 0;
+}
+
+.designer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-top: 7px;
+}
+
+.bottom-text {
+  font-size: 1.8rem;
+  color: black;
+}
+
+.bold {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.background {
   position: relative;
+  right: -151px;
+  z-index: -1;
+  top: -235px;
+  object-fit: contain;
+  height: 239px;
 }
 
 /* BOUTONS POUR LA PAGINATION */
@@ -131,52 +165,24 @@ button {
     margin: 20px;
     align-items: flex-start;
   }
- 
+
   .top-text {
     width: 100%;
     font-size: 16px;
   }
- 
+
   .filtre {
     width: 100%;
     justify-content: center;
   }
- 
+
   /* Conteneur des designers */
   .designers-container {
     margin: 10px;
     justify-content: center;
     gap: 10px;
   }
- 
-  .designer {
-    width: 160px;
-    height: 160px;
-    margin: 10px 0;
-  }
- 
-  .background,
-  .photo {
-    width: 160px;
-    height: 160px;
-  }
- 
-  .designer-name {
-    font-size: 14px; 
-    top: 100px;
-  }
- 
-  .designer-info {
-    font-size: 12px; 
-    top: 90px;
-  }
 
-  .info-overlay {
-    width: 160px;
-    height: 160px;
-    top: -165px;
-  }
- 
   /* Pagination */
   .pagination {
     flex-direction: row;
@@ -185,25 +191,25 @@ button {
     font-size: 14px;
     align-items: center;
   }
- 
+
   .pagination button {
     padding: 5px 10px;
     font-size: 12px;
   }
- 
+
   /* Ajustements pour les menus Material */
   ::ng-deep .mat-menu-content {
-    max-height: 60vh; 
+    max-height: 60vh;
   }
- 
+
   ::ng-deep .mat-menu-panel {
-    width: 90vw; 
+    width: 90vw;
     max-width: none !important;
   }
- 
+
   ::ng-deep .mat-menu-item {
     font-size: 14px;
     height: 40px;
     line-height: 40px;
   }
- }
+}

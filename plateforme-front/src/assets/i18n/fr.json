@@ -1,7 +1,7 @@
 {
   "HEADER": {
-    "CATALOGUE_OWOD": "CATALOGUE OWOD",
-    "CATALOGUE": "Catalogue",
+    "CATALOGUE_OWOD": "ANNUAIRE OWOD",
+    "CATALOGUE": "Annuaire",
     "INSCRIPTION": "Inscription",
     "CONNEXION": "Connexion",
     "CONTACT": "Contact",
@@ -37,7 +37,7 @@
     }
   },
   "CATALOGUE": {
-    "TOP_TEXT": "Le catalogue OWOD est un annuaire digital référençant tous les designers à travers les multiples disciplines du design.",
+    "TOP_TEXT": "L'annuaire OWOD est un annuaire digital référençant tous les designers à travers les multiples disciplines du design.",
     "FILTRE": "Filtre de recherche",
     "PROFESSION": "Profession",
     "SPECIALITE": "Spécialité",
@@ -75,7 +75,7 @@
     "SAUVEGARDER": "Sauvegarder"
   },
   "DESIGNER_DETAILS": {
-    "RETOUR": "Retour au catalogue",
+    "RETOUR": "Retour à l'annuaire",
     "REALISATIONS": "Mes réalisations",
     "INFORMATIONS": "Mes informations",
     "CONTACT": "Me contacter",
@@ -92,7 +92,7 @@
   },
   "REGISTER": {
     "TITRE": "Créer un compte membre",
-    "JOIN": "Rejoins le catalogue OWOD maintenant !",
+    "JOIN": "Rejoins l'annuaire OWOD maintenant !",
     "CONFIRM_EMAIL": "Confirmer l'email",
     "CONFIRM_MDP": "Confirmer le mot de passe",
     "MDP_TROP_COURT": "Le mot de passe doit être de 8 caractères au minimum",
@@ -120,10 +120,7 @@
   },
   "PHOTO": {
     "CHANGER": "Changer la photo",
-    "EXPLICATION_1": "Pour garantir l’harmonie visuelle sur le site, nous vous demandons de télécharger une photo avec un fond transparent. Vous pouvez facilement retirer le fond de votre photo en utilisant ce site :",
-    "EXPLICATION_2": "Cela ne prendra que quelques secondes !",
-    "EXPLICATION_3": "Nous vous invitons également à choisir une photo de format carré, où vous êtes visible de face, de la tête à la ceinture. Ces consignes permettent d’assurer une présentation uniforme et esthétique du site. ",
-    "EXPLICATION_4": "Merci pour votre compréhension et votre coopération !",
+    "EXPLICATION_1": "Choisissez votre photo de profil.",
     "ANNULER": "Annuler",
     "VALIDER": "Valider"
   },
@@ -328,7 +325,7 @@
   "FOOTER": {
     "CONTACT": "Nous contacter",
     "LIENS_UTILES": "Liens utiles",
-    "CATALOGUE": "Catalogue",
+    "CATALOGUE": "Annuaire",
     "FAQ": "Foire aux questions",
     "A_PROPOS": "À propos",
     "CONTACTEZ_NOUS": "Contactez-nous",
