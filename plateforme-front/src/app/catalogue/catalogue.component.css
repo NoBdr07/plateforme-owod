@@ -14,11 +14,24 @@
   width: 30%;
 }
 
+.filtres {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: center;
+}
+
 .filtre {
   display: flex;
   flex-direction: row;
   gap: 10px;
+  justify-content: center;
   align-items: center;
+}
+
+.filtre-icon {
+  height: 30px;
+  width: 30px;
 }
 
 /* CONTENEUR DU CATALOGUE */
@@ -29,6 +42,7 @@
   flex-direction: flex-row;
   flex-wrap: wrap;
   gap: 60px;
+  justify-content: center;
 }
 
 .designer {
@@ -94,6 +108,7 @@
   justify-content: start;
   gap: 10px;
   align-items: center;
+  width: fit-content;
 }
 
 .text-middle {
@@ -171,16 +186,64 @@ button {
     font-size: 16px;
   }
 
-  .filtre {
+  .filtres {
     width: 100%;
     justify-content: center;
+    flex-direction: column;
+    gap: 10px;
   }
 
   /* Conteneur des designers */
   .designers-container {
     margin: 10px;
     justify-content: center;
-    gap: 10px;
+    gap: 20px;
+  }
+
+  /* Carte designer */
+  .designer {
+    width: 300px;
+    height: 172px;
+    padding: 15px;
+    gap: 19px;
+  }
+
+  .designer-top-left {
+    gap: 8px;
+  }
+
+  .photo {
+    height: 40px;
+    width: 40px;
+  }
+
+  .designer-name {
+    font-size: 1.6rem;
+    width: 135px;
+    line-height: 22px;
+  }
+
+  .designer-widgets {
+    gap: 12px;
+  }
+
+  .widget {
+    width: 20px;
+    height: 20px;
+  }
+
+  .text-middle {
+    font-size: 1rem;
+  }
+
+  .bottom-text {
+    font-size: 1.4rem;
+  }
+
+  .background {
+    right: -91px;
+    top: -220px;
+    height: 220px;
   }
 
   /* Pagination */

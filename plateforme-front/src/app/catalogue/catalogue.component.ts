@@ -20,11 +20,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatTooltipModule, TooltipPosition } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-catalogue',
   standalone: true,
-  imports: [CommonModule, MatMenuModule, MatButtonModule, RouterModule, TranslateModule],
+  imports: [CommonModule, MatMenuModule, MatTooltipModule, MatButtonModule, RouterModule, TranslateModule],
   templateUrl: './catalogue.component.html',
   styleUrl: './catalogue.component.css',
 })
@@ -53,6 +54,9 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
   // Variables pour l'affichage mobile (infos des designers qui s'affichent au scroll)
   @ViewChildren('designerCard') designerCards!: QueryList<ElementRef>;
   myDesignersInView: boolean[] = [];
+
+  // Pour les bulles d'infos
+  tooltipPosition: TooltipPosition = 'above';
 
   subs = new Subscription();
 
@@ -165,6 +169,14 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   /**
+   * Revenir a la liste de designers complète
+   */
+  resetResearch(): void {
+    this.researchCriteria.next(null);
+    this.currentPage.next(1);
+  }
+
+  /**
    * Passe à la pge suivante
    */
   nextPage(): void {
@@ -178,6 +190,14 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.currentPage.value > 1) {
       this.currentPage.next(this.currentPage.value - 1);
     }
+  }
+
+  openBubbleSoonAvailable(): void {
+
+  }
+
+  openBubbleRestrictedToMember(): void {
+
   }
 
   /**

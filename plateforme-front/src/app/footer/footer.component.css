@@ -1,6 +1,6 @@
 
 .footer-container {
-    background-color: #e3e6fc;
+    background-color: var(--accent-color);
     padding: 20px 40px;
     color: #333;
     font-size: 14px;

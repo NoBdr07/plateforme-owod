@@ -23,8 +23,8 @@ body {
 
 :root {
   --primary-color: #eff2ff;
-  --dark-color: #12095F;
-  --accent-color: #D4DFFF;
+  --dark-color: #000827;
+  --accent-color: #d4deff;
   --warn-color: #12095F;
   --background-color: #eff2ff;
   --text-color: #eff2ff;
@@ -73,7 +73,6 @@ mat-label {
 
 h1 {
   font-size: 48px;
-  font-weight: 700;
   font-family: "Red Hat Display", sans-serif !important;
 }
 

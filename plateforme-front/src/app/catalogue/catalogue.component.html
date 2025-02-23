@@ -1,9 +1,21 @@
 <div class="top-container">
-  <div class="filtre">
-    <img class="filtre-icon" src="assets/logos/filtre.png" alt="Filtre" />
-    <button mat-button class="black" [matMenuTriggerFor]="menu">
-      {{ "CATALOGUE.FILTRE" | translate }}
-    </button>
+  <div class="filtres">
+    <div class="filtre">
+      <img class="filtre-icon" src="assets/logos/filtre.png" alt="Filtre" />
+      <button mat-button class="black" [matMenuTriggerFor]="menu">
+        {{ "CATALOGUE.FILTRE" | translate }}
+      </button>
+    </div>
+    <div class="filtre">
+      <img
+        class="filtre-icon widget"
+        src="assets/logos/refresh.png"
+        alt="Effacer les filtres"
+      />
+      <button mat-button class="black" (click)="resetResearch()">
+        {{ "CATALOGUE.ERASE" | translate }}
+      </button>
+    </div>
   </div>
 
   <mat-menu #menu="matMenu">
@@ -107,26 +119,36 @@
         </p>
       </div>
 
-      <div class="designer-widgets">
+      <div class="designer-widgets" [matTooltip]=" 'CATALOGUE.SOON' | translate " >
         <img src="assets/logos/calendar.svg" class="widget" />
         <img src="assets/logos/group-add.svg" class="widget" />
         <img src="assets/logos/person-add.svg" class="widget" />
       </div>
     </div>
 
-    <div class="designer-middle">
-      <p class="text-middle">Appeler</p>
+    <div class="designer-middle" [matTooltip]=" 'CATALOGUE.RESERVE' | translate ">
+      <p class="text-middle">{{ "CATALOGUE.APPELER" | translate }}</p>
       <img src="assets/logos/call.svg" class="widget" />
-      <p class="text-middle">Écrire</p>
+      <p class="text-middle">{{ "CATALOGUE.MAIL" | translate }}</p>
       <img src="assets/logos/mail.svg" class="widget" />
     </div>
 
     <div class="designer-bottom">
-      <p class="bottom-text bold">{{ designer.profession }}</p>
+      <div class="metier-container">
+        <p *ngIf="designer.profession === 'designer'" class="bottom-text bold">
+          Designer
+        </p>
+        <p *ngIf="designer.profession === 'artisan'" class="bottom-text bold">
+          {{ "CATALOGUE.ARTISAN" | translate }}
+        </p>
+        <p *ngIf="designer.profession === 'étudiant'" class="bottom-text bold">
+          {{ "CATALOGUE.ETUDIANT" | translate }}
+        </p>
+      </div>
       <p class="bottom-text">{{ designer.countryOfResidence }}</p>
     </div>
 
-    <img class="background" src="assets/images/back.png">
+    <img class="background" src="assets/images/back.png" />
   </div>
 </div>
 

@@ -22,6 +22,7 @@ import { DesignerService } from '../services/designer.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { NotificationService } from '../services/notifcation.service';
 import { Designer } from '../interfaces/designer.interface';
+import { User } from '../interfaces/user.interface';
 
 @Component({
   selector: 'app-my-account',
@@ -43,6 +44,7 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   hasAccount: boolean = false;
   designerId!: string;
   userId!: string;
+  user: User | null = null;
   accountForm: FormGroup;
   private subscriptions = new Subscription();
 
@@ -72,6 +74,19 @@ export class MyAccountComponent implements OnInit, OnDestroy {
     const retrievedUserId = this.authService.getUserId(); // Récupère l'userId
     if (retrievedUserId) {
       this.userId = retrievedUserId;
+
+      // recup du user pour nom prénom
+      const userSub = this.userService.getUser(this.userId).subscribe({
+        next: (user: User) => {
+          this.user = user;
+        },
+        error: (err) => {
+          console.error('Erreur lors de la récupération de l\'utilisateur:', err);
+        },
+      });
+      this.subscriptions.add(userSub);
+
+      // recup de si l'utilisateur a déjà un compte ou non
       const sub = this.userService.hasAnAccount(this.userId).subscribe({
         next: (hasAccount: boolean) => {
           this.hasAccount = hasAccount;
@@ -79,7 +94,6 @@ export class MyAccountComponent implements OnInit, OnDestroy {
             this.designerService.getDesignerByUserId(this.userId).subscribe({
               next: (designer: Designer) => {
                 this.designerId = designer.id;
-                console.log('designer id : ' + this.designerId);
               },
               error: (err) => {
                 console.log(
@@ -137,7 +151,6 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   }
 
   deleteDesigner(): void {
-    console.log('userId : ' + this.userId);
     this.designerService
       .deleteDesigner(this.userId, this.designerId)
       .subscribe({

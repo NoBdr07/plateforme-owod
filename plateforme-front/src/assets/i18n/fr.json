@@ -44,12 +44,17 @@
     "SPHERE": "Sphère d'influence",
     "SECTEUR": "Secteurs",
     "PAYS": "Pays de résidence",
-    "ETUDIANT": "Etudiant",
+    "ETUDIANT": "Étudiant",
     "ARTISAN": "Artisan",
     "AUTRE": "Autre",
     "PRECEDENT": "Précédent",
     "SUR": "sur",
-    "SUIVANT": "Suivant"
+    "SUIVANT": "Suivant",
+    "APPELER": "Appeler",
+    "MAIL": "Écrire",
+    "SOON": "Fonctionnalité bientôt disponible !",
+    "RESERVE": "Réservé aux membres",
+    "ERASE": "Effacer les filtres"
   },
   "DASHBOARD": {
     "BACK": "Revenir à votre compe",
@@ -106,6 +111,7 @@
     "CASE_NON_COCHE": "Vous devez cocher la case pour continuer."
   },
   "MON_COMPTE": {
+    "BONJOUR": "Bonjour",
     "BIENVENUE": "Bienvenue dans votre espace ! ",
     "INFO_1": "Vous n'avez pas encore crée votre profil designer.",
     "INFO_2": "Pour le creer, remplissez les informations minimales ci-dessous.",

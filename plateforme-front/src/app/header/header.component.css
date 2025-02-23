@@ -31,8 +31,8 @@
 
 .burger-line {
   width: 100%;
-  height: 2px;
-  background-color: #000;
+  height: 4px;
+  background-color: var(--dark-color);
   transition: all 0.3s ease;
 }
 
@@ -50,6 +50,7 @@
   z-index: 999;
   display: none;
   padding-top: 60px;
+  transition: all 0.3s ease;
 }
 
 .links-container.active {

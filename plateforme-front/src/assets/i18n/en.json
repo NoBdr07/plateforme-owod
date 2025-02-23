@@ -49,7 +49,12 @@
     "AUTRE": "Other",
     "PRECEDENT": "Previous",
     "SUR": "of",
-    "SUIVANT": "Next"
+    "SUIVANT": "Next",
+    "APPELER": "Call",
+    "MAIL": "Email",
+    "SOON": "New feature soon available !",
+    "RESERVE": "Members only",
+    "ERASE": "Erase filters"
   },
   "DASHBOARD": {
     "BACK": "Back to your account",
@@ -106,6 +111,7 @@
     "CASE_NON_COCHE": "You must check the box to continue."
   },
   "MON_COMPTE": {
+    "BONJOUR": "Hello",
     "BIENVENUE": "Welcome to your space!",
     "INFO_1": "You haven't created your designer profile yet.",
     "INFO_2": "To create it, fill in the minimal information below.",
