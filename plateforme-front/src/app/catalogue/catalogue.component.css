@@ -37,11 +37,11 @@
 /* CONTENEUR DU CATALOGUE */
 
 .designers-container {
-  margin: 80px;
+  margin: 20px;
   display: flex;
   flex-direction: flex-row;
   flex-wrap: wrap;
-  gap: 60px;
+  gap: 10px;
   justify-content: center;
 }
 
@@ -50,12 +50,19 @@
   flex-direction: column;
   border: solid black 2px;
   border-radius: 20px;
-  padding: 30px;
-  height: 200px;
-  width: 500px;
+  padding: 20px;
+  height: 160px;
+  width: 360px;
   overflow: hidden;
-  gap: 20px;
+  gap: 14px;
   cursor: pointer;
+  background-color: #d4deff1f;
+}
+
+.designer:hover {
+  background-color: var(--accent-color);
+  box-shadow: 0 5px 6.4px rgba(0, 8, 39, 0.1); 
+  outline: 1px solid rgba(0, 8, 39, 0.05); 
 }
 
 .designer-top {
@@ -74,26 +81,26 @@
 }
 
 .photo {
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   object-fit: cover;
   border-radius: 5px;
 }
 
 .designer-name {
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 18px;
   color: black;
   margin-bottom: 0;
   text-transform: capitalize;
-  width: 250px;
+  width: 150px;
   line-height: 26px;
 }
 
 .designer-widgets {
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 10px;
   align-items: center;
   justify-content: center;
 }
@@ -112,7 +119,7 @@
 }
 
 .text-middle {
-  font-size: 1.2rem;
+  font-size: 14px;
   color: black;
   margin-bottom: 0;
 }
@@ -126,7 +133,7 @@
 }
 
 .bottom-text {
-  font-size: 1.8rem;
+  font-size: 16px;
   color: black;
 }
 
@@ -137,11 +144,11 @@
 
 .background {
   position: relative;
-  right: -151px;
+  right: -108px;
   z-index: -1;
-  top: -235px;
+  top: -194px;
   object-fit: contain;
-  height: 239px;
+  height: 196px;
 }
 
 /* BOUTONS POUR LA PAGINATION */

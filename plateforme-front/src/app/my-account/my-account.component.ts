@@ -23,6 +23,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NotificationService } from '../services/notifcation.service';
 import { Designer } from '../interfaces/designer.interface';
 import { User } from '../interfaces/user.interface';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-my-account',
