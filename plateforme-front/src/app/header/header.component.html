@@ -36,9 +36,19 @@
       class="link"
       routerLink="/login"
       routerLinkActive="active-link"
+      *ngIf="!isLogged"
       (click)="toggleMenu()"
     >
     {{ "HEADER.CONNEXION" | translate }}
+    </p>
+    <p
+      class="link"
+      routerLink="/account"
+      routerLinkActive="active-link"
+      *ngIf="isLogged"
+      (click)="toggleMenu()"
+    >
+    {{ "HEADER.SPACE" | translate }}
     </p>
     <p
       class="link"

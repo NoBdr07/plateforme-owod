@@ -1,21 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { AuthService } from '../services/auth.service';
+import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule, TranslateModule],
+  imports: [RouterModule, TranslateModule, CommonModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy {
   currentLang!: string;
   isMenuOpen = false;
+  isLogged = false;
 
-  constructor(private translateService: TranslateService) {
+  subs = new Subscription();
+
+  constructor(
+    private translateService: TranslateService,
+    private authService: AuthService
+  ) {
     // Initialiser avec la langue courante
-    this.currentLang = this.translateService.currentLang || this.translateService.getDefaultLang();
+    this.currentLang =
+      this.translateService.currentLang ||
+      this.translateService.getDefaultLang();
+
+    // Menu en fonction de si la personne est connectée ou non
+    const sub = this.authService.$isLogged().subscribe(
+      isLogged => this.isLogged = isLogged
+    )
+
+    this.subs.add(sub);
   }
 
   switchLanguage(lang: string) {
@@ -29,4 +47,7 @@ export class HeaderComponent {
     burgerBtn?.classList.toggle('active');
   }
 
+  ngOnDestroy(): void {
+      this.subs.unsubscribe();
+  }
 }

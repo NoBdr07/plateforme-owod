@@ -91,7 +91,7 @@ h2 {
   flex: 1;
   height: 100px;
   background-color: var(--accent-color) !important;
-  color: var(--dark-color);
+  color: var(--dark-color) !important;
   font-weight: bold;
   border-radius: 10px;
   box-shadow: none;
@@ -101,7 +101,7 @@ h2 {
   flex: 1;
   height: 100px;
   background-color: #ebb8b8 !important;
-  color: var(--dark-color);
+  color: var(--dark-color) !important;
   font-weight: bold;
   border-radius: 10px;
   box-shadow: none;

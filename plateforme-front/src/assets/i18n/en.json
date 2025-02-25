@@ -5,6 +5,7 @@
     "INSCRIPTION": "Register",
     "CONNEXION": "Log In",
     "CONTACT": "Contact",
+    "SPACE": "My account",
     "FAQ": "Frequently asked questions",
     "ABOUT": "About"
   },
@@ -84,7 +85,9 @@
     "REALISATIONS": "My projects",
     "INFORMATIONS": "My information",
     "CONTACT": "Contact me",
-    "PORTFOLIO": "Link to my portfolio"
+    "PORTFOLIO": "Link to my portfolio",
+    "NOT_LOGGED": "Information reserved for directory members.",
+    "MEMBRE": "Join now !"
   },
   "LOGIN": {
     "TITRE": "Login",
@@ -121,6 +124,9 @@
     "DECONNECTER": "Log out",
     "RETOUR": "Back to website home",
     "SUPPRIMER": "Delete your designer profile",
+    "CONFIRME": "Are you sure that you want to delete your designer profile? This action cannot be undone.",
+    "CONFIRME_OUI": "Delete",
+    "CONFIRME_NON": "Cancel",
     "CREATED_1": "You have already created your designer profile.",
     "CREATED_2": "You can complete or modify it in \"Set up your profile\"."
   },

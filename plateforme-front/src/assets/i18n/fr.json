@@ -5,6 +5,7 @@
     "INSCRIPTION": "Inscription",
     "CONNEXION": "Connexion",
     "CONTACT": "Contact",
+    "SPACE": "Mon espace",
     "FAQ": "Foire aux questions",
     "ABOUT": "À propos"
   },
@@ -84,7 +85,9 @@
     "REALISATIONS": "Mes réalisations",
     "INFORMATIONS": "Mes informations",
     "CONTACT": "Me contacter",
-    "PORTFOLIO": "Lien vers mon portfolio"
+    "PORTFOLIO": "Lien vers mon portfolio",
+    "NOT_LOGGED": "Informations réservées aux membres de l'annuaire.",
+    "MEMBRE": "Devenir membre !"
   },
   "LOGIN": {
     "TITRE": "Se connecter",
@@ -121,6 +124,9 @@
     "DECONNECTER": "Se déconnecter",
     "RETOUR": "Retour à l'accueil du site",
     "SUPPRIMER": "Supprimer votre profil designer",
+    "CONFIRME": "Êtes-vous certain de vouloir supprimer votre profil designer ? Cette action est irréversible",
+    "CONFIRME_OUI": "Supprimer",
+    "CONFIRME_NON": "Annuler",
     "CREATED_1": "Votre profil designer est actuellement actif.",
     "CREATED_2": "Vous pouvez le compléter ou le modifier dans \"configurer le profil\"."
   },

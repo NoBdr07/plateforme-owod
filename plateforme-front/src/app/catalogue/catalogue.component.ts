@@ -1,11 +1,15 @@
-import { Component,
+import {
+  Component,
   OnInit,
   OnDestroy,
   AfterViewInit,
   ElementRef,
   ViewChildren,
   QueryList,
-  HostListener } from '@angular/core';
+  HostListener,
+  ViewChild,
+  TemplateRef,
+} from '@angular/core';
 import { Designer } from '../interfaces/designer.interface';
 import {
   BehaviorSubject,
@@ -21,16 +25,29 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTooltipModule, TooltipPosition } from '@angular/material/tooltip';
+import { AuthService } from '../services/auth.service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-catalogue',
   standalone: true,
-  imports: [CommonModule, MatMenuModule, MatTooltipModule, MatButtonModule, RouterModule, TranslateModule],
+  imports: [
+    CommonModule,
+    MatMenuModule,
+    MatTooltipModule,
+    MatButtonModule,
+    RouterModule,
+    TranslateModule,
+    MatDialogModule
+  ],
   templateUrl: './catalogue.component.html',
   styleUrl: './catalogue.component.css',
 })
 export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
   designers$!: Observable<Designer[]>;
+
+  // Utilisateur connecté ou non
+  isLogged: boolean = false;
 
   // Variables pour les recherches
   researchDesigners$!: Observable<Designer[]>;
@@ -58,9 +75,19 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
   // Pour les bulles d'infos
   tooltipPosition: TooltipPosition = 'above';
 
+  // Pour popup numero et mail
+  phone: string = ''; 
+  email: string = ''; 
+  @ViewChild('phoneDialogTemplate') phoneDialogTemplate!: TemplateRef<any>;
+  @ViewChild('emailDialogTemplate') emailDialogTemplate!: TemplateRef<any>;
+
   subs = new Subscription();
 
-  constructor(private readonly designerService: DesignerService) {}
+  constructor(
+    private readonly designerService: DesignerService,
+    private readonly authService: AuthService,
+    private dialog: MatDialog
+  ) {}
 
   /**
    * Initialisation de la liste des designers, des listes servant aux recherches parmi les designers
@@ -111,27 +138,34 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
         const maxPages = Math.ceil(total / this.pageSize);
         this.maxPage.next(maxPages);
       })
-    )
+    );
 
     // Pagination
     this.paginatedDesigners$ = combineLatest([
       this.researchDesigners$,
-      this.currentPage
+      this.currentPage,
     ]).pipe(
       map(([designers, page]) => {
         const startIndex = (page - 1) * this.pageSize;
         const endIndex = startIndex + this.pageSize;
-        
+
         return designers.slice(startIndex, endIndex);
       })
-    )
+    );
+
+    // Check si l'utilisateur est connecté ou non
+    const sub = this.authService.$isLogged().subscribe((logged) => {
+      this.isLogged = logged;
+    })
+
+    this.subs.add(sub);
   }
 
   /**
    * Une fois la page initialisée, écoute du scroll
    */
   ngAfterViewInit(): void {
-      this.onWindowScroll();
+    this.onWindowScroll();
   }
 
   /**
@@ -140,22 +174,22 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
-    if(window.innerWidth >= 768) {
+    if (window.innerWidth >= 768) {
       return;
     }
 
     const centerY = window.innerHeight / 2;
 
-    // On vérifie la position de chaque designer card pour lui accorder true si il est 
+    // On vérifie la position de chaque designer card pour lui accorder true si il est
     // au milieu de l'écran
     this.designerCards.forEach((card, i) => {
       const rect = card.nativeElement.getBoundingClientRect();
-      if (rect.top < centerY && rect.bottom > centerY ) {
+      if (rect.top < centerY && rect.bottom > centerY) {
         this.myDesignersInView[i] = true;
       } else {
         this.myDesignersInView[i] = false;
       }
-    })
+    });
   }
 
   /**
@@ -192,14 +226,6 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  openBubbleSoonAvailable(): void {
-
-  }
-
-  openBubbleRestrictedToMember(): void {
-
-  }
-
   /**
    * Méthode pour extraire des valeurs uniques d'un champ spécifique
    */
@@ -208,15 +234,40 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
       .map((item) => {
         const val = item[key];
         // Vérifie si val est un tableau, sinon convertit en tableau
-        return Array.isArray(val) 
-          ? val.map(v => typeof v === 'string' ? v.trim() : v)
+        return Array.isArray(val)
+          ? val.map((v) => (typeof v === 'string' ? v.trim() : v))
           : [typeof val === 'string' ? val.trim() : val];
       })
       .flat() as string[];
-  
+
     return [...new Set(values)];
   }
 
+  /**
+   * Fenetre popup qui donne le numero si connecté
+   * @param phone 
+   */
+  showPhoneNumber(phone: string): void {
+    if(this.isLogged) {
+      this.phone = phone;
+      this.dialog.open(this.phoneDialogTemplate);
+    } 
+  }
+
+  /**
+   * Fenetre popup qui donne l'email si connecté
+   * @param email 
+   */
+  showEmail(email: string): void {
+    if(this.isLogged) {
+      this.email = email;
+      this.dialog.open(this.emailDialogTemplate);
+    } 
+  }  
+
+  /**
+   * Unsubscribe des observable
+   */
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
 import { Subscription } from 'rxjs';
@@ -23,7 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NotificationService } from '../services/notifcation.service';
 import { Designer } from '../interfaces/designer.interface';
 import { User } from '../interfaces/user.interface';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 
 @Component({
@@ -38,6 +38,7 @@ import { MatDialog } from '@angular/material/dialog';
     MatSelectModule,
     ReactiveFormsModule,
     TranslateModule,
+    MatDialogModule
   ],
   templateUrl: './my-account.component.html',
   styleUrl: './my-account.component.css',
@@ -56,12 +57,16 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   favoriteSectors = Object.values(FavoriteSector);
   jobs = Object.values(Job);
 
+  // Dialog pour la suppresion de profil
+  @ViewChild('confirmSuppressTemplate') confirmSuppressTemplate!: TemplateRef<any>;
+
   constructor(
     private readonly userService: UserService,
     private readonly authService: AuthService,
     private readonly designerService: DesignerService,
     private readonly fb: FormBuilder,
-    private readonly notificationService: NotificationService
+    private readonly notificationService: NotificationService,
+    private readonly dialog: MatDialog
   ) {
     this.accountForm = this.fb.group({
       profession: ['', Validators.required],
@@ -159,6 +164,7 @@ export class MyAccountComponent implements OnInit, OnDestroy {
         next: () => {
           this.hasAccount = false;
           this.designerId = '';
+          this.dialog.closeAll();
           this.notificationService.success(
             'Profil designer supprimé avec succès.'
           );
@@ -169,6 +175,10 @@ export class MyAccountComponent implements OnInit, OnDestroy {
           );
         },
       });
+  }
+
+  openSuppressDialog(): void {
+    this.dialog.open(this.confirmSuppressTemplate);
   }
 
   ngOnDestroy(): void {

@@ -1,6 +1,5 @@
 <div class="global-container">
   <div class="top-container">
-
     <div class="text-container">
       <div class="top-left-container">
         <h1 class="bonjour">{{ "MON_COMPTE.BONJOUR" | translate }}</h1>
@@ -86,7 +85,7 @@
       <button class="button" mat-raised-button routerLink="/">
         {{ "MON_COMPTE.RETOUR" | translate }}
       </button>
-  
+
       <button class="button" mat-raised-button (click)="logOut()">
         {{ "MON_COMPTE.DECONNECTER" | translate }}
       </button>
@@ -106,8 +105,24 @@
       {{ "MON_COMPTE.DECONNECTER" | translate }}
     </button>
 
-    <button class="red-button" mat-raised-button  (click)="deleteDesigner()">
+    <button class="red-button" mat-raised-button (click)="openSuppressDialog()">
       {{ "MON_COMPTE.SUPPRIMER" | translate }}
     </button>
   </div>
 </div>
+
+<!-- Template pour confirmer la supression du profil -->
+<ng-template #confirmSuppressTemplate>
+  <h2 mat-dialog-title>{{ "MON_COMPTE.SUPPRIMER" | translate }}</h2>
+  <mat-dialog-content>
+    <p>{{ "MON_COMPTE.CONFIRME" | translate }}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>
+      {{ "MON_COMPTE.CONFIRME_NON" | translate }}
+    </button>
+    <button mat-raised-button (click)="deleteDesigner()">
+      {{ "MON_COMPTE.CONFIRME_OUI" | translate }}
+    </button>
+  </mat-dialog-actions>
+</ng-template>

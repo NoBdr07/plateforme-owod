@@ -1,12 +1,16 @@
 <div class="arrow-container" routerLink="/catalogue">
-  <img src="/assets/logos/arrow-back.png" alt="retour"/>
+  <img src="/assets/logos/arrow-back.png" alt="retour" />
   <p>{{ "DESIGNER_DETAILS.RETOUR" | translate }}</p>
 </div>
 
 <div class="details-container">
   <!-- Photo -->
   <div class="photo-section">
-    <img class="background" src="assets/images/back.png" alt="logo de l'AIPDA, association internationale pour la promotion du design en Afrique"/>
+    <img
+      class="background"
+      src="assets/images/back.png"
+      alt="logo de l'AIPDA, association internationale pour la promotion du design en Afrique"
+    />
     <img
       [src]="designer.profilePicture || 'assets/logos/default-profile.png'"
       alt="Photo de profil d'un des designers de la plateforme OWOD, our World of Design"
@@ -23,7 +27,9 @@
     <p class="biography">{{ designer.biography }}</p>
 
     <div *ngIf="designer.majorWorks.length > 0" class="realisations">
-      <p class="group-title">{{ "DESIGNER_DETAILS.REALISATIONS" | translate }}</p>
+      <p class="group-title">
+        {{ "DESIGNER_DETAILS.REALISATIONS" | translate }}
+      </p>
       <div class="preview-container">
         <div *ngFor="let realisationUrl of designer.majorWorks">
           <img
@@ -36,54 +42,70 @@
       </div>
 
       <!-- Zone pour afficher l'agrandissement -->
-      <div *ngIf="previewImage" class="preview-overlay" (click)="hidePreview()" >
-        <img [src]="previewImage" class="overlay-image" (click)="$event.stopPropagation()" alt="réalisation d'un des designers de la plateforme OWOD de l'AIPDA"/>
+      <div *ngIf="previewImage" class="preview-overlay" (click)="hidePreview()">
+        <img
+          [src]="previewImage"
+          class="overlay-image"
+          (click)="$event.stopPropagation()"
+          alt="réalisation d'un des designers de la plateforme OWOD de l'AIPDA"
+        />
       </div>
     </div>
 
     <div class="detail">
-      <p class="group-title">{{ "DESIGNER_DETAILS.INFORMATIONS" | translate }}</p>
+      <p class="group-title">
+        {{ "DESIGNER_DETAILS.INFORMATIONS" | translate }}
+      </p>
       <p>
         <strong>{{ "DASHBOARD.PROFESSION" | translate }} : </strong>
         <span>{{ designer.profession }} </span>
       </p>
       <p *ngIf="designer.professionalLevel">
-        <strong>{{ "DASHBOARD.NIVEAU" | translate }} : </strong><span>{{ designer.professionalLevel }}</span>
+        <strong>{{ "DASHBOARD.NIVEAU" | translate }} : </strong
+        ><span>{{ designer.professionalLevel }}</span>
       </p>
       <p class="more-line-height">
         <strong>{{ "DASHBOARD.SPECIALITE" | translate }} : </strong>
         <span class="bubble" *ngFor="let specialty of designer.specialties"
-          >{{ specialty }}  
+          >{{ specialty }}
         </span>
       </p>
       <p class="more-line-height">
         <strong>{{ "DASHBOARD.SPHERE" | translate }} : </strong>
         <span class="bubble" *ngFor="let sphere of designer.spheresOfInfluence"
-          >{{ sphere }}  
+          >{{ sphere }}
         </span>
       </p>
       <p class="more-line-height">
         <strong>{{ "DASHBOARD.SECTEUR" | translate }} : </strong>
         <span class="bubble" *ngFor="let sector of designer.favoriteSectors"
-          >{{ sector }}  
+          >{{ sector }}
         </span>
       </p>
     </div>
 
     <div class="contact">
       <p class="group-title">{{ "DESIGNER_DETAILS.CONTACT" | translate }}</p>
-      <p *ngIf="designer.email">
-        <strong>Email : </strong>{{ designer.email }}
-      </p>
-      <p *ngIf="designer.phoneNumber">
-        <strong>{{ "DASHBOARD.TELEPHONE" | translate }} : </strong>{{ designer.phoneNumber }}
-      </p>
-      <a
-        *ngIf="designer.portfolioUrl"
-        target="_blank"
-        [href]="designer.portfolioUrl"
-        >{{ "DESIGNER_DETAILS.PORTFOLIO" | translate }}</a
-      >
+      <div class="contact-if-logged" *ngIf="isLogged$ | async">        
+        <p *ngIf="designer.email">
+          <strong>Email : </strong>{{ designer.email }}
+        </p>
+        <p *ngIf="designer.phoneNumber">
+          <strong>{{ "DASHBOARD.TELEPHONE" | translate }} : </strong
+          >{{ designer.phoneNumber }}
+        </p>
+        <a
+          *ngIf="designer.portfolioUrl"
+          target="_blank"
+          [href]="designer.portfolioUrl"
+          >{{ "DESIGNER_DETAILS.PORTFOLIO" | translate }}</a
+        >
+      </div>
+
+      <div class="contact-if-notLogged" *ngIf="!(isLogged$ | async)">
+        <p>{{ "DESIGNER_DETAILS.NOT_LOGGED" | translate }}</p>
+        <button mat-raised-button routerLink="/register">{{ "DESIGNER_DETAILS.MEMBRE" | translate }}</button>
+      </div>
     </div>
   </div>
 </div>

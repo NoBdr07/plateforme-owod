@@ -1,20 +1,20 @@
 /** FLECHE DE RETOUR AU CATALOGUE **/
 
 .arrow-container {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    margin: 50px;
-    font-size: 20px;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin: 50px;
+  font-size: 20px;
+  align-items: center;
 }
 
 .arrow-container p {
-    margin: 0;
+  margin: 0;
 }
 
 .arrow-container:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /** GLOBAL **/
@@ -63,9 +63,9 @@
 }
 
 .info-name {
-    font-size: 42px;
-    font-variant: small-caps;
-    font-weight: 700;
+  font-size: 42px;
+  font-variant: small-caps;
+  font-weight: 700;
 }
 
 .info-subtitle {
@@ -74,32 +74,32 @@
 }
 
 .group-title {
-    font-size: 20px;
-    font-weight: 700;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .realisations {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .preview-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    background-color: #EFF2FF;
-    padding: 16px;
-    border-radius: 8px;
-    gap: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: #eff2ff;
+  padding: 16px;
+  border-radius: 8px;
+  gap: 10px;
 }
 
 .realisation-photo {
-    object-fit: cover;
-    width: 168px;
-    height: 119px;
-    border-radius: 4px;
-    z-index: 1000;
+  object-fit: cover;
+  width: 168px;
+  height: 119px;
+  border-radius: 4px;
+  z-index: 1000;
 }
 
 .bubble {
@@ -112,7 +112,6 @@
 .more-line-height {
   line-height: 40px;
 }
-
 
 /* Grossissement des réalisations au survol */
 .preview-overlay {
@@ -143,6 +142,16 @@
   cursor: pointer;
 }
 
+.contact-if-notLogged {
+  border: solid 1px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  justify-content: center;
+  text-align: center;
+}
+
 /* REGLES POUR MOBILE */
 
 @media screen and (max-width: 768px) {
@@ -151,7 +160,7 @@
     margin: 20px;
     font-size: 16px;
   }
- 
+
   /* Container principal */
   .details-container {
     flex-direction: column;
@@ -159,7 +168,7 @@
     margin-top: 50px;
     gap: 0;
   }
-  
+
   /* Section photo */
   .photo-section {
     width: 90%;
@@ -186,17 +195,17 @@
   .photo {
     position: relative;
   }
- 
+
   .photo-name {
     top: -80px;
     font-size: 24px;
   }
- 
+
   .photo-job {
     top: -90px;
     font-size: 18px;
   }
- 
+
   /* Section informations */
   .info-section {
     width: 90%;
@@ -205,73 +214,73 @@
     margin-bottom: 50px;
     margin-top: 40px;
   }
- 
+
   .info-name {
     font-size: 24px;
   }
- 
+
   .info-subtitle {
     font-size: 16px;
   }
- 
+
   .group-title {
     font-size: 18px;
   }
- 
+
   .biography {
     font-size: 14px;
   }
- 
+
   /* Section réalisations */
   .preview-container {
     padding: 10px;
     justify-content: center;
   }
- 
+
   .realisation-photo {
     width: 140px;
     height: 100px;
   }
- 
+
   /* Overlay pour les images */
   .preview-overlay {
     padding: 20px;
   }
- 
+
   .overlay-image {
     max-width: 95vw;
     max-height: 70vh;
   }
- 
+
   /* Section détails */
   .detail {
     font-size: 14px;
   }
- 
+
   .detail p {
     margin: 5px 0;
   }
- 
+
   /* Section contact */
   .contact {
     font-size: 14px;
   }
- 
+
   .contact p {
     margin: 5px 0;
     word-break: break-word; /* Pour les longs emails */
   }
- 
+
   .contact a {
     display: inline-block;
     margin-top: 10px;
   }
- }
- 
- /* Ajustements pour très petits écrans */
- @media screen and (max-width: 360px) {
+}
+
+/* Ajustements pour très petits écrans */
+@media screen and (max-width: 360px) {
   .realisation-photo {
     width: 100%;
     height: auto;
   }
- }
+}

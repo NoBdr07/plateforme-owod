@@ -24,7 +24,15 @@ export class AuthService {
     private readonly http: HttpClient,
     private readonly router: Router
   ) {
-    this.checkAuthStatus();
+    this.checkAuthStatus().subscribe({
+      next: (userInfo) => {
+        console.log("check auth status");
+        console.log("user id : " + userInfo.userId);
+      },
+      error: (err) => {
+        console.log("error in check auth status : " + err);
+      }
+    })
   }
 
   /**
@@ -99,7 +107,7 @@ export class AuthService {
           this.isLogged = false;
           this.userId = null;
           this.next();
-          throw error;
+          return throwError(() => error);
         })
     );
   }

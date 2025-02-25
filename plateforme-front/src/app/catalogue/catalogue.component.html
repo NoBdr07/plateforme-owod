@@ -119,18 +119,34 @@
         </p>
       </div>
 
-      <div class="designer-widgets" [matTooltip]=" 'CATALOGUE.SOON' | translate " >
+      <div class="designer-widgets" [matTooltip]="'CATALOGUE.SOON' | translate">
         <img src="assets/logos/calendar.svg" class="widget" />
         <img src="assets/logos/group-add.svg" class="widget" />
         <img src="assets/logos/person-add.svg" class="widget" />
       </div>
     </div>
 
-    <div class="designer-middle" [matTooltip]=" 'CATALOGUE.RESERVE' | translate ">
-      <p class="text-middle">{{ "CATALOGUE.APPELER" | translate }}</p>
-      <img src="assets/logos/call.svg" class="widget" />
-      <p class="text-middle">{{ "CATALOGUE.MAIL" | translate }}</p>
-      <img src="assets/logos/mail.svg" class="widget" />
+    <div
+      class="designer-middle"
+      [matTooltip]="!isLogged ? ('CATALOGUE.RESERVE' | translate) : null"
+      [ngClass]="{ 'logged-in': isLogged, 'logged-out': !isLogged }"
+    >
+      <div
+        class="middle-section"
+        (click)="
+          $event.stopPropagation(); showPhoneNumber(designer.phoneNumber)
+        "
+      >
+        <p class="text-middle">{{ "CATALOGUE.APPELER" | translate }}</p>
+        <img src="assets/logos/call.svg" class="widget" />
+      </div>
+      <div
+        class="middle-section"
+        (click)="$event.stopPropagation(); showEmail(designer.email)"
+      >
+        <p class="text-middle">{{ "CATALOGUE.MAIL" | translate }}</p>
+        <img src="assets/logos/mail.svg" class="widget" />
+      </div>
     </div>
 
     <div class="designer-bottom">
@@ -175,3 +191,25 @@
     {{ "CATALOGUE.SUIVANT" | translate }}
   </button>
 </div>
+
+<!-- Template pour la boîte de dialogue du numéro de téléphone -->
+<ng-template #phoneDialogTemplate>
+  <h2 mat-dialog-title>Numéro de téléphone</h2>
+  <mat-dialog-content>
+    <p><strong>Téléphone :</strong> {{ phone }}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Fermer</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<!-- Template pour la boîte de dialogue de l'adresse e-mail -->
+<ng-template #emailDialogTemplate>
+  <h2 mat-dialog-title>Adresse e-mail</h2>
+  <mat-dialog-content>
+    <p><strong>E-mail :</strong> {{ email }}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Fermer</button>
+  </mat-dialog-actions>
+</ng-template>
