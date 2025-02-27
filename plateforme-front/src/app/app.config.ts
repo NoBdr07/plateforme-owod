@@ -10,6 +10,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { NativeDateAdapter, provideNativeDateAdapter } from '@angular/material/core';
 
 // Factory function pour le TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient) {
@@ -19,6 +20,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
+    provideNativeDateAdapter(),
     provideHttpClient(), provideAnimationsAsync(),
     importProvidersFrom(
       HttpClientModule,

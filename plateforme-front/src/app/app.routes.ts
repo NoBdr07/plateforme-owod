@@ -45,6 +45,14 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     {
+        path: 'account/gestion-calendrier',
+        loadComponent: () =>
+            import(
+              './gestion-calendrier/gestion-calendrier.component'
+            ).then((c) => c.GestionCalendrierComponent),
+        canActivate: [authGuard]
+    },
+    {
         path: 'catalogue',
         loadComponent: () =>
             import(

@@ -29,6 +29,7 @@ import { AuthService } from '../services/auth.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../services/user.service';
+import { CalendarDialogComponent } from '../calendar-dialog/calendar-dialog.component';
 
 @Component({
   selector: 'app-catalogue',
@@ -40,7 +41,7 @@ import { UserService } from '../services/user.service';
     MatButtonModule,
     RouterModule,
     TranslateModule,
-    MatDialogModule,
+    MatDialogModule
   ],
   templateUrl: './catalogue.component.html',
   styleUrl: './catalogue.component.css',
@@ -323,6 +324,10 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  /**
+   * Ajout d'un contact
+   * @param friendId 
+   */
   addFriend(friendId: string): void {
     if (this.isLogged) {
       this.userService.addFriend(friendId).subscribe({
@@ -333,6 +338,17 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
         error: () => {
           this.snackBar.open('Erreur lors de l\'ajout du contact', 'Ok', {duration: 3000});
         }
+      })
+    }
+  }
+
+  /**
+   * Ouverture du dialog de calendrier pour le designer choisi
+   */
+  openCalendar(designerId: string): void {
+    if(this.isLogged) {
+      const dialogRef = this.dialog.open(CalendarDialogComponent, {
+        data: {designerId: designerId}
       })
     }
   }

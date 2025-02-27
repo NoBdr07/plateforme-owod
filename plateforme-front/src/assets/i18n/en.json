@@ -129,7 +129,8 @@
     "CONFIRME_NON": "Cancel",
     "CONTACT": "Saved contacts",
     "CREATED_1": "You have already created your designer profile.",
-    "CREATED_2": "You can complete or modify it in \"Set up your profile\"."
+    "CREATED_2": "You can complete or modify it in \"Set up your profile\".",
+    "CALENDRIER": "Manage my calendar"
   },
   "CONTACTS": {
     "TITRE": "Saved contacts",

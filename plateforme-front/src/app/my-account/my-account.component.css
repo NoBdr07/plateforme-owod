@@ -85,6 +85,7 @@ h2 {
   align-items: center;
   width: 90%;
   max-width: 1500px;
+  flex-wrap: wrap;
 }
 
 .button {
@@ -95,6 +96,7 @@ h2 {
   font-weight: bold;
   border-radius: 10px;
   box-shadow: none;
+  min-width: 300px;
 }
 
 .red-button {

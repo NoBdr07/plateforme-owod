@@ -1,3 +1,5 @@
+import { DesignerEvent } from "./designer-event.interface";
+
 export interface Designer {
     id: string; // Identifiant unique
   
@@ -16,5 +18,6 @@ export interface Designer {
     professionalLevel: string; // Niveau professionnel (junior, senior, expert)
     majorWorks: string[]; // URL des photos des réalisations majeures (<= 5)
     portfolioUrl: string; // URL du portfolio
+    events: DesignerEvent[];
   }
   

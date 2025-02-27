@@ -1,0 +1,115 @@
+<div class="arrow-container" routerLink="/account">
+  <img src="/assets/logos/arrow-back.png" alt="retour" />
+  <p>{{ "DASHBOARD.BACK" | translate }}</p>
+</div>
+
+<div class="events-management-container">
+  <h1>Gestion de mes disponibilités</h1>
+
+  <div class="form-container">
+    <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+      <h2>{{ "Ajouter un nouvel événement" }}</h2>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Titre</mat-label>
+        <input
+          matInput
+          formControlName="title"
+          placeholder="Ex: Disponible pour consultation"
+        />
+        <mat-error *ngIf="eventForm.get('title')?.hasError('required')">
+          Le titre est requis
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea
+          matInput
+          formControlName="description"
+          placeholder="Détails supplémentaires sur cet événement"
+        ></textarea>
+      </mat-form-field>
+
+      <div class="date-fields">
+        <mat-form-field appearance="outline">
+          <mat-label>Date de début</mat-label>
+          <input
+            matInput
+            [matDatepicker]="pickerStart"
+            formControlName="startDate"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="pickerStart"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #pickerStart></mat-datepicker>
+          <mat-error *ngIf="eventForm.get('startDate')?.hasError('required')">
+            La date de début est requise
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Date de fin</mat-label>
+          <input
+            matInput
+            [matDatepicker]="pickerEnd"
+            formControlName="endDate"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="pickerEnd"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #pickerEnd></mat-datepicker>
+          <mat-error *ngIf="eventForm.get('endDate')?.hasError('required')">
+            La date de fin est requise
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          [disabled]="eventForm.invalid"
+        >
+          Ajouter
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="events-list">
+    <h2>Mes événements</h2>
+
+    <div
+      *ngIf="!designer?.events || designer.events.length === 0"
+      class="no-events"
+    >
+      Aucun événement n'a été ajouté
+    </div>
+
+    <div class="event-container">
+      <mat-card *ngFor="let event of designer?.events" class="event-card">
+        <mat-card-header>
+          <mat-card-title>{{ event.title }}</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p>
+            Du {{ event.startDate | date : "dd/MM/yyyy" }} au
+            {{ event.endDate | date : "dd/MM/yyyy" }}
+          </p>
+          <p *ngIf="event.description">{{ event.description }}</p>
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+          <button mat-button color="warn" (click)="deleteEvent(event)">
+            SUPPRIMER
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

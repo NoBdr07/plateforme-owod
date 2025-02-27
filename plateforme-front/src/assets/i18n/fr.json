@@ -58,7 +58,7 @@
     "ERASE": "Effacer les filtres"
   },
   "DASHBOARD": {
-    "BACK": "Revenir à votre compe",
+    "BACK": "Revenir à votre compte",
     "CHANGE_PHOTO": "Changer de photo",
     "REALISATIONS": "Réalisations",
     "SUPPRIMER": "Supprimer",
@@ -129,7 +129,8 @@
     "CONFIRME_NON": "Annuler",
     "CONTACT": "Contacts enregistrés",
     "CREATED_1": "Votre profil designer est actuellement actif.",
-    "CREATED_2": "Vous pouvez le compléter ou le modifier dans \"configurer le profil\"."
+    "CREATED_2": "Vous pouvez le compléter ou le modifier dans \"configurer le profil\".",
+    "CALENDRIER": "Gérer mon calendrier"
   },
   "CONTACTS": {
     "TITRE": "Contacts enregistrés",

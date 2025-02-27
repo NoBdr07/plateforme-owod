@@ -1,0 +1,55 @@
+/* calendar-dialog.component.scss */
+.calendar-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+h3 {
+    font-weight: bold;
+}
+
+.calendar-section,
+.events-section {
+  flex: 1;
+  min-width: 300px;
+}
+
+.events-section {
+  padding: 10px;
+  background-color: var(--primary-color);
+  border-radius: 4px;
+  color: black;
+  width: 300px;
+}
+
+.no-events {
+  color: #757575;
+  font-style: italic;
+  padding: 10px 0;
+}
+
+::ng-deep .mat-calendar-body-cell.event-specific-date .mat-calendar-body-cell-content {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    border-radius: 50% !important;
+  }
+  
+  ::ng-deep .mat-calendar-body-cell.event-in-period .mat-calendar-body-cell-content {
+    background-color: #81c784 !important;
+    color: white !important;
+    border-radius: 50% !important;
+  }
+
+.event-item {
+  color: black;
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: var(--dark-color) !important;
+}
+
+.event-container {
+    display: flex;
+    flex-direction: column;
+}

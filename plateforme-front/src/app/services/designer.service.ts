@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { Designer } from '../interfaces/designer.interface';
+import { DesignerEvent } from '../interfaces/designer-event.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -172,6 +173,19 @@ export class DesignerService {
         this.loadDesigners().subscribe();
       })
     );
+  }
+
+  addEvent(event: DesignerEvent) : Observable<Designer> {
+    console.log("add event dans designer service");
+    return this.http.post<Designer>(`${this.apiUrl}/events/add`, event, {
+      withCredentials: true
+    })
+  }
+
+  deleteEvent(event: DesignerEvent): Observable<Designer> {
+    return this.http.post<Designer>(`${this.apiUrl}/events/delete`, event , {
+      withCredentials: true
+    })
   }
 
 }

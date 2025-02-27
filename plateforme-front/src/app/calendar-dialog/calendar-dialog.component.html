@@ -1,0 +1,33 @@
+<!-- calendar-dialog.component.html -->
+<h2 mat-dialog-title>Calendrier de {{ designer?.firstname }} {{ designer?.lastname }}</h2>
+
+<mat-dialog-content>
+  <div class="calendar-container">
+    <div class="calendar-section">
+      <mat-calendar 
+      [dateClass]="dateClass"
+        [selected]="selectedDate"
+        (selectedChange)="onDateSelected($event)">
+      </mat-calendar>
+    </div>
+    
+    <div class="events-section">
+      <h3>Événements du {{ selectedDate | date:'dd/MM/yyyy' }} :</h3>
+      
+      <div *ngIf="eventsOnSelectedDate.length === 0" class="no-events">
+        Aucun événement pour cette date
+      </div>
+
+      <div *ngFor="let event of eventsOnSelectedDate" class="event-container">
+        <h4>Nom : {{ event.title }}</h4>
+        <p>Description : {{ event.description }}</p>
+      </div>
+      
+    </div>
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Fermer</button>
+</mat-dialog-actions>

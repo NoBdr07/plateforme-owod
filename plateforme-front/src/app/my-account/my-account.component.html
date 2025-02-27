@@ -19,6 +19,7 @@
         <p class="small" *ngIf="!hasAccount">
           {{ "MON_COMPTE.INFO_1" | translate }}
         </p>
+
         <p class="small" *ngIf="!hasAccount">
           {{ "MON_COMPTE.INFO_2" | translate }}
         </p>
@@ -107,6 +108,10 @@
 
     <button class="button" mat-raised-button routerLink="/account/contacts">
       {{ "MON_COMPTE.CONTACT" | translate }}
+    </button>
+
+    <button class="button" mat-raised-button routerLink="/account/gestion-calendrier">
+      {{ "MON_COMPTE.CALENDRIER" | translate }}
     </button>
 
     <button class="button" mat-raised-button (click)="logOut()">
