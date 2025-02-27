@@ -16,51 +16,6 @@
 
   <!-- Menu navigation -->
   <div class="links-container" [class.active]="isMenuOpen">
-    <p
-      class="link"
-      routerLink="/catalogue"
-      routerLinkActive="active-link"
-      (click)="toggleMenu()"
-    >
-      {{ "HEADER.CATALOGUE" | translate }}
-    </p>
-    <p
-      class="link"
-      routerLink="/register"
-      routerLinkActive="active-link"
-      (click)="toggleMenu()"
-    >
-    {{ "HEADER.INSCRIPTION" | translate }}
-    </p>
-    <p
-      class="link"
-      routerLink="/login"
-      routerLinkActive="active-link"
-      *ngIf="!isLogged"
-      (click)="toggleMenu()"
-    >
-    {{ "HEADER.CONNEXION" | translate }}
-    </p>
-    <p
-      class="link"
-      routerLink="/account"
-      routerLinkActive="active-link"
-      *ngIf="isLogged"
-      (click)="toggleMenu()"
-    >
-    {{ "HEADER.SPACE" | translate }}
-    </p>
-    <p
-      class="link"
-      routerLink="/contact"
-      routerLinkActive="active-link"
-      (click)="toggleMenu()"
-    >
-    {{ "HEADER.CONTACT" | translate }}
-    </p>
-  </div>
-
-  <div class="end-container">
     <p class="langue">
       <span
         class="clickable"
@@ -76,5 +31,69 @@
         >EN</span
       >
     </p>
+    <p
+      class="link"
+      routerLink="/catalogue"
+      routerLinkActive="active-link"
+      (click)="toggleMenu()"
+    >
+      {{ "HEADER.CATALOGUE" | translate }}
+    </p>
+    <p
+      class="link"
+      routerLink="/register"
+      routerLinkActive="active-link"
+      (click)="toggleMenu()"
+    >
+      {{ "HEADER.INSCRIPTION" | translate }}
+    </p>
+    <p
+      class="link"
+      routerLink="/login"
+      routerLinkActive="active-link"
+      *ngIf="!isLogged"
+      (click)="toggleMenu()"
+    >
+      {{ "HEADER.CONNEXION" | translate }}
+    </p>
+    <p
+      class="link"
+      routerLink="/account"
+      routerLinkActive="active-link"
+      *ngIf="isLogged"
+      (click)="toggleMenu()"
+    >
+      {{ "HEADER.SPACE" | translate }}
+    </p>
+    <p
+      class="link"
+      routerLink="/contact"
+      routerLinkActive="active-link"
+      (click)="toggleMenu()"
+    >
+      {{ "HEADER.CONTACT" | translate }}
+    </p>
+  </div>
+
+  <div class="end-container">
+
+    <div *ngIf="designer$ | async as designer" class="connexion-container">
+      <img
+        *ngIf="designer?.profilePicture"
+        [src]="designer.profilePicture"
+        alt="photo de profil"
+        class="profile-picture"
+        routerLink="/account"
+      />
+      <img
+        *ngIf="!designer?.profilePicture"
+        src="assets/logos/account-blue.png"
+        alt="photo de profil"
+        class="logo-connexion"
+        routerLink="/account"
+      />
+    </div>
+    <img *ngIf="!isLogged" src="assets/logos/account.png" class="logo-connexion" routerLink="/login"/>
+    
   </div>
 </div>

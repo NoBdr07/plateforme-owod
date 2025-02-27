@@ -119,10 +119,18 @@
         </p>
       </div>
 
-      <div class="designer-widgets" [matTooltip]="'CATALOGUE.SOON' | translate">
+      <div class="designer-widgets">
         <img src="assets/logos/calendar.svg" class="widget" />
-        <img src="assets/logos/group-add.svg" class="widget" />
-        <img src="assets/logos/person-add.svg" class="widget" />
+        <img
+          src="assets/logos/group-add.svg"
+          class="widget"
+          [matTooltip]="'CATALOGUE.SOON' | translate"
+        />
+        <img
+          src="assets/logos/person-add.svg"
+          class="widget"
+          (click)="$event.stopPropagation(); addFriend(designer.id)"
+        />
       </div>
     </div>
 

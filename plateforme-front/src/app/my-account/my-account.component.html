@@ -86,6 +86,10 @@
         {{ "MON_COMPTE.RETOUR" | translate }}
       </button>
 
+      <button class="button" mat-raised-button routerLink="/account/contacts">
+        {{ "MON_COMPTE.CONTACT" | translate }}
+      </button>
+
       <button class="button" mat-raised-button (click)="logOut()">
         {{ "MON_COMPTE.DECONNECTER" | translate }}
       </button>
@@ -99,6 +103,10 @@
 
     <button class="button" mat-raised-button routerLink="/dashboard">
       {{ "MON_COMPTE.CONFIGURER" | translate }}
+    </button>
+
+    <button class="button" mat-raised-button routerLink="/account/contacts">
+      {{ "MON_COMPTE.CONTACT" | translate }}
     </button>
 
     <button class="button" mat-raised-button (click)="logOut()">

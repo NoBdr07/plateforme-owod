@@ -240,7 +240,7 @@ button {
   }
 
   .designer-name {
-    width: 135px;
+    width: 130px;
     line-height: 22px;
   }
 
@@ -255,8 +255,8 @@ button {
 
   .background {
     right: -91px;
-    top: -220px;
-    height: 220px;
+    top: -166px;
+    height: 180px;
   }
 
   /* Pagination */

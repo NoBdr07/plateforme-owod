@@ -37,6 +37,14 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     {
+        path: 'account/contacts',
+        loadComponent: () =>
+            import(
+              './contacts/contacts.component'
+            ).then((c) => c.ContactsComponent),
+        canActivate: [authGuard]
+    },
+    {
         path: 'catalogue',
         loadComponent: () =>
             import(

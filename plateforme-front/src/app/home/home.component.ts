@@ -41,9 +41,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       tap((designers) => this.totalDesigners = designers.length)
     );
 
-    
-    console.log(this.designers$);
-
     this.setupIntersectionObserver();
 
     this.subs.add(sub);

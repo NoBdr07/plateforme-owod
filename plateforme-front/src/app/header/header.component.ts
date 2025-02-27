@@ -2,8 +2,10 @@ import { Component, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../services/auth.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscriber, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { DesignerService } from '../services/designer.service';
+import { Designer } from '../interfaces/designer.interface';
 
 @Component({
   selector: 'app-header',
@@ -16,12 +18,15 @@ export class HeaderComponent implements OnDestroy {
   currentLang!: string;
   isMenuOpen = false;
   isLogged = false;
+  userId!: string | null;
+  designer$!: Observable<Designer | null>;
 
   subs = new Subscription();
 
   constructor(
     private translateService: TranslateService,
-    private authService: AuthService
+    private authService: AuthService,
+    private designerService: DesignerService
   ) {
     // Initialiser avec la langue courante
     this.currentLang =
@@ -29,9 +34,24 @@ export class HeaderComponent implements OnDestroy {
       this.translateService.getDefaultLang();
 
     // Menu en fonction de si la personne est connectée ou non
-    const sub = this.authService.$isLogged().subscribe(
-      isLogged => this.isLogged = isLogged
-    )
+    const sub = this.authService.$isLogged().subscribe(isLogged => {
+      this.isLogged = isLogged;
+
+      if(isLogged) {
+        this.userId = this.authService.getUserId();
+
+        if(this.userId) {
+          this.designer$ = this.designerService.getDesignerByUserId(this.userId);
+        } else {
+          this.designer$ = new Observable<null>(subscriber => subscriber.next(null));
+        }
+      } else {
+        this.userId = null;
+        this.designer$ = new Observable<null>(subscriber => subscriber.next(null));
+      }
+    }
+
+    );
 
     this.subs.add(sub);
   }

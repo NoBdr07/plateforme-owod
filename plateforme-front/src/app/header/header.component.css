@@ -14,6 +14,21 @@
   cursor: pointer;
 }
 
+.logo-connexion {
+  object-fit: contain;
+  height: 40px;
+  cursor: pointer;
+}
+
+.profile-picture {
+  object-fit: cover;
+  height: 40px;
+  width: 40px;
+  border: solid 1px var(--dark-color);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 .burger-menu {
   display: flex;
   flex-direction: column;
@@ -77,12 +92,17 @@
   display: flex;
   flex-direction: row;
   gap: 30px;
-  align-items: end;
+  align-items: center;
+}
+
+.connexion-container{
+  height: 40px;
 }
 
 .langue {
   width: max-content;
   font-size: 20px;
+  margin: 0;
 }
 
 .langue .active {
@@ -122,6 +142,7 @@
     width: 100%;
     height: 100vh;
     flex-direction: column;
+    display: none;
   }
 
   .links-container.active {

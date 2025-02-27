@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from '../interfaces/user.interface';
+import { Designer } from '../interfaces/designer.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +35,23 @@ export class UserService {
       withCredentials: true
     });
   }
+
+  getUserFriends(): Observable<Designer[]> {
+    return this.http.get<Designer[]>(`${this.apiUrl}/friends`, {
+      withCredentials: true
+    })
+  }
+
+  addFriend(friendId: string): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/add/${friendId}`, {}, {
+      withCredentials: true
+    })
+  }
   
+  deleteFriend(friendId: string): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/delete/${friendId}`, {}, {
+      withCredentials: true
+    })
+  }
   
 }

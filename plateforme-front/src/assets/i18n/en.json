@@ -127,11 +127,19 @@
     "CONFIRME": "Are you sure that you want to delete your designer profile? This action cannot be undone.",
     "CONFIRME_OUI": "Delete",
     "CONFIRME_NON": "Cancel",
+    "CONTACT": "Saved contacts",
     "CREATED_1": "You have already created your designer profile.",
     "CREATED_2": "You can complete or modify it in \"Set up your profile\"."
   },
+  "CONTACTS": {
+    "TITRE": "Saved contacts",
+    "VOIR": "See profile",
+    "SUPPRIMER": "Delete contact"
+  },
   "PHOTO": {
     "CHANGER": "Change Photo",
+    "LOADING": "Loading of your contacts...",
+    "NO_FRIEND": "You didn't had any contact yet.",
     "EXPLICATION_1": "Choose your profile picture.",
     "ANNULER": "Cancel",
     "VALIDER": "Validate"

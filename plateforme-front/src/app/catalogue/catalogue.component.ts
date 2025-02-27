@@ -27,6 +27,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatTooltipModule, TooltipPosition } from '@angular/material/tooltip';
 import { AuthService } from '../services/auth.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-catalogue',
@@ -38,7 +40,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
     MatButtonModule,
     RouterModule,
     TranslateModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   templateUrl: './catalogue.component.html',
   styleUrl: './catalogue.component.css',
@@ -48,6 +50,9 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Utilisateur connecté ou non
   isLogged: boolean = false;
+
+  // Sur téléphone ou ordinateur
+  isMobile: boolean = false;
 
   // Variables pour les recherches
   researchDesigners$!: Observable<Designer[]>;
@@ -76,8 +81,8 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
   tooltipPosition: TooltipPosition = 'above';
 
   // Pour popup numero et mail
-  phone: string = ''; 
-  email: string = ''; 
+  phone: string = '';
+  email: string = '';
   @ViewChild('phoneDialogTemplate') phoneDialogTemplate!: TemplateRef<any>;
   @ViewChild('emailDialogTemplate') emailDialogTemplate!: TemplateRef<any>;
 
@@ -86,13 +91,20 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private readonly designerService: DesignerService,
     private readonly authService: AuthService,
-    private dialog: MatDialog
+    private readonly userService: UserService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {}
 
   /**
    * Initialisation de la liste des designers, des listes servant aux recherches parmi les designers
    */
   ngOnInit(): void {
+    this.checkIfMobile();
+    window.addEventListener('resize', () => {
+      this.checkIfMobile();
+    });
+
     this.subs.add(
       this.designerService.loadDesigners().subscribe((designers) => {
         this.specialties = this.getUniqueValues(designers, 'specialties');
@@ -156,7 +168,7 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
     // Check si l'utilisateur est connecté ou non
     const sub = this.authService.$isLogged().subscribe((logged) => {
       this.isLogged = logged;
-    })
+    });
 
     this.subs.add(sub);
   }
@@ -166,6 +178,13 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   ngAfterViewInit(): void {
     this.onWindowScroll();
+  }
+
+  // Check device
+  checkIfMobile(): void {
+    if (!this.isMobile) {
+      this.isMobile = window.innerWidth <= 768;
+    }
   }
 
   /**
@@ -245,30 +264,63 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
 
   /**
    * Fenetre popup qui donne le numero si connecté
-   * @param phone 
+   * @param phone
    */
   showPhoneNumber(phone: string): void {
-    if(this.isLogged) {
+    if (this.isLogged) {
       this.phone = phone;
       this.dialog.open(this.phoneDialogTemplate);
-    } 
+    } else {
+      if (this.isMobile) {
+        this.snackBar.open(
+          'Vous devez créer un compte pour accéder à cette fonctionnalité !',
+          'Ok',
+          {duration: 3000}
+        );
+      }
+    }
   }
 
   /**
    * Fenetre popup qui donne l'email si connecté
-   * @param email 
+   * @param email
    */
   showEmail(email: string): void {
-    if(this.isLogged) {
+    if (this.isLogged) {
       this.email = email;
       this.dialog.open(this.emailDialogTemplate);
-    } 
-  }  
+    } else {
+      if (this.isMobile) {
+        this.snackBar.open(
+          'Vous devez créer un compte pour accéder à cette fonctionnalité !',
+          'Ok',
+          {duration: 3000}
+        );
+      }
+    }
+  }
+
+  addFriend(friendId: string): void {
+    if (this.isLogged) {
+      this.userService.addFriend(friendId).subscribe({
+        next: () => {
+          this.snackBar.open('Contact ajouté !', 'Ok', {duration: 3000});
+        },
+        error: () => {
+          this.snackBar.open('Erreur lors de l\'ajout du contact', 'Ok', {duration: 3000});
+        }
+      })
+    }
+  }
 
   /**
    * Unsubscribe des observable
    */
   ngOnDestroy(): void {
     this.subs.unsubscribe();
+
+    window.removeEventListener('resize', () => {
+      this.checkIfMobile();
+    });
   }
 }
