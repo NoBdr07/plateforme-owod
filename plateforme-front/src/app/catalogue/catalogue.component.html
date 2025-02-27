@@ -127,9 +127,15 @@
           [matTooltip]="'CATALOGUE.SOON' | translate"
         />
         <img
+         *ngIf="!isFriend(designer.id)"
           src="assets/logos/person-add.svg"
           class="widget"
           (click)="$event.stopPropagation(); addFriend(designer.id)"
+        />
+        <img
+         *ngIf="isFriend(designer.id)"
+          src="assets/logos/person-check.png"
+          class="widget"
         />
       </div>
     </div>

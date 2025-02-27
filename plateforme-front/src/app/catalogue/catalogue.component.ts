@@ -86,6 +86,9 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('phoneDialogTemplate') phoneDialogTemplate!: TemplateRef<any>;
   @ViewChild('emailDialogTemplate') emailDialogTemplate!: TemplateRef<any>;
 
+  // Contacts de l'utilisateur connecté pour adapter les logos d'ajout d'ami
+  friends: Designer[] = [];
+
   subs = new Subscription();
 
   constructor(
@@ -170,6 +173,9 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
       this.isLogged = logged;
     });
 
+    // Chargement des contact
+    this.loadFriends();
+
     this.subs.add(sub);
   }
 
@@ -185,6 +191,23 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
     if (!this.isMobile) {
       this.isMobile = window.innerWidth <= 768;
     }
+  }
+
+  loadFriends(): void {
+    const sub = this.userService.getUserFriends().subscribe({
+      next: (designers) => {
+        this.friends = designers;
+      },
+      error: (err) => {
+        console.log("erreur au chargement des amis : " + err);
+      }
+    })
+
+    this.subs.add(sub);
+  }
+
+  isFriend(designerId: string): boolean {
+    return this.friends.some(friend => friend.id === designerId);
   }
 
   /**
@@ -305,6 +328,7 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
       this.userService.addFriend(friendId).subscribe({
         next: () => {
           this.snackBar.open('Contact ajouté !', 'Ok', {duration: 3000});
+          this.loadFriends();
         },
         error: () => {
           this.snackBar.open('Erreur lors de l\'ajout du contact', 'Ok', {duration: 3000});

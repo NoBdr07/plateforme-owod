@@ -107,6 +107,7 @@
 
 .widget {
   filter: brightness(0);
+  height: 20px;
 }
 
 .designer-middle {
