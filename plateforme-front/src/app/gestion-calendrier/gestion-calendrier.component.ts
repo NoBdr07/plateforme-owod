@@ -115,7 +115,12 @@ export class GestionCalendrierComponent implements OnInit {
   deleteEvent(event: DesignerEvent): void {
     if (this.designer) {
       if (confirm('Êtes-vous sûr de vouloir supprimer cet événement ?')) {
-        this.designerService.deleteEvent(event).subscribe();
+        this.designerService.deleteEvent(event).subscribe({
+          next: () => {
+            this.loadDesignerData();
+          },
+          error : () => console.log("erreur dans la suppression de l'événement")
+        });
       }
     }
   }

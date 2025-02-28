@@ -57,6 +57,7 @@
     "RESERVE": "Members only",
     "ERASE": "Erase filters"
   },
+
   "DASHBOARD": {
     "BACK": "Back to your account",
     "CHANGE_PHOTO": "Change photo",
@@ -79,6 +80,29 @@
     "SECTEUR": "Favorite sectors",
     "NIVEAU": "Professional level",
     "SAUVEGARDER": "Save"
+  },
+  "GESTION_CAL": {
+    "H1": "Availability Management",
+    "NEW": "Add a new event",
+    "TITRE": "Title",
+    "TITRE_REQ": "Title is required",
+    "DATE_DEB": "Start date",
+    "DATE_FIN": "End date",
+    "DATE_DEB_REQ": "Start date is required",
+    "DATE_FIN_REQ": "End date is required",
+    "AJOUTER": "Add",
+    "EVENTS": "My events",
+    "NO_EVENT": "No events have been added",
+    "DU": "From",
+    "AU": "to",
+    "SUPPRIMER": "DELETE"
+  },
+  "CAL_DIALOG": {
+    "CAL": "Calendar of ",
+    "EVENTS": "Events on ",
+    "NO_EVENT": "No events for this date",
+    "NAME": "Name:",
+    "FERMER": "Close"
   },
   "DESIGNER_DETAILS": {
     "RETOUR": "Back to directory",

@@ -6,7 +6,7 @@
 }
 
 h3 {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .calendar-section,
@@ -29,17 +29,21 @@ h3 {
   padding: 10px 0;
 }
 
-::ng-deep .mat-calendar-body-cell.event-specific-date .mat-calendar-body-cell-content {
-    background-color: var(--primary-color) !important;
-    color: white !important;
-    border-radius: 50% !important;
-  }
-  
-  ::ng-deep .mat-calendar-body-cell.event-in-period .mat-calendar-body-cell-content {
-    background-color: #81c784 !important;
-    color: white !important;
-    border-radius: 50% !important;
-  }
+::ng-deep
+  .mat-calendar-body-cell.event-specific-date
+  .mat-calendar-body-cell-content {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  border-radius: 50% !important;
+}
+
+::ng-deep
+  .mat-calendar-body-cell.event-in-period
+  .mat-calendar-body-cell-content {
+  background-color: #81c784 !important;
+  color: white !important;
+  border-radius: 50% !important;
+}
 
 .event-item {
   color: black;
@@ -50,6 +54,34 @@ h3 {
 }
 
 .event-container {
-    display: flex;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  ::ng-deep .mat-mdc-dialog-container {
+    padding: 5px !important;
+  }
+
+  .calendar-container {
     flex-direction: column;
+  }
+
+  .calendar-section,
+  .events-section {
+    min-width: 100%;
+  }
+
+  .events-section {
+    width: 100%;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  .event-container h4, .event-container p {
+    font-size: 14px;
+    margin: 0;
+  }
 }

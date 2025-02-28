@@ -4,36 +4,30 @@
 </div>
 
 <div class="events-management-container">
-  <h1>Gestion de mes disponibilités</h1>
+  <h1>{{ "GESTION_CAL.H1" | translate }}</h1>
 
   <div class="form-container">
     <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
-      <h2>{{ "Ajouter un nouvel événement" }}</h2>
+      <h2>{{ "GESTION_CAL.NEW" | translate }}</h2>
 
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Titre</mat-label>
-        <input
-          matInput
-          formControlName="title"
-          placeholder="Ex: Disponible pour consultation"
-        />
+        <mat-label>{{ "GESTION_CAL.TITRE" | translate }}</mat-label>
+        <input matInput formControlName="title" />
         <mat-error *ngIf="eventForm.get('title')?.hasError('required')">
-          Le titre est requis
+          {{ "GESTION_CAL.TITRE_REQ" | translate }}
         </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Description</mat-label>
-        <textarea
-          matInput
-          formControlName="description"
-          placeholder="Détails supplémentaires sur cet événement"
-        ></textarea>
+        <textarea matInput formControlName="description"></textarea>
       </mat-form-field>
 
       <div class="date-fields">
         <mat-form-field appearance="outline">
-          <mat-label>Date de début</mat-label>
+          <mat-label>{{
+            "GESTION_CAL.DATE_DEB" | translate
+          }}</mat-label>
           <input
             matInput
             [matDatepicker]="pickerStart"
@@ -45,12 +39,14 @@
           ></mat-datepicker-toggle>
           <mat-datepicker #pickerStart></mat-datepicker>
           <mat-error *ngIf="eventForm.get('startDate')?.hasError('required')">
-            La date de début est requise
+            {{ "GESTION_CAL.DATE_DEB_REQ" | translate }}
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Date de fin</mat-label>
+          <mat-label>{{
+            "GESTION_CAL.DATE_FIN" | translate
+          }}</mat-label>
           <input
             matInput
             [matDatepicker]="pickerEnd"
@@ -62,7 +58,7 @@
           ></mat-datepicker-toggle>
           <mat-datepicker #pickerEnd></mat-datepicker>
           <mat-error *ngIf="eventForm.get('endDate')?.hasError('required')">
-            La date de fin est requise
+            {{ "GESTION_CAL.DATE_FIN_REQ" | translate }}
           </mat-error>
         </mat-form-field>
       </div>
@@ -81,13 +77,13 @@
   </div>
 
   <div class="events-list">
-    <h2>Mes événements</h2>
+    <h2>{{ "GESTION_CAL.EVENTS" | translate }}</h2>
 
     <div
       *ngIf="!designer?.events || designer.events.length === 0"
       class="no-events"
     >
-      Aucun événement n'a été ajouté
+      {{ "GESTION_CAL.NO_EVENT" | translate }}
     </div>
 
     <div class="event-container">
@@ -98,7 +94,8 @@
 
         <mat-card-content>
           <p>
-            Du {{ event.startDate | date : "dd/MM/yyyy" }} au
+            {{ "GESTION_CAL.DU" | translate }}
+            {{ event.startDate | date : "dd/MM/yyyy" }} {{ "GESTION_CAL.AU" | translate }}
             {{ event.endDate | date : "dd/MM/yyyy" }}
           </p>
           <p *ngIf="event.description">{{ event.description }}</p>
@@ -106,7 +103,7 @@
 
         <mat-card-actions align="end">
           <button mat-button color="warn" (click)="deleteEvent(event)">
-            SUPPRIMER
+            {{ "GESTION_CAL.SUPPRIMER" | translate }}
           </button>
         </mat-card-actions>
       </mat-card>

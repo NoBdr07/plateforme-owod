@@ -9,6 +9,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { Subscription } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-calendar-dialog',
@@ -20,6 +21,7 @@ import { Subscription } from 'rxjs';
     MatNativeDateModule,
     MatListModule,
     MatButtonModule,
+    TranslateModule
   ],
   templateUrl: './calendar-dialog.component.html',
   styleUrl: './calendar-dialog.component.css',

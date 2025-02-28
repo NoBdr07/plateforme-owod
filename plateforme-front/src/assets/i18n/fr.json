@@ -80,6 +80,29 @@
     "NIVEAU": "Niveau professionnel",
     "SAUVEGARDER": "Sauvegarder"
   },
+  "GESTION_CAL": {
+    "H1": "Gestion de mes disponibilités",
+    "NEW": "Ajouter un nouvel événement",
+    "TITRE": "Titre",
+    "TITRE_REQ": "Le titre est requis",
+    "DATE_DEB": "Date de début",
+    "DATE_FIN": "Date de fin",
+    "DATE_DEB_REQ": "La date de début est requise",
+    "DATE_FIN_REQ": "La date de fin est requise",
+    "AJOUTER": "Ajouter",
+    "EVENTS": "Mes événements",
+    "NO_EVENT": "Aucun événement n'a été ajouté",
+    "DU": "Du",
+    "AU": "au",
+    "SUPPRIMER": "SUPPRIMER"
+  },
+  "CAL_DIALOG": {
+    "CAL": "Calendrier de ",
+    "EVENTS": "Événements du ",
+    "NO_EVENT": "Aucun événement pour cette date",
+    "NAME": "Nom :",
+    "FERMER": "Fermer"
+  },
   "DESIGNER_DETAILS": {
     "RETOUR": "Retour à l'annuaire",
     "REALISATIONS": "Mes réalisations",

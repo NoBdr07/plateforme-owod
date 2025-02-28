@@ -76,6 +76,12 @@ h1 {
   font-family: "Red Hat Display", sans-serif !important;
 }
 
+@media (max-width: 768px) {
+  h1 {
+    font-size: 40px;
+  }
+}
+
 h2 {
   font-family: "Red Hat Display", sans-serif !important;
 }
