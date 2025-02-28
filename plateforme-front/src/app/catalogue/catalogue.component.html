@@ -119,21 +119,27 @@
         </p>
       </div>
 
-      <div class="designer-widgets">
+      <div
+        class="designer-widgets"
+        [matTooltip]="!isLogged ? ('CATALOGUE.RESERVE' | translate) : null"
+      >
         <img
           src="assets/logos/calendar.svg"
           class="widget"
+          [ngClass]="{ 'logged-in': isLogged, 'logged-out': !isLogged }"
           (click)="$event.stopPropagation(); openCalendar(designer.id)"
         />
         <img
           src="assets/logos/group-add.svg"
           class="widget"
+          [ngClass]="{ 'logged-in': isLogged, 'logged-out': !isLogged }"
           [matTooltip]="'CATALOGUE.SOON' | translate"
         />
         <img
           *ngIf="!isFriend(designer.id)"
           src="assets/logos/person-add.svg"
           class="widget"
+          [ngClass]="{ 'logged-in': isLogged, 'logged-out': !isLogged }"
           (click)="$event.stopPropagation(); addFriend(designer.id)"
         />
         <img

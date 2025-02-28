@@ -41,7 +41,7 @@ import { CalendarDialogComponent } from '../calendar-dialog/calendar-dialog.comp
     MatButtonModule,
     RouterModule,
     TranslateModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   templateUrl: './catalogue.component.html',
   styleUrl: './catalogue.component.css',
@@ -200,15 +200,15 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
         this.friends = designers;
       },
       error: (err) => {
-        console.log("erreur au chargement des amis : " + err);
-      }
-    })
+        console.log('erreur au chargement des amis : ' + err);
+      },
+    });
 
     this.subs.add(sub);
   }
 
   isFriend(designerId: string): boolean {
-    return this.friends.some(friend => friend.id === designerId);
+    return this.friends.some((friend) => friend.id === designerId);
   }
 
   /**
@@ -299,7 +299,7 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
         this.snackBar.open(
           'Vous devez créer un compte pour accéder à cette fonctionnalité !',
           'Ok',
-          {duration: 3000}
+          { duration: 3000 }
         );
       }
     }
@@ -318,7 +318,7 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
         this.snackBar.open(
           'Vous devez créer un compte pour accéder à cette fonctionnalité !',
           'Ok',
-          {duration: 3000}
+          { duration: 3000 }
         );
       }
     }
@@ -326,19 +326,29 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
 
   /**
    * Ajout d'un contact
-   * @param friendId 
+   * @param friendId
    */
   addFriend(friendId: string): void {
     if (this.isLogged) {
       this.userService.addFriend(friendId).subscribe({
         next: () => {
-          this.snackBar.open('Contact ajouté !', 'Ok', {duration: 3000});
+          this.snackBar.open('Contact ajouté !', 'Ok', { duration: 3000 });
           this.loadFriends();
         },
         error: () => {
-          this.snackBar.open('Erreur lors de l\'ajout du contact', 'Ok', {duration: 3000});
-        }
-      })
+          this.snackBar.open("Erreur lors de l'ajout du contact", 'Ok', {
+            duration: 3000,
+          });
+        },
+      });
+    } else {
+      if (this.isMobile) {
+        this.snackBar.open(
+          'Vous devez créer un compte pour accéder à cette fonctionnalité !',
+          'Ok',
+          { duration: 3000 }
+        );
+      }
     }
   }
 
@@ -346,10 +356,18 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
    * Ouverture du dialog de calendrier pour le designer choisi
    */
   openCalendar(designerId: string): void {
-    if(this.isLogged) {
+    if (this.isLogged) {
       const dialogRef = this.dialog.open(CalendarDialogComponent, {
-        data: {designerId: designerId}
-      })
+        data: { designerId: designerId },
+      });
+    } else {
+      if (this.isMobile) {
+        this.snackBar.open(
+          'Vous devez créer un compte pour accéder à cette fonctionnalité !',
+          'Ok',
+          { duration: 3000 }
+        );
+      }
     }
   }
 
