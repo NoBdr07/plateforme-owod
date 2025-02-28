@@ -191,6 +191,10 @@
   background-color: darkgray !important;
 }
 
+::ng-deep .mat-mdc-menu-panel {
+  background-color: var(--dark-color) !important;
+}
+
 button {
   font-family: "Red Hat Display", sans-serif !important;
 }
