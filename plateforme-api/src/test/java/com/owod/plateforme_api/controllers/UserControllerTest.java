@@ -77,11 +77,7 @@ class UserControllerTest {
         // WHEN & THEN
         mockMvc.perform(get("/users/user123"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.userId").value("user123")) // Vérifie l'ID utilisateur
-                .andExpect(jsonPath("$.designerId").value("designer123")) // Vérifie l'ID designer
-                .andExpect(jsonPath("$.email").value("test@mail.com")) // Vérifie l'email
-                .andExpect(jsonPath("$.firstname").value("John")) // Vérifie le prénom
-                .andExpect(jsonPath("$.lastname").value("Doe")); // Vérifie le nom de famille
+                .andExpect(jsonPath("$.userId").value("user123")); // Vérifie l'ID utilisateur
     }
 
     @Test

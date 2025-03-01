@@ -6,6 +6,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.List;
 
+
+// Getters et Setters
 @Document(collection = "designers")
 public class Designer {
 
@@ -28,7 +30,7 @@ public class Designer {
     private List<String> majorWorks = new ArrayList<>(); // URL des photos des réalisations majeures (<= 5)
     private String portfolioUrl; // URL du portfolio
 
-    // Getters et Setters
+    private List<DesignerEvent> events = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -156,5 +158,13 @@ public class Designer {
 
     public void setPortfolioUrl(String portfolioUrl) {
         this.portfolioUrl = portfolioUrl;
+    }
+
+    public List<DesignerEvent> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<DesignerEvent> events) {
+        this.events = events;
     }
 }

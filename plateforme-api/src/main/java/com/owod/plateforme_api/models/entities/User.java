@@ -26,6 +26,8 @@ public class User {
     private String resetToken;
     private LocalDateTime resetTokenExpiry;
 
+    private Set<String> friendsId;
+
     public String getUserId() {
         return userId;
     }
@@ -96,5 +98,13 @@ public class User {
 
     public void setResetTokenExpiry(LocalDateTime resetTokenExpiry) {
         this.resetTokenExpiry = resetTokenExpiry;
+    }
+
+    public Set<String> getFriendsId() {
+        return friendsId;
+    }
+
+    public void setFriendsId(Set<String> friendsId) {
+        this.friendsId = friendsId;
     }
 }

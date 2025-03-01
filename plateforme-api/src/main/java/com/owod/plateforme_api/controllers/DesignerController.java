@@ -1,7 +1,9 @@
 package com.owod.plateforme_api.controllers;
 
 import com.owod.plateforme_api.models.entities.Designer;
+import com.owod.plateforme_api.models.entities.DesignerEvent;
 import com.owod.plateforme_api.models.entities.User;
+import com.owod.plateforme_api.repositories.UserRepository;
 import com.owod.plateforme_api.services.DesignerService;
 import com.owod.plateforme_api.services.ImageStorageService;
 import com.owod.plateforme_api.services.UserService;
@@ -28,9 +30,12 @@ public class DesignerController {
 
     @Autowired(required = false)
     private ImageStorageService imageStorageService;
+    @Autowired
+    private UserRepository userRepository;
 
     /**
      * Endpoint to retrieve all designers
+     *
      * @return a list of all designers
      */
     @GetMapping("/all")
@@ -40,6 +45,7 @@ public class DesignerController {
 
     /**
      * Endpoint to get a specific designer
+     *
      * @param userId
      * @return
      */
@@ -67,7 +73,6 @@ public class DesignerController {
     }
 
     /**
-     *
      * @param userId
      * @param designerId
      * @param principal
@@ -95,7 +100,7 @@ public class DesignerController {
                 return ResponseEntity.status(401).body("Designer not paired to current user");
             }
 
-            designerService.delete(userId, designerId);
+            userService.deleteDesigner(userId, designerId);
 
             return ResponseEntity.status(200).body("Designer deleted successfully");
 
@@ -107,6 +112,7 @@ public class DesignerController {
 
     /**
      * Endpoint to retrieve all designers that have a specific specialty
+     *
      * @param specialty
      * @return a List of designers
      */
@@ -122,6 +128,7 @@ public class DesignerController {
 
     /**
      * Endpoint to create a new designer
+     *
      * @param designer
      * @return 201 and the designer if success, 400 with error message if failure
      */
@@ -158,6 +165,7 @@ public class DesignerController {
 
     /**
      * Endpoint to update info about designer (all fields except profilePicture and majorWorks)
+     *
      * @param designerId
      * @param updatedDesigner
      * @param principal
@@ -192,6 +200,7 @@ public class DesignerController {
 
     /**
      * Endpoint to change the designer profile picture
+     *
      * @param designerId
      * @param profilePicture
      * @param principal
@@ -226,6 +235,7 @@ public class DesignerController {
 
     /**
      * Endpoint to add one or several picture of major works
+     *
      * @param designerId
      * @param realisations
      * @param principal
@@ -282,6 +292,7 @@ public class DesignerController {
 
     /**
      * Endpoint to delete one of the major works picture
+     *
      * @param designerId
      * @param workUrl
      * @param principal
@@ -325,8 +336,53 @@ public class DesignerController {
         }
     }
 
+    @PostMapping("/events/add")
+    public ResponseEntity<Designer> addEvent(Principal principal, @RequestBody DesignerEvent event) {
+        String currentUserId = principal.getName();
+        Optional<User> optUser = userRepository.findByUserId(currentUserId);
+        if (optUser.isPresent()) {
+            User currentUser = optUser.get();
+            String designerId = currentUser.getDesignerId();
 
+            Designer updatedDesigner = designerService.addEvent(designerId, event);
 
+            return ResponseEntity.ok(updatedDesigner);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/events/modify")
+    public ResponseEntity<Designer> modifyEvent(Principal principal, @RequestBody DesignerEvent event) {
+        String currentUserId = principal.getName();
+        Optional<User> optUser = userRepository.findByUserId(currentUserId);
+        if (optUser.isPresent()) {
+            User currentUser = optUser.get();
+            String designerId = currentUser.getDesignerId();
+
+            Designer updatedDesigner = designerService.modifyEvent(designerId, event);
+
+            return ResponseEntity.ok(updatedDesigner);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/events/delete")
+    public ResponseEntity<Designer> deleteEvent(Principal principal, @RequestBody DesignerEvent event) {
+        String currentUserId = principal.getName();
+        Optional<User> optUser = userRepository.findByUserId(currentUserId);
+        if (optUser.isPresent()) {
+            User currentUser = optUser.get();
+            String designerId = currentUser.getDesignerId();
+
+            Designer updatedDesigner = designerService.deleteEvent(designerId, event);
+
+            return ResponseEntity.ok(updatedDesigner);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
 }

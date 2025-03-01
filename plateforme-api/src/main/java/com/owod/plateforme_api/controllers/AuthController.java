@@ -66,14 +66,6 @@ public class AuthController {
         return ResponseEntity.ok("Logout successful");
     }
 
-    @GetMapping("/check-token")
-    public ResponseEntity<?> checkToken(@CookieValue(name = "jwt", required=false) String token) {
-        if(token != null && jwtUtils.validateToken(token)) {
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-    }
-
     /**
      * Endpoint to register a new user
      * @param registerRequest that contains infos about user and a boolean admin
