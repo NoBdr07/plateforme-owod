@@ -36,7 +36,7 @@ import { RouterModule } from '@angular/router';
     MatSelectModule,
     MatButtonModule,
     TranslateModule,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './gestion-calendrier.component.html',
   styleUrl: './gestion-calendrier.component.css',
@@ -44,6 +44,9 @@ import { RouterModule } from '@angular/router';
 export class GestionCalendrierComponent implements OnInit {
   designer!: Designer;
   eventForm!: FormGroup;
+
+  eventToModify: DesignerEvent | null = null;
+  modifMode = false;
 
   constructor(
     private fb: FormBuilder,
@@ -67,6 +70,15 @@ export class GestionCalendrierComponent implements OnInit {
     });
   }
 
+  initFormForModify(event: DesignerEvent): void {
+    this.eventForm = this.fb.group({
+      title: [event.title, [Validators.required]],
+      description: [event.description],
+      startDate: [event.startDate, [Validators.required]],
+      endDate: [event.endDate, [Validators.required]],
+    });
+  }
+
   loadDesignerData(): void {
     const userId = this.authService.getUserId();
     if (userId) {
@@ -86,15 +98,39 @@ export class GestionCalendrierComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('onSubmit avant return');
-    if (this.eventForm.invalid) return;
-    console.log('onSubmit apres return');
-    const eventData: DesignerEvent = {
-      id: this.generateEventId(),
-      ...this.eventForm.value,
-    };
+    const formValues = this.eventForm.value;
 
-    this.addEvent(eventData);
+    // Ajuster les dates pour éviter le décalage de fuseau horaire
+    if (formValues.startDate) {
+      const startDate = new Date(formValues.startDate);
+      startDate.setHours(12, 0, 0, 0);
+      formValues.startDate = startDate.toISOString();
+    }
+
+    if (formValues.endDate) {
+      const endDate = new Date(formValues.endDate);
+      endDate.setHours(12, 0, 0, 0);
+      formValues.endDate = endDate.toISOString();
+    }
+
+
+    if (!this.modifMode) {
+      if (this.eventForm.invalid) return;
+      const eventData: DesignerEvent = {
+        id: this.generateEventId(),
+        ...this.eventForm.value,
+      };
+
+      this.addEvent(eventData);
+    } else {
+      if (this.eventForm.invalid) return;
+      const eventData: DesignerEvent = {
+        id: this.eventToModify?.id,
+        ...this.eventForm.value,
+      };
+
+      this.modifyEvent(eventData);
+    }
   }
 
   generateEventId(): string {
@@ -107,9 +143,38 @@ export class GestionCalendrierComponent implements OnInit {
     this.designerService.addEvent(event).subscribe({
       next: () => {
         this.loadDesignerData();
+        this.initForm();
       },
       error: () => console.log("erreur dans l'ajout de l'evenement"),
     });
+  }
+
+  enterModifyEvent(event: DesignerEvent): void {
+    this.modifMode = true;
+    this.initFormForModify(event);
+    this.eventToModify = event;
+  }
+
+  modifyEvent(event: DesignerEvent): void {
+    if (this.designer) {
+      if (confirm('Êtes-vous sûr de vouloir modifier cet événement ?')) {
+        this.designerService.modifyEvent(event).subscribe({
+          next: () => {
+            this.loadDesignerData();
+            this.initForm();
+            this.modifMode = false;
+          },
+          error: () => console.log("erreur dans la suppression de l'événement"),
+        }
+      );
+      }
+    }
+  }
+  
+  cancelModify(): void {
+    this.initForm();
+    this.modifMode = false;
+    this.eventToModify = null;
   }
 
   deleteEvent(event: DesignerEvent): void {
@@ -119,7 +184,7 @@ export class GestionCalendrierComponent implements OnInit {
           next: () => {
             this.loadDesignerData();
           },
-          error : () => console.log("erreur dans la suppression de l'événement")
+          error: () => console.log("erreur dans la suppression de l'événement"),
         });
       }
     }

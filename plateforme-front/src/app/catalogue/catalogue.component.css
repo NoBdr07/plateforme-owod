@@ -163,7 +163,7 @@
   position: relative;
   right: -108px;
   z-index: -1;
-  top: -194px;
+  top: -180px;
   object-fit: contain;
   height: 196px;
 }
@@ -197,6 +197,18 @@
 
 button {
   font-family: "Red Hat Display", sans-serif !important;
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: var(--dark-color) !important;
+  color: var(--primary-color) !important;
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  display: flex;
+  gap: 0;
+  justify-content: center;
+  align-items: center;
 }
 
 /** REGLES POUR MOBILES **/

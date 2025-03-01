@@ -55,7 +55,10 @@
     "MAIL": "Email",
     "SOON": "New feature soon available !",
     "RESERVE": "Members only",
-    "ERASE": "Erase filters"
+    "ERASE": "Erase filters",
+    "EMAIL": "Email adress",
+    "NUM": "Phone number",
+    "FERMER": "Close"
   },
 
   "DASHBOARD": {
@@ -95,10 +98,13 @@
     "NO_EVENT": "No events have been added",
     "DU": "From",
     "AU": "to",
-    "SUPPRIMER": "DELETE"
+    "SUPPRIMER": "DELETE",
+    "MODIF": "MODIFY",
+    "ANNULER": "CANCEL"
   },
   "CAL_DIALOG": {
     "CAL": "Calendar of ",
+    "EVENT": "EVENT",
     "EVENTS": "Events on ",
     "NO_EVENT": "No events for this date",
     "NAME": "Name:",
@@ -146,7 +152,7 @@
     "CREER_DESIGNER": "Create designer",
     "CONFIGURER": "Set up your profile",
     "DECONNECTER": "Log out",
-    "RETOUR": "Back to website home",
+    "RETOUR": "Back to directory",
     "SUPPRIMER": "Delete your designer profile",
     "CONFIRME": "Are you sure that you want to delete your designer profile? This action cannot be undone.",
     "CONFIRME_OUI": "Delete",
@@ -154,7 +160,8 @@
     "CONTACT": "Saved contacts",
     "CREATED_1": "You have already created your designer profile.",
     "CREATED_2": "You can complete or modify it in \"Set up your profile\".",
-    "CALENDRIER": "Manage my calendar"
+    "CALENDRIER": "Manage my calendar",
+    "PAYS": "Country of residence"
   },
   "CONTACTS": {
     "TITRE": "Saved contacts",
@@ -264,8 +271,9 @@
     },
     "HOST": {
       "TITLE": "2. Site Hosting",
-      "CONTENT": "The OWOD platform is hosted by Heroku. Website: https://www.heroku.com/",
-      "CONTENT_3": "Address : 415 Mission Street, 94105 San Francisco, CA, United States"
+      "CONTENT_1": "The OWOD platform is hosted by AWS (Amazon Web Services).",
+      "CONTENT_2": "Website: https://aws.amazon.com/fr/",
+      "CONTENT_3": "Address : PO Box 81226, Seattle, WA 981808-1226 – USA"
     },
     "INTELLECTUAL_PROPERTY": {
       "TITLE": "3. Intellectual Property",

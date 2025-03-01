@@ -129,12 +129,7 @@
           [ngClass]="{ 'logged-in': isLogged, 'logged-out': !isLogged }"
           (click)="$event.stopPropagation(); openCalendar(designer.id)"
         />
-        <img
-          src="assets/logos/group-add.svg"
-          class="widget"
-          [ngClass]="{ 'logged-in': isLogged, 'logged-out': !isLogged }"
-          [matTooltip]="'CATALOGUE.SOON' | translate"
-        />
+
         <img
           *ngIf="!isFriend(designer.id)"
           src="assets/logos/person-add.svg"
@@ -147,6 +142,12 @@
           src="assets/logos/person-check.png"
           class="widget"
         />
+        <img
+          src="assets/logos/group-add.svg"
+          class="widget"
+          [ngClass]="{ 'logged-in': isLogged, 'logged-out': !isLogged }"
+          [matTooltip]="'CATALOGUE.SOON' | translate"
+        />
       </div>
     </div>
 
@@ -157,6 +158,7 @@
     >
       <div
         class="middle-section"
+        *ngIf="designer.phoneNumber"
         (click)="
           $event.stopPropagation(); showPhoneNumber(designer.phoneNumber)
         "
@@ -218,22 +220,22 @@
 
 <!-- Template pour la boîte de dialogue du numéro de téléphone -->
 <ng-template #phoneDialogTemplate>
-  <h2 mat-dialog-title>Numéro de téléphone</h2>
+  <h2 mat-dialog-title>{{ "CATALOGUE.NUM" | translate }}</h2>
   <mat-dialog-content>
-    <p><strong>Téléphone :</strong> {{ phone }}</p>
+    <p>{{ phone }}</p>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-button mat-dialog-close>Fermer</button>
+    <button mat-button mat-dialog-close>{{ "CATALOGUE.FERMER" | translate }}</button>
   </mat-dialog-actions>
 </ng-template>
 
 <!-- Template pour la boîte de dialogue de l'adresse e-mail -->
 <ng-template #emailDialogTemplate>
-  <h2 mat-dialog-title>Adresse e-mail</h2>
+  <h2 mat-dialog-title>{{ "CATALOGUE.EMAIL" | translate }}</h2>
   <mat-dialog-content>
-    <p><strong>E-mail :</strong> {{ email }}</p>
+    <p>{{ email }}</p>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-button mat-dialog-close>Fermer</button>
+    <button mat-button mat-dialog-close>{{ "CATALOGUE.FERMER" | translate }}</button>
   </mat-dialog-actions>
 </ng-template>

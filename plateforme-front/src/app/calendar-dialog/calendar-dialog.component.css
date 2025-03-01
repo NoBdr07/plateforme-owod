@@ -17,16 +17,57 @@ h3 {
 
 .events-section {
   padding: 10px;
-  background-color: var(--primary-color);
   border-radius: 4px;
-  color: black;
-  width: 300px;
+  color: var(--primary-color);
+  width: 400px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .no-events {
-  color: #757575;
+  color: var(--primary-color);
   font-style: italic;
   padding: 10px 0;
+}
+
+.event-card {
+  background-color: var(--accent-color);
+  border-radius: 10px;
+  color: var(--dark-color);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.event {
+  background-color: #81c784;
+  padding: 0px 5px 2px 7px;
+  border-radius: 5px;
+  color: black;
+  font-variant: all-petite-caps;
+  width: fit-content;
+  font-size: 1rem;
+  font-weight: inherit;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+}
+
+.event-card h4 {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin: 0;
+  margin-left: 10px;
+}
+
+.date {
+  font-weight: 600;
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
+
+.description {
+  margin-left: 10px;
 }
 
 ::ng-deep
@@ -51,11 +92,6 @@ h3 {
 
 ::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
   background-color: var(--dark-color) !important;
-}
-
-.event-container {
-  display: flex;
-  flex-direction: column;
 }
 
 @media (max-width: 768px) {

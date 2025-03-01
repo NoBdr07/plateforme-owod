@@ -55,7 +55,10 @@
     "MAIL": "Écrire",
     "SOON": "Fonctionnalité bientôt disponible !",
     "RESERVE": "Réservé aux membres",
-    "ERASE": "Effacer les filtres"
+    "ERASE": "Effacer les filtres",
+    "EMAIL": "Adresse e-mail",
+    "NUM": "Numéro de téléphone",
+    "FERMER": "Fermer"
   },
   "DASHBOARD": {
     "BACK": "Revenir à votre compte",
@@ -83,6 +86,7 @@
   "GESTION_CAL": {
     "H1": "Gestion de mes disponibilités",
     "NEW": "Ajouter un nouvel événement",
+    "MODIFY": "Modifier un événement",
     "TITRE": "Titre",
     "TITRE_REQ": "Le titre est requis",
     "DATE_DEB": "Date de début",
@@ -94,10 +98,13 @@
     "NO_EVENT": "Aucun événement n'a été ajouté",
     "DU": "Du",
     "AU": "au",
-    "SUPPRIMER": "SUPPRIMER"
+    "SUPPRIMER": "SUPPRIMER",
+    "MODIF": "MODIFIER",
+    "ANNULER": "ANNULER"
   },
   "CAL_DIALOG": {
     "CAL": "Calendrier de ",
+    "EVENT": "EVENEMENT",
     "EVENTS": "Événements du ",
     "NO_EVENT": "Aucun événement pour cette date",
     "NAME": "Nom :",
@@ -145,7 +152,7 @@
     "CREER_DESIGNER": "Créer le designer",
     "CONFIGURER": "Configurer votre profil",
     "DECONNECTER": "Se déconnecter",
-    "RETOUR": "Retour à l'accueil du site",
+    "RETOUR": "Retour à l'annuaire",
     "SUPPRIMER": "Supprimer votre profil designer",
     "CONFIRME": "Êtes-vous certain de vouloir supprimer votre profil designer ? Cette action est irréversible",
     "CONFIRME_OUI": "Supprimer",
@@ -153,7 +160,8 @@
     "CONTACT": "Contacts enregistrés",
     "CREATED_1": "Votre profil designer est actuellement actif.",
     "CREATED_2": "Vous pouvez le compléter ou le modifier dans \"configurer le profil\".",
-    "CALENDRIER": "Gérer mon calendrier"
+    "CALENDRIER": "Gérer mon calendrier",
+    "PAYS": "Pays de résidence"
   },
   "CONTACTS": {
     "TITRE": "Contacts enregistrés",
@@ -266,9 +274,9 @@
     },
     "HOST": {
       "TITLE": "2. Hébergeur du Site",
-      "CONTENT_1": "La plateforme OWOD est hébergée par Heroku.",
-      "CONTENT_2": "Site web : https://www.heroku.com/ ",
-      "CONTENT_3": "Adresse : 415 Mission Street, 94105 San Francisco, CA, Etats-Unis"
+      "CONTENT_1": "La plateforme OWOD est hébergée sur les serveurs européens de AWS (Amazon Web Services).",
+      "CONTENT_2": "Site web : https://aws.amazon.com/fr/ ",
+      "CONTENT_3": "Adresse : PO Box 81226, Seattle, WA 981808-1226 – USA"
     },
     "INTELLECTUAL_PROPERTY": {
       "TITLE": "3. Propriété intellectuelle",

@@ -16,7 +16,6 @@ export class DesignerService {
   private designersSubject = new BehaviorSubject<Designer[]>([]);
   designers$: Observable<Designer[]> = this.designersSubject.asObservable();
 
-
   /**
    * Récupération de tous les designers depuis l'API
    * @returns Un observable de la liste de tous les designers
@@ -50,14 +49,16 @@ export class DesignerService {
    * Création d'un nouveau designer
    */
   createDesigner(designer: Designer): Observable<Designer> {
-    return this.http.post<Designer>(`${this.apiUrl}/new`, designer, {
-      withCredentials: true,
-    }).pipe(
-      tap((newDesigner) => {
-        // Recharger la liste des designers après la création
-        this.loadDesigners().subscribe();
+    return this.http
+      .post<Designer>(`${this.apiUrl}/new`, designer, {
+        withCredentials: true,
       })
-    );
+      .pipe(
+        tap((newDesigner) => {
+          // Recharger la liste des designers après la création
+          this.loadDesigners().subscribe();
+        })
+      );
   }
 
   /**
@@ -156,36 +157,41 @@ export class DesignerService {
     });
   }
 
-
   /**
-   * 
-   * @param userId 
-   * @param designerId 
-   * @returns 
+   *
+   * @param userId
+   * @param designerId
+   * @returns
    */
   deleteDesigner(userId: string, designerId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/delete/${userId}/${designerId}`, {
-      withCredentials: true,
-      responseType: 'text' 
-    }).pipe(
-      tap(() => {
-        // Recharger la liste des designers après la suppression
-        this.loadDesigners().subscribe();
+    return this.http
+      .delete(`${this.apiUrl}/delete/${userId}/${designerId}`, {
+        withCredentials: true,
+        responseType: 'text',
       })
-    );
+      .pipe(
+        tap(() => {
+          // Recharger la liste des designers après la suppression
+          this.loadDesigners().subscribe();
+        })
+      );
   }
 
-  addEvent(event: DesignerEvent) : Observable<Designer> {
-    console.log("add event dans designer service");
+  addEvent(event: DesignerEvent): Observable<Designer> {
     return this.http.post<Designer>(`${this.apiUrl}/events/add`, event, {
-      withCredentials: true
-    })
+      withCredentials: true,
+    });
+  }
+
+  modifyEvent(event: DesignerEvent): Observable<Designer> {
+    return this.http.post<Designer>(`${this.apiUrl}/events/modify`, event, {
+      withCredentials: true,
+    });
   }
 
   deleteEvent(event: DesignerEvent): Observable<Designer> {
-    return this.http.post<Designer>(`${this.apiUrl}/events/delete`, event , {
-      withCredentials: true
-    })
+    return this.http.post<Designer>(`${this.apiUrl}/events/delete`, event, {
+      withCredentials: true,
+    });
   }
-
 }

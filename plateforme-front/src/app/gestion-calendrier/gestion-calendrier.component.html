@@ -8,7 +8,8 @@
 
   <div class="form-container">
     <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
-      <h2>{{ "GESTION_CAL.NEW" | translate }}</h2>
+      <h2 *ngIf="!modifMode">{{ "GESTION_CAL.NEW" | translate }}</h2>
+      <h2 *ngIf="modifMode">{{ "GESTION_CAL.MODIFY" | translate }}</h2>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>{{ "GESTION_CAL.TITRE" | translate }}</mat-label>
@@ -66,12 +67,29 @@
       <div class="form-actions">
         <button
           type="submit"
+          *ngIf="!modifMode"
           mat-raised-button
           color="primary"
           [disabled]="eventForm.invalid"
         >
-          Ajouter
+          {{ "GESTION_CAL.AJOUTER" | translate}}
         </button>
+        <button
+        type="submit"
+        *ngIf="modifMode"
+        mat-raised-button
+        color="primary"
+        [disabled]="eventForm.invalid"
+      >
+        {{ "GESTION_CAL.MODIF" | translate}}
+      </button>
+      <button
+        *ngIf="modifMode"
+        mat-raised-button
+        (click)="cancelModify()"
+      >
+        {{ "GESTION_CAL.ANNULER" | translate}}
+      </button>
       </div>
     </form>
   </div>
@@ -102,6 +120,9 @@
         </mat-card-content>
 
         <mat-card-actions align="end">
+          <button mat-button (click)="enterModifyEvent(event)">
+            {{ "GESTION_CAL.MODIF" | translate }}
+          </button>
           <button mat-button color="warn" (click)="deleteEvent(event)">
             {{ "GESTION_CAL.SUPPRIMER" | translate }}
           </button>

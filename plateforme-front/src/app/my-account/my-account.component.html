@@ -73,7 +73,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Pays de résidence</mat-label>
+        <mat-label>{{ "MON_COMPTE.PAYS" | translate }}</mat-label>
         <input matInput formControlName="countryOfResidence" />
       </mat-form-field>
 
@@ -94,7 +94,7 @@
   </div>
 
   <div *ngIf="hasAccount" class="created">
-    <button class="button" mat-raised-button routerLink="/">
+    <button class="button" mat-raised-button routerLink="/catalogue">
       {{ "MON_COMPTE.RETOUR" | translate }}
     </button>
 

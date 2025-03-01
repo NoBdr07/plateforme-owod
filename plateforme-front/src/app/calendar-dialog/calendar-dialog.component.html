@@ -1,33 +1,51 @@
 <!-- calendar-dialog.component.html -->
-<h2 mat-dialog-title>{{ "CAL_DIALOG.CAL" | translate }}{{ designer?.firstname }} {{ designer?.lastname }}</h2>
+<h2 mat-dialog-title>
+  {{ "CAL_DIALOG.CAL" | translate }}{{ designer?.firstname }}
+  {{ designer?.lastname }}
+</h2>
 
 <mat-dialog-content>
   <div class="calendar-container">
     <div class="calendar-section">
-      <mat-calendar 
-      [dateClass]="dateClass"
+      <mat-calendar
+        [dateClass]="dateClass"
         [selected]="selectedDate"
-        (selectedChange)="onDateSelected($event)">
+        (selectedChange)="onDateSelected($event)"
+      >
       </mat-calendar>
     </div>
-    
+
     <div class="events-section">
-      <h3>{{ "CAL_DIALOG.EVENTS" | translate }}{{ selectedDate | date:'dd/MM/yyyy' }} :</h3>
-      
       <div *ngIf="eventsOnSelectedDate.length === 0" class="no-events">
-        {{ "CAL_DIALOG.NO_EVENT" | translate }}
+        <p>{{ "CAL_DIALOG.NO_EVENT" | translate }}</p>
+        <p *ngIf="designer?.events?.length">
+          {{ designer?.firstname }} a {{ designer?.events?.length }} événements
+          à venir, 
+        </p>
+        <p *ngIf="designer?.events?.length == 0">
+          {{ designer?.firstname }} n'a pas encore ajouté d'événement à son calendrier !
+        </p>
       </div>
 
-      <div *ngFor="let event of eventsOnSelectedDate" class="event-container">
-        <h4><strong>{{ "CAL_DIALOG.NAME" | translate }}</strong> {{ event.title }}</h4>
-        <p><strong>Description :</strong> {{ event.description }}</p>
+      <div *ngFor="let event of eventsOnSelectedDate" class="event-card">
+        <p class="event">{{ "CAL_DIALOG.EVENT" | translate }}</p>
+        <h4>
+          {{ event.title }}
+        </h4>
+        <p class="date">
+          {{ "GESTION_CAL.DU" | translate }}
+          {{ event.startDate | date : "dd/MM/yyyy" }}
+          {{ "GESTION_CAL.AU" | translate }}
+          {{ event.endDate | date : "dd/MM/yyyy" }}
+        </p>
+        <p class="description">{{ event.description }}</p>
       </div>
-      
     </div>
   </div>
-
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>{{ "CAL_DIALOG.FERMER" | translate }}</button>
+  <button mat-button mat-dialog-close>
+    {{ "CAL_DIALOG.FERMER" | translate }}
+  </button>
 </mat-dialog-actions>
