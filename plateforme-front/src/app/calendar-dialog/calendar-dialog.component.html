@@ -18,13 +18,6 @@
     <div class="events-section">
       <div *ngIf="eventsOnSelectedDate.length === 0" class="no-events">
         <p>{{ "CAL_DIALOG.NO_EVENT" | translate }}</p>
-        <p *ngIf="designer?.events?.length">
-          {{ designer?.firstname }} a {{ designer?.events?.length }} événements
-          à venir, 
-        </p>
-        <p *ngIf="designer?.events?.length == 0">
-          {{ designer?.firstname }} n'a pas encore ajouté d'événement à son calendrier !
-        </p>
       </div>
 
       <div *ngFor="let event of eventsOnSelectedDate" class="event-card">
