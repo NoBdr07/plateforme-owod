@@ -32,6 +32,9 @@ export class ResetPasswordComponent {
     private readonly passwordResetService: PasswordResetService
   ) {}
 
+  /**
+   * Soumission de l'email pour reset du password
+   */
   onSubmit() {
     if (this.resetForm.valid) {
       const token = this.route.snapshot.queryParams['token'];

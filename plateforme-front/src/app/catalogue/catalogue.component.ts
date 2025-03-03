@@ -2,11 +2,6 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  AfterViewInit,
-  ElementRef,
-  ViewChildren,
-  QueryList,
-  HostListener,
   ViewChild,
   TemplateRef,
 } from '@angular/core';
@@ -46,7 +41,8 @@ import { CalendarDialogComponent } from '../calendar-dialog/calendar-dialog.comp
   templateUrl: './catalogue.component.html',
   styleUrl: './catalogue.component.css',
 })
-export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
+export class CatalogueComponent implements OnInit, OnDestroy {
+  // contient tout les designers
   designers$!: Observable<Designer[]>;
 
   // Utilisateur connecté ou non
@@ -73,10 +69,6 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
   currentPage = new BehaviorSubject<number>(1);
   maxPage = new BehaviorSubject<number>(1);
   pageSize: number = 50;
-
-  // Variables pour l'affichage mobile (infos des designers qui s'affichent au scroll)
-  @ViewChildren('designerCard') designerCards!: QueryList<ElementRef>;
-  myDesignersInView: boolean[] = [];
 
   // Pour les bulles d'infos
   tooltipPosition: TooltipPosition = 'above';
@@ -109,6 +101,7 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
       this.checkIfMobile();
     });
 
+    // chargement des designers et initialisation des listes pour le filtrage
     this.subs.add(
       this.designerService.loadDesigners().subscribe((designers) => {
         this.specialties = this.getUniqueValues(designers, 'specialties');
@@ -118,6 +111,7 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
       })
     );
 
+    // récuperation des designers
     this.designers$ = this.designerService.getDesigners();
 
     this.researchDesigners$ = combineLatest([
@@ -126,10 +120,8 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
     ]).pipe(
       map(([designers, criteria]) => {
         if (!criteria) return designers; // Retourne tous les designers si aucun filtre
-        const { category, item } = criteria;
 
-        // liste pour l'affichage des designers sur mobile, initialisée à false pour tous les designers
-        this.myDesignersInView = new Array(designers.length).fill(false);
+        const { category, item } = criteria;
 
         // si un critère est présent, filtre des designers selon le critère
         return designers.filter((designer) => {
@@ -180,13 +172,6 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subs.add(sub);
   }
 
-  /**
-   * Une fois la page initialisée, écoute du scroll
-   */
-  ngAfterViewInit(): void {
-    this.onWindowScroll();
-  }
-
   // Check device
   checkIfMobile(): void {
     if (!this.isMobile) {
@@ -194,6 +179,7 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  // Récupère les contacts du user en cours pour adapté les logos d'ajout de contact
   loadFriends(): void {
     const sub = this.userService.getUserFriends().subscribe({
       next: (designers) => {
@@ -207,33 +193,11 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subs.add(sub);
   }
 
+  // Pour chaque designer, controle si il est deja contact ou non
   isFriend(designerId: string): boolean {
     return this.friends.some((friend) => friend.id === designerId);
   }
 
-  /**
-   * Gestion du scroll pour l'affichage dynamique des infos des
-   * designers sur mobile
-   */
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll() {
-    if (window.innerWidth >= 768) {
-      return;
-    }
-
-    const centerY = window.innerHeight / 2;
-
-    // On vérifie la position de chaque designer card pour lui accorder true si il est
-    // au milieu de l'écran
-    this.designerCards.forEach((card, i) => {
-      const rect = card.nativeElement.getBoundingClientRect();
-      if (rect.top < centerY && rect.bottom > centerY) {
-        this.myDesignersInView[i] = true;
-      } else {
-        this.myDesignersInView[i] = false;
-      }
-    });
-  }
 
   /**
    * Effectue une recherche dans la liste des designers
@@ -254,7 +218,7 @@ export class CatalogueComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   /**
-   * Passe à la pge suivante
+   * Passe à la page suivante
    */
   nextPage(): void {
     this.currentPage.next(this.currentPage.value + 1);

@@ -44,11 +44,14 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
   styleUrl: './my-account.component.css',
 })
 export class MyAccountComponent implements OnInit, OnDestroy {
+
+  // Infos de l'utilisateur connecté
   hasAccount: boolean = false;
   designerId!: string;
   userId!: string;
   user: User | null = null;
   accountForm: FormGroup;
+
   private subscriptions = new Subscription();
 
   // Enums converted to arrays
@@ -153,10 +156,16 @@ export class MyAccountComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Deconnexion de l'utilisateur
+   */
   logOut(): void {
     this.authService.logout();
   }
 
+  /**
+   * Suppression du profil designer lié à l'utilisateur
+   */
   deleteDesigner(): void {
     this.designerService
       .deleteDesigner(this.userId, this.designerId)
@@ -177,6 +186,9 @@ export class MyAccountComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * Ouverture du dialog de confirmation en cas de suppression du profil designer
+   */
   openSuppressDialog(): void {
     this.dialog.open(this.confirmSuppressTemplate);
   }

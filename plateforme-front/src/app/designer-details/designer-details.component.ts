@@ -39,10 +39,17 @@ export class DesignerDetailsComponent {
     }
   }
 
+  /**
+   * Ouverture du grossissement d'une réalisation
+   * @param imageUrl 
+   */
   showPreview(imageUrl: string): void {
     this.previewImage = imageUrl; 
   }
 
+  /**
+   * Fermeture du grossissement
+   */
   hidePreview(): void {
     this.previewImage = null; 
   }

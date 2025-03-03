@@ -28,6 +28,11 @@ export class PhotoDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: { picture: File }
   ) {}
 
+  /**
+   * Selection d'un fichier photo par l'utilisateur
+   * @param event S=
+   * @returns 
+   */
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -44,12 +49,18 @@ export class PhotoDialogComponent {
     }
   }  
 
+  /**
+   * Confirmation du choix de la photo
+   */
   onConfirm(): void {
     if (this.data.picture) {
       this.dialogRef.close(this.data.picture);
     }
   }
 
+  /**
+   * Annulation
+   */
   onCancel(): void {
     this.dialogRef.close();
   }

@@ -6,6 +6,7 @@ import { Designer } from '../interfaces/designer.interface';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-contacts',
@@ -26,16 +27,21 @@ export class ContactsComponent implements OnInit, OnDestroy {
   isLoading = false;
   error: String | null = null;
 
+  private subs = new Subscription();
+
   constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadFriends();
   }
 
+  /**
+   * Chargement des contacts de l'utilisateur
+   */
   loadFriends(): void {
     this.isLoading = true;
 
-    this.userService.getUserFriends().subscribe({
+    const sub = this.userService.getUserFriends().subscribe({
       next: (designers) => {
         this.friends = designers;
         this.isLoading = false;
@@ -51,14 +57,24 @@ export class ContactsComponent implements OnInit, OnDestroy {
         }
       },
     });
+
+    this.subs.add(sub);
   }
 
+  /** 
+   * Pour se rendre directement sur la page du designer
+   */
   redirect(friendId: string): void {
     this.router.navigate(['/details', friendId]);
   }
 
+
+   /**
+    * Suppression d'un contact et rechargement des contacts à l'issue
+    * @param friendId 
+    */
   deleteFriend(friendId: string): void {
-    this.userService.deleteFriend(friendId).subscribe({
+    const sub = this.userService.deleteFriend(friendId).subscribe({
       next: () => {
         this.loadFriends();
       },
@@ -66,7 +82,11 @@ export class ContactsComponent implements OnInit, OnDestroy {
         this.error = 'Erreur lors de la suppression du contact';
       },
     });
+
+    this.subs.add(sub);
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 }

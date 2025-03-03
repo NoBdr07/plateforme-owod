@@ -51,6 +51,10 @@ export class RegisterComponent implements OnDestroy {
     }, {validators: [this.emailMatchValidator(), this.passwordMatchValidator()]});
   }
 
+  /**
+   * Validator pour controler que les deux adresses mail sont les memes
+   * @returns 
+   */
   emailMatchValidator(): ValidatorFn {
     return (formGroup: AbstractControl): ValidationErrors | null => {
       const email = formGroup.get('email')?.value;
@@ -66,6 +70,10 @@ export class RegisterComponent implements OnDestroy {
     };
   }
 
+  /**
+   * Validator pour controler que les deux mots de passe sont les memes
+   * @returns 
+   */
   passwordMatchValidator(): ValidatorFn {
     return (formGroup: AbstractControl): ValidationErrors | null => {
       const password = formGroup.get('password')?.value;
@@ -81,6 +89,9 @@ export class RegisterComponent implements OnDestroy {
     };
   }
 
+  /**
+   * Soumission du formulaire
+   */
   onSubmit() {
     if(this.registerForm.valid) {
       const registerRequest = this.registerForm.value as RegisterRequest;
@@ -88,7 +99,6 @@ export class RegisterComponent implements OnDestroy {
 
       const sub = this.authService.register(registerRequest).subscribe({
         next: () => {          
-          console.log("appel de next dans register");
           this.router.navigate(['login'], {
             state: { registrationSuccess: true }
           });

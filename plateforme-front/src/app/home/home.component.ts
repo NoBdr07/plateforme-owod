@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    // Chargement des données de designer pour la partie "tant de designer nous ont déja rejoints"
     const sub = this.designerService.loadDesigners().subscribe();
     this.designers$ = this.designerService.getDesigners().pipe(
       tap((designers) => this.totalDesigners = designers.length)
@@ -46,6 +47,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subs.add(sub);
   }
 
+  // observer des elements qui sont animés quand il arrive a l'écran
   private setupIntersectionObserver(): void {
     this.observer = new IntersectionObserver(
       (entries) => {

@@ -24,15 +24,7 @@ export class AuthService {
     private readonly http: HttpClient,
     private readonly router: Router
   ) {
-    this.checkAuthStatus().subscribe({
-      next: (userInfo) => {
-        console.log("check auth status");
-        console.log("user id : " + userInfo.userId);
-      },
-      error: (err) => {
-        console.log("error in check auth status : " + err);
-      }
-    })
+    this.checkAuthStatus().subscribe();
   }
 
   /**

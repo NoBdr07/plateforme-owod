@@ -177,18 +177,33 @@ export class DesignerService {
       );
   }
 
+  /**
+   * Ajout d'un evenement
+   * @param event 
+   * @returns l'observable du designer contenant le nouvel event
+   */
   addEvent(event: DesignerEvent): Observable<Designer> {
     return this.http.post<Designer>(`${this.apiUrl}/events/add`, event, {
       withCredentials: true,
     });
   }
 
+  /**
+   * Modification d'un event existant
+   * @param event 
+   * @returns un observable du designer avec l'event modifié
+   */
   modifyEvent(event: DesignerEvent): Observable<Designer> {
     return this.http.post<Designer>(`${this.apiUrl}/events/modify`, event, {
       withCredentials: true,
     });
   }
 
+  /**
+   * Suppression d'un event
+   * @param event 
+   * @returns un observable du designer avec l'event supprimé
+   */
   deleteEvent(event: DesignerEvent): Observable<Designer> {
     return this.http.post<Designer>(`${this.apiUrl}/events/delete`, event, {
       withCredentials: true,

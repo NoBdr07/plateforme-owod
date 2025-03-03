@@ -15,8 +15,13 @@ import { Designer } from '../interfaces/designer.interface';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent implements OnDestroy {
+  // selection d'anglais ou francais
   currentLang!: string;
+
+  // menu ouvert ou non
   isMenuOpen = false;
+
+  // utilisateur connecté ou non et ses infos
   isLogged = false;
   userId!: string | null;
   designer$!: Observable<Designer | null>;
@@ -60,17 +65,27 @@ export class HeaderComponent implements OnDestroy {
     this.subs.add(sub);
   }
 
+  /**
+   * Passage en anglais ou francais
+   * @param lang 
+   */
   switchLanguage(lang: string) {
     this.currentLang = lang;
     this.translateService.use(lang);
   }
 
+  /**
+   * Ouverture et fermeture du menu
+   */
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
     const burgerBtn = document.querySelector('.burger-menu');
     burgerBtn?.classList.toggle('active');
   }
 
+  /**
+   * Unsubscribe des observables
+   */
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }

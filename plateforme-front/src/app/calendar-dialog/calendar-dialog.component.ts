@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Designer } from '../interfaces/designer.interface';
 import { DesignerEvent } from '../interfaces/designer-event.interface';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
@@ -21,36 +21,44 @@ import { TranslateModule } from '@ngx-translate/core';
     MatNativeDateModule,
     MatListModule,
     MatButtonModule,
-    TranslateModule
+    TranslateModule,
   ],
   templateUrl: './calendar-dialog.component.html',
   styleUrl: './calendar-dialog.component.css',
 })
 export class CalendarDialogComponent implements OnInit, OnDestroy {
+  // designer connecté
   designer!: Designer | undefined;
+
+  // date séléctionné sur le calendrier
   selectedDate: Date = new Date();
   eventsOnSelectedDate: DesignerEvent[] = [];
-  startAt = new Date();
 
   subs = new Subscription();
 
+  /**
+   * constructeur avec injection des données liés au designer dont on affiche le calendrier
+   * @param data
+   * @param designerService
+   */
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { designerId: string },
-    private designerService: DesignerService,
-    private renderer: Renderer2
+    private designerService: DesignerService
   ) {}
 
   ngOnInit(): void {
     this.loadDesignerData();
   }
 
+  /**
+   * Téléchargement des données liées au designer
+   */
   loadDesignerData(): void {
     const sub = this.designerService
       .getDesignerById(this.data.designerId)
       .subscribe({
         next: (designer) => {
           this.designer = designer;
-          this.startAt = new Date();
           this.updateSelectedDateEvents();
         },
         error: (err) =>
@@ -63,14 +71,9 @@ export class CalendarDialogComponent implements OnInit, OnDestroy {
     this.subs.add(sub);
   }
 
+  // Coloration des jours contenant des événements
   dateClass = (date: Date): string => {
-
     if (!this.designer?.events) return '';
-
-    const isSpecificDate = this.designer.events.some((event) => {
-      const eventStartDate = new Date(event.startDate);
-      return this.isSameDay(date, eventStartDate);
-    });
 
     const isInPeriod = this.designer.events.some((event) => {
       const eventStartDate = new Date(event.startDate);
@@ -79,18 +82,18 @@ export class CalendarDialogComponent implements OnInit, OnDestroy {
     });
 
     let classes = '';
-    if (isSpecificDate) classes += 'event-specific-date ';
     if (isInPeriod) classes += 'event-in-period ';
 
     return classes.trim();
   };
 
-  private isSameDay(date1: Date, date2: Date): boolean {
-    const d1 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate());
-    const d2 = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
-    return d1.getTime() === d2.getTime();
-  }
-
+  /**
+   * Check si une date est entre deux dates
+   * @param date 
+   * @param start 
+   * @param end 
+   * @returns un boolean
+   */
   private isDateInRange(date: Date, start: Date, end: Date): boolean {
     const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     const s = new Date(start.getFullYear(), start.getMonth(), start.getDate());
@@ -98,6 +101,10 @@ export class CalendarDialogComponent implements OnInit, OnDestroy {
     return d >= s && d <= e;
   }
 
+  /**
+   * Quand l'utilisateur selectionne une date dans le calendrier
+   * @param date 
+   */
   onDateSelected(date: Date | null): void {
     if (date) {
       this.selectedDate = date;
@@ -105,6 +112,10 @@ export class CalendarDialogComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Selection des evenements du jour
+   * @returns 
+   */
   updateSelectedDateEvents(): void {
     if (!this.designer?.events) {
       this.eventsOnSelectedDate = [];

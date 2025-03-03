@@ -71,14 +71,6 @@ h3 {
 }
 
 ::ng-deep
-  .mat-calendar-body-cell.event-specific-date
-  .mat-calendar-body-cell-content {
-  background-color: var(--primary-color) !important;
-  color: white !important;
-  border-radius: 50% !important;
-}
-
-::ng-deep
   .mat-calendar-body-cell.event-in-period
   .mat-calendar-body-cell-content {
   background-color: #81c784 !important;

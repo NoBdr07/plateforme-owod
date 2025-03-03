@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -20,6 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-gestion-calendrier',
@@ -41,12 +42,15 @@ import { RouterModule } from '@angular/router';
   templateUrl: './gestion-calendrier.component.html',
   styleUrl: './gestion-calendrier.component.css',
 })
-export class GestionCalendrierComponent implements OnInit {
+export class GestionCalendrierComponent implements OnInit, OnDestroy {
   designer!: Designer;
   eventForm!: FormGroup;
 
-  eventToModify: DesignerEvent | null = null;
+  // Pour passer en mode modification d'event plutot qu'ajout
   modifMode = false;
+  eventToModify: DesignerEvent | null = null;
+
+  private subs = new Subscription();
 
   constructor(
     private fb: FormBuilder,
@@ -61,6 +65,9 @@ export class GestionCalendrierComponent implements OnInit {
     this.loadDesignerData();
   }
 
+  /**
+   * Initialisation du formulaire avec valeurs vides
+   */
   initForm(): void {
     this.eventForm = this.fb.group({
       title: ['', [Validators.required]],
@@ -70,6 +77,10 @@ export class GestionCalendrierComponent implements OnInit {
     });
   }
 
+  /**
+   * Initialisation du formulaire avec les infos de l'event à modifier
+   * @param event 
+   */
   initFormForModify(event: DesignerEvent): void {
     this.eventForm = this.fb.group({
       title: [event.title, [Validators.required]],
@@ -79,10 +90,13 @@ export class GestionCalendrierComponent implements OnInit {
     });
   }
 
+  /**
+   * Chargement des données du designer connecté
+   */
   loadDesignerData(): void {
     const userId = this.authService.getUserId();
     if (userId) {
-      this.designerService.getDesignerByUserId(userId).subscribe({
+      const sub = this.designerService.getDesignerByUserId(userId).subscribe({
         next: (designer) => {
           if (designer) {
             this.designer = designer;
@@ -94,9 +108,15 @@ export class GestionCalendrierComponent implements OnInit {
             err
           ),
       });
+
+      this.subs.add(sub);
     }
   }
 
+  /**
+   * Soumission du formulaire, soit d'ajout soit de modification
+   * @returns 
+   */
   onSubmit(): void {
     const formValues = this.eventForm.value;
 
@@ -112,7 +132,6 @@ export class GestionCalendrierComponent implements OnInit {
       endDate.setHours(12, 0, 0, 0);
       formValues.endDate = endDate.toISOString();
     }
-
 
     if (!this.modifMode) {
       if (this.eventForm.invalid) return;
@@ -133,12 +152,17 @@ export class GestionCalendrierComponent implements OnInit {
     }
   }
 
+  // Generation de l'id de l'event etant donné que ce n'est pas une table à part entiere en base de données
   generateEventId(): string {
     return (
       'event_' + new Date().getTime() + '_' + Math.floor(Math.random() * 1000)
     );
   }
 
+  /**
+   * Ajout d'un event
+   * @param event 
+   */
   addEvent(event: DesignerEvent): void {
     this.designerService.addEvent(event).subscribe({
       next: () => {
@@ -149,12 +173,20 @@ export class GestionCalendrierComponent implements OnInit {
     });
   }
 
+  /**
+   * Modification du template et du form au passage en mode modification
+   * @param event 
+   */
   enterModifyEvent(event: DesignerEvent): void {
     this.modifMode = true;
     this.initFormForModify(event);
     this.eventToModify = event;
   }
 
+  /**
+   * Modification d'un event
+   * @param event 
+   */
   modifyEvent(event: DesignerEvent): void {
     if (this.designer) {
       if (confirm('Êtes-vous sûr de vouloir modifier cet événement ?')) {
@@ -171,12 +203,19 @@ export class GestionCalendrierComponent implements OnInit {
     }
   }
   
+  /**
+   * Annule la modification et revient en mode ajout
+   */
   cancelModify(): void {
     this.initForm();
     this.modifMode = false;
     this.eventToModify = null;
   }
 
+  /**
+   * Suppression d'un event
+   * @param event 
+   */
   deleteEvent(event: DesignerEvent): void {
     if (this.designer) {
       if (confirm('Êtes-vous sûr de vouloir supprimer cet événement ?')) {
@@ -188,5 +227,9 @@ export class GestionCalendrierComponent implements OnInit {
         });
       }
     }
+  }
+
+  ngOnDestroy(): void {
+      this.subs.unsubscribe();
   }
 }

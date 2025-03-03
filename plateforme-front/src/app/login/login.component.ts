@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
+  // Message d'information quand l'utilisateur vient de creer son compte
   ngOnInit(): void {
     const state = this.location.getState() as { registrationSuccess?: boolean };
 
@@ -66,6 +67,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Log in de l'utilisateur
+   */
   onSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
@@ -91,6 +95,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Procédure en cas d'oubli de mot de passe
+   */
   onForgotPassword() {
     const email = prompt("Veuillez saisir votre adresse email pour réinitialiser votre mot de passe :");
     if (email) {

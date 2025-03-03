@@ -79,6 +79,7 @@ export class DashboardComponent {
   ngOnInit(): void {
     const userId = this.authService.getUserId();
 
+    // Récuperation des infos du designer et initialisation du form avec ses infos
     if (userId) {
       const sub = this.designerService.getDesignerByUserId(userId).subscribe({
         next: (designer: Designer) => {
@@ -116,6 +117,9 @@ export class DashboardComponent {
     }
   }
 
+  /**
+   * Soumission du formulaire des infos utilisateurs
+   */
   onSubmit(): void {
     if (this.designerForm.valid) {
       const updatedDesigner = this.designerForm.value as Designer;
@@ -132,22 +136,22 @@ export class DashboardComponent {
         .updateDesignerFields(this.designerId, updatedDesigner)
         .subscribe({
           next: (response) => {
-            console.log('Designer mis à jour avec succès :', response);
             alert('Vos informations ont été mises à jour avec succès.');
           },
           error: (err) => {
-            console.error('Erreur lors de la mise à jour :', err);
             alert('Une erreur est survenue lors de la mise à jour.');
           },
         });
 
       this.subscriptions.add(sub);
     } else {
-      console.error('Le formulaire est invalide.');
       alert('Veuillez remplir correctement tous les champs.');
     }
   }
 
+  /**
+   * Ouverture du dialog pour le chargement de la photo de profil
+   */
   openPhotoDialog(): void {
     const dialogRef = this.dialog.open(PhotoDialogComponent, {
       width: '80%',
@@ -161,16 +165,11 @@ export class DashboardComponent {
           .updateDesignerPicture(this.designerId, file)
           .subscribe({
             next: (response) => {
-              console.log(
-                'Photo de profil mise à jour avec succès :',
-                response
-              );
               this.designerForm.patchValue({
                 profilePicture: response.profilePicture,
-              }); // Mettez à jour l'affichage
+              }); 
             },
-            error: (err) => {
-              console.error('Erreur lors de la mise à jour de la photo :', err);
+            error: () => {
               alert(
                 'Une erreur est survenue lors de la mise à jour de la photo.'
               );
@@ -180,6 +179,11 @@ export class DashboardComponent {
     });
   }
 
+  /**
+   * Verification de la taille du fichier que l'utilisateur upload pour ses réalisations
+   * @param event 
+   * @returns 
+   */
   onRealisationSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
 
@@ -199,6 +203,9 @@ export class DashboardComponent {
     }
   }
 
+  /**
+   * Mise à jour des réalisations du designer
+   */
   updateWorks(): void {
     if (this.newMajorWorks.length > 0) {
       const formData = new FormData();
@@ -221,11 +228,19 @@ export class DashboardComponent {
     }
   }
 
+  /**
+   * Récuperation de la photo de profil ou photo de default si pas de photo de profil
+   * @returns 
+   */
   getProfilePicture(): string {
     const picture = this.designerForm.get('profilePicture')?.value;
     return picture && picture.trim() !== '' ? picture : 'assets/logos/default-profile.png';
   }
 
+  /**
+   * Suppression d'un fichier de réalisation
+   * @param imageUrl 
+   */
   deleteWork(imageUrl: string): void {
     if (confirm('Voulez-vous vraiment supprimer cette réalisation ?')) {
       this.designerService.deleteMajorWork(this.designerId, imageUrl).subscribe({
@@ -237,7 +252,6 @@ export class DashboardComponent {
           alert('Réalisation supprimée avec succès.');
         },
         error: (err) => {
-          console.error('Erreur lors de la suppression de la réalisation :', err);
           alert('Une erreur est survenue lors de la suppression de la réalisation.');
         },
       });
