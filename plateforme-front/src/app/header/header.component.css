@@ -40,8 +40,6 @@
   cursor: pointer;
   padding: 0;
   z-index: 1000;
-  position: absolute;
-  left: 50%;
 }
 
 .burger-line {
@@ -53,12 +51,12 @@
 
 .links-container {
   position: relative;
-  top: 49px;
-  left: 1vw;
+  top: 150px;
+  left: 142px;
   width: fit-content;
   height: fit-content;
   background-color: var(--primary-color);
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 30px;
@@ -69,7 +67,8 @@
   transform: translateY(-20px);
   padding: 120px 50px 20px 50px;
   margin: -50px 0 0 0;
-  border-radius: 20px;
+  border-radius: 0 0 20px 20px;
+  border: solid 1px var(--accent-color);
 }
 
 .links-container.active {
@@ -142,13 +141,14 @@
   .links-container {
     width: 100%;
     height: 100vh;
-    flex-direction: column;
     display: none;
   }
 
   .links-container.active {
     display: flex;
     position: fixed;
+    left: 0;
+    top: 0;
   }
 
   .end-container {
