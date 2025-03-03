@@ -34,24 +34,28 @@ export class HeaderComponent implements OnDestroy {
       this.translateService.getDefaultLang();
 
     // Menu en fonction de si la personne est connectée ou non
-    const sub = this.authService.$isLogged().subscribe(isLogged => {
+    const sub = this.authService.$isLogged().subscribe((isLogged) => {
       this.isLogged = isLogged;
 
-      if(isLogged) {
+      if (isLogged) {
         this.userId = this.authService.getUserId();
 
-        if(this.userId) {
-          this.designer$ = this.designerService.getDesignerByUserId(this.userId);
+        if (this.userId) {
+          this.designer$ = this.designerService.getDesignerByUserId(
+            this.userId
+          );
         } else {
-          this.designer$ = new Observable<null>(subscriber => subscriber.next(null));
+          this.designer$ = new Observable<null>((subscriber) =>
+            subscriber.next(null)
+          );
         }
       } else {
         this.userId = null;
-        this.designer$ = new Observable<null>(subscriber => subscriber.next(null));
+        this.designer$ = new Observable<null>((subscriber) =>
+          subscriber.next(null)
+        );
       }
-    }
-
-    );
+    });
 
     this.subs.add(sub);
   }
@@ -68,6 +72,6 @@ export class HeaderComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.subs.unsubscribe();
+    this.subs.unsubscribe();
   }
 }

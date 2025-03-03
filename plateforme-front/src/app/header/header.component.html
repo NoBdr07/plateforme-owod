@@ -76,27 +76,42 @@
       <span class="burger-line"></span>
     </button>
 
-    <div *ngIf="designer$ | async as designer" class="connexion-container">
+    <div *ngIf="isLogged; else notLogged">
+      <ng-container *ngIf="designer$ | async as designer; else noDesigner">
+        <img
+          *ngIf="designer?.profilePicture; else defaultProfile"
+          [src]="designer.profilePicture"
+          alt="photo de profil"
+          class="profile-picture"
+          routerLink="/account"
+        />
+        <ng-template #defaultProfile>
+          <img
+            src="assets/logos/account-blue.png"
+            alt="photo de profil"
+            class="logo-connexion"
+            routerLink="/account"
+          />
+        </ng-template>
+      </ng-container>
+      <ng-template #noDesigner>
+        <img
+          src="assets/logos/account-blue.png"
+          alt="photo de profil"
+          class="logo-connexion"
+          routerLink="/account"
+        />
+      </ng-template>
+    </div>
+    
+    <ng-template #notLogged>
       <img
-        *ngIf="designer?.profilePicture"
-        [src]="designer.profilePicture"
-        alt="photo de profil"
-        class="profile-picture"
-        routerLink="/account"
-      />
-      <img
-        *ngIf="!designer?.profilePicture"
-        src="assets/logos/account-blue.png"
+        src="assets/logos/account.png"
         alt="photo de profil"
         class="logo-connexion"
-        routerLink="/account"
+        routerLink="/login"
       />
-    </div>
-    <img
-      *ngIf="!isLogged"
-      src="assets/logos/account.png"
-      class="logo-connexion"
-      routerLink="/login"
-    />
+    </ng-template>
+    
   </div>
 </div>
