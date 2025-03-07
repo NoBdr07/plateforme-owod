@@ -107,6 +107,9 @@
     "EVENT": "EVENEMENT",
     "EVENTS": "Événements du ",
     "NO_EVENT": "Aucun événement pour cette date",
+    "NO_EVENT_YET": "n'a pas encore ajouté d'évènements à son calendrier.",
+    "NUMBER_EVENT_1": "a",
+    "NUMBER_EVENT_2": "événements à venir",
     "NAME": "Nom :",
     "FERMER": "Fermer"
   },

@@ -107,6 +107,9 @@
     "EVENT": "EVENT",
     "EVENTS": "Events on ",
     "NO_EVENT": "No events for this date",
+    "NO_EVENT_YET": "didn't had any event to his calendar yet.",
+    "NUMBER_EVENT_1": "has",
+    "NUMBER_EVENT_2": "event to come",
     "NAME": "Name:",
     "FERMER": "Close"
   },

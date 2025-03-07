@@ -28,7 +28,7 @@ export class WeeklyDesignerService {
 
   /**
    * Méthode utilisée par les composants pour demander le designer de la semaine
-   * @returns 
+   * @returns Le designer associé à l'utilisateur en cours s'il existe sinon null
    */
   getCurrentDesigner(): Designer | null {
     return this.weeklyDesignerSubject.value;

@@ -1,221 +1,229 @@
-<div class="top-container">
-  <div class="filtres">
-    <div class="filtre">
-      <img class="filtre-icon" src="assets/logos/filtre.png" alt="Filtre" />
-      <button mat-button class="black" [matMenuTriggerFor]="menu">
-        {{ "CATALOGUE.FILTRE" | translate }}
-      </button>
+<div class="global-container">
+  <div class="top-container">
+    <div class="filtres">
+      <div class="filtre">
+        <img class="filtre-icon" src="assets/logos/filtre.png" alt="Filtre" />
+        <button mat-button class="black" [matMenuTriggerFor]="menu">
+          {{ "CATALOGUE.FILTRE" | translate }}
+        </button>
+      </div>
+      <div class="filtre">
+        <img
+          class="filtre-icon"
+          src="assets/logos/refresh.png"
+          alt="Effacer les filtres"
+        />
+        <button mat-button class="black" (click)="resetResearch()">
+          {{ "CATALOGUE.ERASE" | translate }}
+        </button>
+      </div>
     </div>
-    <div class="filtre">
-      <img
-        class="filtre-icon"
-        src="assets/logos/refresh.png"
-        alt="Effacer les filtres"
-      />
-      <button mat-button class="black" (click)="resetResearch()">
-        {{ "CATALOGUE.ERASE" | translate }}
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [matMenuTriggerFor]="menuProfession">
+        {{ "CATALOGUE.PROFESSION" | translate }}
       </button>
-    </div>
+      <button mat-menu-item [matMenuTriggerFor]="menuSpecialty">
+        {{ "CATALOGUE.SPECIALITE" | translate }}
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="menuSphere">
+        {{ "CATALOGUE.SPHERE" | translate }}
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="menuSector">
+        {{ "CATALOGUE.SECTEUR" | translate }}
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="menuCountry">
+        {{ "CATALOGUE.PAYS" | translate }}
+      </button>
+    </mat-menu>
+
+    <mat-menu #menuProfession="matMenu">
+      <button mat-menu-item (click)="research('profession', 'étudiant')">
+        {{ "CATALOGUE.ETUDIANT" | translate }}
+      </button>
+      <button mat-menu-item (click)="research('profession', 'designer')">
+        Designer
+      </button>
+      <button mat-menu-item (click)="research('profession', 'artisan')">
+        {{ "CATALOGUE.ARTISAN" | translate }}
+      </button>
+      <button mat-menu-item (click)="research('profession', 'autre')">
+        {{ "CATALOGUE.AUTRE" | translate }}
+      </button>
+    </mat-menu>
+
+    <!-- Specialties -->
+    <mat-menu #menuSpecialty="matMenu">
+      <button
+        mat-menu-item
+        *ngFor="let specialty of specialties"
+        (click)="research('specialty', specialty)"
+      >
+        {{ specialty }}
+      </button>
+    </mat-menu>
+
+    <!-- Sphère d'influence -->
+    <mat-menu #menuSphere="matMenu">
+      <button
+        mat-menu-item
+        *ngFor="let sphere of spheres"
+        (click)="research('sphere', sphere)"
+      >
+        {{ sphere }}
+      </button>
+    </mat-menu>
+
+    <!-- Secteurs -->
+    <mat-menu #menuSector="matMenu">
+      <button
+        mat-menu-item
+        *ngFor="let sector of sectors"
+        (click)="research('sector', sector)"
+      >
+        {{ sector }}
+      </button>
+    </mat-menu>
+
+    <!-- Pays de résidence -->
+    <mat-menu #menuCountry="matMenu">
+      <button
+        mat-menu-item
+        *ngFor="let country of countries"
+        (click)="research('country', country)"
+      >
+        {{ country }}
+      </button>
+    </mat-menu>
   </div>
 
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item [matMenuTriggerFor]="menuProfession">
-      {{ "CATALOGUE.PROFESSION" | translate }}
-    </button>
-    <button mat-menu-item [matMenuTriggerFor]="menuSpecialty">
-      {{ "CATALOGUE.SPECIALITE" | translate }}
-    </button>
-    <button mat-menu-item [matMenuTriggerFor]="menuSphere">
-      {{ "CATALOGUE.SPHERE" | translate }}
-    </button>
-    <button mat-menu-item [matMenuTriggerFor]="menuSector">
-      {{ "CATALOGUE.SECTEUR" | translate }}
-    </button>
-    <button mat-menu-item [matMenuTriggerFor]="menuCountry">
-      {{ "CATALOGUE.PAYS" | translate }}
-    </button>
-  </mat-menu>
-
-  <mat-menu #menuProfession="matMenu">
-    <button mat-menu-item (click)="research('profession', 'étudiant')">
-      {{ "CATALOGUE.ETUDIANT" | translate }}
-    </button>
-    <button mat-menu-item (click)="research('profession', 'designer')">
-      Designer
-    </button>
-    <button mat-menu-item (click)="research('profession', 'artisan')">
-      {{ "CATALOGUE.ARTISAN" | translate }}
-    </button>
-    <button mat-menu-item (click)="research('profession', 'autre')">
-      {{ "CATALOGUE.AUTRE" | translate }}
-    </button>
-  </mat-menu>
-
-  <!-- Specialties -->
-  <mat-menu #menuSpecialty="matMenu">
-    <button
-      mat-menu-item
-      *ngFor="let specialty of specialties"
-      (click)="research('specialty', specialty)"
-    >
-      {{ specialty }}
-    </button>
-  </mat-menu>
-
-  <!-- Sphère d'influence -->
-  <mat-menu #menuSphere="matMenu">
-    <button
-      mat-menu-item
-      *ngFor="let sphere of spheres"
-      (click)="research('sphere', sphere)"
-    >
-      {{ sphere }}
-    </button>
-  </mat-menu>
-
-  <!-- Secteurs -->
-  <mat-menu #menuSector="matMenu">
-    <button
-      mat-menu-item
-      *ngFor="let sector of sectors"
-      (click)="research('sector', sector)"
-    >
-      {{ sector }}
-    </button>
-  </mat-menu>
-
-  <!-- Pays de résidence -->
-  <mat-menu #menuCountry="matMenu">
-    <button
-      mat-menu-item
-      *ngFor="let country of countries"
-      (click)="research('country', country)"
-    >
-      {{ country }}
-    </button>
-  </mat-menu>
-</div>
-
-<div
-  class="designers-container"
-  *ngIf="paginatedDesigners$ | async as designers"
->
   <div
-    class="designer"
-    *ngFor="let designer of designers; let i = index"
-    #designerCard
-    [routerLink]="['/details', designer.id]"
+    class="designers-container"
+    *ngIf="paginatedDesigners$ | async as designers"
   >
-    <div class="designer-top">
-      <div class="designer-top-left">
-        <img
-          *ngIf="designer.profilePicture"
-          [src]="designer.profilePicture"
-          class="photo"
-          alt="Photo de profil d'un designer"
-        />
-        <p class="designer-name">
-          {{ designer.firstname }} {{ designer.lastname }}
-        </p>
-      </div>
-
-      <div
-        class="designer-widgets"
-        [matTooltip]="!isLogged ? ('CATALOGUE.RESERVE' | translate) : null"
-      >
-        <img
-          src="assets/logos/calendar.svg"
-          class="widget"
-          [ngClass]="{ 'logged-in': isLogged, 'logged-out': !isLogged }"
-          (click)="$event.stopPropagation(); openCalendar(designer.id)"
-        />
-
-        <img
-          *ngIf="!isFriend(designer.id)"
-          src="assets/logos/person-add.svg"
-          class="widget"
-          [ngClass]="{ 'logged-in': isLogged, 'logged-out': !isLogged }"
-          (click)="$event.stopPropagation(); addFriend(designer.id)"
-        />
-        <img
-          *ngIf="isFriend(designer.id)"
-          src="assets/logos/person-check.png"
-          class="widget"
-        />
-        <img
-          src="assets/logos/group-add.svg"
-          class="widget"
-          [ngClass]="{ 'logged-in': isLogged, 'logged-out': !isLogged }"
-          [matTooltip]="'CATALOGUE.SOON' | translate"
-        />
-      </div>
-    </div>
-
     <div
-      class="designer-middle"
-      [matTooltip]="!isLogged ? ('CATALOGUE.RESERVE' | translate) : null"
-      [ngClass]="{ 'logged-in': isLogged, 'logged-out': !isLogged }"
+      class="designer"
+      *ngFor="let designer of designers; let i = index"
+      #designerCard
+      [routerLink]="['/details', designer.id]"
     >
-      <div
-        class="middle-section"
-        *ngIf="designer.phoneNumber"
-        (click)="
-          $event.stopPropagation(); showPhoneNumber(designer.phoneNumber)
-        "
-      >
-        <p class="text-middle">{{ "CATALOGUE.APPELER" | translate }}</p>
-        <img src="assets/logos/call.svg" class="widget" />
-      </div>
-      <div
-        class="middle-section"
-        (click)="$event.stopPropagation(); showEmail(designer.email)"
-      >
-        <p class="text-middle">{{ "CATALOGUE.MAIL" | translate }}</p>
-        <img src="assets/logos/mail.svg" class="widget" />
-      </div>
-    </div>
+      <div class="designer-top">
+        <div class="designer-top-left">
+          <img
+            *ngIf="designer.profilePicture"
+            [src]="designer.profilePicture"
+            class="photo"
+            alt="Photo de profil d'un designer"
+          />
+          <p class="designer-name">
+            {{ designer.firstname }} {{ designer.lastname }}
+          </p>
+        </div>
 
-    <div class="designer-bottom">
-      <div class="metier-container">
-        <p *ngIf="designer.profession === 'designer'" class="bottom-text bold">
-          Designer
-        </p>
-        <p *ngIf="designer.profession === 'artisan'" class="bottom-text bold">
-          {{ "CATALOGUE.ARTISAN" | translate }}
-        </p>
-        <p *ngIf="designer.profession === 'étudiant'" class="bottom-text bold">
-          {{ "CATALOGUE.ETUDIANT" | translate }}
-        </p>
-      </div>
-      <p class="bottom-text">{{ designer.countryOfResidence }}</p>
-    </div>
+        <div
+          class="designer-widgets"
+          [matTooltip]="!isLogged ? ('CATALOGUE.RESERVE' | translate) : null"
+        >
+          <img
+            src="assets/logos/calendar.svg"
+            class="widget"
+            [ngClass]="{ 'logged-in': isLogged, 'logged-out': !isLogged }"
+            (click)="$event.stopPropagation(); openCalendar(designer.id)"
+          />
 
-    <img class="background" src="assets/images/back.png" />
+          <img
+            *ngIf="!isFriend(designer.id)"
+            src="assets/logos/person-add.svg"
+            class="widget"
+            [ngClass]="{ 'logged-in': isLogged, 'logged-out': !isLogged }"
+            (click)="$event.stopPropagation(); addFriend(designer.id)"
+          />
+          <img
+            *ngIf="isFriend(designer.id)"
+            src="assets/logos/person-check.png"
+            class="widget"
+          />
+          <img
+            src="assets/logos/group-add.svg"
+            class="widget"
+            [ngClass]="{ 'logged-in': isLogged, 'logged-out': !isLogged }"
+            [matTooltip]="'CATALOGUE.SOON' | translate"
+          />
+        </div>
+      </div>
+
+      <div
+        class="designer-middle"
+        [matTooltip]="!isLogged ? ('CATALOGUE.RESERVE' | translate) : null"
+        [ngClass]="{ 'logged-in': isLogged, 'logged-out': !isLogged }"
+      >
+        <div
+          class="middle-section"
+          *ngIf="designer.phoneNumber"
+          (click)="
+            $event.stopPropagation(); showPhoneNumber(designer.phoneNumber)
+          "
+        >
+          <p class="text-middle">{{ "CATALOGUE.APPELER" | translate }}</p>
+          <img src="assets/logos/call.svg" class="widget" />
+        </div>
+        <div
+          class="middle-section"
+          (click)="$event.stopPropagation(); showEmail(designer.email)"
+        >
+          <p class="text-middle">{{ "CATALOGUE.MAIL" | translate }}</p>
+          <img src="assets/logos/mail.svg" class="widget" />
+        </div>
+      </div>
+
+      <div class="designer-bottom">
+        <div class="metier-container">
+          <p
+            *ngIf="designer.profession === 'designer'"
+            class="bottom-text bold"
+          >
+            Designer
+          </p>
+          <p *ngIf="designer.profession === 'artisan'" class="bottom-text bold">
+            {{ "CATALOGUE.ARTISAN" | translate }}
+          </p>
+          <p
+            *ngIf="designer.profession === 'étudiant'"
+            class="bottom-text bold"
+          >
+            {{ "CATALOGUE.ETUDIANT" | translate }}
+          </p>
+        </div>
+        <p class="bottom-text">{{ designer.countryOfResidence }}</p>
+      </div>
+
+      <img class="background" src="assets/images/back.png" />
+    </div>
   </div>
-</div>
 
-<!-- Pagination -->
-<div class="pagination">
-  <button
-    mat-raised-button
-    (click)="prevPage()"
-    [disabled]="currentPage.value === 1"
-  >
-    {{ "CATALOGUE.PRECEDENT" | translate }}
-  </button>
+  <!-- Pagination -->
+  <div class="pagination">
+    <button
+      mat-raised-button
+      (click)="prevPage()"
+      [disabled]="currentPage.value === 1"
+    >
+      {{ "CATALOGUE.PRECEDENT" | translate }}
+    </button>
 
-  <span
-    >Page {{ currentPage | async }} {{ "CATALOGUE.SUR" | translate }}
-    {{ maxPage | async }}</span
-  >
+    <span
+      >Page {{ currentPage | async }} {{ "CATALOGUE.SUR" | translate }}
+      {{ maxPage | async }}</span
+    >
 
-  <button
-    mat-raised-button
-    (click)="nextPage()"
-    [disabled]="currentPage.value === maxPage.value"
-  >
-    {{ "CATALOGUE.SUIVANT" | translate }}
-  </button>
+    <button
+      mat-raised-button
+      (click)="nextPage()"
+      [disabled]="currentPage.value === maxPage.value"
+    >
+      {{ "CATALOGUE.SUIVANT" | translate }}
+    </button>
+  </div>
 </div>
 
 <!-- Template pour la boîte de dialogue du numéro de téléphone -->
@@ -225,7 +233,9 @@
     <p>{{ phone }}</p>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-button mat-dialog-close>{{ "CATALOGUE.FERMER" | translate }}</button>
+    <button mat-button mat-dialog-close>
+      {{ "CATALOGUE.FERMER" | translate }}
+    </button>
   </mat-dialog-actions>
 </ng-template>
 
@@ -236,6 +246,8 @@
     <p>{{ email }}</p>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-button mat-dialog-close>{{ "CATALOGUE.FERMER" | translate }}</button>
+    <button mat-button mat-dialog-close>
+      {{ "CATALOGUE.FERMER" | translate }}
+    </button>
   </mat-dialog-actions>
 </ng-template>

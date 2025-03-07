@@ -16,7 +16,7 @@
 
 .logo-connexion {
   object-fit: contain;
-  height: 40px;
+  height: 30px;
   cursor: pointer;
 }
 
@@ -24,10 +24,15 @@
   cursor: pointer;
 }
 
+.grey {
+  border: solid var(--dark-color);
+  border-radius: 50%;
+}
+
 .profile-picture {
   object-fit: cover;
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   border: solid 1px var(--dark-color);
   border-radius: 50%;
   cursor: pointer;
@@ -96,7 +101,7 @@
 .end-container {
   display: flex;
   flex-direction: row;
-  gap: 30px;
+  gap: 20px;
   align-items: center;
 }
 

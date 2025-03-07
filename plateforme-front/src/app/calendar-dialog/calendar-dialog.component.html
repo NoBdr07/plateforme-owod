@@ -15,6 +15,21 @@
     </div>
 
     <div class="events-section">
+      <div *ngIf="designer?.events?.length === 0" class="no-events">
+        <p>
+          {{ designer?.firstname }} {{ "CAL_DIALOG.NO_EVENT_YET" | translate }}
+        </p>
+      </div>
+
+      <div *ngIf="designer?.events?.length !== 0" class="no-events">
+        <p>
+          {{ designer?.firstname }} 
+          {{ "CAL_DIALOG.NUMBER_EVENT_1" | translate }} 
+          {{ designer?.events?.length}} 
+          {{ "CAL_DIALOG.NUMBER_EVENT_2" | translate }}
+        </p>
+      </div>
+
       <div *ngIf="eventsOnSelectedDate.length === 0" class="no-events">
         <p>{{ "CAL_DIALOG.NO_EVENT" | translate }}</p>
       </div>
