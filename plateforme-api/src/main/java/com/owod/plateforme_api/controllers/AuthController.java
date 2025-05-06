@@ -46,7 +46,7 @@ public class AuthController {
         }
 
         User user = optionalUser.get();
-        String token = jwtUtils.generateToken(user.getUserId());
+        String token = jwtUtils.generateToken(user);
         Cookie cookie = jwtUtils.createCookie("jwt", token, 24 * 60 * 60, true);
 
         response.addCookie(cookie);

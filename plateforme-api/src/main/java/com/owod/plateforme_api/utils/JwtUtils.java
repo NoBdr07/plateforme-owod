@@ -1,5 +1,6 @@
 package com.owod.plateforme_api.utils;
 
+import com.owod.plateforme_api.models.entities.User;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -31,12 +32,14 @@ public class JwtUtils {
 
     /**
      * Method to generate a token containing the username
-     * @param userId
+     * @param user
      * @return a string container the generated token
      */
-    public String generateToken(String userId) {
+    public String generateToken(User user) {
+
+
         return Jwts.builder()
-                .setSubject(userId)
+                .setSubject(user.getUserId())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
