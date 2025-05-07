@@ -1,5 +1,7 @@
 package com.owod.plateforme_api.security;
 
+import com.owod.plateforme_api.models.entities.User;
+import com.owod.plateforme_api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +12,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -17,6 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity
@@ -25,6 +30,9 @@ public class SecurityConfig {
 
     @Autowired
     private AuthTokenFilter authTokenFilter;
+
+    @Autowired
+    private UserService userService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -51,8 +59,8 @@ public class SecurityConfig {
                 }))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Pas de sessions
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/designers/all", "/uploads/**", "/weekly", "/password/**", "/contact").permitAll() // Routes publiques
-                        .requestMatchers("/users/**", "/designers/**").authenticated()
+                        .requestMatchers("/auth/login", "/auth/logout", "/auth/register", "/designers/all", "/uploads/**", "/weekly", "/password/**", "/contact").permitAll() // Routes publiques
+                        .requestMatchers("/users/**", "/designers/**", "/auth/me").authenticated()
                         .anyRequest().authenticated() // Toute autre route nécessite une authentification
                 );
 
@@ -69,5 +77,24 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return username -> {
+            User user = userService.findByEmail(username).orElseThrow(() ->
+                    new UsernameNotFoundException("User not found: " + username));
+
+            var authorities = user.getRoles().stream()
+                    .map(role ->  new org.springframework.security.core.authority.SimpleGrantedAuthority(role.authority()))
+                    .collect(Collectors.toList());
+
+            // Spring-UserDetails
+            return org.springframework.security.core.userdetails.User
+                    .withUsername(user.getEmail())
+                    .password(user.getPassword())
+                    .authorities(authorities)
+                    .build();
+        };
     }
 }

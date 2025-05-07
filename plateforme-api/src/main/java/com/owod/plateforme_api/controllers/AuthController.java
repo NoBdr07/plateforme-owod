@@ -1,5 +1,6 @@
 package com.owod.plateforme_api.controllers;
 
+import com.owod.plateforme_api.models.entities.Role;
 import com.owod.plateforme_api.models.entities.User;
 import com.owod.plateforme_api.models.payload.LoginRequest;
 import com.owod.plateforme_api.models.payload.RegisterRequest;
@@ -10,6 +11,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -83,12 +87,8 @@ public class AuthController {
         newUser.setLastname(registerRequest.getLastname());
         newUser.setPassword(passwordEncoder.encode(registerRequest.getPassword())); // Encodage sécurisé
 
-        Set<String> roles = new HashSet<>(); // Utiliser HashSet pour initialiser
-        if (registerRequest.getAdmin()) {
-            roles.add("admin");
-        } else {
-            roles.add("user"); // Ajouter un rôle par défaut
-        }
+        Set<Role> roles = new HashSet<>(); // Utiliser HashSet pour initialiser
+        roles.add(registerRequest.getAdmin() ? Role.ADMIN : Role.USER);
         newUser.setRoles(roles);
 
         userService.save(newUser);
@@ -97,16 +97,15 @@ public class AuthController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<?> getCurrentUser(@CookieValue(name = "jwt", required = false) String token) {
-        if (token == null || !jwtUtils.validateToken(token)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+    public ResponseEntity<?> getCurrentUser(@AuthenticationPrincipal UserDetails ud) {
+        if (ud == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        return ResponseEntity.ok(Map.of(
+                "userId", ud.getUsername(),
+                "roles", ud.getAuthorities()
+                        .stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .toList()
+        ));
 
-        String userId = jwtUtils.getUsernameFromToken(token);
-        if (userService.findByUserId(userId).isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
-        return ResponseEntity.ok(Map.of("userId", userId));
     }
 }

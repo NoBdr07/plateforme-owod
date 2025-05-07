@@ -20,7 +20,7 @@ public class User {
     private String lastname;
     private String password;
 
-    private Set<String> roles;
+    private Set<Role> roles;
     private String designerId;
 
     private String resetToken;
@@ -68,11 +68,11 @@ public class User {
         this.email = email;
     }
 
-    public Set<String> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<String> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 

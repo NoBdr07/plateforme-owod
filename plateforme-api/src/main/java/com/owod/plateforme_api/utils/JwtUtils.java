@@ -1,6 +1,8 @@
 package com.owod.plateforme_api.utils;
 
+import com.owod.plateforme_api.models.entities.Role;
 import com.owod.plateforme_api.models.entities.User;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -9,7 +11,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import jakarta.servlet.http.Cookie;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtUtils {
@@ -31,15 +37,19 @@ public class JwtUtils {
 
 
     /**
-     * Method to generate a token containing the username
+     * Method to generate a token containing the email and roles
      * @param user
      * @return a string container the generated token
      */
     public String generateToken(User user) {
 
+        List<String> roles = user.getRoles().stream()
+                .map(Role::authority)
+                .toList();
 
         return Jwts.builder()
-                .setSubject(user.getUserId())
+                .setSubject(user.getEmail())
+                .claim("roles", roles)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
@@ -78,6 +88,38 @@ public class JwtUtils {
                 .getBody()
                 .getSubject();
     }
+
+    /**
+     * Récupération des éléments du token
+     * @param token
+     * @return
+     */
+    public Claims getAllClaimsFromToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(jwtSecret)
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    /**
+     * Récuperation des rôles à partir du token
+     * @param token
+     * @return
+     */
+    public List<String> getRolesFromToken(String token) {
+        Claims claims = getAllClaimsFromToken(token);
+        Object rawRoles = claims.get("roles");
+        if (rawRoles instanceof List<?>) {
+            // on convertit chaque élément en String
+            @SuppressWarnings("unchecked")
+            List<Object> list = (List<Object>) rawRoles;
+            return list.stream()
+                    .map(Object::toString)
+                    .collect(Collectors.toList());
+        }
+        return Collections.emptyList();
+    }
+
 
     /**
      * Method that create a secure cookie

@@ -1,6 +1,7 @@
 package com.owod.plateforme_api.controllers;
 
 import com.owod.plateforme_api.configuration.TestSecurityConfig;
+import com.owod.plateforme_api.models.entities.Role;
 import com.owod.plateforme_api.models.entities.User;
 import com.owod.plateforme_api.utils.JwtUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,8 +15,10 @@ import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import jakarta.servlet.http.Cookie;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -47,6 +50,7 @@ class AuthControllerTest {
         User user = new User();
         user.setUserId("user123");
         user.setEmail("test@mail.com");
+        user.setRoles(Set.of(Role.USER));
         user.setPassword(new BCryptPasswordEncoder().encode("password123"));
         mongoTemplate.save(user);
 
@@ -72,6 +76,7 @@ class AuthControllerTest {
         User user = new User();
         user.setUserId("user123");
         user.setEmail("test@mail.com");
+        user.setRoles(Set.of(Role.USER));
         user.setPassword(new BCryptPasswordEncoder().encode("password123"));
         mongoTemplate.save(user);
 
@@ -145,5 +150,36 @@ class AuthControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("Cet email est déjà utilisé."));
 
+    }
+
+    @Test
+    void me_withoutCookie_shouldReturnUnauthorized() throws Exception {
+        mockMvc.perform(get("/auth/me"))
+                .andExpect(status().isForbidden());
+    }
+
+
+    @Test
+    void me_withValidJwtCookie_shouldReturnUserIdAndRoles() throws Exception {
+        // 1) Prépare un user avec un rôle
+        User user = new User();
+        user.setUserId("user123");
+        user.setEmail("test@mail.com");
+        user.setPassword(new BCryptPasswordEncoder().encode("password123"));
+        user.setRoles(Set.of(Role.USER));
+        mongoTemplate.save(user);
+
+        // 2) Génère un token JWT à partir de ce user
+        String token = jwtUtils.generateToken(user);
+
+        // 3) Appelle /auth/me avec le cookie 'jwt'
+        mockMvc.perform(get("/auth/me")
+                        .cookie(new Cookie("jwt", token)))
+                .andExpect(status().isOk())
+                // Le champ userId == email (ou l’ID, selon ton .setSubject)
+                .andExpect(jsonPath("$.userId").value("test@mail.com"))
+                // roles est un tableau et contient bien le rôle, préfixé ROLE_…
+                .andExpect(jsonPath("$.roles").isArray())
+                .andExpect(jsonPath("$.roles[0]").value("ROLE_USER"));
     }
 }
