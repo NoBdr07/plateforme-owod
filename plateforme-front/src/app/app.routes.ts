@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { authGuard } from './guards/auth.guard';
+import { HomeComponent } from './pages/home/home.component';
+import { authGuard } from './shared/guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -11,28 +11,28 @@ export const routes: Routes = [
         path: 'login',
         loadComponent: () => 
             import(
-                './login/login.component'
+                './auth/login/login.component'
             ).then((c) => c.LoginComponent)
     },
     {
         path: 'register',
         loadComponent: () =>
             import(
-                './register/register.component'
+                './auth/register/register.component'
             ).then((c) => c.RegisterComponent)
     },
     {
         path: 'details/:id',
         loadComponent: () => 
             import(
-                './designer-details/designer-details.component'
+                './designers/designer-details/designer-details.component'
             ).then((c) => c.DesignerDetailsComponent)
     },
     {
         path: 'account',
         loadComponent: () =>
             import(
-              './my-account/my-account.component'
+              './personnal-space/my-account/my-account.component'
             ).then((c) => c.MyAccountComponent),
         canActivate: [authGuard]
     },
@@ -40,7 +40,7 @@ export const routes: Routes = [
         path: 'account/contacts',
         loadComponent: () =>
             import(
-              './contacts/contacts.component'
+              './personnal-space/contacts/contacts.component'
             ).then((c) => c.ContactsComponent),
         canActivate: [authGuard]
     },
@@ -48,7 +48,7 @@ export const routes: Routes = [
         path: 'account/gestion-calendrier',
         loadComponent: () =>
             import(
-              './gestion-calendrier/gestion-calendrier.component'
+              './personnal-space/gestion-calendrier/gestion-calendrier.component'
             ).then((c) => c.GestionCalendrierComponent),
         canActivate: [authGuard]
     },
@@ -56,14 +56,14 @@ export const routes: Routes = [
         path: 'catalogue',
         loadComponent: () =>
             import(
-              './catalogue/catalogue.component'
+              './designers/catalogue/catalogue.component'
             ).then((c) => c.CatalogueComponent),
     },
     {
         path: 'dashboard',
         loadComponent: () =>
             import(
-              './dashboard/dashboard.component'
+              './personnal-space/dashboard/dashboard.component'
             ).then((c) => c.DashboardComponent),
         canActivate: [authGuard]
     },
@@ -71,35 +71,35 @@ export const routes: Routes = [
         path: 'reset-password',
         loadComponent: () => 
             import(
-                './reset-password/reset-password.component'
+                './auth/reset-password/reset-password.component'
             ).then((c) => c.ResetPasswordComponent),
     },
     {
         path: 'about',
         loadComponent: () => 
             import(
-                './about/about.component'
+                './pages/about/about.component'
             ).then((c) => c.AboutComponent),
     },
     {
         path: 'faq',
         loadComponent: () => 
             import(
-                './faq/faq.component'
+                './pages/faq/faq.component'
             ).then((c) => c.FaqComponent),
     },
     {
         path: 'mentions-legales',
         loadComponent: () => 
             import(
-                './mentions-legales/mentions-legales.component'
+                './pages/mentions-legales/mentions-legales.component'
             ).then((c) => c.MentionsLegalesComponent),
     },
     {
         path: 'contact',
         loadComponent: () => 
             import(
-                './contact/contact.component'
+                './pages/contact/contact.component'
             ).then((c) => c.ContactComponent),
     },
     {
