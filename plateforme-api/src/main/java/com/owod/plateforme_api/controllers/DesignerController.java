@@ -10,8 +10,10 @@ import com.owod.plateforme_api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -127,7 +129,7 @@ public class DesignerController {
     }
 
     /**
-     * Endpoint to create a new designer
+     * Endpoint to create a new designer when user create designer for himself
      *
      * @param designer
      * @return 201 and the designer if success, 400 with error message if failure
@@ -136,14 +138,11 @@ public class DesignerController {
     public ResponseEntity<?> newDesigner(@RequestBody Designer designer, Principal principal) {
         try {
             // 1. Récupérer l'utilisateur en cours de session à partir du principal
-            String userId = principal.getName(); // Récupère l'email de l'utilisateur authentifié
-            Optional<User> optionalUser = userService.findByUserId(userId);
-
-            if (optionalUser.isEmpty()) {
-                return ResponseEntity.status(404).body("User not found");
-            }
-
-            User user = optionalUser.get();
+            String userId= principal.getName(); // Récupère l'email de l'utilisateur authentifié
+            User user = userService.findByUserId(userId)
+                    .orElseThrow(() -> new ResponseStatusException(
+                            HttpStatus.NOT_FOUND, "Admin non trouvé : " + userId
+                    ));
 
             designer.setEmail(user.getEmail());
             designer.setFirstname(user.getFirstname());
@@ -160,6 +159,55 @@ public class DesignerController {
             return ResponseEntity.status(201).body(newDesigner);
         } catch (Exception e) {
             return ResponseEntity.status(400).body("Error creating designer: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Endpoint to create a new designer when admin create designer that is not him
+     *
+     * @param designer that has to have a createdBy attribute not null
+     * @return 201 and the designer if success, 400 with error message if failure
+     */
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/adminCreateDesigner")
+    public ResponseEntity<?> createDesignerAsAdmin(@RequestBody Designer designer, Principal principal) {
+        try {
+            // Récupérer l'utilisateur en cours de session à partir du principal
+            String userId= principal.getName(); // Récupère l'email de l'utilisateur authentifié
+            User authenticatedUser = userService.findByUserId(userId)
+                    .orElseThrow(() -> new ResponseStatusException(
+                            HttpStatus.NOT_FOUND, "Admin non trouvé : " + userId
+                    ));
+
+            designer.setCreatedBy(authenticatedUser.getUserId());
+
+            // Sauvegarder le designer
+            Designer newDesigner = designerService.save(designer);
+
+            // Retourner une réponse
+            return ResponseEntity.status(201).body(newDesigner);
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body("Error creating designer: " + e.getMessage());
+        }
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/adminCreatedDesigners")
+    public ResponseEntity<?> getDesignersCreatedAsAdmin (Principal principal) {
+        // Récupérer l'utilisateur en cours de session à partir du principal
+        String userEmail = principal.getName(); // Récupère l'email de l'utilisateur authentifié
+
+        User authenticatedUser = userService.findByEmail(userEmail)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Admin not found : " + userEmail
+                ));
+
+        List<Designer> designers = designerService.getDesignersCreatedByAdmin(authenticatedUser.getUserId());
+
+        if (designers.isEmpty()) {
+            return ResponseEntity.status(200).body("No designers created by this admin user");
+        } else {
+            return ResponseEntity.status(200).body(designers);
         }
     }
 

@@ -161,7 +161,7 @@ class AuthControllerTest {
 
     @Test
     void me_withValidJwtCookie_shouldReturnUserIdAndRoles() throws Exception {
-        // 1) Prépare un user avec un rôle
+        // GIVEN
         User user = new User();
         user.setUserId("user123");
         user.setEmail("test@mail.com");
@@ -169,10 +169,10 @@ class AuthControllerTest {
         user.setRoles(Set.of(Role.USER));
         mongoTemplate.save(user);
 
-        // 2) Génère un token JWT à partir de ce user
+        // Génère un token JWT à partir de ce user
         String token = jwtUtils.generateToken(user);
 
-        // 3) Appelle /auth/me avec le cookie 'jwt'
+        // WHEN & THEN
         mockMvc.perform(get("/auth/me")
                         .cookie(new Cookie("jwt", token)))
                 .andExpect(status().isOk())

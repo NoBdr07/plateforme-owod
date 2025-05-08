@@ -8,4 +8,6 @@ import java.util.List;
 public interface DesignerRepository extends MongoRepository<Designer, String> {
 
     List<Designer> findBySpecialtiesContaining(String specialty);
+
+    List<Designer> findByCreatedBy(String userId);
 }

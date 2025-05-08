@@ -30,6 +30,7 @@ public class UserController {
         return ResponseEntity.ok(hasDesignerId);
     }
 
+
     @GetMapping("/{userId}")
     public ResponseEntity<UserDto> getUser(@PathVariable String userId) {
         User user = userService.findByUserId(userId)
@@ -72,4 +73,5 @@ public class UserController {
 
         return ResponseEntity.ok(updatedUser);
     }
+
 }

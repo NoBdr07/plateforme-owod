@@ -29,6 +29,7 @@ public class Designer {
     private String professionalLevel; // Niveau professionnel (par exemple : junior, senior, expert)
     private List<String> majorWorks = new ArrayList<>(); // URL des photos des réalisations majeures (<= 5)
     private String portfolioUrl; // URL du portfolio
+    private String createdBy ; // Si le designer a été crée par un user autre que lui, id de cet user
 
     private List<DesignerEvent> events = new ArrayList<>();
 
@@ -166,5 +167,13 @@ public class Designer {
 
     public void setEvents(List<DesignerEvent> events) {
         this.events = events;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 }
