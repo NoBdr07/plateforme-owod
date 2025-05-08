@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../services/auth.service';
-import { Observable, Subscriber, Subscription } from 'rxjs';
+import { catchError, Observable, of, Subscription, switchMap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { DesignerService } from '../services/designer.service';
 import { Designer } from '../interfaces/designer.interface';
@@ -38,32 +38,31 @@ export class HeaderComponent implements OnDestroy {
       this.translateService.currentLang ||
       this.translateService.getDefaultLang();
 
-    // Menu en fonction de si la personne est connectée ou non
-    const sub = this.authService.$isLogged().subscribe((isLogged) => {
-      this.isLogged = isLogged;
-
-      if (isLogged) {
-        this.userId = this.authService.getUserId();
-
-        if (this.userId) {
-          this.designer$ = this.designerService.getDesignerByUserId(
-            this.userId
-          );
-        } else {
-          this.designer$ = new Observable<null>((subscriber) =>
-            subscriber.next(null)
-          );
-        }
-      } else {
-        this.userId = null;
-        this.designer$ = new Observable<null>((subscriber) =>
-          subscriber.next(null)
-        );
-      }
-    });
-
-    this.subs.add(sub);
   }
+
+  ngOnInit() {
+    // 1) On garde isLogged à jour
+    this.subs.add(
+      this.authService.$isLogged().subscribe(flag => this.isLogged = flag)
+    );
+
+    // 2) On crée un flux qui suit chaque changement de connexion
+    this.designer$ = this.authService.$isLogged().pipe(
+      switchMap(isLogged => {
+        // Si connecté, on va chercher le designer; sinon on renvoie null
+        if (isLogged && this.authService.getUserId()) {
+          return this.designerService
+            .getDesignerByUserId(this.authService.getUserId()!)
+            .pipe(
+              // en cas d’erreur (404), on transforme en null
+              catchError(() => of(null))
+            );
+        }
+        return of(null);
+      })
+    );
+  }
+
 
   /**
    * Passage en anglais ou francais

@@ -91,6 +91,10 @@
       <button class="button" mat-raised-button (click)="logOut()">
         {{ "MON_COMPTE.DECONNECTER" | translate }}
       </button>
+
+      <button *ngIf="authService.isAdmin" class="purple-button" mat-raised-button routerLink="/account/add-designers">
+        {{ "MON_COMPTE.ADMIN" | translate }}
+      </button>
     </div>
   </div>
 
@@ -109,6 +113,10 @@
 
     <button class="button" mat-raised-button routerLink="/account/gestion-calendrier">
       {{ "MON_COMPTE.CALENDRIER" | translate }}
+    </button>
+
+    <button *ngIf="authService.isAdmin" class="purple-button" mat-raised-button routerLink="/account/add-designers">
+      {{ "MON_COMPTE.ADMIN" | translate }}
     </button>
 
     <button class="button" mat-raised-button (click)="logOut()">

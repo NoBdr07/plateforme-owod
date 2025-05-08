@@ -53,6 +53,14 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     {
+        path: 'account/add-designers',
+        loadComponent: () =>
+            import(
+              './personnal-space/add-designers/add-designers.component'
+            ).then((c) => c.AddDesignersComponent),
+        canActivate: [authGuard]
+    },
+    {
         path: 'catalogue',
         loadComponent: () =>
             import(

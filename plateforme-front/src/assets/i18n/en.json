@@ -164,7 +164,8 @@
     "CREATED_1": "You have already created your designer profile.",
     "CREATED_2": "You can complete or modify it in \"Set up your profile\".",
     "CALENDRIER": "Manage my calendar",
-    "PAYS": "Country of residence"
+    "PAYS": "Country of residence",
+    "ADMIN": "ADMIN - Manage designers"
   },
   "CONTACTS": {
     "TITRE": "Saved contacts",

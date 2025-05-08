@@ -109,6 +109,16 @@ h2 {
   box-shadow: none;
 }
 
+.purple-button {
+  flex: 1;
+  height: 100px;
+  background-color: #51235e !important;
+  color: white !important;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: none;
+}
+
 /* STYLES SI DESIGNER NON CREE */
 
 .not-created {

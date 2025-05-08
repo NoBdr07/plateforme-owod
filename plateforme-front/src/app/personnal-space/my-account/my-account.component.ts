@@ -1,8 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { UserService } from '../../shared/services/user.service';
 import { AuthService } from '../../shared/services/auth.service';
-import { Subscription } from 'rxjs';
+import { filter, Subscription, switchMap, take, tap } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,7 +31,6 @@ import { Designer } from '../../shared/interfaces/designer.interface';
 import { User } from '../../shared/interfaces/user.interface';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
-
 @Component({
   selector: 'app-my-account',
   standalone: true,
@@ -38,13 +43,12 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
     MatSelectModule,
     ReactiveFormsModule,
     TranslateModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   templateUrl: './my-account.component.html',
   styleUrl: './my-account.component.css',
 })
 export class MyAccountComponent implements OnInit, OnDestroy {
-
   // Infos de l'utilisateur connecté
   hasAccount: boolean = false;
   designerId!: string;
@@ -61,7 +65,8 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   jobs = Object.values(Job);
 
   // Dialog pour la suppresion de profil
-  @ViewChild('confirmSuppressTemplate') confirmSuppressTemplate!: TemplateRef<any>;
+  @ViewChild('confirmSuppressTemplate')
+  confirmSuppressTemplate!: TemplateRef<any>;
 
   constructor(
     private readonly userService: UserService,
@@ -91,35 +96,29 @@ export class MyAccountComponent implements OnInit, OnDestroy {
           this.user = user;
         },
         error: (err) => {
-          console.error('Erreur lors de la récupération de l\'utilisateur:', err);
+          console.error(
+            "Erreur lors de la récupération de l'utilisateur:",
+            err
+          );
         },
       });
       this.subscriptions.add(userSub);
 
       // recup de si l'utilisateur a déjà un compte ou non
-      const sub = this.userService.hasAnAccount(this.userId).subscribe({
-        next: (hasAccount: boolean) => {
-          this.hasAccount = hasAccount;
-          if (hasAccount === true) {
-            this.designerService.getDesignerByUserId(this.userId).subscribe({
-              next: (designer: Designer) => {
-                this.designerId = designer.id;
-              },
-              error: (err) => {
-                console.log(
-                  'Erreur lors de la récupération du designer associé : ' + err
-                );
-              },
-            });
-          }
-        },
-        error: (err) => {
-          console.error(
-            'Erreur lors de la vérification du compte designer:',
-            err
-          );
-        },
-      });
+      const sub = this.userService
+        .hasAnAccount(this.userId)
+        .pipe(
+          tap((has) => (this.hasAccount = has)),
+          filter((has) => has), // on ne poursuit que si true
+          switchMap(() =>
+            this.designerService.getDesignerByUserId(this.userId)
+          ),
+          take(1) // pas de multi-émissions
+        )
+        .subscribe({
+          next: (designer) => (this.designerId = designer.id),
+          error: (err) => console.log('Designer pas trouvé', err),
+        });
       this.subscriptions.add(sub);
     } else {
       console.error('Utilisateur non authentifié.');

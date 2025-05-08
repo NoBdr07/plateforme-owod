@@ -14,7 +14,7 @@ import { Job } from '../../shared/enums/job.enum';
 import { FavoriteSector } from '../../shared/enums/favorite-sector.enum';
 import { SphereOfInfluence } from '../../shared/enums/sphere-of-influence.enum';
 import { Specialty } from '../../shared/enums/specialty.enum';
-import { PhotoDialogComponent } from '../photo-dialog/photo-dialog.component';
+import { PhotoDialogComponent } from '../../shared/dialogs/photo-dialog/photo-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 
