@@ -1,1 +1,15 @@
-<p>photo-section works!</p>
+<div class="photo-section">
+      <img class="background" src="assets/images/back.png" alt="logo de l'association internationale pour le design en Afrique"/>
+      <img
+        [src]="photoUrl"
+        alt="Photo de profil"
+        class="photo de profil du designer"
+      />
+      <button
+        mat-raised-button
+        class="photo-button"
+        (click)="edit.emit()"
+      >
+        {{ "DASHBOARD.CHANGE_PHOTO" | translate }}
+      </button>
+    </div>

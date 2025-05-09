@@ -1,1 +1,104 @@
-<p>designer-form-section works!</p>
+<form [formGroup]="form" (ngSubmit)="submit.emit()">
+    <p class="group-title">{{ "DASHBOARD.INFO_PERSO" | translate }}</p>
+    
+    <!-- Informations personnelles -->
+    <p class="group-title">{{ "DASHBOARD.INFO_PERSO" | translate }}</p>
+    <div class="underline"></div>
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "DASHBOARD.PRENOM" | translate }}</mat-label>
+        <input matInput formControlName="firstname" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "DASHBOARD.NOM" | translate }}</mat-label>
+        <input matInput formControlName="lastname" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "DASHBOARD.PAYS_ORIGINE" | translate }}</mat-label>
+        <input matInput formControlName="countryOfOrigin" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "DASHBOARD.PAYS_RESIDENCE" | translate }}</mat-label>
+        <input matInput formControlName="countryOfResidence" />
+      </mat-form-field>
+    </div>
+
+    <!-- Informations de contact -->
+    <p class="group-title">{{ "DASHBOARD.INFO_CONTACT" | translate }}</p>
+    <div class="underline"></div>
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "DASHBOARD.TELEPHONE" | translate }}</mat-label>
+        <input matInput formControlName="phoneNumber" />
+      </mat-form-field>
+    </div>
+
+    <!-- Informations professionnelles -->
+    <p class="group-title">{{ "DASHBOARD.INFO_PRO" | translate }}</p>
+    <div class="underline"></div>
+    <div class="form-group">
+      <p>{{ "DASHBOARD.BIO_WARN" | translate }}</p>
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "DASHBOARD.BIO" | translate }}</mat-label>
+        <textarea matInput formControlName="biography"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "DASHBOARD.PROFESSION" | translate }}</mat-label>
+        <mat-select formControlName="profession">
+          <mat-option *ngFor="let job of jobs" [value]="job">
+            {{ job }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "DASHBOARD.SPECIALITE" | translate }}</mat-label>
+        <mat-select formControlName="specialties" multiple>
+          <mat-option
+            *ngFor="let specialty of specialties"
+            [value]="specialty"
+          >
+            {{ specialty }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "DASHBOARD.SPHERE" | translate }}</mat-label>
+        <mat-select formControlName="spheresOfInfluence" multiple>
+          <mat-option
+            *ngFor="let sphere of spheresOfInfluence"
+            [value]="sphere"
+          >
+            {{ sphere }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "DASHBOARD.SECTEUR" | translate }}</mat-label>
+        <mat-select formControlName="favoriteSectors" multiple>
+          <mat-option *ngFor="let sector of favoriteSectors" [value]="sector">
+            {{ sector }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "DASHBOARD.NIVEAU" | translate }}</mat-label>
+        <input matInput formControlName="professionalLevel" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Portfolio</mat-label>
+        <input matInput formControlName="portfolioUrl" />
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button type="submit">{{ "DASHBOARD.SAUVEGARDER" | translate }}</button>
+  </form>
