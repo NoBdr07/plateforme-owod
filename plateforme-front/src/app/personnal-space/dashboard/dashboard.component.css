@@ -5,6 +5,8 @@
   flex-direction: row;
   justify-content: space-evenly;
   margin-top: 200px;
+  gap: 100px;
+  margin: 100px;
 }
 
 .arrow-container {
@@ -32,100 +34,6 @@
   gap: 200px;
 }
 
-/** Section de gauche : photo **/
-
-.photo-section {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.background {
-  width: 420px;
-  height: 420px;
-  position: absolute;
-  z-index: 1;
-}
-
-.photo {
-  width: 420px;
-  height: 420px;
-  object-fit: cover;
-  z-index: 2;
-  position: relative;
-}
-
-.photo-button {
-  height: 50px;
-}
-
-/** Section de gauche : réalisations **/
-
-.realisations-section {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background-color: white;
-  border-radius: 8px;
-  padding: 40px;
-}
-
-.realisations-inner-section {
-  display: flex;
-  flex-direction: column;
-  background-color: #eff2ff;
-  gap: 20px;
-  border-radius: 8px;
-  padding: 20px;
-  align-items: center;
-}
-
-.realisation-item {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
-}
-
-.realisation {
-  object-fit: cover;
-  width: 168px;
-  height: 119px;
-  border-radius: 4px;
-}
-
-/** SECTION DE DROITE : INFORMATIONS **/
-
-.form-section {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background-color: white;
-  width: 40%;
-  padding: 40px;
-  border-radius: 8px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.group-title {
-  font-size: 1vw;
-  font-weight: 900;
-  letter-spacing: 5px;
-  font-variant: small-caps;
-}
-
-.underline {
-  height: 1px;
-  width: 100%;
-  border-top: solid 1px black;
-  margin-bottom: 20px;
-}
-
 ::ng-deep .mdc-text-field {
   border: none !important;
   border-radius: 8px;
@@ -150,62 +58,6 @@
   .left-container {
     gap: 32px;
     width: 100%;
-  }
-
-  /* Section photo */
-  .photo-section {
-    gap: 20px;
-    align-items: center;
-  }
-
-  .background,
-  .photo {
-    width: 280px;
-    height: 280px;
-  }
-
-  .photo-button {
-    width: 100%;
-    max-width: 280px;
-  }
-
-  /* Section réalisations */
-  .realisations-section {
-    padding: 20px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .realisations-inner-section {
-    padding: 12px;
-  }
-
-  .realisation-item {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .realisation {
-    width: 100%;
-    height: auto;
-    max-width: 280px;
-  }
-
-  .realisation-item button {
-    width: 100%;
-    max-width: 280px;
-  }
-
-  /* SECTION DE DROITE : INFORMATIONS */
-  .form-section {
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-
-  .group-title {
-    font-size: 16px;
-    letter-spacing: 3px;
   }
 
   /* Ajustement des champs de formulaire */

@@ -27,7 +27,7 @@ import { Job } from '../../enums/job.enum';
 })
 export class DesignerFormSectionComponent {
   @Input() form!: FormGroup;
-  @Output() submit = new EventEmitter<void>();
+  @Output() formSubmit = new EventEmitter<void>();
 
   // Enums converted to arrays
     specialties = Object.values(Specialty);

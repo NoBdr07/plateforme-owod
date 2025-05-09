@@ -1,6 +1,5 @@
-<form [formGroup]="form" (ngSubmit)="submit.emit()">
-    <p class="group-title">{{ "DASHBOARD.INFO_PERSO" | translate }}</p>
-    
+<div class="form-section">
+  <form [formGroup]="form" (ngSubmit)="formSubmit.emit()">
     <!-- Informations personnelles -->
     <p class="group-title">{{ "DASHBOARD.INFO_PERSO" | translate }}</p>
     <div class="underline"></div>
@@ -59,10 +58,7 @@
       <mat-form-field appearance="fill">
         <mat-label>{{ "DASHBOARD.SPECIALITE" | translate }}</mat-label>
         <mat-select formControlName="specialties" multiple>
-          <mat-option
-            *ngFor="let specialty of specialties"
-            [value]="specialty"
-          >
+          <mat-option *ngFor="let specialty of specialties" [value]="specialty">
             {{ specialty }}
           </mat-option>
         </mat-select>
@@ -100,5 +96,8 @@
       </mat-form-field>
     </div>
 
-    <button mat-raised-button type="submit">{{ "DASHBOARD.SAUVEGARDER" | translate }}</button>
+    <button mat-raised-button type="submit">
+      {{ "DASHBOARD.SAUVEGARDER" | translate }}
+    </button>
   </form>
+</div>

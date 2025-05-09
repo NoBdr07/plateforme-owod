@@ -16,4 +16,11 @@ export class MajorWorksSectionComponent {
   @Output() addFiles = new EventEmitter<FileList>();
   @Output() add = new EventEmitter<void>();
 
+  onFilesSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      this.addFiles.emit(input.files);
+    }
+  }
+
 }

@@ -17,6 +17,9 @@ import { Specialty } from '../../shared/enums/specialty.enum';
 import { PhotoDialogComponent } from '../../shared/dialogs/photo-dialog/photo-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
+import { PhotoSectionComponent } from '../../shared/components/photo-section/photo-section.component';
+import { MajorWorksSectionComponent } from '../../shared/components/major-works-section/major-works-section.component';
+import { DesignerFormSectionComponent } from '../../shared/components/designer-form-section/designer-form-section.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,7 +33,10 @@ import { TranslateModule } from '@ngx-translate/core';
     MatSelectModule,
     ReactiveFormsModule,
     MatDialogModule,
-    TranslateModule
+    TranslateModule,
+    PhotoSectionComponent,
+    MajorWorksSectionComponent,
+    DesignerFormSectionComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
@@ -135,10 +141,10 @@ export class DashboardComponent {
       const sub = this.designerService
         .updateDesignerFields(this.designerId, updatedDesigner)
         .subscribe({
-          next: (response) => {
+          next: () => {
             alert('Vos informations ont été mises à jour avec succès.');
           },
-          error: (err) => {
+          error: () => {
             alert('Une erreur est survenue lors de la mise à jour.');
           },
         });
@@ -184,11 +190,10 @@ export class DashboardComponent {
    * @param event 
    * @returns 
    */
-  onRealisationSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
+  onRealisationSelected(files: FileList): void {
 
-    if(input.files && input.files.length > 0) {
-      const fileList = Array.from(input.files);
+    if(files && files.length > 0) {
+      const fileList = Array.from(files);
       const maxSizeMB = 3;
 
       // Vérifier la taille de chaque fichier selectionné

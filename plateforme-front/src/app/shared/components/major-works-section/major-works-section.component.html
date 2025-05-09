@@ -1,17 +1,28 @@
 <div class="realisations-section">
-      <p class="group-title">Réalisations</p>
-      <div class="realisations-inner-section">
-        <div
-          *ngFor="let image of images; let i = index"
-          class="realisation-item"
-        >
-          <img class="realisation" [src]="image" alt="réalisation d'un des designer de la plateforme de l'AIPDA"/>
-          <button
-            mat-raised-button
-            color="warn"
-            (click)="remove.emit(image)"
-          >
-          {{ "DASHBOARD.SUPPRIMER" | translate }}
-          </button>
-        </div>
-      </div>
+  <p class="group-title">Réalisations</p>
+  <div class="realisations-inner-section">
+    <div *ngFor="let image of images; let i = index" class="realisation-item">
+      <img
+        class="realisation"
+        [src]="image"
+        alt="réalisation d'un des designer de la plateforme de l'AIPDA"
+      />
+      <button mat-raised-button color="warn" (click)="remove.emit(image)">
+        {{ "DASHBOARD.SUPPRIMER" | translate }}
+      </button>
+    </div>
+  </div>
+  <input
+    type="file"
+    accept="image/*"
+    multiple
+    (change)="onFilesSelected($event)"
+  />
+  <button
+    mat-raised-button
+    (click)="add.emit()"
+    [disabled]="images.length >= 3"
+  >
+    {{ "DASHBOARD.AJOUT_REAL" | translate }}
+  </button>
+</div>
