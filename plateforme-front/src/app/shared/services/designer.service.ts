@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, switchMap, tap, throwError } from 'rxjs';
 import { Designer } from '../interfaces/designer.interface';
 import { DesignerEvent } from '../interfaces/designer-event.interface';
 
@@ -54,7 +54,7 @@ export class DesignerService {
         withCredentials: true,
       })
       .pipe(
-        tap((newDesigner) => {
+        tap(() => {
           // Recharger la liste des designers après la création
           this.loadDesigners().subscribe();
         })
@@ -208,5 +208,38 @@ export class DesignerService {
     return this.http.post<Designer>(`${this.apiUrl}/events/delete`, event, {
       withCredentials: true,
     });
+  }
+
+  /**
+   * Création d'un designer tierce par un admin
+   * @param designer 
+   * @returns le designer crée
+   */
+  createDesignerAsAdmin(designer: Designer): Observable<Designer[]> {
+  return this.http
+    .post<Designer>(
+      `${this.apiUrl}/admin/designers`,    // chemin kebab + RESTful
+      designer,
+      { withCredentials: true }
+    )
+    .pipe(
+      // après création, on refait l’appel liste
+      switchMap(() => this.getDesignersCreatedByAdmin()),
+      catchError(err => {
+        console.error('Erreur lors de la création du designer :', err);
+        return throwError(() => err);
+      })
+    );
+}
+
+
+  /**
+   * Récuperation des designers crées par un admin
+   * @returns List de designers ou list vide si pas de designers
+   */
+  getDesignersCreatedByAdmin(): Observable<Designer[]> {
+    return this.http.get<Designer[]>(`${this.apiUrl}/adminCreatedDesigners`, {
+        withCredentials: true
+      });
   }
 }

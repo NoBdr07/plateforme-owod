@@ -1,1 +1,90 @@
-<p>add-designers works!</p>
+<div class="global-container">
+  <div class="left-container">
+    <button mat-raised-button (click)="openCreationMode()">Créer un designer</button>
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Rechercher un designer</mat-label>
+      <input
+        matInput
+        placeholder="Entrez un nom"
+        [formControl]="searchControl"
+        autocomplete="off"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        *ngIf="searchControl.value"
+        aria-label="Effacer"
+        (click)="searchControl.reset()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+    <mat-list class="designers-list" role="list">
+      <mat-list-item
+        *ngFor="let d of designers$ | async"
+        role="listiem"
+        class="designer-item"
+      >
+        <div matLine>{{ d.firstname }} {{ d.lastname }}</div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+  <div class="right-container">
+    <div class="creation-mode" *ngIf="creationMode">
+      <form class="form" [formGroup]="accountForm" (ngSubmit)="onCreateDesigner()">
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "DASHBOARD.PROFESSION" | translate }}</mat-label>
+        <mat-select formControlName="profession">
+          <mat-option *ngFor="let job of jobs" [value]="job">
+            {{ job }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "DASHBOARD.SPECIALITE" | translate }}</mat-label>
+        <mat-select formControlName="specialties" multiple>
+          <mat-option *ngFor="let specialty of specialties" [value]="specialty">
+            {{ specialty }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "DASHBOARD.SPHERE" | translate }}</mat-label>
+        <mat-select formControlName="spheresOfInfluence" multiple>
+          <mat-option
+            *ngFor="let sphere of spheresOfInfluence"
+            [value]="sphere"
+          >
+            {{ sphere }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "DASHBOARD.SECTEUR" | translate }}</mat-label>
+        <mat-select formControlName="favoriteSectors" multiple>
+          <mat-option *ngFor="let sector of favoriteSectors" [value]="sector">
+            {{ sector }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "MON_COMPTE.PAYS" | translate }}</mat-label>
+        <input matInput formControlName="countryOfResidence" />
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">
+        {{ "MON_COMPTE.CREER_DESIGNER" | translate }}
+      </button>
+    </form>
+
+    </div>
+  </div>
+</div>
