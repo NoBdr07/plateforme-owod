@@ -177,10 +177,10 @@ export class AddDesignersComponent {
       this.designerService.createDesignerAsAdmin(formData).subscribe({
         next: (designers) => {
           this.designers$ = of(designers);
-          this.notificationService.success('Designer crée');
+          alert('Designer crée');
           this.creationMode = false;
         },
-        error: () => this.notificationService.error('Echec de la création'),
+        error: () => alert('Echec de la création'),
       });
     }
   }
@@ -384,7 +384,8 @@ export class AddDesignersComponent {
       )
     ) {
       this.designerService.deleteCreatedDesignerAsAdmin(designerId).subscribe({
-        next: () => {
+        next: (designers: Designer[]) => {
+          this.designers$ = of(designers);
           alert('Designer supprimé');
         },
         error: () => {
@@ -408,7 +409,8 @@ export class AddDesignersComponent {
         this.designerService
           .transferDesigner(result.userId, designerId)
           .subscribe({
-            next: () => {
+            next: (designers) => {
+              this.designers$ = of(designers);
               alert('Designer transféré');
             },
             error: () => {
