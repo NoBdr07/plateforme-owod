@@ -173,7 +173,7 @@ public class DesignerController {
     public ResponseEntity<?> createDesignerAsAdmin(@RequestBody Designer designer, Principal principal) {
         try {
             // Récupérer l'utilisateur en cours de session à partir du principal
-            String userId= principal.getName(); // Récupère l'email de l'utilisateur authentifié
+            String userId = principal.getName(); // Récupère l'email de l'utilisateur authentifié
             User authenticatedUser = userService.findByUserId(userId)
                     .orElseThrow(() -> new ResponseStatusException(
                             HttpStatus.NOT_FOUND, "Admin non trouvé : " + userId
@@ -193,35 +193,33 @@ public class DesignerController {
 
     /**
      * Endpoint for admin to get designers they created for other people than themselves
+     *
      * @param principal
      * @return list of designers, empty if no designer created by this admin
      */
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/adminCreatedDesigners")
-    public ResponseEntity<?> getDesignersCreatedAsAdmin (Principal principal) {
+    public ResponseEntity<?> getDesignersCreatedAsAdmin(Principal principal) {
         // Récupérer l'utilisateur en cours de session à partir du principal
-        String userEmail = principal.getName(); // Récupère l'email de l'utilisateur authentifié
+        String userId = principal.getName(); // Récupère l'email de l'utilisateur authentifié
 
-        User authenticatedUser = userService.findByEmail(userEmail)
+        User authenticatedUser = userService.findByUserId(userId)
                 .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Admin not found : " + userEmail
+                        HttpStatus.NOT_FOUND, "Admin not found : " + userId
                 ));
 
         List<Designer> designers = designerService.getDesignersCreatedByAdmin(authenticatedUser.getUserId());
 
-        if (designers.isEmpty()) {
-            return ResponseEntity.status(200).body("No designers created by this admin user");
-        } else {
-            return ResponseEntity.status(200).body(designers);
-        }
+        return ResponseEntity.status(200).body(designers);
+        
     }
 
     /**
      * Endpoint to update info about designer (all fields except profilePicture and majorWorks)
      *
-     * @param designerId designer id of designer to modify
+     * @param designerId      designer id of designer to modify
      * @param updatedDesigner object designer with modified info
-     * @param principal include user currently connected
+     * @param principal       include user currently connected
      * @return 200 when modification successful, 400 when modification didn't happen
      */
     @PreAuthorize("hasRole('ADMIN') or @userService.isDesignerOwner(#designerId, principal)")
@@ -247,7 +245,7 @@ public class DesignerController {
     /**
      * Endpoint to change the designer profile picture
      *
-     * @param designerId id of designer to modify
+     * @param designerId     id of designer to modify
      * @param profilePicture new picture to upload
      * @return 404 if designer not found, 400 if error during uploading, 200 if modification ok
      */
@@ -275,7 +273,7 @@ public class DesignerController {
     /**
      * Endpoint to add one or several picture of major works
      *
-     * @param designerId id of designer to modify
+     * @param designerId   id of designer to modify
      * @param realisations to add to existing realisation if there is already some
      * @return 404 if designer not found, 400 if error during uploading, 200 if modification ok
      */
@@ -324,7 +322,7 @@ public class DesignerController {
      * Endpoint to delete one of the major works picture
      *
      * @param designerId id of designer concerned
-     * @param workUrl url of realisation to delete
+     * @param workUrl    url of realisation to delete
      * @return 404 if designer not found, 400 if error during uploading, 200 if modification ok
      */
     @PreAuthorize("hasRole('ADMIN') or @userService.isDesignerOwner(#designerId, principal)")

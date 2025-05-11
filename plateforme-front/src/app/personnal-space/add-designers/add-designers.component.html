@@ -1,6 +1,14 @@
+<div class="arrow-container" routerLink="/account">
+  <img src="/assets/logos/arrow-back.png" alt="retour" />
+  <p>{{ "DASHBOARD.BACK" | translate }}</p>
+</div>
+
 <div class="global-container">
   <div class="left-container">
-    <button mat-raised-button (click)="openCreationMode()">Créer un designer</button>
+    <button mat-raised-button (click)="openCreationMode()">
+      Créer un designer
+    </button>
+
     <mat-form-field appearance="outline" class="search-field">
       <mat-label>Rechercher un designer</mat-label>
       <input
@@ -25,66 +33,116 @@
     <mat-list class="designers-list" role="list">
       <mat-list-item
         *ngFor="let d of designers$ | async"
-        role="listiem"
+        role="listitem"
         class="designer-item"
+        (click)="onSelectDesigner(d)"
       >
-        <div matLine>{{ d.firstname }} {{ d.lastname }}</div>
+        <div class="designer-name" matLine>
+          {{ d.firstname }} {{ d.lastname }}
+        </div>
       </mat-list-item>
     </mat-list>
   </div>
 
   <div class="right-container">
     <div class="creation-mode" *ngIf="creationMode">
-      <form class="form" [formGroup]="accountForm" (ngSubmit)="onCreateDesigner()">
-      <mat-form-field appearance="fill">
-        <mat-label>{{ "DASHBOARD.PROFESSION" | translate }}</mat-label>
-        <mat-select formControlName="profession">
-          <mat-option *ngFor="let job of jobs" [value]="job">
-            {{ job }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <p class="group-title">Création d'un nouveau designer</p>
+      <form
+        class="form"
+        [formGroup]="accountForm"
+        (ngSubmit)="onCreateDesigner()"
+      >
+        <mat-form-field appearance="fill">
+          <mat-label>{{ "DASHBOARD.PRENOM" | translate }}</mat-label>
+          <input matInput formControlName="firstname" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>{{ "DASHBOARD.NOM" | translate }}</mat-label>
+          <input matInput formControlName="lastname" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>{{ "DASHBOARD.PROFESSION" | translate }}</mat-label>
+          <mat-select formControlName="profession">
+            <mat-option *ngFor="let job of jobs" [value]="job">
+              {{ job }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>{{ "DASHBOARD.SPECIALITE" | translate }}</mat-label>
-        <mat-select formControlName="specialties" multiple>
-          <mat-option *ngFor="let specialty of specialties" [value]="specialty">
-            {{ specialty }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>{{ "DASHBOARD.SPECIALITE" | translate }}</mat-label>
+          <mat-select formControlName="specialties" multiple>
+            <mat-option
+              *ngFor="let specialty of specialties"
+              [value]="specialty"
+            >
+              {{ specialty }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>{{ "DASHBOARD.SPHERE" | translate }}</mat-label>
-        <mat-select formControlName="spheresOfInfluence" multiple>
-          <mat-option
-            *ngFor="let sphere of spheresOfInfluence"
-            [value]="sphere"
+        <mat-form-field appearance="fill">
+          <mat-label>{{ "DASHBOARD.SPHERE" | translate }}</mat-label>
+          <mat-select formControlName="spheresOfInfluence" multiple>
+            <mat-option
+              *ngFor="let sphere of spheresOfInfluence"
+              [value]="sphere"
+            >
+              {{ sphere }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>{{ "DASHBOARD.SECTEUR" | translate }}</mat-label>
+          <mat-select formControlName="favoriteSectors" multiple>
+            <mat-option *ngFor="let sector of favoriteSectors" [value]="sector">
+              {{ sector }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>{{ "MON_COMPTE.PAYS" | translate }}</mat-label>
+          <input matInput formControlName="countryOfResidence" />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">
+          {{ "MON_COMPTE.CREER_DESIGNER" | translate }}
+        </button>
+      </form>
+    </div>
+
+    <div class="modification-mode" *ngIf="designerId !== ''">
+      <div class="button-header">
+        <button mat-raised-button>Transférer</button>
+        <button mat-raised-button>Supprimer</button>
+      </div>
+      <div class="infos-section">
+        <div class="images-section">
+          <app-photo-section
+            [photoUrl]="getProfilePicture()"
+            (edit)="openPhotoDialog()"
           >
-            {{ sphere }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+          </app-photo-section>
 
-      <mat-form-field appearance="fill">
-        <mat-label>{{ "DASHBOARD.SECTEUR" | translate }}</mat-label>
-        <mat-select formControlName="favoriteSectors" multiple>
-          <mat-option *ngFor="let sector of favoriteSectors" [value]="sector">
-            {{ sector }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+          <app-major-works-section
+            [images]="designerForm.value.majorWorks"
+            (remove)="deleteWork($event)"
+            (addFiles)="onRealisationSelected($event)"
+            (add)="updateWorks()"
+          >
+          </app-major-works-section>
+        </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>{{ "MON_COMPTE.PAYS" | translate }}</mat-label>
-        <input matInput formControlName="countryOfResidence" />
-      </mat-form-field>
-
-      <button mat-raised-button color="primary" type="submit">
-        {{ "MON_COMPTE.CREER_DESIGNER" | translate }}
-      </button>
-    </form>
-
+        <div class="form-section">
+          <app-designer-form-section
+            [form]="designerForm"
+            (formSubmit)="onModifyDesigner()"
+          >
+          </app-designer-form-section>
+        </div>
+      </div>
     </div>
   </div>
 </div>
