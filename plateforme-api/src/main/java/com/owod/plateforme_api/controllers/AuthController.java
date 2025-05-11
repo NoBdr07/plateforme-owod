@@ -88,7 +88,7 @@ public class AuthController {
         newUser.setPassword(passwordEncoder.encode(registerRequest.getPassword())); // Encodage sécurisé
 
         Set<Role> roles = new HashSet<>(); // Utiliser HashSet pour initialiser
-        roles.add(registerRequest.getAdmin() ? Role.ADMIN : Role.USER);
+        roles.add(Role.USER);
         newUser.setRoles(roles);
 
         userService.save(newUser);

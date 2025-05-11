@@ -2,7 +2,6 @@ package com.owod.plateforme_api.services;
 
 import com.owod.plateforme_api.models.entities.Designer;
 import com.owod.plateforme_api.models.entities.DesignerEvent;
-import com.owod.plateforme_api.models.entities.User;
 import com.owod.plateforme_api.repositories.DesignerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,6 +16,10 @@ public class DesignerService {
     @Autowired
     private DesignerRepository designerRepository;
 
+    /**
+     * Get all designers
+     * @return list of designers
+     */
     public List<Designer> getAll() {
         return designerRepository.findAll();
     }

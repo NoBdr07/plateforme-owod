@@ -6,7 +6,6 @@ public class RegisterRequest {
     String password;
     String firstname;
     String lastname;
-    Boolean admin;
 
     public String getEmail() {
         return email;
@@ -30,14 +29,6 @@ public class RegisterRequest {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
-    }
-
-    public Boolean getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(Boolean admin) {
-        this.admin = admin;
     }
 
     public String getFirstname() {

@@ -95,7 +95,6 @@ export class RegisterComponent implements OnDestroy {
   onSubmit() {
     if(this.registerForm.valid) {
       const registerRequest = this.registerForm.value as RegisterRequest;
-      registerRequest.admin = false;
 
       const sub = this.authService.register(registerRequest).subscribe({
         next: () => {          
