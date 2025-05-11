@@ -37,6 +37,17 @@ export class UserService {
   }
 
   /**
+   * 
+   * @param userEmail 
+   * @returns 
+   */
+  adminGetUserByEmail(userEmail: string): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/admin/email/${userEmail}`, {
+      withCredentials: true
+    });
+  }
+
+  /**
    * Récupération des contacts enregistré de l'utilisateur
    * @returns un observable de la liste des designers
    */

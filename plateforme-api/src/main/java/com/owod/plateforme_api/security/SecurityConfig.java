@@ -57,11 +57,11 @@ public class SecurityConfig {
                     corsConfig.setAllowCredentials(true);
                     return corsConfig;
                 }))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Pas de sessions
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/login", "/auth/logout", "/auth/register", "/designers/all", "/uploads/**", "/weekly", "/password/**", "/contact").permitAll() // Routes publiques
                         .requestMatchers("/users/**", "/designers/**", "/auth/me").authenticated()
-                        .anyRequest().authenticated() // Toute autre route nécessite une authentification
+                        .anyRequest().authenticated()
                 );
 
         http.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);

@@ -37,6 +37,11 @@
         class="designer-item"
         (click)="onSelectDesigner(d)"
       >
+        <img
+          [src]="d.profilePicture ? d.profilePicture: 'assets/logos/account.png' "
+          alt="photo de profil"
+          class="miniature"
+        />
         <div class="designer-name" matLine>
           {{ d.firstname }} {{ d.lastname }}
         </div>
@@ -113,10 +118,10 @@
       </form>
     </div>
 
-    <div class="modification-mode" *ngIf="designerId !== ''">
+    <div class="modification-mode" *ngIf="designerId !== '' ">
       <div class="button-header">
-        <button mat-raised-button>Transférer</button>
-        <button mat-raised-button>Supprimer</button>
+        <button mat-raised-button (click)="openTransfer(designerId)">Transférer</button>
+        <button mat-raised-button (click)="deleteDesigner(designerId)">Supprimer</button>
       </div>
       <div class="infos-section">
         <div class="images-section">

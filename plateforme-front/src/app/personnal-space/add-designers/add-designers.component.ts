@@ -40,6 +40,7 @@ import { PhotoSectionComponent } from '../../shared/components/photo-section/pho
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
+import { TransferDialogComponent } from '../transfer-dialog/transfer-dialog.component';
 
 @Component({
   selector: 'app-add-designers',
@@ -58,7 +59,7 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     DesignerFormSectionComponent,
     MajorWorksSectionComponent,
-    PhotoSectionComponent
+    PhotoSectionComponent,
   ],
   templateUrl: './add-designers.component.html',
   styleUrl: './add-designers.component.css',
@@ -162,7 +163,8 @@ export class AddDesignersComponent {
    * Création d'un designer par l'utilisateur admin
    * @param designer
    */
-  onCreateDesigner() {
+  onCreateDesigner() { 
+    // Création du designer
     if (this.accountForm.valid) {
       const formData = this.accountForm.value;
       let country = formData.countryOfResidence;
@@ -187,6 +189,7 @@ export class AddDesignersComponent {
    * Selection d'un designer à gérer / modifier
    */
   onSelectDesigner(designer: Designer) {
+    this.creationMode = false;
     this.designerId = designer.id;
     this.designerForm.patchValue({
       firstname: designer.firstname,
@@ -211,7 +214,9 @@ export class AddDesignersComponent {
    * Mode création pour un nouveau designer
    */
   openCreationMode() {
-    this.creationMode = true;
+    // Remise à 0 du designerId pour fermer le mode modification
+    this.designerId = '';
+    this.creationMode = true;    
   }
 
   /**
@@ -248,14 +253,15 @@ export class AddDesignersComponent {
 
   /**
    * Récuperation de la photo de profil ou photo de default si pas de photo de profil
-   * @returns 
+   * @returns
    */
   getProfilePicture(): string {
     const picture = this.designerForm.get('profilePicture')?.value;
-    return picture && picture.trim() !== '' ? picture : 'assets/logos/default-profile.png';
+    return picture && picture.trim() !== ''
+      ? picture
+      : 'assets/logos/default-profile.png';
   }
 
-  
   /**
    * Mise à jour des réalisations du designer
    */
@@ -266,62 +272,71 @@ export class AddDesignersComponent {
         formData.append('realisations', file, file.name);
       });
 
-      this.designerService.updateMajorWorks(this.designerId, this.newMajorWorks).subscribe({
-        next: (response) => {
-          this.designerForm.patchValue({
-            majorWorks: response.majorWorks,
-          });
+      this.designerService
+        .updateMajorWorks(this.designerId, this.newMajorWorks)
+        .subscribe({
+          next: (response) => {
+            this.designerForm.patchValue({
+              majorWorks: response.majorWorks,
+            });
 
-          alert('Les réalisations ont été mises à jour !');
-        },
-        error : (err) => {
-          alert('Une erreur est survenue lors de la mise à jour des réalisations.')
-        }
-      })
+            alert('Les réalisations ont été mises à jour !');
+          },
+          error: (err) => {
+            alert(
+              'Une erreur est survenue lors de la mise à jour des réalisations.'
+            );
+          },
+        });
     }
   }
 
   /**
    * Verification de la taille du fichier que l'utilisateur upload pour ses réalisations
-   * @param event 
-   * @returns 
+   * @param event
+   * @returns
    */
   onRealisationSelected(files: FileList): void {
-
-    if(files && files.length > 0) {
+    if (files && files.length > 0) {
       const fileList = Array.from(files);
       const maxSizeMB = 3;
 
       // Vérifier la taille de chaque fichier selectionné
       for (let file of fileList) {
         if (file.size > maxSizeMB * 1024 * 1024) {
-          alert(`Le fichier ${file.name} est trop volumineux. Taille maximale : ${maxSizeMB} Mo.`);
+          alert(
+            `Le fichier ${file.name} est trop volumineux. Taille maximale : ${maxSizeMB} Mo.`
+          );
           return;
         }
       }
 
-      this.newMajorWorks = [...fileList]
+      this.newMajorWorks = [...fileList];
     }
   }
 
-    /**
+  /**
    * Suppression d'un fichier de réalisation
-   * @param imageUrl 
+   * @param imageUrl
    */
   deleteWork(imageUrl: string): void {
     if (confirm('Voulez-vous vraiment supprimer cette réalisation ?')) {
-      this.designerService.deleteMajorWork(this.designerId, imageUrl).subscribe({
-        next: (response) => {
-          // Mettre à jour les réalisations localement après suppression
-          this.designerForm.patchValue({
-            majorWorks: response.majorWorks, // Met à jour les réalisations avec celles renvoyées par le backend
-          });
-          alert('Réalisation supprimée avec succès.');
-        },
-        error: (err) => {
-          alert('Une erreur est survenue lors de la suppression de la réalisation.');
-        },
-      });
+      this.designerService
+        .deleteMajorWork(this.designerId, imageUrl)
+        .subscribe({
+          next: (response) => {
+            // Mettre à jour les réalisations localement après suppression
+            this.designerForm.patchValue({
+              majorWorks: response.majorWorks, // Met à jour les réalisations avec celles renvoyées par le backend
+            });
+            alert('Réalisation supprimée avec succès.');
+          },
+          error: () => {
+            alert(
+              'Une erreur est survenue lors de la suppression de la réalisation.'
+            );
+          },
+        });
     }
   }
 
@@ -329,6 +344,7 @@ export class AddDesignersComponent {
    * Soumission du formulaire des infos utilisateurs
    */
   onModifyDesigner(): void {
+    this.creationMode = false;
     if (this.designerForm.valid) {
       const updatedDesigner = this.designerForm.value as Designer;
 
@@ -358,9 +374,55 @@ export class AddDesignersComponent {
   }
 
   /**
+   * Suppression d'un designer crée par l'admin
+   * @param designerId
+   */
+  deleteDesigner(designerId: string) {
+    if (
+      confirm(
+        'Voulez vous vraiment supprimer ce designer ? Cette action est irreversible.'
+      )
+    ) {
+      this.designerService.deleteCreatedDesignerAsAdmin(designerId).subscribe({
+        next: () => {
+          alert('Designer supprimé');
+        },
+        error: () => {
+          alert('Une erreur est survenue lors de la suppression du designer.');
+        },
+      });
+    }
+  }
+
+  /**
+   * Ouvre le dialog pour le transfert d'un designer
+   */
+  openTransfer(designerId: string) {
+    const dialogRef = this.dialog.open(TransferDialogComponent, {
+      width: '500px',
+      data: { designerId },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result?.userId) {
+        this.designerService
+          .transferDesigner(result.userId, designerId)
+          .subscribe({
+            next: () => {
+              alert('Designer transféré');
+            },
+            error: () => {
+              alert('Erreur lors du transfert.')
+            }
+          });
+      }
+    });
+  }
+
+  /**
    * Nettoie les souscriptions pour éviter les fuites de mémoire
    */
-  ngOnDestroy(): void { 
-    this.subscriptions.unsubscribe(); 
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

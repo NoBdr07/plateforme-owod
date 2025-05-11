@@ -4,6 +4,8 @@ plateforme-front/node_modules/
 # Ignorer les fichiers de build Angular et Spring Boot
 plateforme-front/dist/
 plateforme-api/target/
+.angular/cache/
+plateforme-front/.angular/cache/
 
 # Ignorer les fichiers de configuration locaux
 plateforme-front/.env
@@ -20,5 +22,3 @@ plateforme-api/.env
 # Ignorer les images uploader en local pour le développement
 uploads/
 
-.angular/cache/
-plateforme-front/.angular/cache/

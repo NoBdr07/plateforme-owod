@@ -3,4 +3,5 @@ export interface User {
     firstname: string;
     lastname: string;
     role: string;
+    designerId: string;
 }

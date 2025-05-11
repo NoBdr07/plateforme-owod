@@ -6,6 +6,7 @@ import com.owod.plateforme_api.models.entities.User;
 import com.owod.plateforme_api.repositories.UserRepository;
 import com.owod.plateforme_api.services.DesignerService;
 import com.owod.plateforme_api.services.ImageStorageService;
+import com.owod.plateforme_api.services.TransferService;
 import com.owod.plateforme_api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,8 +31,12 @@ public class DesignerController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private TransferService transferService;
+
     @Autowired(required = false)
     private ImageStorageService imageStorageService;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -111,6 +116,39 @@ public class DesignerController {
         }
     }
 
+    /**
+     *
+     * @param designerId
+     * @return
+     */
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/admin/delete/{designerId}")
+    public ResponseEntity<?> deleteDesigner(@PathVariable String designerId) {
+        try {
+            designerService.delete(designerId);
+            return ResponseEntity.ok("Designer deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body("Error deleting designer: " + e.getMessage());
+        }
+    }
+
+    /**
+     * To transfer a designer from an admin to a user
+     * @param userId of user that will get ownership of designer
+     * @param designerId of designer to transfer
+     * @return 200 if transfer ok, 400 if error during the process
+     */
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/admin/transfer/{userId}/{designerId}")
+    public ResponseEntity<?> transferDesigner(@PathVariable String userId, @PathVariable String designerId) {
+        try {
+            transferService.transferDesigner(userId, designerId);
+            return ResponseEntity.ok("Designer successfully transferred");
+
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body("Error transferring designer: " + e.getMessage());
+        }
+    }
 
     /**
      * Endpoint to retrieve all designers that have a specific specialty

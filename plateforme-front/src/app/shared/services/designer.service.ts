@@ -178,6 +178,49 @@ export class DesignerService {
   }
 
   /**
+   * Suppression d'un designer crée par admin par cet admin
+   * @param designerId du designer à supprimer
+   * @returns 
+   */
+  deleteCreatedDesignerAsAdmin(designerId: string): Observable<any> {
+    return this.http
+      .delete(`${this.apiUrl}/admin/delete/${designerId}`, {
+        withCredentials: true,
+        responseType: 'text',
+      })
+      .pipe(
+      // après création, on refait l’appel liste
+      switchMap(() => this.getDesignersCreatedByAdmin()),
+      catchError(err => {
+        console.error('Erreur lors de la création du designer :', err);
+        return throwError(() => err);
+      })
+    );
+  }
+
+  /**
+   * 
+   * @param userId 
+   * @param designerId 
+   * @returns 
+   */
+  transferDesigner(userId: string, designerId: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/admin/transfer/${userId}/${designerId}`,{}, {
+      withCredentials: true,
+      responseType: 'text',
+    })
+    .pipe(
+      // après transfert, on refait l’appel liste
+      switchMap(() => this.getDesignersCreatedByAdmin()),
+      catchError(err => {
+        console.error('Erreur lors du transfert du designer :', err);
+        return throwError(() => err);
+      })
+    );
+
+  }
+
+  /**
    * Ajout d'un evenement
    * @param event 
    * @returns l'observable du designer contenant le nouvel event

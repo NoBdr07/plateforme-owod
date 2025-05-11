@@ -8,6 +8,7 @@ import com.owod.plateforme_api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -38,6 +39,20 @@ public class UserController {
 
         UserDto userDto = userMapper.userToDto(user);
         return ResponseEntity.ok(userDto);
+    }
+
+    /**
+     *
+     * @param userEmail
+     * @return
+     */
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/admin/email/{userEmail}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String userEmail) {
+        User user = userService.findByEmail(userEmail)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping("/friends")
