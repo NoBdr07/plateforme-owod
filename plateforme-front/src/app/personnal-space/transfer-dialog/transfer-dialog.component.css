@@ -1,0 +1,12 @@
+::ng-deep .mat-mdc-dialog-container {
+    background-color: var(--dark-color) !important;
+}
+
+::ng-deep .mat-mdc-dialog-container  * {
+    color: white !important;
+}
+
+.dialog-container {
+    margin: 0 50px 50px;
+    gap: 20px;
+}

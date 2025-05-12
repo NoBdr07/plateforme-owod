@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>Transférer un designer</h2>
+<div class="dialog-container">
+    <form [formGroup]="form" (ngSubmit)="onLookup()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email de l'utilisateur</mat-label>
+        <input matInput formControlName="email" placeholder="email@example.com" />
+      </mat-form-field>
+
+      <button mat-button type="submit" [disabled]="form.invalid || loading">
+        Vérifier
+      </button>
+
+      <mat-spinner *ngIf="loading" diameter="24"></mat-spinner>
+    </form>
+
+    <div *ngIf="lookupError" class="error">{{ lookupError }}</div>
+
+    <div *ngIf="targetUser && !lookupError">
+      <p>
+        User trouvé : <strong>{{ targetUser.firstname }} {{ targetUser.lastname }}</strong><br/>
+        <em *ngIf="targetUser.designerId">Il possède déjà un designer</em>
+      </p>
+
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!!targetUser.designerId"
+        (click)="onConfirm()"
+      >
+        Confirmer le transfert
+      </button>
+    </div>
+    </div>
