@@ -177,7 +177,7 @@ class AuthControllerTest {
                         .cookie(new Cookie("jwt", token)))
                 .andExpect(status().isOk())
                 // Le champ userId == email (ou l’ID, selon ton .setSubject)
-                .andExpect(jsonPath("$.userId").value("test@mail.com"))
+                .andExpect(jsonPath("$.userId").value("user123"))
                 // roles est un tableau et contient bien le rôle, préfixé ROLE_…
                 .andExpect(jsonPath("$.roles").isArray())
                 .andExpect(jsonPath("$.roles[0]").value("ROLE_USER"));

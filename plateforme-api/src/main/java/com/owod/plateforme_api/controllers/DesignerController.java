@@ -260,7 +260,7 @@ public class DesignerController {
      * @param principal       include user currently connected
      * @return 200 when modification successful, 400 when modification didn't happen
      */
-    @PreAuthorize("hasRole('ADMIN') or @userService.isDesignerOwner(#designerId, principal)")
+    @PreAuthorize("hasRole('ADMIN') or @userService.isDesignerOwner(#designerId, authentication.principal)")
     @PutMapping("/{designerId}/update-fields")
     public ResponseEntity<?> updateDesignerFields(@PathVariable String designerId, @RequestBody Designer updatedDesigner, Principal principal) {
         try {
@@ -287,7 +287,7 @@ public class DesignerController {
      * @param profilePicture new picture to upload
      * @return 404 if designer not found, 400 if error during uploading, 200 if modification ok
      */
-    @PreAuthorize("hasRole('ADMIN') or @userService.isDesignerOwner(#designerId, principal)")
+    @PreAuthorize("hasRole('ADMIN') or @userService.isDesignerOwner(#designerId, authentication.principal)")
     @PutMapping("/{designerId}/update-picture")
     public ResponseEntity<?> updateDesignerPicture(@PathVariable String designerId, @RequestPart("profilePicture") MultipartFile profilePicture) {
         try {
@@ -315,7 +315,7 @@ public class DesignerController {
      * @param realisations to add to existing realisation if there is already some
      * @return 404 if designer not found, 400 if error during uploading, 200 if modification ok
      */
-    @PreAuthorize("hasRole('ADMIN') or @userService.isDesignerOwner(#designerId, principal)")
+    @PreAuthorize("hasRole('ADMIN') or @userService.isDesignerOwner(#designerId, authentication.principal)")
     @PutMapping("/{designerId}/update-major-works")
     public ResponseEntity<?> updateMajorWorks(
             @PathVariable String designerId,
@@ -363,7 +363,7 @@ public class DesignerController {
      * @param workUrl    url of realisation to delete
      * @return 404 if designer not found, 400 if error during uploading, 200 if modification ok
      */
-    @PreAuthorize("hasRole('ADMIN') or @userService.isDesignerOwner(#designerId, principal)")
+    @PreAuthorize("hasRole('ADMIN') or @userService.isDesignerOwner(#designerId, authentication.principal)")
     @DeleteMapping("/{designerId}/delete-major-work")
     public ResponseEntity<?> deleteMajorWork(
             @PathVariable String designerId,

@@ -5,6 +5,7 @@ import com.owod.plateforme_api.models.entities.Designer;
 import com.owod.plateforme_api.models.entities.User;
 import com.owod.plateforme_api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -70,14 +71,15 @@ public class UserService {
     /**
      * Method to check if the user that send the request is the owner of the designer
      * @param designerId
-     * @param principal
+     * @param userDetails
      * @return
      */
-    public boolean isDesignerOwner(String designerId, Principal principal) {
-        String userId = principal.getName();
-        Optional<User> optionalUser = findByUserId(userId);
+    public boolean isDesignerOwner(String designerId, UserDetails userDetails) {
+        String userId = userDetails.getUsername();
 
-        return optionalUser.isPresent() && optionalUser.get().getDesignerId().equals(designerId);
+        return findByUserId(userId)
+                .map(u -> designerId.equals(u.getDesignerId()))
+                .orElse(false);
     }
 
     public Optional<User> findByResetToken(String token) {

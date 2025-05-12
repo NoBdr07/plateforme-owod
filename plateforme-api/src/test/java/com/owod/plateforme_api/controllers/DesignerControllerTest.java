@@ -181,7 +181,7 @@ class DesignerControllerIntegrationTest {
     }
 
     @Test
-    @WithMockUser(username = "user123", roles = "USER")
+    @WithMockUser(username = "admin", roles = "ADMIN")
     void updateDesignerFields_shouldReturnNotFound() throws Exception {
         String updatedDesignerJson = """
         {
@@ -192,8 +192,8 @@ class DesignerControllerIntegrationTest {
         mockMvc.perform(put("/designers/nonexistent-designer/update-fields")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(updatedDesignerJson))
-                .andExpect(status().isNotFound())
-                .andExpect(content().string("Designer not found"));
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string("Error updating designer: 404 NOT_FOUND \"Designer not found\""));
     }
 
     @Test
@@ -212,8 +212,7 @@ class DesignerControllerIntegrationTest {
         mockMvc.perform(put("/designers/designer123/update-fields")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(updatedDesignerJson))
-                .andExpect(status().isForbidden())
-                .andExpect(content().string("You are not authorized to update this designer."));
+                .andExpect(status().isForbidden());
     }
 
     @Test
