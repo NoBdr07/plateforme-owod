@@ -177,10 +177,10 @@ export class AddDesignersComponent {
       this.designerService.createDesignerAsAdmin(formData).subscribe({
         next: (designers) => {
           this.designers$ = of(designers);
-          alert('Designer crée');
+          this.notificationService.success('Designer crée');
           this.creationMode = false;
         },
-        error: () => alert('Echec de la création'),
+        error: () => this.notificationService.error('Echec de la création'),
       });
     }
   }
@@ -241,7 +241,7 @@ export class AddDesignersComponent {
                 });
               },
               error: () => {
-                alert(
+                this.notificationService.error(
                   'Une erreur est survenue lors de la mise à jour de la photo.'
                 );
               },
@@ -280,10 +280,10 @@ export class AddDesignersComponent {
               majorWorks: response.majorWorks,
             });
 
-            alert('Les réalisations ont été mises à jour !');
+            this.notificationService.success('Les réalisations ont été mises à jour !');
           },
           error: (err) => {
-            alert(
+            this.notificationService.error(
               'Une erreur est survenue lors de la mise à jour des réalisations.'
             );
           },
@@ -329,10 +329,10 @@ export class AddDesignersComponent {
             this.designerForm.patchValue({
               majorWorks: response.majorWorks, // Met à jour les réalisations avec celles renvoyées par le backend
             });
-            alert('Réalisation supprimée avec succès.');
+            this.notificationService.success('Réalisation supprimée avec succès.');
           },
           error: () => {
-            alert(
+            this.notificationService.error(
               'Une erreur est survenue lors de la suppression de la réalisation.'
             );
           },
@@ -360,16 +360,16 @@ export class AddDesignersComponent {
         .updateDesignerFields(this.designerId, updatedDesigner)
         .subscribe({
           next: () => {
-            alert('Vos informations ont été mises à jour avec succès.');
+            this.notificationService.success('Les informations ont été mises à jour avec succès.');
           },
           error: () => {
-            alert('Une erreur est survenue lors de la mise à jour.');
+            this.notificationService.error('Une erreur est survenue lors de la mise à jour.');
           },
         });
 
       this.subscriptions.add(sub);
     } else {
-      alert('Veuillez remplir correctement tous les champs.');
+      this.notificationService.error('Veuillez remplir correctement tous les champs.');
     }
   }
 
@@ -386,10 +386,10 @@ export class AddDesignersComponent {
       this.designerService.deleteCreatedDesignerAsAdmin(designerId).subscribe({
         next: (designers: Designer[]) => {
           this.designers$ = of(designers);
-          alert('Designer supprimé');
+          this.notificationService.success('Designer supprimé');
         },
         error: () => {
-          alert('Une erreur est survenue lors de la suppression du designer.');
+          this.notificationService.error('Une erreur est survenue lors de la suppression du designer.');
         },
       });
     }
@@ -411,10 +411,10 @@ export class AddDesignersComponent {
           .subscribe({
             next: (designers) => {
               this.designers$ = of(designers);
-              alert('Designer transféré');
+              this.notificationService.success('Designer transféré');
             },
             error: () => {
-              alert('Erreur lors du transfert.')
+              this.notificationService.error('Erreur lors du transfert.')
             }
           });
       }

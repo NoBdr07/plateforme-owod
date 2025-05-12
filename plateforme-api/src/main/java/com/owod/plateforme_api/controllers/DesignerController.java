@@ -268,9 +268,21 @@ public class DesignerController {
             Designer existing = designerService.findById(designerId)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Designer not found"));
 
-            // 3. Mettre à jour directement avec save
-            updatedDesigner.setId(designerId); // Assurez-vous que l'id est défini
-            Designer savedDesigner = designerService.save(updatedDesigner);
+            existing.setFirstname(updatedDesigner.getFirstname());
+            existing.setLastname(updatedDesigner.getLastname());
+            existing.setBiography(updatedDesigner.getBiography());
+            existing.setPhoneNumber(updatedDesigner.getPhoneNumber());
+            existing.setEmail(updatedDesigner.getEmail());
+            existing.setProfession(updatedDesigner.getProfession());
+            existing.setSpecialties(updatedDesigner.getSpecialties());
+            existing.setSpheresOfInfluence(updatedDesigner.getSpheresOfInfluence());
+            existing.setFavoriteSectors(updatedDesigner.getFavoriteSectors());
+            existing.setCountryOfOrigin(updatedDesigner.getCountryOfOrigin());
+            existing.setCountryOfResidence(updatedDesigner.getCountryOfResidence());
+            existing.setProfessionalLevel(updatedDesigner.getProfessionalLevel());
+            existing.setPortfolioUrl(updatedDesigner.getPortfolioUrl());
+
+            Designer savedDesigner = designerService.save(existing);
 
             // 4. Retourner le designer mis à jour
             return ResponseEntity.ok(savedDesigner);

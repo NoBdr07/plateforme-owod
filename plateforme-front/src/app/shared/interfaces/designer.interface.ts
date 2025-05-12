@@ -19,5 +19,6 @@ export interface Designer {
     majorWorks: string[]; // URL des photos des réalisations majeures (<= 5)
     portfolioUrl: string; // URL du portfolio
     events: DesignerEvent[];
+    createdBy: string; // Si crée par un administrateur
   }
   
