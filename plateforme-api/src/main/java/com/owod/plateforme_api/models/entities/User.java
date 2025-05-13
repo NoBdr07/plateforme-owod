@@ -7,6 +7,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+/**
+ * Entity representing a User stored in the "users" MongoDB collection.
+ * Includes identification, authentication credentials, roles, password reset details, and friend relationships.
+ */
 @Document(collection = "users")
 public class User {
 

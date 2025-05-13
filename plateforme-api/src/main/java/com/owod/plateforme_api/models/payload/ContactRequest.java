@@ -1,5 +1,10 @@
 package com.owod.plateforme_api.models.payload;
 
+
+/**
+ * Data Transfer Object for receiving contact form submissions.
+ * Includes the sender's email, subject, reason for contact, and detailed description.
+ */
 public class ContactRequest {
     private String email;
     private String subject;

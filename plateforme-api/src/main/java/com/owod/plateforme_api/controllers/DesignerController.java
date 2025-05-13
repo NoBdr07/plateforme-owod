@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * REST controller for managing Designer entities and related operations.
+ */
 @RestController
 @RequestMapping("/designers")
 public class DesignerController {
@@ -41,9 +44,9 @@ public class DesignerController {
     private UserRepository userRepository;
 
     /**
-     * Endpoint to retrieve all designers
+     * Retrieves all designers.
      *
-     * @return a list of all designers
+     * @return a list of all Designer entities
      */
     @GetMapping("/all")
     public List<Designer> getAllDesigners() {
@@ -51,75 +54,70 @@ public class DesignerController {
     }
 
     /**
-     * Endpoint to get a specific designer
+     * Retrieves a specific designer by the associated user ID.
      *
-     * @param userId
-     * @return
+     * @param userId the ID of the user whose designer record is requested
+     * @return ResponseEntity containing the Designer or an error message
      */
     @GetMapping("/designer/{userId}")
     public ResponseEntity<?> getDesignerByUserId(@PathVariable String userId) {
         Optional<User> optionalUser = userService.findByUserId(userId);
-
         if (optionalUser.isEmpty()) {
-            return ResponseEntity.status(404).body("User not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
-
         User user = optionalUser.get();
-
         if (user.getDesignerId() == null) {
-            return ResponseEntity.status(404).body("No designer account associated with this user.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No designer account associated with this user.");
         }
-
         Optional<Designer> optionalDesigner = designerService.findById(user.getDesignerId());
-
         if (optionalDesigner.isEmpty()) {
-            return ResponseEntity.status(404).body("Designer not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Designer not found.");
         }
-
         return ResponseEntity.ok(optionalDesigner.get());
     }
 
     /**
-     * @param userId
-     * @param designerId
-     * @param principal
-     * @return
+     * Deletes the designer associated with the given user, if the authenticated user matches.
+     *
+     * @param userId      the ID of the user requesting deletion
+     * @param designerId  the ID of the designer to delete
+     * @param principal   security principal of the authenticated user
+     * @return ResponseEntity with status and message
      */
     @DeleteMapping("/delete/{userId}/{designerId}")
-    public ResponseEntity<?> deleteDesigner(@PathVariable String userId, @PathVariable String designerId, Principal principal) {
+    public ResponseEntity<?> deleteDesigner(@PathVariable String userId,
+                                            @PathVariable String designerId,
+                                            Principal principal) {
         try {
-            // Récupérer l'utilisateur en cours de session à partir du principal
-            String currentUserId = principal.getName(); // Récupère l'email de l'utilisateur authentifié
-
+            String currentUserId = principal.getName();
             if (!userId.equals(currentUserId)) {
-                return ResponseEntity.status(401).body("Request user id is different than current authenticated user");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body("Request user id is different than current authenticated user");
             }
-
             Optional<User> optionalUser = userService.findByUserId(userId);
-
             if (optionalUser.isEmpty()) {
-                return ResponseEntity.status(404).body("User not found");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
             }
-
             User user = optionalUser.get();
-
             if (!user.getDesignerId().equals(designerId)) {
-                return ResponseEntity.status(401).body("Designer not paired to current user");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body("Designer not paired to current user");
             }
-
             userService.deleteDesigner(userId, designerId);
-
-            return ResponseEntity.status(200).body("Designer deleted successfully");
-
+            return ResponseEntity.ok("Designer deleted successfully");
         } catch (Exception e) {
-            return ResponseEntity.status(400).body("Error deleting designer: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error deleting designer: " + e.getMessage());
         }
     }
 
     /**
+     * Admin endpoint to delete any designer by ID.
+     * Requires ADMIN role.
      *
-     * @param designerId
-     * @return
+     * @param designerId the ID of the designer to delete
+     * @return ResponseEntity with status and message
      */
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/admin/delete/{designerId}")
@@ -128,146 +126,135 @@ public class DesignerController {
             designerService.delete(designerId);
             return ResponseEntity.ok("Designer deleted successfully");
         } catch (Exception e) {
-            return ResponseEntity.status(400).body("Error deleting designer: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error deleting designer: " + e.getMessage());
         }
     }
 
     /**
-     * To transfer a designer from an admin to a user
-     * @param userId of user that will get ownership of designer
-     * @param designerId of designer to transfer
-     * @return 200 if transfer ok, 400 if error during the process
+     * Admin endpoint to transfer a designer to a user.
+     * Requires ADMIN role.
+     *
+     * @param userId     the ID of the user to transfer the designer to
+     * @param designerId the ID of the designer to transfer
+     * @return ResponseEntity with status and message
      */
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/admin/transfer/{userId}/{designerId}")
-    public ResponseEntity<?> transferDesigner(@PathVariable String userId, @PathVariable String designerId) {
+    public ResponseEntity<?> transferDesigner(@PathVariable String userId,
+                                              @PathVariable String designerId) {
         try {
             transferService.transferDesigner(userId, designerId);
             return ResponseEntity.ok("Designer successfully transferred");
-
         } catch (Exception e) {
-            return ResponseEntity.status(400).body("Error transferring designer: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error transferring designer: " + e.getMessage());
         }
     }
 
     /**
-     * Endpoint to retrieve all designers that have a specific specialty
+     * Retrieves all designers having a specific specialty.
      *
-     * @param specialty
-     * @return a List of designers
+     * @param specialty the specialty to filter designers by
+     * @return ResponseEntity containing list of designers or no content
      */
     @GetMapping("/specialty")
     public ResponseEntity<List<Designer>> getDesignersBySpecialty(@RequestParam String specialty) {
         List<Designer> designers = designerService.findBySpecialty(specialty);
         if (designers.isEmpty()) {
             return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(designers);
         }
+        return ResponseEntity.ok(designers);
     }
 
     /**
-     * Endpoint to create a new designer when user create designer for himself
+     * Creates a new designer for the authenticated user.
      *
-     * @param designer
-     * @return 201 and the designer if success, 400 with error message if failure
+     * @param designer  Designer object from request body
+     * @param principal security principal of the authenticated user
+     * @return ResponseEntity with created Designer or error message
      */
     @PostMapping("/new")
     public ResponseEntity<?> newDesigner(@RequestBody Designer designer, Principal principal) {
         try {
-            // 1. Récupérer l'utilisateur en cours de session à partir du principal
-            String userId = principal.getName(); // Récupère l'email de l'utilisateur authentifié
+            String userId = principal.getName();
             User user = userService.findByUserId(userId)
                     .orElseThrow(() -> new ResponseStatusException(
                             HttpStatus.NOT_FOUND, "User not found : " + userId
                     ));
-
             designer.setEmail(user.getEmail());
             designer.setFirstname(user.getFirstname());
             designer.setLastname(user.getLastname());
-
-            // 2. Sauvegarder le designer
             Designer newDesigner = designerService.save(designer);
-
-            // 3. Mettre à jour le champ designerId de l'utilisateur
             user.setDesignerId(newDesigner.getId());
-            userService.save(user); // Sauvegarder les modifications de l'utilisateur
-
-            // 4. Retourner une réponse
-            return ResponseEntity.status(201).body(newDesigner);
+            userService.save(user);
+            return ResponseEntity.status(HttpStatus.CREATED).body(newDesigner);
         } catch (Exception e) {
-            return ResponseEntity.status(400).body("Error creating designer: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error creating designer: " + e.getMessage());
         }
     }
 
     /**
-     * Endpoint to create a new designer when admin create designer that is not him
+     * Admin endpoint to create a new designer on behalf of another user.
+     * Requires ADMIN role.
      *
-     * @param designer that has to have a createdBy attribute not null
-     * @return 201 and the designer if success, 400 with error message if failure
+     * @param designer  Designer object with createdBy set
+     * @param principal security principal of the authenticated admin
+     * @return ResponseEntity with created Designer or error message
      */
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/admin/designers")
     public ResponseEntity<?> createDesignerAsAdmin(@RequestBody Designer designer, Principal principal) {
         try {
-            // Récupérer l'utilisateur en cours de session à partir du principal
-            String userId = principal.getName(); // Récupère l'email de l'utilisateur authentifié
+            String userId = principal.getName();
             User authenticatedUser = userService.findByUserId(userId)
                     .orElseThrow(() -> new ResponseStatusException(
-                            HttpStatus.NOT_FOUND, "Admin non trouvé : " + userId
+                            HttpStatus.NOT_FOUND, "Admin not found : " + userId
                     ));
-
             designer.setCreatedBy(authenticatedUser.getUserId());
-
-            // Sauvegarder le designer
             Designer newDesigner = designerService.save(designer);
-
-            // Retourner une réponse
-            return ResponseEntity.status(201).body(newDesigner);
+            return ResponseEntity.status(HttpStatus.CREATED).body(newDesigner);
         } catch (Exception e) {
-            return ResponseEntity.status(400).body("Error creating designer: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error creating designer: " + e.getMessage());
         }
     }
 
     /**
-     * Endpoint for admin to get designers they created for other people than themselves
+     * Admin endpoint to list designers created by the authenticated admin.
+     * Requires ADMIN role.
      *
-     * @param principal
-     * @return list of designers, empty if no designer created by this admin
+     * @param principal security principal of the authenticated admin
+     * @return ResponseEntity containing list of Designer entities
      */
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/adminCreatedDesigners")
     public ResponseEntity<?> getDesignersCreatedAsAdmin(Principal principal) {
-        // Récupérer l'utilisateur en cours de session à partir du principal
-        String userId = principal.getName(); // Récupère l'email de l'utilisateur authentifié
-
+        String userId = principal.getName();
         User authenticatedUser = userService.findByUserId(userId)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Admin not found : " + userId
                 ));
-
         List<Designer> designers = designerService.getDesignersCreatedByAdmin(authenticatedUser.getUserId());
-
-        return ResponseEntity.status(200).body(designers);
-        
+        return ResponseEntity.ok(designers);
     }
 
     /**
-     * Endpoint to update info about designer (all fields except profilePicture and majorWorks)
+     * Updates designer fields except profile picture and major works.
+     * Requires ADMIN role or ownership.
      *
-     * @param designerId      designer id of designer to modify
-     * @param updatedDesigner object designer with modified info
-     * @param principal       include user currently connected
-     * @return 200 when modification successful, 400 when modification didn't happen
+     * @param designerId       ID of the designer to update
+     * @param updatedDesigner  Designer object with updated fields
+     * @return ResponseEntity with updated Designer or error message
      */
     @PreAuthorize("hasRole('ADMIN') or @userService.isDesignerOwner(#designerId, authentication.principal)")
     @PutMapping("/{designerId}/update-fields")
-    public ResponseEntity<?> updateDesignerFields(@PathVariable String designerId, @RequestBody Designer updatedDesigner, Principal principal) {
+    public ResponseEntity<?> updateDesignerFields(@PathVariable String designerId,
+                                                  @RequestBody Designer updatedDesigner) {
         try {
-            // 1. Récupérer le designer existant
             Designer existing = designerService.findById(designerId)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Designer not found"));
-
             existing.setFirstname(updatedDesigner.getFirstname());
             existing.setLastname(updatedDesigner.getLastname());
             existing.setBiography(updatedDesigner.getBiography());
@@ -281,122 +268,99 @@ public class DesignerController {
             existing.setCountryOfResidence(updatedDesigner.getCountryOfResidence());
             existing.setProfessionalLevel(updatedDesigner.getProfessionalLevel());
             existing.setPortfolioUrl(updatedDesigner.getPortfolioUrl());
-
             Designer savedDesigner = designerService.save(existing);
-
-            // 4. Retourner le designer mis à jour
             return ResponseEntity.ok(savedDesigner);
-
         } catch (Exception e) {
-            return ResponseEntity.status(400).body("Error updating designer: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error updating designer: " + e.getMessage());
         }
     }
 
     /**
-     * Endpoint to change the designer profile picture
+     * Updates the designer's profile picture.
+     * Requires ADMIN role or ownership.
      *
-     * @param designerId     id of designer to modify
-     * @param profilePicture new picture to upload
-     * @return 404 if designer not found, 400 if error during uploading, 200 if modification ok
+     * @param designerId     ID of the designer to modify
+     * @param profilePicture new profile picture file
+     * @return ResponseEntity with updated Designer or error message
      */
     @PreAuthorize("hasRole('ADMIN') or @userService.isDesignerOwner(#designerId, authentication.principal)")
     @PutMapping("/{designerId}/update-picture")
-    public ResponseEntity<?> updateDesignerPicture(@PathVariable String designerId, @RequestPart("profilePicture") MultipartFile profilePicture) {
+    public ResponseEntity<?> updateDesignerPicture(@PathVariable String designerId,
+                                                   @RequestPart("profilePicture") MultipartFile profilePicture) {
         try {
-
-            // Charger le designer existant
             Designer existingDesigner = designerService.findById(designerId)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "designer not found"));
-
-            // Upload de la photo de profil
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Designer not found"));
             String uploadedUrl = imageStorageService.uploadImage(profilePicture);
             existingDesigner.setProfilePicture(uploadedUrl);
-
-            // Sauvegarder
             Designer savedDesigner = designerService.save(existingDesigner);
             return ResponseEntity.ok(savedDesigner);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating profile picture: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error updating profile picture: " + e.getMessage());
         }
     }
 
     /**
-     * Endpoint to add one or several picture of major works
+     * Adds or updates major works images for a designer.
+     * Requires ADMIN role or ownership.
      *
-     * @param designerId   id of designer to modify
-     * @param realisations to add to existing realisation if there is already some
-     * @return 404 if designer not found, 400 if error during uploading, 200 if modification ok
+     * @param designerId   ID of the designer to modify
+     * @param realisations list of image files to add
+     * @return ResponseEntity with updated Designer or error message
      */
     @PreAuthorize("hasRole('ADMIN') or @userService.isDesignerOwner(#designerId, authentication.principal)")
     @PutMapping("/{designerId}/update-major-works")
     public ResponseEntity<?> updateMajorWorks(
             @PathVariable String designerId,
-            @RequestPart("realisations") List<MultipartFile> realisations
-    ) {
+            @RequestPart("realisations") List<MultipartFile> realisations) {
         try {
-            // Charger le designer existant
             Designer existingDesigner = designerService.findById(designerId)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Designer not found"));
-
-            // Upload des photos
             List<String> uploadedUrls = new ArrayList<>();
             for (MultipartFile file : realisations) {
                 String url = imageStorageService.uploadImage(file);
                 uploadedUrls.add(url);
             }
-
-            // Vérifier qu'il n'y pas plus de 3 réalisations
             if (uploadedUrls.size() > 3) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("3 majorWorks maximum");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body("3 majorWorks maximum");
             }
-
-            // Mettre à jour les majorWorks
-            List<String> existingWorks = existingDesigner.getMajorWorks();
-
-            // Initialiser la liste majorWorks si elle est nulle
             if (existingDesigner.getMajorWorks() == null) {
                 existingDesigner.setMajorWorks(new ArrayList<>());
             }
-            existingWorks.addAll(uploadedUrls);
-            existingDesigner.setMajorWorks(existingWorks);
-
-            // Sauvegarder
+            existingDesigner.getMajorWorks().addAll(uploadedUrls);
             Designer savedDesigner = designerService.save(existingDesigner);
             return ResponseEntity.ok(savedDesigner);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating major works: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error updating major works: " + e.getMessage());
         }
     }
 
     /**
-     * Endpoint to delete one of the major works picture
+     * Deletes a specific image from the designer's major works.
+     * Requires ADMIN role or ownership.
      *
-     * @param designerId id of designer concerned
-     * @param workUrl    url of realisation to delete
-     * @return 404 if designer not found, 400 if error during uploading, 200 if modification ok
+     * @param designerId ID of the designer whose work is to be deleted
+     * @param workUrl    URL of the work image to delete
+     * @return ResponseEntity with updated Designer or error message
      */
     @PreAuthorize("hasRole('ADMIN') or @userService.isDesignerOwner(#designerId, authentication.principal)")
     @DeleteMapping("/{designerId}/delete-major-work")
     public ResponseEntity<?> deleteMajorWork(
             @PathVariable String designerId,
-            @RequestParam("url") String workUrl
-    ) {
+            @RequestParam("url") String workUrl) {
         try {
-            // Charger le designer existant
             Designer existingDesigner = designerService.findById(designerId)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Designer not found"));
-
-            // Supprimer la réalisation de la liste
             List<String> currentMajorWorks = existingDesigner.getMajorWorks();
             if (currentMajorWorks == null || !currentMajorWorks.remove(workUrl)) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body("Realisation not found in the designer's major works.");
             }
-
-            // Sauvegarder les modifications
             existingDesigner.setMajorWorks(currentMajorWorks);
             Designer savedDesigner = designerService.save(existingDesigner);
-
             return ResponseEntity.ok(savedDesigner);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -404,6 +368,13 @@ public class DesignerController {
         }
     }
 
+    /**
+     * Adds an event to the authenticated designer's schedule.
+     *
+     * @param principal security principal of the authenticated user
+     * @param event     DesignerEvent object from request body
+     * @return ResponseEntity with updated Designer or 404 if user not found
+     */
     @PostMapping("/events/add")
     public ResponseEntity<Designer> addEvent(Principal principal, @RequestBody DesignerEvent event) {
         String currentUserId = principal.getName();
@@ -411,15 +382,20 @@ public class DesignerController {
         if (optUser.isPresent()) {
             User currentUser = optUser.get();
             String designerId = currentUser.getDesignerId();
-
             Designer updatedDesigner = designerService.addEvent(designerId, event);
-
             return ResponseEntity.ok(updatedDesigner);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
+    /**
+     * Modifies an existing event for the authenticated designer.
+     *
+     * @param principal security principal of the authenticated user
+     * @param event     DesignerEvent object from request body
+     * @return ResponseEntity with updated Designer or 404 if user not found
+     */
     @PostMapping("/events/modify")
     public ResponseEntity<Designer> modifyEvent(Principal principal, @RequestBody DesignerEvent event) {
         String currentUserId = principal.getName();
@@ -427,15 +403,20 @@ public class DesignerController {
         if (optUser.isPresent()) {
             User currentUser = optUser.get();
             String designerId = currentUser.getDesignerId();
-
             Designer updatedDesigner = designerService.modifyEvent(designerId, event);
-
             return ResponseEntity.ok(updatedDesigner);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
+    /**
+     * Deletes an existing event from the authenticated designer's schedule.
+     *
+     * @param principal security principal of the authenticated user
+     * @param event     DesignerEvent object from request body
+     * @return ResponseEntity with updated Designer or 404 if user not found
+     */
     @PostMapping("/events/delete")
     public ResponseEntity<Designer> deleteEvent(Principal principal, @RequestBody DesignerEvent event) {
         String currentUserId = principal.getName();
@@ -443,14 +424,11 @@ public class DesignerController {
         if (optUser.isPresent()) {
             User currentUser = optUser.get();
             String designerId = currentUser.getDesignerId();
-
             Designer updatedDesigner = designerService.deleteEvent(designerId, event);
-
             return ResponseEntity.ok(updatedDesigner);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
-
 
 }

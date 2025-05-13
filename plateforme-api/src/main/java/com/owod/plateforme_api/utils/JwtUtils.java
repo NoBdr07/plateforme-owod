@@ -14,9 +14,12 @@ import jakarta.servlet.http.Cookie;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Utility component for generating, validating, and parsing JSON Web Tokens (JWT)
+ * and for creating secure HTTP cookies to store them.
+ */
 @Component
 public class JwtUtils {
 
@@ -35,14 +38,14 @@ public class JwtUtils {
     @Value("${cookie.sameSite}")
     private boolean sameSite;
 
-
     /**
-     * Method to generate a token containing the email and roles
-     * @param user
-     * @return a string container the generated token
+     * Generates a JWT containing the user's ID as subject and their roles as a claim.
+     * Token is signed using HS512 algorithm and expires after configured milliseconds.
+     *
+     * @param user the User entity for which to generate the token
+     * @return the generated JWT string
      */
     public String generateToken(User user) {
-
         List<String> roles = user.getRoles().stream()
                 .map(Role::authority)
                 .toList();
@@ -57,29 +60,30 @@ public class JwtUtils {
     }
 
     /**
-     * Method that checks if token is valid
-     * @param token
-     * @return
+     * Validates the provided JWT string by parsing it with the signing key.
+     *
+     * @param token the JWT to validate
+     * @return true if the token is valid and not expired; false otherwise
      */
     public boolean validateToken(String token) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
         } catch (ExpiredJwtException e) {
-            System.err.println("Token expiré");
+            System.err.println("Token expired");
         } catch (SignatureException e) {
-            System.err.println("Signature invalide");
+            System.err.println("Invalid JWT signature");
         } catch (Exception e) {
-            System.err.println("Token invalide");
+            System.err.println("Invalid JWT token");
         }
         return false;
     }
 
-
     /**
-     * Method to retrive username from a token
-     * @param token
-     * @return
+     * Extracts the subject (user ID) from the JWT.
+     *
+     * @param token the JWT string
+     * @return the user ID contained in the token subject
      */
     public String getUsernameFromToken(String token) {
         return Jwts.parser()
@@ -90,9 +94,10 @@ public class JwtUtils {
     }
 
     /**
-     * Récupération des éléments du token
-     * @param token
-     * @return
+     * Parses all claims stored in the JWT.
+     *
+     * @param token the JWT string
+     * @return the Claims object containing all token claims
      */
     public Claims getAllClaimsFromToken(String token) {
         return Jwts.parser()
@@ -102,15 +107,15 @@ public class JwtUtils {
     }
 
     /**
-     * Récuperation des rôles à partir du token
-     * @param token
-     * @return
+     * Retrieves the roles claim from the JWT as a list of strings.
+     *
+     * @param token the JWT string
+     * @return list of role authority strings, or empty list if none present
      */
     public List<String> getRolesFromToken(String token) {
         Claims claims = getAllClaimsFromToken(token);
         Object rawRoles = claims.get("roles");
         if (rawRoles instanceof List<?>) {
-            // on convertit chaque élément en String
             @SuppressWarnings("unchecked")
             List<Object> list = (List<Object>) rawRoles;
             return list.stream()
@@ -120,20 +125,21 @@ public class JwtUtils {
         return Collections.emptyList();
     }
 
-
     /**
-     * Method that create a secure cookie
-     * @param name
-     * @param value
-     * @param maxAge
-     * @param secure
-     * @return
+     * Creates a secure HTTP cookie for storing the JWT.
+     * Sets HttpOnly, secure, SameSite attributes, path, and max age.
+     *
+     * @param name   the cookie name
+     * @param value  the cookie value (e.g., JWT)
+     * @param maxAge the maximum age of the cookie in seconds
+     * @param secure flag indicating if the cookie should be marked Secure
+     * @return the configured Cookie object
      */
     public Cookie createCookie(String name, String value, int maxAge, boolean secure) {
         Cookie cookie = new Cookie(name, value);
         cookie.setHttpOnly(cookieHttpOnly);
         cookie.setSecure(cookieSecure);
-        if(sameSite) {
+        if (sameSite) {
             cookie.setAttribute("SameSite", "None");
         }
         cookie.setPath("/");

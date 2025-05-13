@@ -1,5 +1,9 @@
 package com.owod.plateforme_api.models.dtos;
 
+/**
+ * Data Transfer Object for representing user information in API responses.
+ * Contains userId, firstname, and lastname.
+ */
 public class UserDto {
 
     private String userId;

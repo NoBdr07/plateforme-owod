@@ -15,6 +15,9 @@ import org.springframework.web.server.ResponseStatusException;
 import java.security.Principal;
 import java.util.List;
 
+/**
+ * REST controller for managing user operations such as retrieval and friend management.
+ */
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -25,13 +28,24 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
+    /**
+     * Checks if a user has an associated designer account.
+     *
+     * @param userId the ID of the user to check
+     * @return ResponseEntity containing true if the user has a designer, false otherwise
+     */
     @GetMapping("/{userId}/has-designer")
     public ResponseEntity<Boolean> hasDesignerId(@PathVariable String userId) {
         boolean hasDesignerId = userService.hasDesignerAccount(userId);
         return ResponseEntity.ok(hasDesignerId);
     }
 
-
+    /**
+     * Retrieves a user's details by their user ID.
+     *
+     * @param userId the ID of the user to retrieve
+     * @return ResponseEntity containing the UserDto or 404 if not found
+     */
     @GetMapping("/{userId}")
     public ResponseEntity<UserDto> getUser(@PathVariable String userId) {
         User user = userService.findByUserId(userId)
@@ -42,51 +56,68 @@ public class UserController {
     }
 
     /**
+     * Retrieves a user by email. Requires ADMIN role.
      *
-     * @param userEmail
-     * @return
+     * @param userEmail the email of the user to retrieve
+     * @return ResponseEntity containing the User or 404 if not found
      */
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/email/{userEmail}")
-    public ResponseEntity<User> getUserByEmail(@PathVariable String userEmail) {
+    public ResponseEntity<UserDto> getUserByEmail(@PathVariable String userEmail) {
         User user = userService.findByEmail(userEmail)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        return ResponseEntity.ok(user);
+        UserDto userDto = userMapper.userToDto(user);
+        return ResponseEntity.ok(userDto);
     }
 
+    /**
+     * Retrieves the list of designers (friends) for the authenticated user.
+     *
+     * @param principal security principal of the authenticated user
+     * @return ResponseEntity containing a list of Designer or 404 if user not found
+     */
     @GetMapping("/friends")
     public ResponseEntity<List<Designer>> getFriends(Principal principal) {
-
         String currentUserId = principal.getName();
-
         if (currentUserId != null) {
             List<Designer> friends = userService.getUserFriends(currentUserId);
-                return ResponseEntity.ok(friends);
-
+            return ResponseEntity.ok(friends);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
+    /**
+     * Adds a friend (designer) to the authenticated user's friend list.
+     *
+     * @param friendId  the ID of the designer to add as a friend
+     * @param principal security principal of the authenticated user
+     * @return ResponseEntity containing the updated User
+     */
     @PostMapping("/add/{friendId}")
-    public ResponseEntity<User> addFriend(@PathVariable String friendId, Principal principal) {
-
+    public ResponseEntity<UserDto> addFriend(@PathVariable String friendId, Principal principal) {
         String currentUserId = principal.getName();
-
         User updatedUser = userService.addFriend(currentUserId, friendId);
-
-        return ResponseEntity.ok(updatedUser);
+        UserDto userDto = userMapper.userToDto(updatedUser);
+        return ResponseEntity.ok(userDto);
     }
 
+    /**
+     * Removes a friend (designer) from the authenticated user's friend list.
+     *
+     * @param friendId  the ID of the designer to remove
+     * @param principal security principal of the authenticated user
+     * @return ResponseEntity containing the updated User
+     */
     @PostMapping("/delete/{friendId}")
-    public ResponseEntity<User> deleteFriend(@PathVariable String friendId, Principal principal) {
-
+    public ResponseEntity<UserDto> deleteFriend(@PathVariable String friendId, Principal principal) {
         String currentUserId = principal.getName();
-
         User updatedUser = userService.deleteFriend(currentUserId, friendId);
 
-        return ResponseEntity.ok(updatedUser);
+        UserDto userDto = userMapper.userToDto(updatedUser);
+
+        return ResponseEntity.ok(userDto);
     }
 
 }

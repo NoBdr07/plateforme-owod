@@ -2,6 +2,10 @@ package com.owod.plateforme_api.models.entities;
 
 import java.time.LocalDate;
 
+/**
+ * Entity representing a Designer stored in the "designers" MongoDB collection.
+ * Contains personal information, specialties, major works, and related events.
+ */
 public class DesignerEvent {
     private String id;           // Identifiant unique de l'événement
     private String title;        // Titre de l'événement

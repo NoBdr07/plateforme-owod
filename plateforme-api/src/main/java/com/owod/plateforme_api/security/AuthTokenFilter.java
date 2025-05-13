@@ -18,54 +18,76 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Filter that intercepts incoming HTTP requests to authenticate users based on a JWT cookie.
+ * <p>
+ * Extracts the "jwt" cookie, validates the token, retrieves user information and roles,
+ * and sets the authentication in the SecurityContext.
+ */
 @Component
 public class AuthTokenFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtUtils jwtUtils;
 
+    /**
+     * Filters each request to check for a valid JWT in cookies. If present and valid,
+     * sets the authenticated user details and authorities in the security context.
+     *
+     * @param request     the incoming HTTP request
+     * @param response    the HTTP response
+     * @param filterChain the filter chain to delegate to
+     * @throws ServletException in case of servlet errors
+     * @throws IOException      in case of I/O errors
+     */
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain)
             throws ServletException, IOException {
 
-        // Extraire le token depuis les cookies
+        // Extract token from cookies
         String token = extractTokenFromCookies(request);
 
         if (token != null && jwtUtils.validateToken(token)) {
-            // Récupérer le username depuis le token
+            // Retrieve username and roles from token
             String username = jwtUtils.getUsernameFromToken(token);
-
-            // Charge le userDetails
             List<String> roles = jwtUtils.getRolesFromToken(token);
 
             List<SimpleGrantedAuthority> authorities = roles.stream()
                     .map(SimpleGrantedAuthority::new)
                     .toList();
 
-            UserDetails userDetails =
-                    org.springframework.security.core.userdetails.User
-                            .withUsername(username)
-                            .password("")             // le mot de passe n’est pas utilisé ici
-                            .authorities(authorities)
-                            .build();
+            // Build UserDetails with authorities (password not used)
+            UserDetails userDetails = org.springframework.security.core.userdetails.User
+                    .withUsername(username)
+                    .password("")
+                    .authorities(authorities)
+                    .build();
 
-            // Configurer l'authentification dans le SecurityContext
+            // Create authentication token and set details
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
-
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
+            // Set authentication in security context
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
-        // Continuer avec la chaîne de filtres
+        // Continue filter chain
         filterChain.doFilter(request, response);
     }
 
+    /**
+     * Extracts the JWT token value from the "jwt" cookie in the request.
+     *
+     * @param request the HTTP request containing cookies
+     * @return the JWT token string if present, or null if not found
+     */
     private String extractTokenFromCookies(HttpServletRequest request) {
         if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
-                if ("jwt".equals(cookie.getName())) { // Nom du cookie contenant le token
+                if ("jwt".equals(cookie.getName())) {
                     return cookie.getValue();
                 }
             }

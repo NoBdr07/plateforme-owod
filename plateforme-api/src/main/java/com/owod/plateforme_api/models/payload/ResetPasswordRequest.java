@@ -1,5 +1,9 @@
 package com.owod.plateforme_api.models.payload;
 
+/**
+ * Data Transfer Object for password reset operations.
+ * Contains the reset token and the new password to set.
+ */
 public class ResetPasswordRequest {
     private String token;
     private String newPassword;

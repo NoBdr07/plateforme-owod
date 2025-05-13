@@ -6,8 +6,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.List;
 
-
-// Getters et Setters
+/**
+ * Entity representing a Designer stored in the "designers" MongoDB collection.
+ * Contains personal information, specialties, major works, and related events.
+ */
 @Document(collection = "designers")
 public class Designer {
 
