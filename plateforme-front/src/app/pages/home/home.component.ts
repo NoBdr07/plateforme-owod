@@ -11,7 +11,6 @@ import { Observable, Subscription, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
-import { WeeklyDesignerService } from '../../shared/services/weekly-designer.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -24,13 +23,11 @@ import { TranslateModule } from '@ngx-translate/core';
 export class HomeComponent implements OnInit, OnDestroy {
   designers$!: Observable<Designer[]>;
   totalDesigners = 0;
-  weeklyDesigner$ = this.weeklyDesignerService.weeklyDesigner$;
   subs = new Subscription();
   private observer!: IntersectionObserver;
 
   constructor(
     private readonly designerService: DesignerService,
-    private readonly weeklyDesignerService: WeeklyDesignerService,
     private readonly el: ElementRef,
     private readonly renderer: Renderer2
   ) {}
