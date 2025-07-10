@@ -81,7 +81,7 @@ class UserServiceTest {
         user.setUserId(userId);
         user.setDesignerId(designerId2);
 
-        // ici on construit un UserDetails Spring Security en fully-qualified
+        // ici on construit un UserDetails Spring Security
         org.springframework.security.core.userdetails.UserDetails springUser =
                 new org.springframework.security.core.userdetails.User(
                         userId,
