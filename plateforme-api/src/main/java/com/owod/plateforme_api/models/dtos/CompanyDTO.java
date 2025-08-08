@@ -1,16 +1,12 @@
-package com.owod.plateforme_api.models.entities;
+package com.owod.plateforme_api.models.dtos;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Document(collection = "companies")
-public class Company {
+public class CompanyDTO {
 
-    @Id
     private String id;
-
     private String name;
     private String description;
     private String email;
@@ -20,7 +16,6 @@ public class Company {
     private String sector;
     private String stage;
     private String type;
-    private String revenue;
     private String country;
     private String city;
     private String logoUrl;
@@ -28,7 +23,6 @@ public class Company {
     private List<String> photosUrl;
     private List<String> worksUrl;
     private List<String> employeesId;
-    private boolean financialSupport;
 
     public String getId() {
         return id;
@@ -70,6 +64,14 @@ public class Company {
         this.raisonSociale = raisonSociale;
     }
 
+    public String getSiretNumber() {
+        return siretNumber;
+    }
+
+    public void setSiretNumber(String siretNumber) {
+        this.siretNumber = siretNumber;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -100,14 +102,6 @@ public class Company {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getRevenue() {
-        return revenue;
-    }
-
-    public void setRevenue(String revenue) {
-        this.revenue = revenue;
     }
 
     public String getCountry() {
@@ -164,21 +158,5 @@ public class Company {
 
     public void setEmployeesId(List<String> employeesId) {
         this.employeesId = employeesId;
-    }
-
-    public boolean isFinancialSupport() {
-        return financialSupport;
-    }
-
-    public String getSiretNumber() {
-        return siretNumber;
-    }
-
-    public void setSiretNumber(String siretNumber) {
-        this.siretNumber = siretNumber;
-    }
-
-    public void setFinancialSupport(boolean financialSupport) {
-        this.financialSupport = financialSupport;
     }
 }
