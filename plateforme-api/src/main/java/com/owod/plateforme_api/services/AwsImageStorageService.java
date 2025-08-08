@@ -2,6 +2,7 @@ package com.owod.plateforme_api.services;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.regions.Region;
@@ -20,6 +21,7 @@ import java.util.UUID;
  * provides methods to convert multipart files and upload them to S3.
  */
 @Service
+@Profile("prod")
 public class AwsImageStorageService implements ImageStorageService {
 
     @Value("${aws.s3.bucket-name}")

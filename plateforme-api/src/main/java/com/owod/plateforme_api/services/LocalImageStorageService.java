@@ -1,5 +1,7 @@
 package com.owod.plateforme_api.services;
 
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -11,6 +13,8 @@ import java.io.IOException;
  * Used typically in development environments to save uploaded files under
  * a static resources directory and serve them via a local URL.
  */
+@Service
+@Profile("dev")
 public class LocalImageStorageService implements ImageStorageService {
 
     /**

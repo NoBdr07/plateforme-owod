@@ -6,7 +6,8 @@ package com.owod.plateforme_api.models.entities;
  */
 public enum Role {
     USER,
-    ADMIN;
+    ADMIN,
+    COMPANY;
 
     /**
      * Returns the Spring Security authority representation for this role,
