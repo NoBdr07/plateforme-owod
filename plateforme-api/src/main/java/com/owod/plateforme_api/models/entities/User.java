@@ -26,6 +26,7 @@ public class User {
 
     private Set<Role> roles;
     private String designerId;
+    private String companyId;
 
     private String resetToken;
     private LocalDateTime resetTokenExpiry;
@@ -110,5 +111,12 @@ public class User {
 
     public void setFriendsId(Set<String> friendsId) {
         this.friendsId = friendsId;
+    }
+
+    public String getCompanyId() {
+        return companyId;
+    }
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
     }
 }
