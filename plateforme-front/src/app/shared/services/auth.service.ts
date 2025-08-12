@@ -1,32 +1,81 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, startWith, switchMap, tap, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LoginRequest } from '../interfaces/login-request.interface';
 import { RegisterRequest } from '../interfaces/register-request.interface';
 import { UserInfo } from '../interfaces/user-info.interface';
+import { SessionState } from '../interfaces/session-state.interface';
+import { AccountType } from '../enums/account-type.enum';
+import { User } from '../interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = `${environment.apiUrl}/auth`;
-  private userId: string | null = null;
+  private _session$ = new BehaviorSubject<SessionState> ({
+    isLogged: false,
+    isAdmin : false,
+    userId: null,
+    accountType: AccountType.NONE,
+    user: null,
+    designerId: null,
+    companyId: null,
+  })
 
-  /* Flag pour admin */
-  private _isAdmin = false;
-  public readonly isAdmin$ = new BehaviorSubject<boolean>(this._isAdmin);
-
-  /* Stockage et flux de l'état connecté ou non */
-  public isLogged = false;
-  private isLoggedSubject = new BehaviorSubject<boolean>(this.isLogged);
+  public readonly session$ = this._session$.asObservable();
 
   constructor(
     private readonly http: HttpClient,
     private readonly router: Router
   ) {
-    this.checkAuthStatus().subscribe();
+    this.refreshSession().subscribe();
+  }
+
+  /**
+   * Met à jour l'état de connexion.
+   */
+  refreshSession(): Observable<SessionState> {
+    return this.http.get<UserInfo>(`${this.apiUrl}/auth/me`).pipe(
+      switchMap((me) => {
+        const base: SessionState = {
+          isLogged: true,
+          isAdmin: me.roles.includes('ROLE_ADMIN'),
+          userId: me.userId,
+          accountType: AccountType.NONE,
+          user: null,
+          designerId: null,
+          companyId: null,
+        };
+
+        return this.http.get<AccountType>(
+          `${this.apiUrl}/users/${me.userId}/has-account`).pipe(
+            switchMap(res => {
+              const state = {...base, accountType: res };
+              
+              return this.http.get<User>(`${this.apiUrl}/users/${me.userId}`).pipe(
+                map(user => ({...state, user})),
+                catchError(() => of(state))
+              );
+            })
+          );
+      }),
+      tap((s) => this._session$.next(s)),
+      catchError(err => {
+        this._session$.next({
+          isLogged: false,
+          isAdmin: false,
+          userId: null,
+          accountType: AccountType.NONE,
+          user: null,
+          designerId: null,
+          companyId: null,
+        });
+        return throwError(() => err);
+      })
+    )
   }
 
   /**
@@ -40,17 +89,8 @@ export class AuthService {
         responseType: 'text' as 'json',
       })
       .pipe(
-        tap(() => {
-          this.isLogged = true;
-          this.checkAuthStatus();
-          this.next();
-        }),
-        catchError((error) => {
-          this.isLogged = false;
-          this.userId = null;
-          this.next();
-          return throwError(() => error);
-        })
+        switchMap(() => this.refreshSession()),
+        map(() => 'OK')
       );
   }
 
@@ -77,38 +117,6 @@ export class AuthService {
   }
 
   /**
-   * Retourne un observable pour suivre l'état de connexion de l'utilisateur.
-   */
-  $isLogged(): Observable<boolean> {
-    return this.isLoggedSubject.asObservable();
-  }
-
-  /**
-   * Vérifie la présence d'un token et met à jour l'état de connexion.
-   */
-  checkAuthStatus(): Observable<UserInfo> {
-    return this.http
-      .get<UserInfo>(`${this.apiUrl}/me`, {
-        withCredentials: true,
-      })
-      .pipe(
-        tap((userInfo) => {
-          this.isLogged = true;
-          this.userId = userInfo.userId;
-          this._isAdmin = userInfo.roles.includes('ROLE_ADMIN');
-          this.next();
-        }),
-        catchError((error) => {
-          this.isLogged = false;
-          this.userId = null;
-          this._isAdmin = false;
-          this.next();
-          return throwError(() => error);
-        })
-    );
-  }
-
-  /**
    * Déconnexion : envoie la requête de deconnexion au back end puis appelle handleLogout().
    */
   logout(): void {
@@ -121,42 +129,18 @@ export class AuthService {
           responseType: 'text' as 'json',
         }
       )
-      .subscribe({
-        next: () => {
-          this.handleLogout();
-        },
-      });
+      .subscribe(() => {
+        this._session$.next({
+          isLogged: false, isAdmin: false, userId: null, accountType: AccountType.NONE, user: null,
+          designerId: null, companyId: null,
+        });
+        this.router.navigate(['/login']);
+      }
+      );
   }
 
-  /**
-   * Gère le logout avec un reset sur les valeurs et en redirigeant vers la page de login
-   */
-  private handleLogout(): void {
-    this.isLogged = false;
-    this.userId = null;
-    this.next();
-    this.router.navigate(['/login']);
-  }
+  /** Accès ponctuel */
+  getUserId(): string | null { return this._session$.value.userId; }
+  get isAdmin(): boolean { return this._session$.value.isAdmin; }
 
-  /**
-   * Récupère le userId
-   */
-  getUserId(): string | null {
-    return this.userId;
-  }
-
-  /**
-   * Vérifie si l'utilisateur est administrateur
-   */
-  public get isAdmin(): boolean {
-    return this._isAdmin;
-  }
-
-  /**
-   * Notifie les abonnés de l'état de connexion.
-   */
-  private next(): void {
-    this.isLoggedSubject.next(this.isLogged);
-    this.isAdmin$.next(this._isAdmin);
-  }
 }

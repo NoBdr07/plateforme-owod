@@ -36,7 +36,7 @@ public class UserController {
      * @return ResponseEntity containing DESIGNER, COMPANY or NONE if no account has been created.
      */
     @GetMapping("/{userId}/has-account")
-    public ResponseEntity<AccountType> hasDesignerId(@PathVariable String userId) {
+    public ResponseEntity<AccountType> hasAccount(@PathVariable String userId) {
         AccountType accountType = userService.hasAccount(userId);
         return ResponseEntity.ok(accountType);
     }
