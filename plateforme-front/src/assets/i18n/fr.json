@@ -134,6 +134,7 @@
   "REGISTER": {
     "TITRE": "Créer un compte membre",
     "JOIN": "Rejoins l'annuaire OWOD maintenant !",
+    "COMPANY": "Pour inscrire une entreprise, créez d’abord un compte utilisateur ici. Vous pourrez ensuite enregistrer votre entreprise. Vos nom, prénom et e-mail resteront confidentiels.",
     "CONFIRM_EMAIL": "Confirmer l'email",
     "CONFIRM_MDP": "Confirmer le mot de passe",
     "MDP_TROP_COURT": "Le mot de passe doit être de 8 caractères au minimum",

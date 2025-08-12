@@ -2,6 +2,7 @@ package com.owod.plateforme_api.controllers;
 
 import com.owod.plateforme_api.mappers.UserMapper;
 import com.owod.plateforme_api.models.dtos.UserDto;
+import com.owod.plateforme_api.models.entities.AccountType;
 import com.owod.plateforme_api.models.entities.Designer;
 import com.owod.plateforme_api.models.entities.User;
 import com.owod.plateforme_api.services.UserService;
@@ -29,15 +30,15 @@ public class UserController {
     private UserMapper userMapper;
 
     /**
-     * Checks if a user has an associated designer account.
+     * Checks if a user has an associated designer account or company account or none.
      *
      * @param userId the ID of the user to check
-     * @return ResponseEntity containing true if the user has a designer, false otherwise
+     * @return ResponseEntity containing DESIGNER, COMPANY or NONE if no account has been created.
      */
-    @GetMapping("/{userId}/has-designer")
-    public ResponseEntity<Boolean> hasDesignerId(@PathVariable String userId) {
-        boolean hasDesignerId = userService.hasDesignerAccount(userId);
-        return ResponseEntity.ok(hasDesignerId);
+    @GetMapping("/{userId}/has-account")
+    public ResponseEntity<AccountType> hasDesignerId(@PathVariable String userId) {
+        AccountType accountType = userService.hasAccount(userId);
+        return ResponseEntity.ok(accountType);
     }
 
     /**

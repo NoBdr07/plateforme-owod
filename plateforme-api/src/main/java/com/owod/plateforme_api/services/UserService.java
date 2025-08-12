@@ -1,6 +1,7 @@
 package com.owod.plateforme_api.services;
 
 import com.mongodb.DuplicateKeyException;
+import com.owod.plateforme_api.models.entities.AccountType;
 import com.owod.plateforme_api.models.entities.Designer;
 import com.owod.plateforme_api.models.entities.User;
 import com.owod.plateforme_api.repositories.UserRepository;
@@ -71,15 +72,23 @@ public class UserService {
     }
 
     /**
-     * Determines if a user has an associated designer account.
+     * Determines if a user has an associated designer account or company account.
      *
      * @param userId the ID of the user to check
-     * @return true if the user has a designer account, false otherwise
+     * @return DESIGNER if a designer account exists, COMPANY if a company account exists, NONE otherwise.
      */
-    public boolean hasDesignerAccount(String userId) {
+public AccountType hasAccount(String userId) {
         return userRepository.findByUserId(userId)
-                .map(u -> u.getDesignerId() != null)
-                .orElse(false);
+                .map(u -> {
+                    if (u.getDesignerId() != null) {
+                        return AccountType.DESIGNER;
+                    } else if (u.getCompanyId() != null) {
+                        return AccountType.COMPANY;
+                    } else {
+                        return AccountType.NONE;
+                    }
+                })
+                .orElse(AccountType.NONE);
     }
 
     /**

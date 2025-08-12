@@ -134,6 +134,7 @@
   "REGISTER": {
     "TITRE": "Create a member account",
     "JOIN": "Join the OWOD directory now!",
+    "COMPANY": "To register a company, please create a user account first. You can then add your company in the next step. Your name, surname, and email will remain confidential.",
     "CONFIRM_EMAIL": "Confirm email",
     "CONFIRM_MDP": "Confirm password",
     "MDP_TROP_COURT": "Your password must contain at least 8 characters.",
