@@ -48,15 +48,11 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
   templateUrl: './my-account.component.html',
   styleUrl: './my-account.component.css',
 })
-export class MyAccountComponent implements OnInit, OnDestroy {
-  // Infos de l'utilisateur connecté
-  hasAccount: boolean = false;
-  designerId!: string;
-  userId!: string;
-  user: User | null = null;
-  accountForm: FormGroup;
+export class MyAccountComponent implements OnDestroy{
+  // Infos de l'utilisateur connecté 
+  session$ = this.authService.session$;
 
-  private subscriptions = new Subscription();
+  accountForm: FormGroup;
 
   // Enums converted to arrays
   specialties = Object.values(Specialty);
@@ -67,6 +63,8 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   // Dialog pour la suppresion de profil
   @ViewChild('confirmSuppressTemplate')
   confirmSuppressTemplate!: TemplateRef<any>;
+
+  private subs = new Subscription();
 
   constructor(
     private readonly userService: UserService,
@@ -85,47 +83,7 @@ export class MyAccountComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {
-    const retrievedUserId = this.authService.getUserId(); // Récupère l'userId
-    if (retrievedUserId) {
-      this.userId = retrievedUserId;
-
-      // recup du user pour nom prénom
-      const userSub = this.userService.getUser(this.userId).subscribe({
-        next: (user: User) => {
-          this.user = user;
-        },
-        error: (err) => {
-          console.error(
-            "Erreur lors de la récupération de l'utilisateur:",
-            err
-          );
-        },
-      });
-      this.subscriptions.add(userSub);
-
-      // recup de si l'utilisateur a déjà un compte ou non
-      const sub = this.userService
-        .hasAnAccount(this.userId)
-        .pipe(
-          tap((has) => (this.hasAccount = has)),
-          filter((has) => has), // on ne poursuit que si true
-          switchMap(() =>
-            this.designerService.getDesignerByUserId(this.userId)
-          ),
-          take(1) // pas de multi-émissions
-        )
-        .subscribe({
-          next: (designer) => (this.designerId = designer.id),
-          error: (err) => console.log('Designer pas trouvé', err),
-        });
-      this.subscriptions.add(sub);
-    } else {
-      console.error('Utilisateur non authentifié.');
-    }
-  }
-
-  onSubmit(): void {
+  onSubmitDesigner(): void {
     if (this.accountForm.valid) {
       const formData = this.accountForm.value;
       let country = formData.countryOfResidence;
@@ -141,18 +99,20 @@ export class MyAccountComponent implements OnInit, OnDestroy {
           this.notificationService.success(
             'Profil designer créé avec succès !'
           );
-          this.hasAccount = true; // Met à jour le boolean après succès
-          this.designerId = response.id;
+          this.subs.add(this.authService.refreshSession().subscribe());
         },
         error: (err) => {
           console.error('Erreur lors de la création du designer :', err);
         },
       });
 
-      this.subscriptions.add(sub);
     } else {
       console.error('Formulaire invalide.');
     }
+  }
+
+  onSubmitCompany(): void {
+
   }
 
   /**
@@ -165,24 +125,7 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   /**
    * Suppression du profil designer lié à l'utilisateur
    */
-  deleteDesigner(): void {
-    this.designerService
-      .deleteDesigner(this.userId, this.designerId)
-      .subscribe({
-        next: () => {
-          this.hasAccount = false;
-          this.designerId = '';
-          this.dialog.closeAll();
-          this.notificationService.success(
-            'Profil designer supprimé avec succès.'
-          );
-        },
-        error: (err) => {
-          this.notificationService.error(
-            'Une erreur est survenue pendant la suppression.'
-          );
-        },
-      });
+  deleteDesigner(userId: String, designerId: String): void {
   }
 
   /**
@@ -193,6 +136,6 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    this.subs.unsubscribe();
   }
 }

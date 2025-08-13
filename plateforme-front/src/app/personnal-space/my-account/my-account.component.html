@@ -1,39 +1,43 @@
-<div class="global-container">
+<div class="global-container" *ngIf="(authService.session$ | async ) as s">
+
+   <!-- === HEADER === -->
   <div class="top-container">
     <div class="text-container">
       <div class="top-left-container">
         <h1 class="bonjour">{{ "MON_COMPTE.BONJOUR" | translate }}</h1>
-        <h2>{{ user?.firstname }} {{ user?.lastname }}</h2>
-        <h3 *ngIf="authService.isAdmin$ | async">ADMINISTRATEUR</h3>
+        <h2>{{ s.user?.firstname }} {{ s.user?.lastname }}</h2>
+        <h3 *ngIf="s.isAdmin">ADMINISTRATEUR</h3>
       </div>
 
       <div class="top-right-container">
         <h2>{{ "MON_COMPTE.BIENVENUE" | translate }}</h2>
 
-        <p class="small" *ngIf="hasAccount">
-          {{ "MON_COMPTE.CREATED_1" | translate }}
-        </p>
-        <p class="small" *ngIf="hasAccount">
-          {{ "MON_COMPTE.CREATED_2" | translate }}
-        </p>
+        <ng-container *ngIf="s.accountType !== 'NONE'; else noAccountTexts " >
+          <p class="small">{{ "MON_COMPTE.CREATED_1" | translate }}</p>
+          <p class="small">{{ "MON_COMPTE.CREATED_2" | translate }}</p>
+        </ng-container>
 
-        <p class="small" *ngIf="!hasAccount">
-          {{ "MON_COMPTE.INFO_1" | translate }}
-        </p>
+        <ng-template #noAccountTexts>
+          <p class="small">{{ "MON_COMPTE.INFO_1" | translate }}</p>
+          <p class="small">{{ "MON_COMPTE.INFO_2" | translate }}</p>
+          <p class="small">{{ "MON_COMPTE.INFO_3" | translate }}</p>
+        </ng-template>
 
-        <p class="small" *ngIf="!hasAccount">
-          {{ "MON_COMPTE.INFO_2" | translate }}
-        </p>
-        <p class="small" *ngIf="!hasAccount">
-          {{ "MON_COMPTE.INFO_3" | translate }}
-        </p>
       </div>
     </div>
     <img src="assets/images/back-dark.png" class="background" />
   </div>
 
-  <div *ngIf="!hasAccount" class="not-created">
-    <form class="form" [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+   <!-- === AUCUN COMPTE (création) === -->
+  <div *ngIf="s.accountType === 'NONE'" class="not-created">
+
+    <!-- Onglets Designer / Entreprise -->
+    <mat-tab-group>
+
+    <!-- Onglet Designer -->
+     <mat-tab label="Créer un compte professionnel">
+
+    <form class="form" [formGroup]="accountForm" (ngSubmit)="onSubmitDesigner()">
       <mat-form-field appearance="fill">
         <mat-label>{{ "DASHBOARD.PROFESSION" | translate }}</mat-label>
         <mat-select formControlName="profession">
@@ -84,6 +88,7 @@
 
     </form>
 
+    
     <div class="created">
       <button class="button" mat-raised-button routerLink="/catalogue">
         {{ "MON_COMPTE.RETOUR" | translate }}
@@ -97,9 +102,19 @@
         {{ "MON_COMPTE.ADMIN" | translate }}
       </button>
     </div>
+
+    </mat-tab>
+
+    <!-- Onglet Entreprise -->
+     <mat-tab label="Créer un compte entreprise">
+
+     </mat-tab>
+
+    </mat-tab-group>
   </div>
 
-  <div *ngIf="hasAccount" class="created">
+  <!-- === AFFICHAGES DES OPTIONS SI COMPTE DESIGNER === -->
+  <div *ngIf="s.accountType === 'DESIGNER'" class="created">
     <button class="button" mat-raised-button routerLink="/catalogue">
       {{ "MON_COMPTE.RETOUR" | translate }}
     </button>
@@ -128,6 +143,33 @@
       {{ "MON_COMPTE.SUPPRIMER" | translate }}
     </button>
   </div>
+
+  <!-- === AFFICHAGES DES OPTIONS SI COMPTE ENTREPRISE === -->
+  <div *ngIf="s.accountType === 'COMPANY'" class="created">
+    <button class="button" mat-raised-button routerLink="/catalogue">
+      {{ "MON_COMPTE.RETOUR" | translate }}
+    </button>
+
+    <button class="button" mat-raised-button routerLink="/dashboard">
+      {{ "MON_COMPTE.CONFIGURER" | translate }}
+    </button>
+
+    <button class="button" mat-raised-button routerLink="/account/teams">
+      Gérer mes équipes
+    </button>
+
+    <button class="button" mat-raised-button routerLink="/account/gestion-historique">
+      Gérer historique
+    </button>
+
+    <button class="button" mat-raised-button (click)="logOut()">
+      {{ "MON_COMPTE.DECONNECTER" | translate }}
+    </button>
+
+    <button class="red-button" mat-raised-button (click)="openSuppressDialog()">
+      {{ "MON_COMPTE.SUPPRIMER" | translate }}
+    </button>
+  </div>
 </div>
 
 <!-- Template pour confirmer la supression du profil -->
@@ -140,7 +182,7 @@
     <button mat-button mat-dialog-close>
       {{ "MON_COMPTE.CONFIRME_NON" | translate }}
     </button>
-    <button mat-raised-button (click)="deleteDesigner()">
+    <button mat-raised-button (click)="deleteDesigner(s)">
       {{ "MON_COMPTE.CONFIRME_OUI" | translate }}
     </button>
   </mat-dialog-actions>
