@@ -12,6 +12,7 @@ import {
   map,
   Observable,
   Subscription,
+  tap,
 } from 'rxjs';
 import { DesignerService } from '../../shared/services/designer.service';
 import { CommonModule } from '@angular/common';
@@ -46,7 +47,11 @@ export class CatalogueComponent implements OnInit, OnDestroy {
   designers$!: Observable<Designer[]>;
 
   // Utilisateur connecté ou non
-  isLogged: boolean = false;
+  isLogged$ = this.authService.session$.pipe(
+    map(s => s.isLogged),
+    tap(logged => this.isLogged = logged)
+  );
+  private isLogged = false;
 
   // Sur téléphone ou ordinateur
   isMobile: boolean = false;
@@ -161,15 +166,8 @@ export class CatalogueComponent implements OnInit, OnDestroy {
       })
     );
 
-    // Check si l'utilisateur est connecté ou non
-    const sub = this.authService.$isLogged().subscribe((logged) => {
-      this.isLogged = logged;
-    });
-
     // Chargement des contact
     this.loadFriends();
-
-    this.subs.add(sub);
   }
 
   // Check device

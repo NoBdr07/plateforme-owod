@@ -48,7 +48,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
   templateUrl: './my-account.component.html',
   styleUrl: './my-account.component.css',
 })
-export class MyAccountComponent implements OnDestroy{
+export class MyAccountComponent implements OnDestroy {
   // Infos de l'utilisateur connecté 
   session$ = this.authService.session$;
 
@@ -125,7 +125,7 @@ export class MyAccountComponent implements OnDestroy{
   /**
    * Suppression du profil designer lié à l'utilisateur
    */
-  deleteDesigner(userId: String, designerId: String): void {
+  deleteDesigner(): void {
   }
 
   /**

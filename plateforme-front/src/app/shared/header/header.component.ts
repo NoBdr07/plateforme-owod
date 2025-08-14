@@ -2,10 +2,12 @@ import { Component, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../services/auth.service';
-import { catchError, Observable, of, Subscription, switchMap } from 'rxjs';
+import { catchError, map, Observable, of, shareReplay, Subscription, switchMap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { DesignerService } from '../services/designer.service';
 import { Designer } from '../interfaces/designer.interface';
+import { AccountType } from '../enums/account-type.enum';
+import { CompanyService } from '../services/company.service';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +16,7 @@ import { Designer } from '../interfaces/designer.interface';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
-export class HeaderComponent implements OnDestroy {
+export class HeaderComponent {
   // selection d'anglais ou francais
   currentLang!: string;
 
@@ -22,16 +24,39 @@ export class HeaderComponent implements OnDestroy {
   isMenuOpen = false;
 
   // utilisateur connecté ou non et ses infos
-  isLogged = false;
-  userId!: string | null;
-  designer$!: Observable<Designer | null>;
+  session$ = this.authService.session$;
+
+  // avatar dérivé de la session
+  avatar$ = this.session$.pipe(
+    switchMap(s => {
+      if (!s.isLogged || !s.userId ) return of(null);
+
+      if (s.accountType === AccountType.DESIGNER) {
+        return this.designerService.getDesignerByUserId(s.userId).pipe(
+          map(d => d?.profilePicture ?? null),
+          catchError(() => of(null))
+        )
+      }
+
+      if (s.accountType === AccountType.COMPANY) {
+        return this.companyService.getCompanyByUserId(s.userId).pipe(
+          map(c => c?.logoUrl ?? null),
+          catchError(() => of(null))
+        )
+      }
+
+      return of(null);
+    }),
+    shareReplay(1)
+  )
 
   subs = new Subscription();
 
   constructor(
     private translateService: TranslateService,
     private authService: AuthService,
-    private designerService: DesignerService
+    private designerService: DesignerService,
+    private companyService: CompanyService
   ) {
     // Initialiser avec la langue courante
     this.currentLang =
@@ -39,30 +64,6 @@ export class HeaderComponent implements OnDestroy {
       this.translateService.getDefaultLang();
 
   }
-
-  ngOnInit() {
-    // 1) On garde isLogged à jour
-    this.subs.add(
-      this.authService.$isLogged().subscribe(flag => this.isLogged = flag)
-    );
-
-    // 2) On crée un flux qui suit chaque changement de connexion
-    this.designer$ = this.authService.$isLogged().pipe(
-      switchMap(isLogged => {
-        // Si connecté, on va chercher le designer; sinon on renvoie null
-        if (isLogged && this.authService.getUserId()) {
-          return this.designerService
-            .getDesignerByUserId(this.authService.getUserId()!)
-            .pipe(
-              // en cas d’erreur (404), on transforme en null
-              catchError(() => of(null))
-            );
-        }
-        return of(null);
-      })
-    );
-  }
-
 
   /**
    * Passage en anglais ou francais
@@ -82,10 +83,4 @@ export class HeaderComponent implements OnDestroy {
     burgerBtn?.classList.toggle('active');
   }
 
-  /**
-   * Unsubscribe des observables
-   */
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
-  }
 }

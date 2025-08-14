@@ -10,11 +10,12 @@ export const authGuard: CanActivateFn = (route, state) => {
   /**
    * Interdit la route si l'utilisateur n'est pas connecté
    */
-  return authService.checkAuthStatus().pipe(
-    map(() => true),
-    catchError(() => {
+  return authService.session$.pipe(
+    take(1),
+    map(s => {
+      if (s.isLogged) return true;
       router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
-      return of(false);
+      return false;
     })
   );
 };

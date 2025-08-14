@@ -8,11 +8,7 @@
         </button>
       </div>
       <div class="filtre">
-        <img
-          class="filtre-icon"
-          src="assets/logos/refresh.png"
-          alt="Effacer les filtres"
-        />
+        <img class="filtre-icon" src="assets/logos/refresh.png" alt="Effacer les filtres" />
         <button mat-button class="black" (click)="resetResearch()">
           {{ "CATALOGUE.ERASE" | translate }}
         </button>
@@ -54,123 +50,70 @@
 
     <!-- Specialties -->
     <mat-menu #menuSpecialty="matMenu">
-      <button
-        mat-menu-item
-        *ngFor="let specialty of specialties"
-        (click)="research('specialty', specialty)"
-      >
+      <button mat-menu-item *ngFor="let specialty of specialties" (click)="research('specialty', specialty)">
         {{ specialty }}
       </button>
     </mat-menu>
 
     <!-- Sphère d'influence -->
     <mat-menu #menuSphere="matMenu">
-      <button
-        mat-menu-item
-        *ngFor="let sphere of spheres"
-        (click)="research('sphere', sphere)"
-      >
+      <button mat-menu-item *ngFor="let sphere of spheres" (click)="research('sphere', sphere)">
         {{ sphere }}
       </button>
     </mat-menu>
 
     <!-- Secteurs -->
     <mat-menu #menuSector="matMenu">
-      <button
-        mat-menu-item
-        *ngFor="let sector of sectors"
-        (click)="research('sector', sector)"
-      >
+      <button mat-menu-item *ngFor="let sector of sectors" (click)="research('sector', sector)">
         {{ sector }}
       </button>
     </mat-menu>
 
     <!-- Pays de résidence -->
     <mat-menu #menuCountry="matMenu">
-      <button
-        mat-menu-item
-        *ngFor="let country of countries"
-        (click)="research('country', country)"
-      >
+      <button mat-menu-item *ngFor="let country of countries" (click)="research('country', country)">
         {{ country }}
       </button>
     </mat-menu>
   </div>
 
-  <div
-    class="designers-container"
-    *ngIf="paginatedDesigners$ | async as designers"
-  >
-    <div
-      class="designer"
-      *ngFor="let designer of designers; let i = index"
-      #designerCard
-      [routerLink]="['/details', designer.id]"
-    >
+  <div class="designers-container" *ngIf="paginatedDesigners$ | async as designers">
+    <div class="designer" *ngFor="let designer of designers; let i = index" #designerCard
+      [routerLink]="['/details', designer.id]">
       <div class="designer-top">
         <div class="designer-top-left">
-          <img
-            *ngIf="designer.profilePicture"
-            [src]="designer.profilePicture"
-            class="photo"
-            alt="Photo de profil d'un designer"
-          />
+          <img *ngIf="designer.profilePicture" [src]="designer.profilePicture" class="photo"
+            alt="Photo de profil d'un designer" />
           <p class="designer-name">
             {{ designer.firstname }} {{ designer.lastname }}
           </p>
         </div>
 
-        <div
-          class="designer-widgets"
-          [matTooltip]="!isLogged ? ('CATALOGUE.RESERVE' | translate) : null"
-        >
-          <img
-            src="assets/logos/calendar.svg"
-            class="widget"
-            [ngClass]="{ 'logged-in': isLogged, 'logged-out': !isLogged }"
-            (click)="$event.stopPropagation(); openCalendar(designer.id)"
-          />
+        <ng-container $ngIf="(isLogged$ | async) as logged">
+          <div class="designer-widgets" [matTooltip]="!logged ? ('CATALOGUE.RESERVE' | translate) : null">
+            <img src="assets/logos/calendar.svg" class="widget"
+              [ngClass]="{ 'logged-in': logged, 'logged-out': !logged }"
+              (click)="$event.stopPropagation(); openCalendar(designer.id)" />
 
-          <img
-            *ngIf="!isFriend(designer.id)"
-            src="assets/logos/person-add.svg"
-            class="widget"
-            [ngClass]="{ 'logged-in': isLogged, 'logged-out': !isLogged }"
-            (click)="$event.stopPropagation(); addFriend(designer.id)"
-          />
-          <img
-            *ngIf="isFriend(designer.id)"
-            src="assets/logos/person-check.png"
-            class="widget"
-          />
-          <img
-            src="assets/logos/group-add.svg"
-            class="widget"
-            [ngClass]="{ 'logged-in': isLogged, 'logged-out': !isLogged }"
-            [matTooltip]="'CATALOGUE.SOON' | translate"
-          />
-        </div>
+            <img *ngIf="!isFriend(designer.id)" src="assets/logos/person-add.svg" class="widget"
+              [ngClass]="{ 'logged-in': logged, 'logged-out': !logged }"
+              (click)="$event.stopPropagation(); addFriend(designer.id)" />
+            <img *ngIf="isFriend(designer.id)" src="assets/logos/person-check.png" class="widget" />
+            <img src="assets/logos/group-add.svg" class="widget"
+              [ngClass]="{ 'logged-in': logged, 'logged-out': !logged }" [matTooltip]="'CATALOGUE.SOON' | translate" />
+          </div>
+        </ng-container>
       </div>
 
-      <div
-        class="designer-middle"
-        [matTooltip]="!isLogged ? ('CATALOGUE.RESERVE' | translate) : null"
-        [ngClass]="{ 'logged-in': isLogged, 'logged-out': !isLogged }"
-      >
-        <div
-          class="middle-section"
-          *ngIf="designer.phoneNumber"
-          (click)="
+      <div class="designer-middle" [matTooltip]="!logged ? ('CATALOGUE.RESERVE' | translate) : null"
+        [ngClass]="{ 'logged-in': logged, 'logged-out': !logged }">
+        <div class="middle-section" *ngIf="designer.phoneNumber" (click)="
             $event.stopPropagation(); showPhoneNumber(designer.phoneNumber)
-          "
-        >
+          ">
           <p class="text-middle">{{ "CATALOGUE.APPELER" | translate }}</p>
           <img src="assets/logos/call.svg" class="widget" />
         </div>
-        <div
-          class="middle-section"
-          (click)="$event.stopPropagation(); showEmail(designer.email)"
-        >
+        <div class="middle-section" (click)="$event.stopPropagation(); showEmail(designer.email)">
           <p class="text-middle">{{ "CATALOGUE.MAIL" | translate }}</p>
           <img src="assets/logos/mail.svg" class="widget" />
         </div>
@@ -178,19 +121,13 @@
 
       <div class="designer-bottom">
         <div class="metier-container">
-          <p
-            *ngIf="designer.profession === 'designer'"
-            class="bottom-text bold"
-          >
+          <p *ngIf="designer.profession === 'designer'" class="bottom-text bold">
             Designer
           </p>
           <p *ngIf="designer.profession === 'artisan'" class="bottom-text bold">
             {{ "CATALOGUE.ARTISAN" | translate }}
           </p>
-          <p
-            *ngIf="designer.profession === 'étudiant'"
-            class="bottom-text bold"
-          >
+          <p *ngIf="designer.profession === 'étudiant'" class="bottom-text bold">
             {{ "CATALOGUE.ETUDIANT" | translate }}
           </p>
         </div>
@@ -203,24 +140,14 @@
 
   <!-- Pagination -->
   <div class="pagination">
-    <button
-      mat-raised-button
-      (click)="prevPage()"
-      [disabled]="currentPage.value === 1"
-    >
+    <button mat-raised-button (click)="prevPage()" [disabled]="currentPage.value === 1">
       {{ "CATALOGUE.PRECEDENT" | translate }}
     </button>
 
-    <span
-      >Page {{ currentPage | async }} {{ "CATALOGUE.SUR" | translate }}
-      {{ maxPage | async }}</span
-    >
+    <span>Page {{ currentPage | async }} {{ "CATALOGUE.SUR" | translate }}
+      {{ maxPage | async }}</span>
 
-    <button
-      mat-raised-button
-      (click)="nextPage()"
-      [disabled]="currentPage.value === maxPage.value"
-    >
+    <button mat-raised-button (click)="nextPage()" [disabled]="currentPage.value === maxPage.value">
       {{ "CATALOGUE.SUIVANT" | translate }}
     </button>
   </div>

@@ -15,6 +15,7 @@ import { User } from '../interfaces/user.interface';
 })
 export class AuthService {
   private apiUrl = `${environment.apiUrl}/auth`;
+  
   private _session$ = new BehaviorSubject<SessionState> ({
     isLogged: false,
     isAdmin : false,

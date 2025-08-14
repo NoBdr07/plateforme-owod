@@ -1,70 +1,29 @@
 <!-- HTML -->
-<div class="header-container">
-  <img
-    class="logo"
-    routerLink="/"
-    src="assets/logos/LogoAIPDA.png"
-    alt="logo de l'AIPDA, association internationale pour le design en Afrique"
-  />
+<div class="header-container" *ngIf="(session$ | async ) as s">
+  <img class="logo" routerLink="/" src="assets/logos/LogoAIPDA.png"
+    alt="logo de l'AIPDA, association internationale pour le design en Afrique" />
 
   <div class="end-container">
     <!-- Menu navigation -->
     <div class="links-container" [class.active]="isMenuOpen">
       <p class="langue">
-        <span
-          class="clickable"
-          [class.active]="currentLang === 'fr'"
-          (click)="switchLanguage('fr')"
-          >FR</span
-        >
+        <span class="clickable" [class.active]="currentLang === 'fr'" (click)="switchLanguage('fr')">FR</span>
         |
-        <span
-          class="clickable"
-          [class.active]="currentLang === 'en'"
-          (click)="switchLanguage('en')"
-          >EN</span
-        >
+        <span class="clickable" [class.active]="currentLang === 'en'" (click)="switchLanguage('en')">EN</span>
       </p>
-      <p
-        class="link"
-        routerLink="/catalogue"
-        routerLinkActive="active-link"
-        (click)="toggleMenu()"
-      >
+      <p class="link" routerLink="/catalogue" routerLinkActive="active-link" (click)="toggleMenu()">
         {{ "HEADER.CATALOGUE" | translate }}
       </p>
-      <p
-        class="link"
-        routerLink="/register"
-        routerLinkActive="active-link"
-        (click)="toggleMenu()"
-      >
+      <p class="link" routerLink="/register" routerLinkActive="active-link" (click)="toggleMenu()">
         {{ "HEADER.INSCRIPTION" | translate }}
       </p>
-      <p
-        class="link"
-        routerLink="/login"
-        routerLinkActive="active-link"
-        *ngIf="!isLogged"
-        (click)="toggleMenu()"
-      >
+      <p class="link" routerLink="/login" routerLinkActive="active-link" *ngIf="!s.isLogged" (click)="toggleMenu()">
         {{ "HEADER.CONNEXION" | translate }}
       </p>
-      <p
-        class="link"
-        routerLink="/account"
-        routerLinkActive="active-link"
-        *ngIf="isLogged"
-        (click)="toggleMenu()"
-      >
+      <p class="link" routerLink="/account" routerLinkActive="active-link" *ngIf="s.isLogged" (click)="toggleMenu()">
         {{ "HEADER.SPACE" | translate }}
       </p>
-      <p
-        class="link"
-        routerLink="/contact"
-        routerLinkActive="active-link"
-        (click)="toggleMenu()"
-      >
+      <p class="link" routerLink="/contact" routerLinkActive="active-link" (click)="toggleMenu()">
         {{ "HEADER.CONTACT" | translate }}
       </p>
     </div>
@@ -76,42 +35,25 @@
       <span class="burger-line"></span>
     </button>
 
-    <div *ngIf="isLogged; else notLogged">
-      <ng-container *ngIf="designer$ | async as designer; else noDesigner">
-        <img
-          *ngIf="designer?.profilePicture; else defaultProfile"
-          [src]="designer.profilePicture"
-          alt="photo de profil"
-          class="profile-picture"
-          routerLink="/account"
-        />
-        <ng-template #defaultProfile>
-          <img
-            src="assets/logos/account-blue.png"
-            alt="photo de profil"
-            class="logo-connexion"
-            routerLink="/account"
-          />
-        </ng-template>
+    <ng-container *ngIf="s.isLogged; else notLogged">
+      <ng-container *ngIf="(avatar$ | async ) as avatar; else noAccount">
+        <img [src]="avatar" alt="avatar" class="profile-picture" routerLink="/account"
+          *ngIf="avatar; else defaultAvatar" />
       </ng-container>
-      <ng-template #noDesigner>        
-        <img
-        src="assets/images/back-accent.png"
-        alt="photo de profil"
-        class="logo-connexion grey"
-        routerLink="/account"
-      />
+
+      <ng-template #defaultAvatar>
+        <img src="assets/logos/account-blue.png" alt="avatar" class="logo-connexion grey" routerLink="/account" />
       </ng-template>
-    </div>
-    
-    <ng-template #notLogged>
-      <img
-          src="assets/logos/account-blue.png"
-          alt="photo de profil"
-          class="logo-connexion"
-          routerLink="/login"
-        />
+    </ng-container>
+
+    <ng-template #noAccount>
+      <img src="assets/images/back-accent.png" alt="photo de profil" class="logo-connexion grey"
+        routerLink="/account" />
     </ng-template>
-    
   </div>
+
+  <ng-template #notLogged>
+    <img src="assets/logos/account-blue.png" alt="photo de profil" class="logo-connexion" routerLink="/login" />
+  </ng-template>
+
 </div>

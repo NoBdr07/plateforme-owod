@@ -12,7 +12,7 @@
       <div class="top-right-container">
         <h2>{{ "MON_COMPTE.BIENVENUE" | translate }}</h2>
 
-        <ng-container *ngIf="s.accountType !== 'NONE'; else noAccountTexts " >
+        <ng-container *ngIf="s.accountType !== AccountType.NONE; else noAccountTexts " >
           <p class="small">{{ "MON_COMPTE.CREATED_1" | translate }}</p>
           <p class="small">{{ "MON_COMPTE.CREATED_2" | translate }}</p>
         </ng-container>
@@ -145,7 +145,7 @@
   </div>
 
   <!-- === AFFICHAGES DES OPTIONS SI COMPTE ENTREPRISE === -->
-  <div *ngIf="s.accountType === 'COMPANY'" class="created">
+  <div *ngIf="s.accountType === AccountType.COMPANY " class="created">
     <button class="button" mat-raised-button routerLink="/catalogue">
       {{ "MON_COMPTE.RETOUR" | translate }}
     </button>
@@ -182,7 +182,7 @@
     <button mat-button mat-dialog-close>
       {{ "MON_COMPTE.CONFIRME_NON" | translate }}
     </button>
-    <button mat-raised-button (click)="deleteDesigner(s)">
+    <button mat-raised-button (click)="deleteDesigner()">
       {{ "MON_COMPTE.CONFIRME_OUI" | translate }}
     </button>
   </mat-dialog-actions>
