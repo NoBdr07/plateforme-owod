@@ -78,18 +78,22 @@
   </div>
 
   <div class="designers-container" *ngIf="paginatedDesigners$ | async as designers">
+
     <div class="designer" *ngFor="let designer of designers; let i = index" #designerCard
       [routerLink]="['/details', designer.id]">
-      <div class="designer-top">
-        <div class="designer-top-left">
-          <img *ngIf="designer.profilePicture" [src]="designer.profilePicture" class="photo"
-            alt="Photo de profil d'un designer" />
-          <p class="designer-name">
-            {{ designer.firstname }} {{ designer.lastname }}
-          </p>
-        </div>
 
-        <ng-container $ngIf="(isLogged$ | async) as logged">
+      <ng-container *ngIf="(isLogged$ | async) as logged">
+
+        <div class="designer-top">
+          <div class="designer-top-left">
+            <img *ngIf="designer.profilePicture" [src]="designer.profilePicture" class="photo"
+              alt="Photo de profil d'un designer" />
+            <p class="designer-name">
+              {{ designer.firstname }} {{ designer.lastname }}
+            </p>
+          </div>
+
+
           <div class="designer-widgets" [matTooltip]="!logged ? ('CATALOGUE.RESERVE' | translate) : null">
             <img src="assets/logos/calendar.svg" class="widget"
               [ngClass]="{ 'logged-in': logged, 'logged-out': !logged }"
@@ -102,22 +106,24 @@
             <img src="assets/logos/group-add.svg" class="widget"
               [ngClass]="{ 'logged-in': logged, 'logged-out': !logged }" [matTooltip]="'CATALOGUE.SOON' | translate" />
           </div>
-        </ng-container>
-      </div>
 
-      <div class="designer-middle" [matTooltip]="!logged ? ('CATALOGUE.RESERVE' | translate) : null"
-        [ngClass]="{ 'logged-in': logged, 'logged-out': !logged }">
-        <div class="middle-section" *ngIf="designer.phoneNumber" (click)="
+        </div>
+
+        <div class="designer-middle" [matTooltip]="!logged ? ('CATALOGUE.RESERVE' | translate) : null"
+          [ngClass]="{ 'logged-in': logged, 'logged-out': !logged }">
+          <div class="middle-section" *ngIf="designer.phoneNumber" (click)="
             $event.stopPropagation(); showPhoneNumber(designer.phoneNumber)
           ">
-          <p class="text-middle">{{ "CATALOGUE.APPELER" | translate }}</p>
-          <img src="assets/logos/call.svg" class="widget" />
+            <p class="text-middle">{{ "CATALOGUE.APPELER" | translate }}</p>
+            <img src="assets/logos/call.svg" class="widget" />
+          </div>
+          <div class="middle-section" (click)="$event.stopPropagation(); showEmail(designer.email)">
+            <p class="text-middle">{{ "CATALOGUE.MAIL" | translate }}</p>
+            <img src="assets/logos/mail.svg" class="widget" />
+          </div>
         </div>
-        <div class="middle-section" (click)="$event.stopPropagation(); showEmail(designer.email)">
-          <p class="text-middle">{{ "CATALOGUE.MAIL" | translate }}</p>
-          <img src="assets/logos/mail.svg" class="widget" />
-        </div>
-      </div>
+
+      </ng-container>
 
       <div class="designer-bottom">
         <div class="metier-container">

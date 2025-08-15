@@ -4,7 +4,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { DesignerService } from '../../shared/services/designer.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -18,14 +18,15 @@ import { MatButtonModule } from '@angular/material/button';
 export class DesignerDetailsComponent {
   designer!: Designer;
   previewImage: string | null = null; 
-  isLogged$: Observable<boolean>;
+  isLogged$: Observable<boolean> = this.authService.session$.pipe(
+    map(s => s.isLogged)
+  );
 
   constructor(
     private route: ActivatedRoute,
     private designerService: DesignerService,
     private authService: AuthService
   ) {
-    this.isLogged$ = this.authService.$isLogged();
   }
 
   ngOnInit(): void {

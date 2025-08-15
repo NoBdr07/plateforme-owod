@@ -1,5 +1,5 @@
 export enum AccountType {
-    DESIGNER = "Designer",
-    COMPANY = "Company",
-    NONE = "None"
+  NONE = 'NONE',
+  DESIGNER = 'DESIGNER',
+  COMPANY = 'COMPANY',
 }

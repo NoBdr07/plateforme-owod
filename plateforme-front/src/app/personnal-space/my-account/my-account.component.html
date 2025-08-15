@@ -29,7 +29,7 @@
   </div>
 
    <!-- === AUCUN COMPTE (création) === -->
-  <div *ngIf="s.accountType === 'NONE'" class="not-created">
+  <div *ngIf="s.accountType === AccountType.NONE" class="not-created">
 
     <!-- Onglets Designer / Entreprise -->
     <mat-tab-group>
@@ -114,7 +114,7 @@
   </div>
 
   <!-- === AFFICHAGES DES OPTIONS SI COMPTE DESIGNER === -->
-  <div *ngIf="s.accountType === 'DESIGNER'" class="created">
+  <div *ngIf="s.accountType === AccountType.DESIGNER" class="created">
     <button class="button" mat-raised-button routerLink="/catalogue">
       {{ "MON_COMPTE.RETOUR" | translate }}
     </button>

@@ -30,6 +30,8 @@ import { NotificationService } from '../../shared/services/notifcation.service';
 import { Designer } from '../../shared/interfaces/designer.interface';
 import { User } from '../../shared/interfaces/user.interface';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { AccountType } from '../../shared/enums/account-type.enum';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-my-account',
@@ -44,6 +46,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
     ReactiveFormsModule,
     TranslateModule,
     MatDialogModule,
+    MatTabsModule
   ],
   templateUrl: './my-account.component.html',
   styleUrl: './my-account.component.css',
@@ -52,7 +55,11 @@ export class MyAccountComponent implements OnDestroy {
   // Infos de l'utilisateur connecté 
   session$ = this.authService.session$;
 
+  // Formulaire pour création du compte designer
   accountForm: FormGroup;
+
+  // Enum des accountType pour qu'ils soient dispo dans le template
+  public AccountType = AccountType;
 
   // Enums converted to arrays
   specialties = Object.values(Specialty);
