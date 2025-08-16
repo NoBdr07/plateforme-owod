@@ -74,9 +74,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
 
-      const sub = this.authService.login(email, password).pipe(
-        switchMap(() => this.authService.refreshSession())
-      ).subscribe({
+      const sub = this.authService.login(email, password).subscribe({
         next: () => {
           this.router.navigate(['account']);
         },

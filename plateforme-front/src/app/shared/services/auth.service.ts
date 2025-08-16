@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { BehaviorSubject, catchError, map, Observable, of, startWith, switchMap, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, forkJoin, map, Observable, of, startWith, switchMap, tap, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LoginRequest } from '../interfaces/login-request.interface';
@@ -9,16 +9,17 @@ import { UserInfo } from '../interfaces/user-info.interface';
 import { SessionState } from '../interfaces/session-state.interface';
 import { AccountType } from '../enums/account-type.enum';
 import { User } from '../interfaces/user.interface';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = `${environment.apiUrl}/auth`;
-  
-  private _session$ = new BehaviorSubject<SessionState> ({
+
+  private _session$ = new BehaviorSubject<SessionState>({
     isLogged: false,
-    isAdmin : false,
+    isAdmin: false,
     userId: null,
     accountType: AccountType.NONE,
     user: null,
@@ -30,7 +31,8 @@ export class AuthService {
 
   constructor(
     private readonly http: HttpClient,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly userService: UserService
   ) {
     this.refreshSession().subscribe();
   }
@@ -39,7 +41,9 @@ export class AuthService {
    * Met à jour l'état de connexion.
    */
   refreshSession(): Observable<SessionState> {
-    return this.http.get<UserInfo>(`${this.apiUrl}/auth/me`).pipe(
+    return this.http.get<UserInfo>(`${this.apiUrl}/me`, {
+      withCredentials: true,
+    }).pipe(
       switchMap((me) => {
         const base: SessionState = {
           isLogged: true,
@@ -51,17 +55,12 @@ export class AuthService {
           companyId: null,
         };
 
-        return this.http.get<AccountType>(
-          `${this.apiUrl}/users/${me.userId}/has-account`).pipe(
-            switchMap(res => {
-              const state = {...base, accountType: res };
-              
-              return this.http.get<User>(`${this.apiUrl}/users/${me.userId}`).pipe(
-                map(user => ({...state, user})),
-                catchError(() => of(state))
-              );
-            })
-          );
+        return forkJoin({
+          accountType: this.userService.getAccountType(me.userId),
+          user: this.userService.getUser(me.userId).pipe(catchError(() => of(null))),
+        }).pipe(
+          map(({ accountType, user }) => ({ ...base, accountType, user }))
+        );
       }),
       tap((s) => this._session$.next(s)),
       catchError(err => {

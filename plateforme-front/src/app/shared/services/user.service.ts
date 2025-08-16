@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from '../interfaces/user.interface';
 import { Designer } from '../interfaces/designer.interface';
+import { AccountType } from '../enums/account-type.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -19,11 +20,11 @@ export class UserService {
   /**
    * Envoie une requete pour tester si l'utilisateur a déjà un compte designer
    */
-  hasAnAccount(userId: string): Observable<boolean> {
-    return this.http.get<boolean>(`${this.apiUrl}/${userId}/has-designer`, {
-      withCredentials: true
-    });
-  }
+  getAccountType(userId: string): Observable<AccountType> {
+  return this.http.get<AccountType>(`${this.apiUrl}/${userId}/has-account`, {
+    withCredentials: true
+  });
+}
 
   /**
    * Récupère le nom et prénom d'un utilisateur
