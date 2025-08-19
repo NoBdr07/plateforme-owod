@@ -2,10 +2,12 @@ package com.owod.plateforme_api.mappers;
 
 import com.owod.plateforme_api.models.dtos.CompanyDTO;
 import com.owod.plateforme_api.models.entities.Company;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CompanyMapper {
 
-    public static CompanyDTO toDTO(Company company) {
+    public CompanyDTO toDTO(Company company) {
         if (company == null) {
             return null;
         }
@@ -31,7 +33,7 @@ public class CompanyMapper {
         return dto;
     }
 
-    public static Company toEntity(CompanyDTO dto) {
+    public Company toEntity(CompanyDTO dto) {
         if (dto == null) {
             return null;
         }

@@ -85,22 +85,6 @@
 
         </form>
 
-
-        <div class="created">
-          <button class="button" mat-raised-button routerLink="/catalogue">
-            {{ "MON_COMPTE.RETOUR" | translate }}
-          </button>
-
-          <button class="button" mat-raised-button (click)="logOut()">
-            {{ "MON_COMPTE.DECONNECTER" | translate }}
-          </button>
-
-          <button *ngIf="authService.isAdmin" class="purple-button" mat-raised-button
-            routerLink="/account/add-designers">
-            {{ "MON_COMPTE.ADMIN" | translate }}
-          </button>
-        </div>
-
       </mat-tab>
 
       <!-- Onglet Entreprise -->
@@ -113,9 +97,20 @@
             <input matInput formControlName="raisonSociale" />
           </mat-form-field>
 
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="fill" class="logo-field">
             <mat-label>Logo</mat-label>
-            <input type="file" matInput (change)="onLogoSelected($event)" formControlName="logo" accept="image/*" />
+            <!-- input file caché -->
+            <input #logoInput type="file" accept="image/*" (change)="onLogoSelected($event)" hidden />
+
+            <!-- affichage du nom du fichier -->
+            <input matInput [value]="companyLogoName || ''" readonly />
+
+            <button mat-button type="button" (click)="logoInput.click()">Choisir un fichier</button>
+
+            <mat-error *ngIf="companyForm.get('logo')?.hasError('required')">
+              Le logo est requis.
+            </mat-error>
+
           </mat-form-field>
 
           <mat-form-field appearance="fill">
@@ -160,6 +155,20 @@
       </mat-tab>
 
     </mat-tab-group>
+
+    <div class="created">
+      <button class="button" mat-raised-button routerLink="/catalogue">
+        {{ "MON_COMPTE.RETOUR" | translate }}
+      </button>
+
+      <button class="button" mat-raised-button (click)="logOut()">
+        {{ "MON_COMPTE.DECONNECTER" | translate }}
+      </button>
+
+      <button *ngIf="authService.isAdmin" class="purple-button" mat-raised-button routerLink="/account/add-designers">
+        {{ "MON_COMPTE.ADMIN" | translate }}
+      </button>
+    </div>
   </div>
 
   <!-- === AFFICHAGES DES OPTIONS SI COMPTE DESIGNER === -->

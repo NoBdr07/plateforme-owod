@@ -34,6 +34,7 @@ import { AccountType } from '../../shared/enums/account-type.enum';
 import { MatTabsModule } from '@angular/material/tabs';
 import { TypeEntreprise } from '../../shared/enums/type-entreprise.enum';
 import { NiveauDev } from '../../shared/enums/niveau-dev.enum';
+import { CompanyService } from '../../shared/services/company.service';
 
 @Component({
   selector: 'app-my-account',
@@ -61,6 +62,9 @@ export class MyAccountComponent implements OnDestroy {
   accountForm: FormGroup;
   companyForm: FormGroup;
 
+  // Pour l'upload du logo si création de compte entreprise
+  companyLogoName: string | null = null;
+
   // Enum des accountType pour qu'ils soient dispo dans le template
   public AccountType = AccountType;
 
@@ -81,6 +85,7 @@ export class MyAccountComponent implements OnDestroy {
     private readonly userService: UserService,
     public authService: AuthService,
     private readonly designerService: DesignerService,
+    private readonly companyService: CompanyService,
     private readonly fb: FormBuilder,
     private readonly notificationService: NotificationService,
     private readonly dialog: MatDialog
@@ -124,6 +129,8 @@ export class MyAccountComponent implements OnDestroy {
         },
       });
 
+      this.subs.add(sub);
+
     } else {
       console.error('Formulaire invalide.');
     }
@@ -132,10 +139,29 @@ export class MyAccountComponent implements OnDestroy {
   onSubmitCompany(): void {
     if (this.companyForm.valid) {
       const formData = this.companyForm.value;
+      let country = formData.country;
+      formData.country = this.formatCountry(country);
+
+      // envoyer requête pour création du compte entreprise
+      const sub = this.companyService.createCompany(formData).subscribe({
+        next: () => {
+          this.notificationService.success('Compte entreprise créé avec succès.');
+          this.subs.add(this.authService.refreshSession().subscribe());
+        },
+        error: (err) => {
+          console.error('Erreur lors de la cr"ation du compte entreprise : ', err);
+        }
+      })
 
     }
   }
 
+  /**
+   * Formattage des pays
+   * 
+   * @param country 
+   * @returns 
+   */
   formatCountry(country: String): String {
     if (country !== 'USA') {
       country = country.charAt(0).toUpperCase() + country.slice(1).toLowerCase();
@@ -143,12 +169,18 @@ export class MyAccountComponent implements OnDestroy {
     return country;
   }
 
+  /**
+   * Relie le fichier image du logo au form de création d'entreprise
+   * 
+   * @param event qui contient le fichier uploadé
+   */
   onLogoSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       this.companyForm.get('logo')?.setValue(file);
       this.companyForm.get('logo')?.updateValueAndValidity();
+      this.companyLogoName = file.name;
     }
   }
 

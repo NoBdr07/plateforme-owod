@@ -150,7 +150,7 @@
   "MON_COMPTE": {
     "BONJOUR": "Hello",
     "BIENVENUE": "Welcome to your space!",
-    "INFO_1": "You haven't created your designer profile yet.",
+    "INFO_1": "You haven't created your designer or company profile yet.",
     "INFO_2": "To create it, fill in the minimal information below.",
     "INFO_3": "You can then edit or complete your profile by accessing your dashboard.",
     "CREER_DESIGNER": "Create designer",

@@ -86,6 +86,10 @@ h2 {
   padding: 24px 0; 
 }
 
+::ng-deep .logo-field .mdc-button__label {
+  color: black;
+}
+
 /* STYLE SI DESIGNER CREE */
 
 .created {
