@@ -76,6 +76,16 @@ h2 {
   line-height: 25px;
 }
 
+/* STYLE DU MAT TAB */
+
+::ng-deep .mdc-tab__text-label {
+  color: black !important;
+}
+
+.form {
+  padding: 24px 0; 
+}
+
 /* STYLE SI DESIGNER CREE */
 
 .created {

@@ -1,6 +1,6 @@
 <div class="global-container" *ngIf="(authService.session$ | async ) as s">
 
-   <!-- === HEADER === -->
+  <!-- === HEADER === -->
   <div class="top-container">
     <div class="text-container">
       <div class="top-left-container">
@@ -12,7 +12,7 @@
       <div class="top-right-container">
         <h2>{{ "MON_COMPTE.BIENVENUE" | translate }}</h2>
 
-        <ng-container *ngIf="s.accountType !== AccountType.NONE; else noAccountTexts " >
+        <ng-container *ngIf="s.accountType !== AccountType.NONE; else noAccountTexts ">
           <p class="small">{{ "MON_COMPTE.CREATED_1" | translate }}</p>
           <p class="small">{{ "MON_COMPTE.CREATED_2" | translate }}</p>
         </ng-container>
@@ -28,87 +28,136 @@
     <img src="assets/images/back-dark.png" class="background" />
   </div>
 
-   <!-- === AUCUN COMPTE (création) === -->
+  <!-- === AUCUN COMPTE (création) === -->
   <div *ngIf="s.accountType === AccountType.NONE" class="not-created">
 
     <!-- Onglets Designer / Entreprise -->
     <mat-tab-group>
 
-    <!-- Onglet Designer -->
-     <mat-tab label="Créer un compte professionnel">
+      <!-- Onglet Designer -->
+      <mat-tab label="Créer un compte professionnel">
 
-    <form class="form" [formGroup]="accountForm" (ngSubmit)="onSubmitDesigner()">
-      <mat-form-field appearance="fill">
-        <mat-label>{{ "DASHBOARD.PROFESSION" | translate }}</mat-label>
-        <mat-select formControlName="profession">
-          <mat-option *ngFor="let job of jobs" [value]="job">
-            {{ job }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <form class="form" [formGroup]="accountForm" (ngSubmit)="onSubmitDesigner()">
+          <mat-form-field appearance="fill">
+            <mat-label>{{ "DASHBOARD.PROFESSION" | translate }}</mat-label>
+            <mat-select formControlName="profession">
+              <mat-option *ngFor="let job of jobs" [value]="job">
+                {{ job }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>{{ "DASHBOARD.SPECIALITE" | translate }}</mat-label>
-        <mat-select formControlName="specialties" multiple>
-          <mat-option *ngFor="let specialty of specialties" [value]="specialty">
-            {{ specialty }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>{{ "DASHBOARD.SPECIALITE" | translate }}</mat-label>
+            <mat-select formControlName="specialties" multiple>
+              <mat-option *ngFor="let specialty of specialties" [value]="specialty">
+                {{ specialty }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>{{ "DASHBOARD.SPHERE" | translate }}</mat-label>
-        <mat-select formControlName="spheresOfInfluence" multiple>
-          <mat-option
-            *ngFor="let sphere of spheresOfInfluence"
-            [value]="sphere"
-          >
-            {{ sphere }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>{{ "DASHBOARD.SPHERE" | translate }}</mat-label>
+            <mat-select formControlName="spheresOfInfluence" multiple>
+              <mat-option *ngFor="let sphere of spheresOfInfluence" [value]="sphere">
+                {{ sphere }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>{{ "DASHBOARD.SECTEUR" | translate }}</mat-label>
-        <mat-select formControlName="favoriteSectors" multiple>
-          <mat-option *ngFor="let sector of favoriteSectors" [value]="sector">
-            {{ sector }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>{{ "DASHBOARD.SECTEUR" | translate }}</mat-label>
+            <mat-select formControlName="favoriteSectors" multiple>
+              <mat-option *ngFor="let sector of favoriteSectors" [value]="sector">
+                {{ sector }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>{{ "MON_COMPTE.PAYS" | translate }}</mat-label>
-        <input matInput formControlName="countryOfResidence" />
-      </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>{{ "MON_COMPTE.PAYS" | translate }}</mat-label>
+            <input matInput formControlName="countryOfResidence" />
+          </mat-form-field>
 
-      <button mat-raised-button color="primary" type="submit">
-        {{ "MON_COMPTE.CREER_DESIGNER" | translate }}
-      </button>
+          <button mat-raised-button color="primary" type="submit">
+            {{ "MON_COMPTE.CREER_DESIGNER" | translate }}
+          </button>
 
-    </form>
+        </form>
 
-    
-    <div class="created">
-      <button class="button" mat-raised-button routerLink="/catalogue">
-        {{ "MON_COMPTE.RETOUR" | translate }}
-      </button>
 
-      <button class="button" mat-raised-button (click)="logOut()">
-        {{ "MON_COMPTE.DECONNECTER" | translate }}
-      </button>
+        <div class="created">
+          <button class="button" mat-raised-button routerLink="/catalogue">
+            {{ "MON_COMPTE.RETOUR" | translate }}
+          </button>
 
-      <button *ngIf="authService.isAdmin" class="purple-button" mat-raised-button routerLink="/account/add-designers">
-        {{ "MON_COMPTE.ADMIN" | translate }}
-      </button>
-    </div>
+          <button class="button" mat-raised-button (click)="logOut()">
+            {{ "MON_COMPTE.DECONNECTER" | translate }}
+          </button>
 
-    </mat-tab>
+          <button *ngIf="authService.isAdmin" class="purple-button" mat-raised-button
+            routerLink="/account/add-designers">
+            {{ "MON_COMPTE.ADMIN" | translate }}
+          </button>
+        </div>
 
-    <!-- Onglet Entreprise -->
-     <mat-tab label="Créer un compte entreprise">
+      </mat-tab>
 
-     </mat-tab>
+      <!-- Onglet Entreprise -->
+      <mat-tab label="Créer un compte entreprise">
+
+        <form class="form" [formGroup]="companyForm" (ngSubmit)="onSubmitCompany()">
+
+          <mat-form-field appearance="fill">
+            <mat-label>Raison sociale</mat-label>
+            <input matInput formControlName="raisonSociale" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Logo</mat-label>
+            <input type="file" matInput (change)="onLogoSelected($event)" formControlName="logo" accept="image/*" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>{{ "DASHBOARD.SECTEUR" | translate }}</mat-label>
+            <mat-select formControlName="sectors" multiple>
+              <mat-option *ngFor="let sector of favoriteSectors" [value]="sector">
+                {{ sector }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Type d'entreprise</mat-label>
+            <mat-select formControlName="type">
+              <mat-option *ngFor="let type of companyTypes" [value]="type">
+                {{ type }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>{{ "MON_COMPTE.PAYS" | translate }}</mat-label>
+            <input matInput formControlName="country" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>{{ "MON_COMPTE.VILLE" | translate }}</mat-label>
+            <input matInput formControlName="city" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Site internet</mat-label>
+            <input matInput formControlName="siteWeb" />
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" type="submit">
+            {{ "MON_COMPTE.CREER_ENTREPRISE" | translate }}
+          </button>
+
+        </form>
+
+      </mat-tab>
 
     </mat-tab-group>
   </div>

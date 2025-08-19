@@ -32,6 +32,8 @@ import { User } from '../../shared/interfaces/user.interface';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AccountType } from '../../shared/enums/account-type.enum';
 import { MatTabsModule } from '@angular/material/tabs';
+import { TypeEntreprise } from '../../shared/enums/type-entreprise.enum';
+import { NiveauDev } from '../../shared/enums/niveau-dev.enum';
 
 @Component({
   selector: 'app-my-account',
@@ -55,8 +57,9 @@ export class MyAccountComponent implements OnDestroy {
   // Infos de l'utilisateur connecté 
   session$ = this.authService.session$;
 
-  // Formulaire pour création du compte designer
+  // Formulaire pour création du compte designer ou entreprise
   accountForm: FormGroup;
+  companyForm: FormGroup;
 
   // Enum des accountType pour qu'ils soient dispo dans le template
   public AccountType = AccountType;
@@ -66,6 +69,7 @@ export class MyAccountComponent implements OnDestroy {
   spheresOfInfluence = Object.values(SphereOfInfluence);
   favoriteSectors = Object.values(FavoriteSector);
   jobs = Object.values(Job);
+  companyTypes = Object.values(TypeEntreprise);
 
   // Dialog pour la suppresion de profil
   @ViewChild('confirmSuppressTemplate')
@@ -88,17 +92,24 @@ export class MyAccountComponent implements OnDestroy {
       favoriteSectors: [[], Validators.required],
       countryOfResidence: ['', Validators.required],
     });
+
+    this.companyForm = this.fb.group({
+      logo: ['', Validators.required],
+      raisonSociale: ['', Validators.required],
+      sectors: [[], Validators.required],
+      type: ['', Validators.required],
+      country: ['', Validators.required],
+      city: ['', Validators.required],
+      siteWeb: ['']
+    })
   }
 
   onSubmitDesigner(): void {
     if (this.accountForm.valid) {
       const formData = this.accountForm.value;
       let country = formData.countryOfResidence;
-      if (country !== 'USA') {
-        country =
-          country.charAt(0).toUpperCase() + country.slice(1).toLowerCase();
-        formData.countryOfResidence = country;
-      }
+      formData.countryOfResidence = this.formatCountry(country);
+
 
       // Envoyer la requête pour créer le designer
       const sub = this.designerService.createDesigner(formData).subscribe({
@@ -119,7 +130,26 @@ export class MyAccountComponent implements OnDestroy {
   }
 
   onSubmitCompany(): void {
+    if (this.companyForm.valid) {
+      const formData = this.companyForm.value;
 
+    }
+  }
+
+  formatCountry(country: String): String {
+    if (country !== 'USA') {
+      country = country.charAt(0).toUpperCase() + country.slice(1).toLowerCase();
+    }
+    return country;
+  }
+
+  onLogoSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.companyForm.get('logo')?.setValue(file);
+      this.companyForm.get('logo')?.updateValueAndValidity();
+    }
   }
 
   /**

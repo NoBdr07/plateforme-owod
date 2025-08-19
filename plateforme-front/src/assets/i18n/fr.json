@@ -154,6 +154,7 @@
     "INFO_2": "Pour le creer, remplissez les informations minimales ci-dessous.",
     "INFO_3": "Vous pourrez ensuite modifier ou compléter votre profil en ayant accès à votre dashboard.",
     "CREER_DESIGNER": "Créer le designer",
+    "CREER_ENTREPRISE": "Créer le compte entreprise",
     "CONFIGURER": "Configurer votre profil",
     "DECONNECTER": "Se déconnecter",
     "RETOUR": "Retour à l'annuaire",
@@ -166,6 +167,7 @@
     "CREATED_2": "Vous pouvez le compléter ou le modifier dans \"configurer le profil\".",
     "CALENDRIER": "Gérer mon calendrier",
     "PAYS": "Pays de résidence",
+    "VILLE": "Ville",
     "ADMIN": "ADMIN - Gérer les designers"
   },
   "CONTACTS": {
