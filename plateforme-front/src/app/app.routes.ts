@@ -76,6 +76,14 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     {
+        path: 'dashboard-company',
+        loadComponent: () =>
+            import(
+              './personnal-space/dashboard-company/dashboard-company.component'
+            ).then((c) => c.DashboardCompanyComponent),
+        canActivate: [authGuard]
+    },
+    {
         path: 'reset-password',
         loadComponent: () => 
             import(

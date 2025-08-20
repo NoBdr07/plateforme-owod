@@ -17,7 +17,7 @@ public class Company {
     private String raisonSociale;
     private String siretNumber;
     private String phoneNumber;
-    private String sector;
+    private List<String> sectors;
     private String stage;
     private String type;
     private String revenue;
@@ -25,7 +25,7 @@ public class Company {
     private String city;
     private String logoUrl;
     private String websiteUrl;
-    private List<String> photosUrl;
+    private String teamPhotoUrl;
     private List<String> worksUrl;
     private List<String> employeesId;
     private boolean financialSupport;
@@ -78,12 +78,12 @@ public class Company {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getSector() {
-        return sector;
+    public List<String> getSectors() {
+        return sectors;
     }
 
-    public void setSector(String sector) {
-        this.sector = sector;
+    public void setSectors(List<String> sectors) {
+        this.sectors = sectors;
     }
 
     public String getStage() {
@@ -142,12 +142,12 @@ public class Company {
         this.websiteUrl = websiteUrl;
     }
 
-    public List<String> getPhotosUrl() {
-        return photosUrl;
+    public String getTeamPhotoUrl() {
+        return teamPhotoUrl;
     }
 
-    public void setPhotosUrl(List<String> photosUrl) {
-        this.photosUrl = photosUrl;
+    public void setTeamPhotoUrl(String teamPhotoUrl) {
+        this.teamPhotoUrl = teamPhotoUrl;
     }
 
     public List<String> getWorksUrl() {

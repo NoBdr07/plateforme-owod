@@ -82,7 +82,10 @@
     "SPHERE": "Spheres of influence",
     "SECTEUR": "Favorite sectors",
     "NIVEAU": "Professional level",
-    "SAUVEGARDER": "Save"
+    "SAUVEGARDER": "Save",
+    "ENTREPRISE": {
+      
+    }
   },
   "GESTION_CAL": {
     "H1": "Availability Management",
@@ -158,6 +161,7 @@
     "DECONNECTER": "Log out",
     "RETOUR": "Back to directory",
     "SUPPRIMER": "Delete your designer profile",
+    "SUPPRIMER2": "Delete your company profile",
     "CONFIRME": "Are you sure that you want to delete your designer profile? This action cannot be undone.",
     "CONFIRME_OUI": "Delete",
     "CONFIRME_NON": "Cancel",

@@ -1,15 +1,27 @@
 <div class="photo-section">
-      <img class="background" src="assets/images/back.png" alt="logo de l'association internationale pour le design en Afrique"/>
-      <img
-        [src]="photoUrl"
-        alt="Photo de profil"
-        class="photo de profil du designer"
-      />
-      <button
-        mat-raised-button
-        class="photo-button"
-        (click)="edit.emit()"
-      >
-        {{ "DASHBOARD.CHANGE_PHOTO" | translate }}
-      </button>
-    </div>
+  <img class="background" [src]="backgroundSrc" alt="background" />
+  <img [src]="photoUrl" [alt]="altText" class="photo" />
+
+  <!-- input file caché -->
+  <input
+    #fileInput
+    type="file"
+    [accept]="accept"
+    (change)="onFileSelected($event)"
+    hidden
+  />
+
+  <button
+    mat-raised-button
+    class="photo-button"
+    type="button"
+    (click)="fileInput.click()"
+  >
+    <!-- libellé projeté par le parent (optionnel) -->
+    <ng-content select="[photo-action-label]"></ng-content>
+    <!-- fallback si rien n'est projeté -->
+    <span *ngIf="!hasProjectedLabel">{{ defaultLabelKey | translate }}</span>
+  </button>
+
+  <small *ngIf="errorMsg" class="error">{{ errorMsg }}</small>
+</div>

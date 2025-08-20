@@ -81,7 +81,10 @@
     "SPHERE": "Sphères d'influence",
     "SECTEUR": "Secteurs favoris",
     "NIVEAU": "Niveau professionnel",
-    "SAUVEGARDER": "Sauvegarder"
+    "SAUVEGARDER": "Sauvegarder",
+    "ENTREPRISE": {
+      
+    }
   },
   "GESTION_CAL": {
     "H1": "Gestion de mes disponibilités",
@@ -159,6 +162,7 @@
     "DECONNECTER": "Se déconnecter",
     "RETOUR": "Retour à l'annuaire",
     "SUPPRIMER": "Supprimer votre profil designer",
+    "SUPPRIMER2": "Supprimer votre profil entreprise",
     "CONFIRME": "Êtes-vous certain de vouloir supprimer votre profil designer ? Cette action est irréversible",
     "CONFIRME_OUI": "Supprimer",
     "CONFIRME_NON": "Annuler",

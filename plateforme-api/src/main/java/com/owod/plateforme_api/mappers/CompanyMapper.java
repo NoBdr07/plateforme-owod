@@ -20,14 +20,14 @@ public class CompanyMapper {
         dto.setRaisonSociale(company.getRaisonSociale());
         dto.setSiretNumber(company.getSiretNumber());
         dto.setPhoneNumber(company.getPhoneNumber());
-        dto.setSector(company.getSector());
+        dto.setSectors(company.getSectors());
         dto.setStage(company.getStage());
         dto.setType(company.getType());
         dto.setCountry(company.getCountry());
         dto.setCity(company.getCity());
         dto.setLogoUrl(company.getLogoUrl());
         dto.setWebsiteUrl(company.getWebsiteUrl());
-        dto.setPhotosUrl(company.getPhotosUrl());
+        dto.setTeamPhotoUrl(company.getTeamPhotoUrl());
         dto.setWorksUrl(company.getWorksUrl());
         dto.setEmployeesId(company.getEmployeesId());
         return dto;
@@ -46,14 +46,14 @@ public class CompanyMapper {
         company.setRaisonSociale(dto.getRaisonSociale());
         company.setSiretNumber(dto.getSiretNumber());
         company.setPhoneNumber(dto.getPhoneNumber());
-        company.setSector(dto.getSector());
+        company.setSectors(dto.getSectors());
         company.setStage(dto.getStage());
         company.setType(dto.getType());
         company.setCountry(dto.getCountry());
         company.setCity(dto.getCity());
         company.setLogoUrl(dto.getLogoUrl());
         company.setWebsiteUrl(dto.getWebsiteUrl());
-        company.setPhotosUrl(dto.getPhotosUrl());
+        company.setTeamPhotoUrl(dto.getTeamPhotoUrl());
         company.setWorksUrl(dto.getWorksUrl());
         company.setEmployeesId(dto.getEmployeesId());
 

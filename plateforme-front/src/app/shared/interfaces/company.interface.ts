@@ -15,7 +15,9 @@ export interface Company {
   logoUrl?: string | null;
   websiteUrl?: string | null;
 
-  photosUrl?: string[] | null;
+  teamPhotoUrl?: string | null;
   worksUrl?: string[] | null;
   employeesId?: string[] | null;
+
+  financialSupport?: boolean | false;
 }

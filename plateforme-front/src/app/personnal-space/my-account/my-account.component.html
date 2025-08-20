@@ -208,16 +208,16 @@
       {{ "MON_COMPTE.RETOUR" | translate }}
     </button>
 
-    <button class="button" mat-raised-button routerLink="/dashboard">
+    <button class="button" mat-raised-button routerLink="/dashboard-company">
       {{ "MON_COMPTE.CONFIGURER" | translate }}
     </button>
 
-    <button class="button" mat-raised-button routerLink="/account/teams">
-      Gérer mes équipes
+    <button class="button" mat-raised-button routerLink="/account/teams" disabled>
+      Gérer mes équipes (à venir)
     </button>
 
-    <button class="button" mat-raised-button routerLink="/account/gestion-historique">
-      Gérer historique
+    <button class="button" mat-raised-button routerLink="/account/gestion-historique" disabled>
+      Gérer historique (à venir)
     </button>
 
     <button class="button" mat-raised-button (click)="logOut()">
@@ -225,7 +225,7 @@
     </button>
 
     <button class="red-button" mat-raised-button (click)="openSuppressDialog()">
-      {{ "MON_COMPTE.SUPPRIMER" | translate }}
+      {{ "MON_COMPTE.SUPPRIMER2" | translate }}
     </button>
   </div>
 </div>
