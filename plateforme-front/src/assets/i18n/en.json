@@ -125,6 +125,25 @@
     "NOT_LOGGED": "Information reserved for AIPDA members.",
     "MEMBRE": "Join now !"
   },
+  "COMPANY": {
+    "INFO_IDENTITE": "Company identity",
+    "NOM": "Name",
+    "RAISON_SOCIALE": "Legal name",
+    "SIRET": "SIRET number",
+
+    "COORDONNEES": "Contact details",
+    "TELEPHONE": "Phone number",
+    "PAYS": "Country",
+    "VILLE": "City",
+    "SITE_WEB": "Website",
+
+    "INFO_PRO": "Professional information",
+    "DESCRIPTION": "Description",
+    "TYPE": "Company type",
+    "SECTEURS": "Business sectors",
+    "STAGE": "Development stage",
+    "CA": "Revenue"
+  },
   "LOGIN": {
     "TITRE": "Login",
     "BIENVENUE": "Welcome ! Enter your information to access your member area.",

@@ -14,7 +14,6 @@ import { Job } from '../../shared/enums/job.enum';
 import { FavoriteSector } from '../../shared/enums/favorite-sector.enum';
 import { SphereOfInfluence } from '../../shared/enums/sphere-of-influence.enum';
 import { Specialty } from '../../shared/enums/specialty.enum';
-import { PhotoDialogComponent } from '../../shared/dialogs/photo-dialog/photo-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { PhotoSectionComponent } from '../../shared/components/photo-section/photo-section.component';
@@ -156,32 +155,22 @@ export class DashboardComponent {
   }
 
   /**
-   * Ouverture du dialog pour le chargement de la photo de profil
+   * Upload de la photo de profil
    */
-  openPhotoDialog(): void {
-    const dialogRef = this.dialog.open(PhotoDialogComponent, {
-      width: '80%',
-      data: { picture: null },
-    });
+  onPictureSelected(file: File): void {
+    const maxSizeMB = 3;
+    if (file.size > maxSizeMB * 1024 * 1024) {
+      alert(`Le fichier est trop volumineux. Taille maximale : ${maxSizeMB} Mo.`);
+      return;
+    }
 
-    dialogRef.afterClosed().subscribe((file: File) => {
-      if (file) {
-        // Mettre à jour la photo de profil avec le fichier sélectionné
-        this.designerService
-          .updateDesignerPicture(this.designerId, file)
-          .subscribe({
-            next: (response) => {
-              this.designerForm.patchValue({
-                profilePicture: response.profilePicture,
-              }); 
-            },
-            error: () => {
-              alert(
-                'Une erreur est survenue lors de la mise à jour de la photo.'
-              );
-            },
-          });
-      }
+    this.designerService.updateDesignerPicture(this.designerId, file).subscribe({
+      next: (response) => {
+        this.designerForm.patchValue({ profilePicture: response.profilePicture });
+      },
+      error: () => {
+        alert('Une erreur est survenue lors de la mise à jour de la photo.');
+      },
     });
   }
 

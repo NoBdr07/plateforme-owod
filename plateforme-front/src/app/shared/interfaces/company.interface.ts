@@ -7,11 +7,12 @@ export interface Company {
   raisonSociale?: string | null;
   siretNumber?: string | null;
   phoneNumber?: string | null;
-  sector?: string | null;
+  sectors?: string[] | null;
   stage?: string | null;
   type?: string | null;
   country?: string | null;
   city?: string | null;
+  revenue?: string | null;
   logoUrl?: string | null;
   websiteUrl?: string | null;
 

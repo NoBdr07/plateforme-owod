@@ -1,0 +1,95 @@
+<div class="form-section">
+  <form [formGroup]="form" (ngSubmit)="formSubmit.emit()">
+    <!-- Identité entreprise -->
+    <p class="group-title">{{ "COMPANY.INFO_IDENTITE" | translate }}</p>
+    <div class="underline"></div>
+    <div class="form-group">
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "COMPANY.RAISON_SOCIALE" | translate }}</mat-label>
+        <input matInput formControlName="raisonSociale" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "COMPANY.SIRET" | translate }}</mat-label>
+        <input matInput formControlName="siretNumber" />
+      </mat-form-field>
+    </div>
+
+    <!-- Coordonnées -->
+    <p class="group-title">{{ "COMPANY.COORDONNEES" | translate }}</p>
+    <div class="underline"></div>
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "COMPANY.TELEPHONE" | translate }}</mat-label>
+        <input matInput formControlName="phoneNumber" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "COMPANY.PAYS" | translate }}</mat-label>
+        <input matInput formControlName="country" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "COMPANY.VILLE" | translate }}</mat-label>
+        <input matInput formControlName="city" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "COMPANY.SITE_WEB" | translate }}</mat-label>
+        <input matInput formControlName="websiteUrl" />
+      </mat-form-field>
+    </div>
+
+    <!-- Profil & activité -->
+    <p class="group-title">{{ "COMPANY.INFO_PRO" | translate }}</p>
+    <div class="underline"></div>
+    <div class="form-group">
+      <mat-form-field appearance="fill" class="full">
+        <mat-label>{{ "COMPANY.DESCRIPTION" | translate }}</mat-label>
+        <textarea matInput formControlName="description" rows="5"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "COMPANY.TYPE" | translate }}</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let t of companyTypes" [value]="t">
+            {{ t }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "COMPANY.SECTEURS" | translate }}</mat-label>
+        <mat-select formControlName="sectors" multiple>
+          <mat-option *ngFor="let s of favoriteSectors" [value]="s">
+            {{ s }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "COMPANY.STAGE" | translate }}</mat-label>
+        <mat-select formControlName="stage">
+          <mat-option *ngFor="let st of stages" [value]="st">
+            {{ st }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{ "COMPANY.CA" | translate }}</mat-label>
+        <input matInput formControlName="revenue" />
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button type="submit">
+      {{ "DASHBOARD.SAUVEGARDER" | translate }}
+    </button>
+  </form>
+</div>

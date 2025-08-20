@@ -1,0 +1,23 @@
+<div class="arrow-container" routerLink="/account">
+    <img src="/assets/logos/arrow-back.png" alt="retour" />
+    <p>{{ "DASHBOARD.BACK" | translate }}</p>
+</div>
+
+<div class="dashboard-container" [formGroup]="companyForm">
+    <div class="left-container">
+        <app-photo-section [photoUrl]="companyForm.get('logoUrl')?.value" altText="Logo de l'entreprise" (fileSelected)="onLogoSelected($event)">
+            <span #projectedLabel photo-action-label>Modifier votre logo</span>
+        </app-photo-section>
+
+        <app-photo-section [photoUrl]="companyForm.get('teamPhotoUrl')?.value" altText="Photo d'équipe" (fileSelected)="onTeamPictureSelected($event)">
+            <span #projectedLabel photo-action-label>Ajouter ou modifier votre photo d'équipe</span>
+        </app-photo-section>
+
+        <app-major-works-section [images]="companyForm.get('worksUrl')?.value || []" (remove)="deleteWork($event)"
+            (addFiles)="onRealisationSelected($event)" (add)="updateWorks()">
+        </app-major-works-section>
+    </div>
+
+    <app-company-form-section [form]="companyForm" (formSubmit)="onSubmit()">
+    </app-company-form-section>
+</div>

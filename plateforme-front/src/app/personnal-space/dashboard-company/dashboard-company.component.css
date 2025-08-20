@@ -1,0 +1,92 @@
+/** GLOBAL **/
+
+.dashboard-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 200px;
+  gap: 100px;
+  margin: 100px;
+}
+
+.arrow-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin: 50px;
+  font-size: 20px;
+  align-items: center;
+}
+
+.arrow-container p {
+  margin: 0;
+}
+
+.arrow-container:hover {
+  cursor: pointer;
+}
+
+/** SECTION DE GAUCHE **/
+
+.left-container {
+  display: flex;
+  flex-direction: column;
+  gap: 200px;
+}
+
+::ng-deep .mdc-text-field {
+  border: none !important;
+  border-radius: 8px;
+}
+
+::ng-deep mat-label {
+  color: #0f132c66 !important;
+}
+
+/* STYLES POUR MOBILE */
+
+@media screen and (max-width: 768px) {
+  /* GLOBAL */
+  .dashboard-container {
+    flex-direction: column;
+    margin-top: 80px;
+    padding: 16px;
+    gap: 32px;
+  }
+
+  /* SECTION DE GAUCHE */
+  .left-container {
+    gap: 32px;
+    width: 100%;
+  }
+
+  /* Ajustement des champs de formulaire */
+  .form-group mat-form-field {
+    width: 100%;
+  }
+
+  /* Ajustement des boutons */
+  button[mat-raised-button] {
+    width: 100%;
+  }
+
+  /* Ajustement des select multiples */
+  ::ng-deep .mat-mdc-select-panel {
+    max-width: 100vw !important;
+    max-height: 50vh !important;
+  }
+}
+
+/* Media Query pour les très petits écrans */
+@media screen and (max-width: 320px) {
+  .background,
+  .photo {
+    width: 240px;
+    height: 240px;
+  }
+
+  .realisations-section,
+  .form-section {
+    padding: 16px;
+  }
+}
