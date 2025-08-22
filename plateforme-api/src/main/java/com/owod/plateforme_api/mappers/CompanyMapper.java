@@ -14,7 +14,6 @@ public class CompanyMapper {
 
         CompanyDTO dto = new CompanyDTO();
         dto.setId(company.getId());
-        dto.setName(company.getName());
         dto.setDescription(company.getDescription());
         dto.setEmail(company.getEmail());
         dto.setRaisonSociale(company.getRaisonSociale());
@@ -40,7 +39,6 @@ public class CompanyMapper {
 
         Company company = new Company();
         company.setId(dto.getId());
-        company.setName(dto.getName());
         company.setDescription(dto.getDescription());
         company.setEmail(dto.getEmail());
         company.setRaisonSociale(dto.getRaisonSociale());

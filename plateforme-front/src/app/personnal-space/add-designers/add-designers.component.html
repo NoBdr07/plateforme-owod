@@ -127,7 +127,7 @@
         <div class="images-section">
           <app-photo-section
             [photoUrl]="getProfilePicture()"
-            (edit)="openPhotoDialog()"
+            (fileSelected)="onPictureSelected($event)"
           >
           </app-photo-section>
 

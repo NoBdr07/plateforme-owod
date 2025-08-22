@@ -11,7 +11,6 @@ public class Company {
     @Id
     private String id;
 
-    private String name;
     private String description;
     private String email;
     private String raisonSociale;
@@ -28,7 +27,7 @@ public class Company {
     private String teamPhotoUrl;
     private List<String> worksUrl;
     private List<String> employeesId;
-    private boolean financialSupport;
+    private Boolean financialSupport;
 
     public String getId() {
         return id;
@@ -36,14 +35,6 @@ public class Company {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getDescription() {
@@ -166,10 +157,6 @@ public class Company {
         this.employeesId = employeesId;
     }
 
-    public boolean isFinancialSupport() {
-        return financialSupport;
-    }
-
     public String getSiretNumber() {
         return siretNumber;
     }
@@ -178,7 +165,11 @@ public class Company {
         this.siretNumber = siretNumber;
     }
 
-    public void setFinancialSupport(boolean financialSupport) {
+    public Boolean getFinancialSupport() {
+        return financialSupport;
+    }
+
+    public void setFinancialSupport(Boolean financialSupport) {
         this.financialSupport = financialSupport;
     }
 }

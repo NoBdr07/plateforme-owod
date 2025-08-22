@@ -2,19 +2,22 @@ package com.owod.plateforme_api.controllers;
 
 import com.owod.plateforme_api.models.dtos.CompanyDTO;
 import com.owod.plateforme_api.models.entities.Company;
+import com.owod.plateforme_api.models.entities.Designer;
 import com.owod.plateforme_api.models.entities.User;
 import com.owod.plateforme_api.services.CompanyService;
 import com.owod.plateforme_api.services.ImageStorageService;
 import com.owod.plateforme_api.services.UserService;
-import org.apache.coyote.Response;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * CompanyController is responsible for handling HTTP requests related to company entities.
@@ -27,8 +30,6 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
-    @Autowired(required = false)
-    private ImageStorageService imageStorageService;
     @Autowired
     private UserService userService;
 
@@ -41,12 +42,63 @@ public class CompanyController {
     @GetMapping("/all")
     public ResponseEntity<List<CompanyDTO>> getAllDto() {
         List<CompanyDTO> companies = companyService.getAllDto();
-
-        if (companies.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
         return ResponseEntity.ok(companies);
+
+    }
+
+    /**
+     * Get one company by its id,
+     * public endpoint that retrieve only non confidential data
+     *
+     * @param id of the company to retrieve
+     * @return http 200 if ok.
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<CompanyDTO> getById(@PathVariable String id) {
+        return ResponseEntity.ok(companyService.getDtoById(id));
+    }
+
+    /**
+     * Retrieves a company associated with a given user ID.
+     * If the user or associated company is not found, returns an appropriate HTTP status.
+     *
+     * @param userId the unique identifier of the user whose associated company is to be retrieved
+     * @return a ResponseEntity containing the company if found (HTTP 200),
+     *         an error message with HTTP 404 if the user or company is not found
+     *         or an error message if no company is linked to the user
+     */
+    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwnerByUserId(#userId, authentication.principal)")
+    @GetMapping("/by-user/{userId}")
+    public ResponseEntity<?> getByUserId(@PathVariable String userId) {
+        Optional<User> optionalUser = userService.findByUserId(userId);
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+        User user = optionalUser.get();
+        if (user.getCompanyId() == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No company account associated with this user.");
+        }
+        Optional<Company> optionalCompany = companyService.getById(user.getCompanyId());
+        if (optionalCompany.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Company not found.");
+        }
+        return ResponseEntity.ok(optionalCompany.get());
+    }
+
+    /**
+     * Get one company by its id,
+     * private endpoint that retrieve all company info including confidential ones.
+     * Only for admin or user linked to this company.
+     *
+     * @param id of the company to retrieve
+     * @return http 200 if ok, 404 if the company isn't found.
+     */
+    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwner(#id, authentication.principal)")
+    @GetMapping("/{id}/full")
+    public ResponseEntity<Company> getFullById(@PathVariable String id) {
+        Company company = companyService.getById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return ResponseEntity.ok(company);
     }
 
     /**
@@ -79,5 +131,84 @@ public class CompanyController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Error creating company: " + e.getMessage());
         }
+    }
+
+    /**
+     * Update any fields of one company, expects files, team and history.
+     *
+     * @param id of company to update.
+     * @param patch contains all data.
+     * @return the new company updated and saved.
+     */
+    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwner(#id, authentication.principal)")
+    @PatchMapping("/{id}")
+    public ResponseEntity<Company> updateFields(@PathVariable String id,
+                                                   @RequestBody Company patch) {
+        Company updated = companyService.updateFields(id, patch);
+        return ResponseEntity.ok(updated);
+    }
+
+    /**
+     * Uploads and updates the logo of a company.
+     * This operation is restricted to users with the ADMIN role or users who own the specified company.
+     *
+     * @param id the unique identifier of the company whose logo is being updated
+     * @param file the MultipartFile containing the logo to be uploaded
+     * @return a ResponseEntity containing the updated Company object
+     */
+    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwner(#id, authentication.principal)")
+    @PostMapping(path = "/{id}/logo", consumes = "multipart/form-data")
+    public ResponseEntity<Company> uploadLogo(@PathVariable String id,
+                                                 @RequestPart("file") MultipartFile file) {
+        Company updated = companyService.updateLogo(id, file);
+        return ResponseEntity.ok(updated);
+    }
+
+    /**
+     * Uploads and updates the team photo of a company.
+     * This operation is restricted to users with the ADMIN role or users who own the specified company.
+     *
+     * @param id the unique identifier of the company whose team photo is being updated
+     * @param file the MultipartFile containing the team photo to be uploaded
+     * @return a ResponseEntity containing the updated Company object
+     */
+    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwner(#id, authentication.principal)")
+    @PostMapping(path = "/{id}/team-photo", consumes = "multipart/form-data")
+    public ResponseEntity<Company> uploadTeamPhoto(@PathVariable String id,
+                                                      @RequestPart("file") MultipartFile file) {
+        Company updated = companyService.updateTeamPhoto(id, file);
+        return ResponseEntity.ok(updated);
+    }
+
+    /**
+     * Adds new works (files) to the specified company.
+     * This operation is restricted to users with the ADMIN role or users who own the specified company.
+     *
+     * @param id the unique identifier of the company to which the works will be added
+     * @param files a list of MultipartFile objects representing the works to be uploaded
+     * @return a ResponseEntity containing the updated Company object after the works have been added
+     */
+    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwner(#id, authentication.principal)")
+    @PostMapping(path = "/{id}/works", consumes = "multipart/form-data")
+    public ResponseEntity<Company> addWorks(@PathVariable String id,
+                                               @RequestPart("files") List<MultipartFile> files) {
+        Company updated = companyService.addWorks(id, files);
+        return ResponseEntity.status(HttpStatus.OK).body(updated);
+    }
+
+    /**
+     * Deletes a work file associated with a specified company.
+     * The operation is restricted to users with the ADMIN role or users who own the specified company.
+     *
+     * @param id the unique identifier of the company whose work file is to be deleted
+     * @param url the URL of the work file to be removed
+     * @return a ResponseEntity containing the updated Company object after the work file is removed
+     */
+    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwner(#id, authentication.principal)")
+    @DeleteMapping("/{id}/works")
+    public ResponseEntity<Company> deleteWork(@PathVariable String id,
+                                                 @RequestParam("url") String url) {
+        Company updated = companyService.deleteWork(id, url);
+        return ResponseEntity.ok(updated);
     }
 }

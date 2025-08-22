@@ -3,9 +3,17 @@ package com.owod.plateforme_api.services;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Service implementation that stores images locally on the filesystem.
@@ -27,21 +35,28 @@ public class LocalImageStorageService implements ImageStorageService {
      */
     @Override
     public String uploadImage(MultipartFile file) throws IOException {
-        // Directory for storing uploads
-        String uploadDir = "D:/plateforme-owod/plateforme-api/src/main/resources/static/uploads/";
-        File directory = new File(uploadDir);
-        if (!directory.exists()) {
-            directory.mkdirs();
+
+        // Chemin vers resources/static/uploads (portable)
+        Path uploadPath = Paths.get(System.getProperty("user.home"), "owod-uploads");
+        Files.createDirectories(uploadPath);
+
+        // Nom de fichier sûr + unique
+        String original = Optional.ofNullable(file.getOriginalFilename()).orElse("file");
+        String clean = original.replaceAll("[^A-Za-z0-9._-]", "_");
+        String filename = UUID.randomUUID() + "_" + clean;
+
+        // Écriture réelle
+        Path target = uploadPath.resolve(filename);
+        try (InputStream in = file.getInputStream()) {
+            Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
         }
 
-        // Save the file locally
-        String filePath = uploadDir + file.getOriginalFilename();
-        File localFile = new File(filePath);
-        file.transferTo(localFile);
-
-        String relativePath = "uploads/" + file.getOriginalFilename();
-
-        // Return the local development URL
-        return "http://localhost:8080/" + relativePath;
+        // Comme on écrit sous resources/static, Spring sert déjà /uploads/**
+        // L’URL publique est donc:
+        return ServletUriComponentsBuilder
+                .fromCurrentContextPath() // -> http://localhost:8080
+                .path("/uploads/")
+                .path(filename)
+                .toUriString();
     }
 }

@@ -105,7 +105,7 @@ export class MyAccountComponent implements OnDestroy {
       type: ['', Validators.required],
       country: ['', Validators.required],
       city: ['', Validators.required],
-      siteWeb: ['']
+      websiteUrl: ['']
     })
   }
 
@@ -137,23 +137,37 @@ export class MyAccountComponent implements OnDestroy {
   }
 
   onSubmitCompany(): void {
-    if (this.companyForm.valid) {
-      const formData = this.companyForm.value;
-      let country = formData.country;
-      formData.country = this.formatCountry(country);
+    if (this.companyForm.invalid) return;
 
-      // envoyer requête pour création du compte entreprise
-      const sub = this.companyService.createCompany(formData).subscribe({
-        next: () => {
-          this.notificationService.success('Compte entreprise créé avec succès.');
-          this.subs.add(this.authService.refreshSession().subscribe());
-        },
-        error: (err) => {
-          console.error('Erreur lors de la cr"ation du compte entreprise : ', err);
-        }
-      })
+    const formData = this.companyForm.value;
+    let country = formData.country;
+    formData.country = this.formatCountry(country);
 
-    }
+    const logoFile: File = this.companyForm.get('logo')?.value;
+
+    // envoyer requête pour création du compte entreprise
+    const sub = this.companyService.createCompany(formData).subscribe({
+      next: (created) => {
+
+        const sub2 = this.companyService.updateLogo(created.id, logoFile).subscribe({
+          next: () => {
+            this.notificationService.success('Compte entreprise créé avec succès.');
+            this.subs.add(this.authService.refreshSession().subscribe());
+            this.subs.add(sub);
+            this.subs.add(sub2);
+          },
+          error: (err) => {
+            this.notificationService.error('Erreur lors de la création du compte.');
+            console.error(err);
+          }
+        })
+
+      },
+      error: (err) => {
+        console.error('Erreur lors de la création du compte entreprise : ', err);
+        this.notificationService.error('Erreur lors de la création du compte.');
+      }
+    })
   }
 
   /**
@@ -175,8 +189,10 @@ export class MyAccountComponent implements OnDestroy {
    * @param event qui contient le fichier uploadé
    */
   onLogoSelected(event: Event): void {
+    console.log("appel de onLogoSelected");
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
+      console.log("if dans onLogoSelected");
       const file = input.files[0];
       this.companyForm.get('logo')?.setValue(file);
       this.companyForm.get('logo')?.updateValueAndValidity();
@@ -194,8 +210,10 @@ export class MyAccountComponent implements OnDestroy {
   /**
    * Suppression du profil designer lié à l'utilisateur
    */
-  deleteDesigner(): void {
+  deleteAccount(): void {
+
   }
+
 
   /**
    * Ouverture du dialog de confirmation en cas de suppression du profil designer

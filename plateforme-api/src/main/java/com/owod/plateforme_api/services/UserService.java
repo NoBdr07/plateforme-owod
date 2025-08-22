@@ -106,6 +106,25 @@ public AccountType hasAccount(String userId) {
     }
 
     /**
+     * Cheks if the authenticated user is the owner of the given company.
+     *
+     * @param companyId id of company to verify ownership
+     * @param userDetails the authenticated user
+     * @return true if user is the owner, false otherwise
+     */
+    public boolean isCompanyOwner(String companyId, UserDetails userDetails) {
+        String userId = userDetails.getUsername();
+        return findByUserId(userId)
+                .map(u -> companyId.equals(u.getCompanyId()))
+                .orElse(false);
+    }
+
+    public boolean isCompanyOwnerByUserId(String userId, UserDetails userDetails) {
+        String authUserId = userDetails.getUsername();
+        return userId.equals(authUserId);
+    }
+
+    /**
      * Finds a user by a password reset token.
      *
      * @param token the reset token to search for

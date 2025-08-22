@@ -22,7 +22,7 @@ export class CompanyService {
   }
 
   getCompanyByUserId(userId: string): Observable<Company> {
-    return this.http.get<Company>(`${this.apiUrl}/by-user/${userId}`);
+    return this.http.get<Company>(`${this.apiUrl}/by-user/${userId}`, { withCredentials: true });
   }
 
   createCompany(company: Company): Observable<Company> {

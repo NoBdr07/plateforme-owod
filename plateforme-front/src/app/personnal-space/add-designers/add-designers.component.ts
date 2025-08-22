@@ -27,7 +27,6 @@ import { Designer } from '../../shared/interfaces/designer.interface';
 import { DesignerService } from '../../shared/services/designer.service';
 import { MatListModule } from '@angular/material/list';
 import { NotificationService } from '../../shared/services/notifcation.service';
-import { PhotoDialogComponent } from '../../shared/dialogs/photo-dialog/photo-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatOptionModule } from '@angular/material/core';
 import { Specialty } from '../../shared/enums/specialty.enum';
@@ -222,34 +221,19 @@ export class AddDesignersComponent {
   /**
    * Ouverture du dialog pour le chargement de la photo de profil
    */
-  openPhotoDialog(): void {
-    const dialogRef = this.dialog.open(PhotoDialogComponent, {
-      width: '80%',
-      data: { picture: null },
-    });
-
-    if (this.designerId) {
-      dialogRef.afterClosed().subscribe((file: File) => {
-        if (file) {
-          // Mettre à jour la photo de profil avec le fichier sélectionné
-          this.designerService
-            .updateDesignerPicture(this.designerId, file)
-            .subscribe({
-              next: (response) => {
-                this.designerForm.patchValue({
-                  profilePicture: response.profilePicture,
-                });
-              },
-              error: () => {
-                this.notificationService.error(
-                  'Une erreur est survenue lors de la mise à jour de la photo.'
-                );
-              },
-            });
-        }
-      });
+  onPictureSelected(file: File): void {
+    this.designerService.updateDesignerPicture(this.designerId, file).subscribe({
+      next: (response) => {
+        this.designerForm.patchValue({
+          profilePicture: response.profilePicture
+        })
+      },
+      error: (err) => {
+        this.notificationService.error("Une erreur est survenue pendant le changement de photo de profil");
+      }
+  })
     }
-  }
+  
 
   /**
    * Récuperation de la photo de profil ou photo de default si pas de photo de profil
