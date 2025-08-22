@@ -20,6 +20,8 @@ a {
 
 .info {
   font-size: 18px;
+  margin: 0 20%;
+  text-align: center;
 }
 
 .register-form {

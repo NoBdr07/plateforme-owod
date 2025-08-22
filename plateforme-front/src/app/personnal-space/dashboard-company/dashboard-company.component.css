@@ -5,8 +5,6 @@
   flex-direction: row;
   justify-content: space-evenly;
   margin-top: 200px;
-  gap: 100px;
-  margin: 100px;
 }
 
 .arrow-container {
@@ -31,7 +29,7 @@
 .left-container {
   display: flex;
   flex-direction: column;
-  gap: 200px;
+  gap: 50px;
 }
 
 ::ng-deep .mdc-text-field {

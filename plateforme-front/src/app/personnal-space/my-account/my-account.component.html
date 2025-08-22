@@ -13,8 +13,17 @@
         <h2>{{ "MON_COMPTE.BIENVENUE" | translate }}</h2>
 
         <ng-container *ngIf="s.accountType !== AccountType.NONE; else noAccountTexts ">
-          <p class="small">{{ "MON_COMPTE.CREATED_1" | translate }}</p>
-          <p class="small">{{ "MON_COMPTE.CREATED_2" | translate }}</p>
+
+          <ng-container *ngIf="s.accountType === AccountType.DESIGNER ">
+            <p class="small">{{ "MON_COMPTE.CREATED_1_DESIGNER" | translate }}</p>
+            <p class="small">{{ "MON_COMPTE.CREATED_2" | translate }}</p>
+          </ng-container>
+
+          <ng-container *ngIf="s.accountType === AccountType.COMPANY ">
+            <p class="small">{{ "MON_COMPTE.CREATED_1_COMPANY" | translate }}</p>
+            <p class="small">{{ "MON_COMPTE.CREATED_2" | translate }}</p>
+          </ng-container>
+
         </ng-container>
 
         <ng-template #noAccountTexts>
@@ -212,11 +221,11 @@
       {{ "MON_COMPTE.CONFIGURER" | translate }}
     </button>
 
-    <button class="button" mat-raised-button routerLink="/account/teams" disabled>
+    <button class="button-disabled" mat-raised-button routerLink="/account/teams" disabled>
       Gérer mes équipes (à venir)
     </button>
 
-    <button class="button" mat-raised-button routerLink="/account/gestion-historique" disabled>
+    <button class="button-disabled" mat-raised-button routerLink="/account/gestion-historique" disabled>
       Gérer historique (à venir)
     </button>
 

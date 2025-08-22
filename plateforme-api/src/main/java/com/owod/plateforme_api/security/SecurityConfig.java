@@ -58,7 +58,7 @@ public class SecurityConfig {
                     corsConfig.setAllowedOrigins(Arrays.asList(
                             "http://localhost:4200", "https://owod.aipda-design.org"));
                     corsConfig.setAllowedMethods(Arrays.asList(
-                            "GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
+                            "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"));
                     corsConfig.setAllowedHeaders(Arrays.asList(
                             "Authorization", "Content-Type", "Accept", "Origin",
                             "Access-Control-Request-Method", "Access-Control-Request-Headers"));
