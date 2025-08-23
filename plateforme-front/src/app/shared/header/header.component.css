@@ -29,6 +29,16 @@ a {
   color: var(--dark-color) !important;
 }
 
+a.active::after {
+  content: "";
+  display: block;
+  height: 6px;
+  background-color: var(--dark-color);
+  margin-top: 3px;
+  margin-bottom: -14px;
+}
+
+
 .trait {
   border: solid 1px grey;
   height: 1px;
