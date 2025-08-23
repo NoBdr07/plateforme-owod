@@ -1,9 +1,12 @@
 package com.owod.plateforme_api.controllers;
 
+import com.owod.plateforme_api.models.entities.AccountType;
 import com.owod.plateforme_api.models.entities.Role;
 import com.owod.plateforme_api.models.entities.User;
 import com.owod.plateforme_api.models.payload.LoginRequest;
 import com.owod.plateforme_api.models.payload.RegisterRequest;
+import com.owod.plateforme_api.models.payload.SessionInfo;
+import com.owod.plateforme_api.services.DesignerService;
 import com.owod.plateforme_api.services.UserService;
 import com.owod.plateforme_api.utils.JwtUtils;
 import jakarta.servlet.http.Cookie;
@@ -16,6 +19,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -43,6 +47,8 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private DesignerService designerService;
 
     /**
      * Authenticates the user with given credentials.
@@ -123,15 +129,24 @@ public class AuthController {
      */
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentUser(@AuthenticationPrincipal UserDetails ud) {
-        if (ud == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        Map<String, Object> body = Map.of(
-                "userId", ud.getUsername(),
-                "roles", ud.getAuthorities()
-                        .stream()
-                        .map(GrantedAuthority::getAuthority)
-                        .toList()
+        if (ud == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
+        String userId = ud.getUsername();
+        User u = userService.findByUserId(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
+
+        AccountType accountType =
+                u.getCompanyId() != null ? AccountType.COMPANY :
+                        u.getDesignerId() != null ? AccountType.DESIGNER : AccountType.NONE;
+
+        var body = new SessionInfo(
+                u.getUserId(),
+                u.getFirstname(),
+                u.getLastname(),
+                ud.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList(),
+                accountType,
+                u.getDesignerId(),
+                u.getCompanyId()
         );
         return ResponseEntity.ok(body);
     }

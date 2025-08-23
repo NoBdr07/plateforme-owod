@@ -119,6 +119,13 @@ public AccountType hasAccount(String userId) {
                 .orElse(false);
     }
 
+    /**
+     * Verifies if the authenticated user is the owner of a company based on the given user ID.
+     *
+     * @param userId the ID of the user to verify ownership for
+     * @param userDetails the authenticated user details containing the user's information
+     * @return true if the authenticated user is the owner of the given user ID, false otherwise
+     */
     public boolean isCompanyOwnerByUserId(String userId, UserDetails userDetails) {
         String authUserId = userDetails.getUsername();
         return userId.equals(authUserId);

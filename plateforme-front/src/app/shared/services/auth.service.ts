@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LoginRequest } from '../interfaces/login-request.interface';
 import { RegisterRequest } from '../interfaces/register-request.interface';
-import { UserInfo } from '../interfaces/user-info.interface';
+import { SessionInfo } from '../interfaces/session-info.interface';
 import { SessionState } from '../interfaces/session-state.interface';
 import { AccountType } from '../enums/account-type.enum';
 import { User } from '../interfaces/user.interface';
@@ -21,8 +21,9 @@ export class AuthService {
     isLogged: false,
     isAdmin: false,
     userId: null,
+    firstname: null,
+    lastname: null,
     accountType: AccountType.NONE,
-    user: null,
     designerId: null,
     companyId: null,
   })
@@ -41,41 +42,36 @@ export class AuthService {
    * Met à jour l'état de connexion.
    */
   refreshSession(): Observable<SessionState> {
-    return this.http.get<UserInfo>(`${this.apiUrl}/me`, {
-      withCredentials: true,
-    }).pipe(
-      switchMap((me) => {
-        const base: SessionState = {
+    return this.http.get<SessionInfo>(`${this.apiUrl}/me`, { withCredentials: true }).pipe(
+      map((me) => {
+        const state: SessionState = {
           isLogged: true,
           isAdmin: me.roles.includes('ROLE_ADMIN'),
           userId: me.userId,
-          accountType: AccountType.NONE,
-          user: null,
-          designerId: null,
-          companyId: null,
+          firstname: me.firstname,
+          lastname: me.lastname,
+          accountType: me.accountType as AccountType,
+          designerId: me.designerId,
+          companyId: me.companyId,
         };
-
-        return forkJoin({
-          accountType: this.userService.getAccountType(me.userId),
-          user: this.userService.getUser(me.userId).pipe(catchError(() => of(null))),
-        }).pipe(
-          map(({ accountType, user }) => ({ ...base, accountType, user }))
-        );
+        return state;
       }),
       tap((s) => this._session$.next(s)),
       catchError(err => {
+        // remet l'état à "déconnecté"
         this._session$.next({
           isLogged: false,
           isAdmin: false,
           userId: null,
+          firstname: null,
+          lastname: null,
           accountType: AccountType.NONE,
-          user: null,
           designerId: null,
           companyId: null,
         });
         return throwError(() => err);
       })
-    )
+    );
   }
 
   /**
@@ -131,8 +127,14 @@ export class AuthService {
       )
       .subscribe(() => {
         this._session$.next({
-          isLogged: false, isAdmin: false, userId: null, accountType: AccountType.NONE, user: null,
-          designerId: null, companyId: null,
+          isLogged: false, 
+          isAdmin: false, 
+          userId: null, 
+          firstname: null,
+          lastname: null,
+          accountType: AccountType.NONE,
+          designerId: null, 
+          companyId: null,
         });
         this.router.navigate(['/login']);
       }

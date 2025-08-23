@@ -5,8 +5,9 @@ export interface SessionState {
   isLogged: boolean;
   isAdmin: boolean;
   userId: string | null;
+  firstname: string | null;
+  lastname: string | null;
   accountType: AccountType;   // NONE | DESIGNER | COMPANY
-  user?: User | null;
   designerId?: string | null;
   companyId?: string | null;
 }

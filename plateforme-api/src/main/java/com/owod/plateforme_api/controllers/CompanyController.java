@@ -211,4 +211,19 @@ public class CompanyController {
         Company updated = companyService.deleteWork(id, url);
         return ResponseEntity.ok(updated);
     }
+
+    /**
+     * Deletes a company by its unique identifier.
+     * The method is secured and requires either an admin role or the user
+     * to be the owner of the company being deleted.
+     *
+     * @param id the unique identifier of the company to be deleted
+     * @return a ResponseEntity containing a message indicating successful deletion
+     */
+    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwner(#id, authentication.principal)")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCompany(@PathVariable String id) {
+        companyService.deleteById(id);
+        return ResponseEntity.ok("Company deleted successfully");
+    }
 }

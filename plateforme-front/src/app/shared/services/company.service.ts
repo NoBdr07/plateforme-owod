@@ -11,7 +11,7 @@ export class CompanyService {
 
   private apiUrl = `${environment.apiUrl}/company`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getById(companyId: string): Observable<Company> {
     return this.http.get<Company>(`${this.apiUrl}/${companyId}`);
@@ -62,6 +62,14 @@ export class CompanyService {
       withCredentials: true,
       params: { url }
     });
+  }
+
+  /** Suppression du compte entreprise */
+  deleteCompany(companyId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${companyId}`, {
+      withCredentials: true,
+      responseType: 'text',
+    })
   }
 
 

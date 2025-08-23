@@ -5,7 +5,7 @@
     <div class="text-container">
       <div class="top-left-container">
         <h1 class="bonjour">{{ "MON_COMPTE.BONJOUR" | translate }}</h1>
-        <h2>{{ s.user?.firstname }} {{ s.user?.lastname }}</h2>
+        <h2>{{ s.firstname }} {{ s.lastname }}</h2>
         <h3 *ngIf="s.isAdmin">ADMINISTRATEUR</h3>
       </div>
 

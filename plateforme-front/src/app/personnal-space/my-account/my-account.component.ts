@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { UserService } from '../../shared/services/user.service';
 import { AuthService } from '../../shared/services/auth.service';
-import { filter, Subscription, switchMap, take, tap } from 'rxjs';
+import { filter, firstValueFrom, Subscription, switchMap, take, tap } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -210,7 +210,48 @@ export class MyAccountComponent implements OnDestroy {
   /**
    * Suppression du profil designer lié à l'utilisateur
    */
-  deleteAccount(): void {
+  async deleteAccount(): Promise<void> {
+    try {
+      const s = await firstValueFrom(this.session$);
+
+      switch (s.accountType) {
+        case AccountType.DESIGNER: {
+          if (!s.userId || !s.designerId) {
+            this.notificationService.error("Erreur lors de la suppression.");
+            console.error("manque userId ou designerId");
+            console.log("userid : " + s.userId);
+            console.log("designerid : " + s.designerId);
+            break;
+          }
+          await firstValueFrom(this.designerService.deleteDesigner(s.userId, s.designerId));
+          this.notificationService.success('Profil designer supprimé.');
+          break;
+        }
+
+        case AccountType.COMPANY: {
+          if (!s.userId || !s.companyId) {
+            this.notificationService.error("Erreur lors de la suppression.");
+            console.error("manque userId ou companyID");
+            console.log("userid : " + s.userId);
+            console.log("companyid : " + s.companyId);
+            break;
+          }
+          await firstValueFrom(this.companyService.deleteCompany(s.companyId));
+          this.notificationService.success('Profil entreprise supprimé.');
+          break;
+        }
+
+        default: {
+          this.notificationService.error("Aucun type de compte à supprimer");
+          break;
+        }
+      }
+
+      await firstValueFrom(this.authService.refreshSession());
+    } catch (err) {
+      console.error('Erreur suppression compte : ', err);
+      this.notificationService.error("Erreur lors de la suppression");
+    }
 
   }
 
