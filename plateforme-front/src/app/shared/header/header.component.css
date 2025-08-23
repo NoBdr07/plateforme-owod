@@ -1,6 +1,42 @@
 /* CSS */
 .header-container {
-  height: 96px;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-container {
+  display: flex;
+  flex-direction: column;
+  margin: 40px;
+}
+
+.switch-company {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  font-size: 1rem;
+  padding-bottom: 10px;
+  color: grey;
+  font-weight: 800;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.active {
+  color: var(--dark-color) !important;
+}
+
+.trait {
+  border: solid 1px grey;
+  height: 1px;
+  width: 100%;
+}
+
+.bottom-container {
+  height: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -105,7 +141,7 @@
   align-items: center;
 }
 
-.connexion-container{
+.connexion-container {
   height: 40px;
 }
 

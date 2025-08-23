@@ -1,11 +1,16 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { authGuard } from './shared/guards/auth.guard';
+import { HomeCompanyComponent } from './pages/home-company/home-company.component';
 
 export const routes: Routes = [
     {
         path: '',
         component: HomeComponent
+    },
+    {
+        path: 'entreprises',
+        component: HomeCompanyComponent
     },
     {
         path: 'login',
@@ -27,6 +32,13 @@ export const routes: Routes = [
             import(
                 './designers/designer-details/designer-details.component'
             ).then((c) => c.DesignerDetailsComponent)
+    },
+    {
+        path: 'entreprise-details/:id',
+        loadComponent: () => 
+            import(
+                './companies/entreprise-details/entreprise-details.component'
+            ).then((c) => c.EntrepriseDetailsComponent)
     },
     {
         path: 'account',
@@ -66,6 +78,13 @@ export const routes: Routes = [
             import(
               './designers/catalogue/catalogue.component'
             ).then((c) => c.CatalogueComponent),
+    },
+    {
+        path: 'catalogue-entreprises',
+        loadComponent: () => 
+            import(
+                './companies/catalogue-entreprises/catalogue-entreprises.component'                
+            ).then((c) => c.CatalogueEntreprisesComponent)
     },
     {
         path: 'dashboard',
