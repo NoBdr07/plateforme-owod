@@ -136,15 +136,15 @@ public class CompanyController {
     /**
      * Update any fields of one company, expects files, team and history.
      *
-     * @param id of company to update.
+     * @param companyId of company to update.
      * @param patch contains all data.
      * @return the new company updated and saved.
      */
-    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwner(#id, authentication.principal)")
-    @PatchMapping("/{id}")
-    public ResponseEntity<Company> updateFields(@PathVariable String id,
+    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwner(#companyId, authentication.principal)")
+    @PatchMapping("/{companyId}")
+    public ResponseEntity<Company> updateFields(@PathVariable String companyId,
                                                    @RequestBody Company patch) {
-        Company updated = companyService.updateFields(id, patch);
+        Company updated = companyService.updateFields(companyId, patch);
         return ResponseEntity.ok(updated);
     }
 
@@ -152,15 +152,15 @@ public class CompanyController {
      * Uploads and updates the logo of a company.
      * This operation is restricted to users with the ADMIN role or users who own the specified company.
      *
-     * @param id the unique identifier of the company whose logo is being updated
+     * @param companyId the unique identifier of the company whose logo is being updated
      * @param file the MultipartFile containing the logo to be uploaded
      * @return a ResponseEntity containing the updated Company object
      */
-    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwner(#id, authentication.principal)")
-    @PostMapping(path = "/{id}/logo", consumes = "multipart/form-data")
-    public ResponseEntity<Company> uploadLogo(@PathVariable String id,
+    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwner(#companyId, authentication.principal)")
+    @PostMapping(path = "/{companyId}/logo", consumes = "multipart/form-data")
+    public ResponseEntity<Company> uploadLogo(@PathVariable String companyId,
                                                  @RequestPart("file") MultipartFile file) {
-        Company updated = companyService.updateLogo(id, file);
+        Company updated = companyService.updateLogo(companyId, file);
         return ResponseEntity.ok(updated);
     }
 
@@ -168,15 +168,15 @@ public class CompanyController {
      * Uploads and updates the team photo of a company.
      * This operation is restricted to users with the ADMIN role or users who own the specified company.
      *
-     * @param id the unique identifier of the company whose team photo is being updated
+     * @param companyId the unique identifier of the company whose team photo is being updated
      * @param file the MultipartFile containing the team photo to be uploaded
      * @return a ResponseEntity containing the updated Company object
      */
-    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwner(#id, authentication.principal)")
-    @PostMapping(path = "/{id}/team-photo", consumes = "multipart/form-data")
-    public ResponseEntity<Company> uploadTeamPhoto(@PathVariable String id,
+    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwner(#companyId, authentication.principal)")
+    @PostMapping(path = "/{companyId}/team-photo", consumes = "multipart/form-data")
+    public ResponseEntity<Company> uploadTeamPhoto(@PathVariable String companyId,
                                                       @RequestPart("file") MultipartFile file) {
-        Company updated = companyService.updateTeamPhoto(id, file);
+        Company updated = companyService.updateTeamPhoto(companyId, file);
         return ResponseEntity.ok(updated);
     }
 
@@ -184,15 +184,15 @@ public class CompanyController {
      * Adds new works (files) to the specified company.
      * This operation is restricted to users with the ADMIN role or users who own the specified company.
      *
-     * @param id the unique identifier of the company to which the works will be added
+     * @param companyId the unique identifier of the company to which the works will be added
      * @param files a list of MultipartFile objects representing the works to be uploaded
      * @return a ResponseEntity containing the updated Company object after the works have been added
      */
-    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwner(#id, authentication.principal)")
-    @PostMapping(path = "/{id}/works", consumes = "multipart/form-data")
-    public ResponseEntity<Company> addWorks(@PathVariable String id,
+    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwner(#companyId, authentication.principal)")
+    @PostMapping(path = "/{companyId}/works", consumes = "multipart/form-data")
+    public ResponseEntity<Company> addWorks(@PathVariable String companyId,
                                                @RequestPart("files") List<MultipartFile> files) {
-        Company updated = companyService.addWorks(id, files);
+        Company updated = companyService.addWorks(companyId, files);
         return ResponseEntity.status(HttpStatus.OK).body(updated);
     }
 
@@ -200,15 +200,15 @@ public class CompanyController {
      * Deletes a work file associated with a specified company.
      * The operation is restricted to users with the ADMIN role or users who own the specified company.
      *
-     * @param id the unique identifier of the company whose work file is to be deleted
+     * @param companyId the unique identifier of the company whose work file is to be deleted
      * @param url the URL of the work file to be removed
      * @return a ResponseEntity containing the updated Company object after the work file is removed
      */
-    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwner(#id, authentication.principal)")
-    @DeleteMapping("/{id}/works")
-    public ResponseEntity<Company> deleteWork(@PathVariable String id,
+    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwner(#companyId, authentication.principal)")
+    @DeleteMapping("/{companyId}/works")
+    public ResponseEntity<Company> deleteWork(@PathVariable String companyId,
                                                  @RequestParam("url") String url) {
-        Company updated = companyService.deleteWork(id, url);
+        Company updated = companyService.deleteWork(companyId, url);
         return ResponseEntity.ok(updated);
     }
 
@@ -217,13 +217,15 @@ public class CompanyController {
      * The method is secured and requires either an admin role or the user
      * to be the owner of the company being deleted.
      *
-     * @param id the unique identifier of the company to be deleted
+     * @param companyId the unique identifier of the company to be deleted
      * @return a ResponseEntity containing a message indicating successful deletion
      */
-    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwner(#id, authentication.principal)")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteCompany(@PathVariable String id) {
-        companyService.deleteById(id);
+    @PreAuthorize("hasRole('ADMIN') or @userService.isCompanyOwner(#companyId, authentication.principal)")
+    @DeleteMapping("/{companyId}")
+    public ResponseEntity<String> deleteCompany(@PathVariable String companyId, Principal principal) {
+        companyService.deleteById(companyId);
+        String userId = principal.getName();
+        userService.deleteAccount(userId, companyId);
         return ResponseEntity.ok("Company deleted successfully");
     }
 }

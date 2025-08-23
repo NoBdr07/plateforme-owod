@@ -121,9 +121,13 @@ public class DesignerController {
      */
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/admin/delete/{designerId}")
-    public ResponseEntity<?> deleteDesigner(@PathVariable String designerId) {
+    public ResponseEntity<?> deleteDesigner(@PathVariable String designerId, Principal principal) {
         try {
             designerService.delete(designerId);
+
+            String userId = principal.getName();
+            userService.deleteAccount(userId, designerId);
+
             return ResponseEntity.ok("Designer deleted successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

@@ -206,4 +206,24 @@ public AccountType hasAccount(String userId) {
         }
         return userRepository.save(user);
     }
+
+    /**
+     * Delete a designer or company Id when this account is deleted
+     *
+     * @param userId the user which account (designer or company) is deleted
+     * @param accountId designer or company id to delete.
+     */
+    public void deleteAccount(String userId, String accountId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + userId));
+        if (accountId.equals(user.getDesignerId())) {
+            user.setDesignerId(null);
+            userRepository.save(user);
+        } else if (accountId.equals(user.getCompanyId())) {
+            user.setCompanyId(null);
+            userRepository.save(user);
+        } else {
+            throw new UsernameNotFoundException("No designer or company found: " + accountId);
+        }
+    }
 }

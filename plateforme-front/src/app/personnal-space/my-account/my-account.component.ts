@@ -218,31 +218,31 @@ export class MyAccountComponent implements OnDestroy {
         case AccountType.DESIGNER: {
           if (!s.userId || !s.designerId) {
             this.notificationService.error("Erreur lors de la suppression.");
-            console.error("manque userId ou designerId");
-            console.log("userid : " + s.userId);
-            console.log("designerid : " + s.designerId);
+            this.dialog.closeAll();
             break;
           }
           await firstValueFrom(this.designerService.deleteDesigner(s.userId, s.designerId));
+          this.dialog.closeAll();
           this.notificationService.success('Profil designer supprimé.');
+
           break;
         }
 
         case AccountType.COMPANY: {
           if (!s.userId || !s.companyId) {
             this.notificationService.error("Erreur lors de la suppression.");
-            console.error("manque userId ou companyID");
-            console.log("userid : " + s.userId);
-            console.log("companyid : " + s.companyId);
+            this.dialog.closeAll();
             break;
           }
           await firstValueFrom(this.companyService.deleteCompany(s.companyId));
+          this.dialog.closeAll();
           this.notificationService.success('Profil entreprise supprimé.');
           break;
         }
 
         default: {
           this.notificationService.error("Aucun type de compte à supprimer");
+          this.dialog.closeAll();
           break;
         }
       }
