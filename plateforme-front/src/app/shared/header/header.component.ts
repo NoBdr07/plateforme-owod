@@ -1,8 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../services/auth.service';
-import { catchError, map, Observable, of, shareReplay, Subscription, switchMap } from 'rxjs';
+import { catchError, filter, map, Observable, of, shareReplay, startWith, Subscription, switchMap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { DesignerService } from '../services/designer.service';
 import { Designer } from '../interfaces/designer.interface';
@@ -17,14 +17,11 @@ import { CompanyService } from '../services/company.service';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
-  // selection d'anglais ou francais
   currentLang!: string;
-
-  // menu ouvert ou non
   isMenuOpen = false;
-
-  // utilisateur connecté ou non et ses infos
   session$ = this.authService.session$;
+
+  currentUrl$: Observable<string>;
 
   // avatar dérivé de la session
   avatar$ = this.session$.pipe(
@@ -56,13 +53,21 @@ export class HeaderComponent {
     private translateService: TranslateService,
     private authService: AuthService,
     private designerService: DesignerService,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private router: Router
   ) {
     // Initialiser avec la langue courante
     this.currentLang =
       this.translateService.currentLang ||
       this.translateService.getDefaultLang();
 
+    // Pour adapter le top-container en fonction de la route active
+    this.currentUrl$ = this.router.events.pipe(
+      filter(e => e instanceof NavigationEnd),
+      map((e: any) => e.urlAfterRedirects),
+      startWith(this.router.url),
+      shareReplay(1)
+    )
   }
 
   /**

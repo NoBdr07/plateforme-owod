@@ -2,12 +2,14 @@
 .header-container {
   display: flex;
   flex-direction: column;
+  margin-top: 50px;
 }
 
 .top-container {
   display: flex;
   flex-direction: column;
   margin: 40px;
+  margin-top: -10px;
 }
 
 .switch-company {
@@ -34,7 +36,7 @@ a.active::after {
   display: block;
   height: 6px;
   background-color: var(--dark-color);
-  margin-top: 3px;
+  margin-top: 4px;
   margin-bottom: -14px;
 }
 

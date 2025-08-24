@@ -13,6 +13,20 @@ export const routes: Routes = [
         component: HomeCompanyComponent
     },
     {
+        path: 'catalogue',
+        loadComponent: () =>
+            import(
+              './designers/catalogue/catalogue.component'
+            ).then((c) => c.CatalogueComponent),
+    },
+    {
+        path: 'catalogue-entreprises',
+        loadComponent: () => 
+            import(
+                './companies/catalogue-entreprises/catalogue-entreprises.component'                
+            ).then((c) => c.CatalogueEntreprisesComponent)
+    },
+    {
         path: 'login',
         loadComponent: () => 
             import(
@@ -71,20 +85,6 @@ export const routes: Routes = [
               './personnal-space/add-designers/add-designers.component'
             ).then((c) => c.AddDesignersComponent),
         canActivate: [authGuard]
-    },
-    {
-        path: 'catalogue',
-        loadComponent: () =>
-            import(
-              './designers/catalogue/catalogue.component'
-            ).then((c) => c.CatalogueComponent),
-    },
-    {
-        path: 'catalogue-entreprises',
-        loadComponent: () => 
-            import(
-                './companies/catalogue-entreprises/catalogue-entreprises.component'                
-            ).then((c) => c.CatalogueEntreprisesComponent)
     },
     {
         path: 'dashboard',

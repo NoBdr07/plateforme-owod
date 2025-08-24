@@ -1,12 +1,29 @@
 <div class="header-container" *ngIf="(session$ | async ) as s">
 
-  <div class="top-container">
-    <div class="switch-company">
-      <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">PROFESSIONNELS</a>
-      <a routerLink="entreprises" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">ENTREPRISES</a>
+  <ng-container *ngIf="currentUrl$ | async as url">
+
+    <div class="top-container" *ngIf="url === '/' || url === '/entreprises' || url.startsWith('/catalogue') ">
+      
+      <div class="switch-company" *ngIf="url === '/' || url === '/entreprises' ">
+        <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">PROFESSIONNELS</a>
+        <a routerLink="entreprises" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">ENTREPRISES</a>
+      </div>
+
+      <div class="switch-company" *ngIf="url.startsWith('/catalogue')">
+        <a routerLink="/catalogue" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          PROFESSIONNELS
+        </a>
+        <a routerLink="/catalogue-entreprises" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          ENTREPRISES
+        </a>
+      </div>
+      
+      <div class="trait"></div>
+
     </div>
-    <div class="trait"></div>
-  </div>
+
+  </ng-container>
 
   <div class="bottom-container">
     <img class="logo" routerLink="/" src="assets/logos/LogoAIPDA.png"
