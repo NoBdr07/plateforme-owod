@@ -95,7 +95,7 @@ export class CatalogueComponent implements OnInit, OnDestroy {
     private readonly userService: UserService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   /**
    * Initialisation de la liste des designers, des listes servant aux recherches parmi les designers
@@ -167,7 +167,9 @@ export class CatalogueComponent implements OnInit, OnDestroy {
     );
 
     // Chargement des contact
-    this.loadFriends();
+    if (this.isLogged) {
+      this.loadFriends();
+    }
   }
 
   // Check device
@@ -193,7 +195,9 @@ export class CatalogueComponent implements OnInit, OnDestroy {
 
   // Pour chaque designer, controle si il est deja contact ou non
   isFriend(designerId: string): boolean {
-    return this.friends.some((friend) => friend.id === designerId);
+    if (this.isLogged) {
+      return this.friends.some((friend) => friend.id === designerId);
+    } else return false;
   }
 
 

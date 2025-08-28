@@ -47,8 +47,6 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private DesignerService designerService;
 
     /**
      * Authenticates the user with given credentials.

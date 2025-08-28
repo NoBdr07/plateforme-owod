@@ -13,6 +13,10 @@ export class CompanyService {
 
   constructor(private http: HttpClient) { }
 
+  getAll(): Observable<Company[]> {
+    return this.http.get<Company[]>(`${this.apiUrl}/all`);
+  }
+
   getById(companyId: string): Observable<Company> {
     return this.http.get<Company>(`${this.apiUrl}/${companyId}`);
   }

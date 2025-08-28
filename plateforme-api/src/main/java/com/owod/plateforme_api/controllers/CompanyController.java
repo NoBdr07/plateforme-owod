@@ -43,7 +43,6 @@ public class CompanyController {
     public ResponseEntity<List<CompanyDTO>> getAllDto() {
         List<CompanyDTO> companies = companyService.getAllDto();
         return ResponseEntity.ok(companies);
-
     }
 
     /**

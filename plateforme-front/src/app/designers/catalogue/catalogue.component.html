@@ -82,8 +82,6 @@
     <div class="designer" *ngFor="let designer of designers; let i = index" #designerCard
       [routerLink]="['/details', designer.id]">
 
-      <ng-container *ngIf="(isLogged$ | async) as logged">
-
         <div class="designer-top">
           <div class="designer-top-left">
             <img *ngIf="designer.profilePicture" [src]="designer.profilePicture" class="photo"
@@ -94,23 +92,27 @@
           </div>
 
 
-          <div class="designer-widgets" [matTooltip]="!logged ? ('CATALOGUE.RESERVE' | translate) : null">
+          <div class="designer-widgets" 
+          [matTooltip]="!(isLogged$ | async) ? ('CATALOGUE.RESERVE' | translate) : null">
             <img src="assets/logos/calendar.svg" class="widget"
-              [ngClass]="{ 'logged-in': logged, 'logged-out': !logged }"
+              [ngClass]="{ 'logged-in': (isLogged$ | async), 'logged-out': !(isLogged$ | async) }"
               (click)="$event.stopPropagation(); openCalendar(designer.id)" />
 
             <img *ngIf="!isFriend(designer.id)" src="assets/logos/person-add.svg" class="widget"
-              [ngClass]="{ 'logged-in': logged, 'logged-out': !logged }"
+              [ngClass]="{ 'logged-in': (isLogged$ | async), 'logged-out': !(isLogged$ | async) }"
+
               (click)="$event.stopPropagation(); addFriend(designer.id)" />
             <img *ngIf="isFriend(designer.id)" src="assets/logos/person-check.png" class="widget" />
+
             <img src="assets/logos/group-add.svg" class="widget"
-              [ngClass]="{ 'logged-in': logged, 'logged-out': !logged }" [matTooltip]="'CATALOGUE.SOON' | translate" />
+              [ngClass]="{ 'logged-in': (isLogged$ | async), 'logged-out': !(isLogged$ | async) }" [matTooltip]="'CATALOGUE.SOON' | translate" />
           </div>
 
         </div>
 
-        <div class="designer-middle" [matTooltip]="!logged ? ('CATALOGUE.RESERVE' | translate) : null"
-          [ngClass]="{ 'logged-in': logged, 'logged-out': !logged }">
+        <div class="designer-middle" [matTooltip]="!(isLogged$ | async) ? ('CATALOGUE.RESERVE' | translate) : null"
+          [ngClass]="{ 'logged-in': (isLogged$ | async), 'logged-out': !(isLogged$ | async) }">
+
           <div class="middle-section" *ngIf="designer.phoneNumber" (click)="
             $event.stopPropagation(); showPhoneNumber(designer.phoneNumber)
           ">
@@ -122,8 +124,6 @@
             <img src="assets/logos/mail.svg" class="widget" />
           </div>
         </div>
-
-      </ng-container>
 
       <div class="designer-bottom">
         <div class="metier-container">

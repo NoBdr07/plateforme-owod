@@ -72,12 +72,12 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/auth/login", "/auth/logout", "/auth/register",
-                                "/designers/all", "/uploads/**", "/error", "/weekly",
+                                "/auth/login", "/auth/logout", "/auth/register", "/auth/me",
+                                "/designers/all", "/uploads/**", "/error", "/weekly", "/company/**",
                                 "/password/**", "/contact")
                         .permitAll()
                         .requestMatchers(
-                                "/users/**", "/designers/**", "/auth/me")
+                                "/users/**", "/designers/**")
                         .authenticated()
                         .anyRequest()
                         .authenticated()
