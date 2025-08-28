@@ -35,6 +35,23 @@
       "TITRE": "Ready to be listed?",
       "TEXTE": "Join us and participate in the influence of design in Africa",
       "TEXTE2": " designers have already joined us !"
+    },
+    "ENTREPRISE": {
+      "TITRE": "Create an innovative synergy between your business activities and your people's aspirations.",
+      "SOUS_TITRE": "With OWOD, offer your people a structured framework to balance professional commitment with personal growth.",
+      "DEMO": "Request a demo",
+      "VALORISER": "Showcase your company while supporting your people in their side projects",
+      "VALORISER2": "Create an environment where teams feel supported, engaged, and proud to contribute to a collective project aligned with their identity.",
+      "CADRE": "Clear framework",
+      "CADRE2": "Secure and structure",
+      "CADRE3": "A legal and ethical environment that clearly defines roles and responsibilities, ensuring transparency and trust for all stakeholders.",
+      "RAYON": "Cultural reach",
+      "RAYON2": "Associate your brand with projects that matter.",
+      "RAYON3": "Integrate your company into meaningful cultural initiatives, strengthening your visibility and positioning on high-impact societal issues.",
+      "EPAN": "Active fulfillment",
+      "EPAN2": "Nurture your talents for the long term.",
+      "EPAN3": "Offer your employees an official space to explore, create, and grow, fostering long-term engagement and retention through an integrative approach.",
+      "CREER": "Create an account"
     }
   },
   "CATALOGUE": {
@@ -60,7 +77,6 @@
     "NUM": "Phone number",
     "FERMER": "Close"
   },
-
   "DASHBOARD": {
     "BACK": "Back to your account",
     "CHANGE_PHOTO": "Change photo",
@@ -83,9 +99,7 @@
     "SECTEUR": "Favorite sectors",
     "NIVEAU": "Professional level",
     "SAUVEGARDER": "Save",
-    "ENTREPRISE": {
-      
-    }
+    "ENTREPRISE": {}
   },
   "GESTION_CAL": {
     "H1": "Availability Management",
@@ -130,13 +144,11 @@
     "NOM": "Name",
     "RAISON_SOCIALE": "Legal name",
     "SIRET": "SIRET number",
-
     "COORDONNEES": "Contact details",
     "TELEPHONE": "Phone number",
     "PAYS": "Country",
     "VILLE": "City",
     "SITE_WEB": "Website",
-
     "INFO_PRO": "Professional information",
     "DESCRIPTION": "Description",
     "TYPE": "Company type",
