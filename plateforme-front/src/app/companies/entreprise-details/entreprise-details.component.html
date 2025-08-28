@@ -1,0 +1,63 @@
+<div class="arrow-container" routerLink="/catalogue-entreprises">
+    <img src="/assets/logos/arrow-back.png" alt="retour" />
+    <p>{{ "DESIGNER_DETAILS.RETOUR" | translate }}</p>
+</div>
+
+<div class="details-container" *ngIf="company as c">
+    <!-- Photo -->
+    <div class="photo-container">
+        <div class="photo-section">
+            <img class="background" src="assets/images/back.png" alt="..." />
+            <img [src]="c.logoUrl || 'assets/logos/default-profile.png'" alt="Logo entreprise" class="photo" />
+        </div>
+
+        <div class="photo-section" *ngIf="c.teamPhotoUrl">
+            <img [src]="c.teamPhotoUrl" alt="Photo d'équipe" class="photo" />
+        </div>
+    </div>
+
+    <div class="info-section">
+        <p class="info-name">{{ c.raisonSociale }}</p>
+        <p class="info-subtitle">{{ c.type }} | {{ c.country }}</p>
+        <p class="biography">{{ c.description }}</p>
+
+        <div class="realisations" *ngIf="(c.worksUrl?.length ?? 0) > 0">
+            <p class="group-title">{{ 'DESIGNER_DETAILS.REALISATIONS' | translate }}</p>
+            <div class="preview-container">
+                <div *ngFor="let realisationUrl of c.worksUrl">
+                    <img [src]="realisationUrl" class="realisation-photo" (click)="showPreview(realisationUrl)"
+                        alt="Réalisation" />
+                </div>
+            </div>
+
+            <div *ngIf="previewImage" class="preview-overlay" (click)="hidePreview()">
+                <img [src]="previewImage" class="overlay-image" (click)="$event.stopPropagation()" alt="Réalisation" />
+            </div>
+        </div>
+
+        <div class="detail">
+            <p class="group-title">{{ 'DESIGNER_DETAILS.INFORMATIONS' | translate }}</p>
+            <p><strong>{{ 'DASHBOARD.PROFESSION' | translate }} : </strong><span>{{ c.type }}</span></p>
+            <p *ngIf="c.stage"><strong>{{ 'DASHBOARD.NIVEAU' | translate }} : </strong><span>{{ c.stage }}</span></p>
+            <p class="more-line-height">
+                <strong>{{ 'DASHBOARD.SECTEUR' | translate }} : </strong>
+                <span class="bubble" *ngFor="let sector of (c.sectors || [])">{{ sector }}</span>
+            </p>
+        </div>
+
+        <div class="contact">
+            <p class="group-title">{{ 'DESIGNER_DETAILS.CONTACT' | translate }}</p>
+            <div class="contact-if-logged" *ngIf="isLogged$ | async">
+                <p *ngIf="c.email"><strong>Email : </strong>{{ c.email }}</p>
+                <p *ngIf="c.phoneNumber"><strong>{{ 'DASHBOARD.TELEPHONE' | translate }} : </strong>{{ c.phoneNumber }}
+                </p>
+                <a *ngIf="c.websiteUrl" target="_blank" [href]="c.websiteUrl">{{ 'DESIGNER_DETAILS.PORTFOLIO' |
+                    translate }}</a>
+            </div>
+            <div class="contact-if-notLogged" *ngIf="!(isLogged$ | async)">
+                <p>{{ 'DESIGNER_DETAILS.NOT_LOGGED' | translate }}</p>
+                <button mat-raised-button routerLink="/register">{{ 'DESIGNER_DETAILS.MEMBRE' | translate }}</button>
+            </div>
+        </div>
+    </div>
+</div>

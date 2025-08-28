@@ -1,0 +1,88 @@
+<div class="global-container">
+  <div class="top-container">
+    <div class="filtres">
+      <div class="filtre">
+        <img class="filtre-icon" src="assets/logos/filtre.png" alt="Filtre" />
+        <button mat-button class="black" [matMenuTriggerFor]="menu">
+          {{ "CATALOGUE.FILTRE" | translate }}
+        </button>
+      </div>
+      <div class="filtre">
+        <img class="filtre-icon" src="assets/logos/refresh.png" alt="Effacer les filtres" />
+        <button mat-button class="black" (click)="resetResearch()">
+          {{ "CATALOGUE.ERASE" | translate }}
+        </button>
+      </div>
+    </div>
+
+    <!-- menu principal -->
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [matMenuTriggerFor]="menuType">Type d'entreprise</button>
+      <button mat-menu-item [matMenuTriggerFor]="menuSector">{{ "CATALOGUE.SECTEUR" | translate }}</button>
+      <button mat-menu-item [matMenuTriggerFor]="menuCountry">{{ "CATALOGUE.PAYS" | translate }}</button>
+    </mat-menu>
+
+    <!-- Type d'entreprise -->
+    <mat-menu #menuType="matMenu">
+      <button mat-menu-item *ngFor="let t of types" (click)="research('type', t)">
+        {{ t }}
+      </button>
+    </mat-menu>
+
+    <!-- Secteur -->
+    <mat-menu #menuSector="matMenu">
+      <button mat-menu-item *ngFor="let s of sectors" (click)="research('sector', s)">
+        {{ s }}
+      </button>
+    </mat-menu>
+
+    <!-- Pays -->
+    <mat-menu #menuCountry="matMenu">
+      <button mat-menu-item *ngFor="let c of countries" (click)="research('country', c)">
+        {{ c }}
+      </button>
+    </mat-menu>
+  </div>
+
+  <div class="companies-container" *ngIf="paginatedCompanies$ | async as companies">
+    <div class="company"
+         *ngFor="let company of companies; let i = index" #companyCard
+         [routerLink]="['/entreprise-details', company.id]">
+
+      <div class="company-top">
+        <div class="company-top-left">
+          <img *ngIf="company.logoUrl" [src]="company.logoUrl" class="photo" alt="Logo d'une entreprise" />
+          <p class="company-name">{{ company.raisonSociale }}</p>
+        </div>
+      </div>
+
+      <div class="company-bottom">
+        <div class="metier-container">
+          <p class="bottom-text bold">{{ company.type }}</p>
+        </div>
+        <p class="bottom-text">{{ company.country }}</p>
+      </div>
+
+      <img class="background" src="assets/images/back.png" alt="" />
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <button mat-raised-button
+            (click)="prevPage()"
+            [disabled]="(currentPage | async) === 1">
+      {{ "CATALOGUE.PRECEDENT" | translate }}
+    </button>
+
+    <span>
+      Page {{ currentPage | async }} {{ "CATALOGUE.SUR" | translate }} {{ maxPage | async }}
+    </span>
+
+    <button mat-raised-button
+            (click)="nextPage()"
+            [disabled]="(currentPage | async) === (maxPage | async)">
+      {{ "CATALOGUE.SUIVANT" | translate }}
+    </button>
+  </div>
+</div>

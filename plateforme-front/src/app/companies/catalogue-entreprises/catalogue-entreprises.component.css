@@ -1,0 +1,292 @@
+
+.global-container {
+  min-height: 100vh;
+}
+
+/* CONTENEUR DU HAUT */
+
+.top-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+}
+
+.top-text {
+  font-size: 20px;
+  font-weight: 400;
+  width: 30%;
+}
+
+.filtres {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: center;
+}
+
+.filtre {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.filtre-icon {
+  height: 30px;
+  width: 30px;
+  filter: brightness(0);
+}
+
+/* CONTENEUR DU CATALOGUE */
+
+.companies-container {
+  margin: 20px;
+  display: flex;
+  flex-direction: flex-row;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.company {
+  display: flex;
+  flex-direction: column;
+  border: solid var(--accent-color) 1px;
+  border-radius: 20px;
+  padding: 20px;
+  height: 160px;
+  width: 360px;
+  overflow: hidden;
+  gap: 10px;
+  cursor: pointer;
+  background-color: #d4deff59;
+}
+
+.company:hover {
+  background-color: #d4deff9d;
+  box-shadow: 0 5px 6.4px rgba(0, 8, 39, 0.1); 
+  outline: 1px solid rgba(0, 8, 39, 0.05); 
+}
+
+.company-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-height: 50px;
+}
+
+.company-top-left {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.photo {
+  height: 40px;
+  width: 40px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.company-name {
+  font-weight: bold;
+  font-size: 18px;
+  color: black;
+  margin-bottom: 0;
+  text-transform: capitalize;
+  width: 150px;
+  line-height: 26px;
+}
+
+.company-middle {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 20px;
+  align-items: center;
+  width: fit-content;
+}
+
+.middle-section {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
+
+.logged-out {
+  opacity: 0.4;
+}
+
+.logged-in {
+  opacity: 1;
+}
+
+.text-middle {
+  font-size: 14px;
+  color: black;
+  margin-bottom: 0;
+}
+
+.company-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-top: 7px;
+}
+
+.bottom-text {
+  font-size: 16px;
+  color: black;
+}
+
+.bold {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.background {
+  position: relative;
+  right: -108px;
+  z-index: -1;
+  top: -180px;
+  object-fit: contain;
+  height: 196px;
+}
+
+/* BOUTONS POUR LA PAGINATION */
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  justify-content: center;
+}
+
+.mat-mdc-raised-button {
+  color: white !important ;
+}
+
+.black {
+  color: black !important;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.mat-mdc-raised-button[disabled] {
+  background-color: darkgray !important;
+}
+
+::ng-deep .mat-mdc-menu-panel {
+  background-color: var(--dark-color) !important;
+}
+
+button {
+  font-family: "Red Hat Display", sans-serif !important;
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: var(--dark-color) !important;
+  color: var(--primary-color) !important;
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  display: flex;
+  gap: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+/** REGLES POUR MOBILES **/
+@media screen and (max-width: 768px) {
+  /* Conteneur du haut */
+  .top-container {
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px;
+    align-items: flex-start;
+  }
+
+  .top-text {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .filtres {
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Conteneur des designers */
+  .companies-container {
+    margin: 10px;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  /* Carte designer */
+  .company {
+    width: 300px;
+    height: 140px;
+    padding: 15px;
+    gap: 6px;
+  }
+
+  .company-top-left {
+    gap: 8px;
+  }
+
+  .photo {
+    height: 40px;
+    width: 40px;
+  }
+
+  .company-name {
+    width: 130px;
+    line-height: 22px;
+  }
+
+  .background {
+    right: -91px;
+    top: -166px;
+    height: 180px;
+  }
+
+  /* Pagination */
+  .pagination {
+    flex-direction: row;
+    gap: 15px;
+    margin: 20px;
+    font-size: 14px;
+    align-items: center;
+  }
+
+  .pagination button {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  /* Ajustements pour les menus Material */
+  ::ng-deep .mat-menu-content {
+    max-height: 60vh;
+  }
+
+  ::ng-deep .mat-menu-panel {
+    width: 90vw;
+    max-width: none !important;
+  }
+
+  ::ng-deep .mat-menu-item {
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+  }
+}
