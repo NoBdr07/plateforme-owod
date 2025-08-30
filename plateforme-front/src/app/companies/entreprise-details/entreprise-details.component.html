@@ -12,6 +12,7 @@
         </div>
 
         <div class="photo-section" *ngIf="c.teamPhotoUrl">
+            <p class="group-title">{{ 'COMPANY_DETAILS.PHOTO' | translate }}</p>
             <img [src]="c.teamPhotoUrl" alt="Photo d'équipe" class="photo" />
         </div>
     </div>
@@ -22,7 +23,7 @@
         <p class="biography">{{ c.description }}</p>
 
         <div class="realisations" *ngIf="(c.worksUrl?.length ?? 0) > 0">
-            <p class="group-title">{{ 'DESIGNER_DETAILS.REALISATIONS' | translate }}</p>
+            <p class="group-title">{{ 'COMPANY_DETAILS.REALS' | translate }}</p>
             <div class="preview-container">
                 <div *ngFor="let realisationUrl of c.worksUrl">
                     <img [src]="realisationUrl" class="realisation-photo" (click)="showPreview(realisationUrl)"
@@ -36,22 +37,22 @@
         </div>
 
         <div class="detail">
-            <p class="group-title">{{ 'DESIGNER_DETAILS.INFORMATIONS' | translate }}</p>
-            <p><strong>{{ 'DASHBOARD.PROFESSION' | translate }} : </strong><span>{{ c.type }}</span></p>
+            <p class="group-title">{{ 'COMPANY_DETAILS.INFOS' | translate }}</p>
             <p *ngIf="c.stage"><strong>{{ 'DASHBOARD.NIVEAU' | translate }} : </strong><span>{{ c.stage }}</span></p>
             <p class="more-line-height">
                 <strong>{{ 'DASHBOARD.SECTEUR' | translate }} : </strong>
                 <span class="bubble" *ngFor="let sector of (c.sectors || [])">{{ sector }}</span>
             </p>
+            <p *ngIf="c.city"><strong>{{ 'COMPANY_DETAILS.VILLE' | translate }} : </strong>{{ c.city }}</p>
         </div>
 
         <div class="contact">
-            <p class="group-title">{{ 'DESIGNER_DETAILS.CONTACT' | translate }}</p>
+            <p class="group-title">{{ 'COMPANY_DETAILS.CONTACT' | translate }}</p>
             <div class="contact-if-logged" *ngIf="isLogged$ | async">
                 <p *ngIf="c.email"><strong>Email : </strong>{{ c.email }}</p>
                 <p *ngIf="c.phoneNumber"><strong>{{ 'DASHBOARD.TELEPHONE' | translate }} : </strong>{{ c.phoneNumber }}
                 </p>
-                <a *ngIf="c.websiteUrl" target="_blank" [href]="c.websiteUrl">{{ 'DESIGNER_DETAILS.PORTFOLIO' |
+                <a *ngIf="c.websiteUrl" target="_blank" [href]="c.websiteUrl">{{ 'COMPANY_DETAILS.SITE' |
                     translate }}</a>
             </div>
             <div class="contact-if-notLogged" *ngIf="!(isLogged$ | async)">

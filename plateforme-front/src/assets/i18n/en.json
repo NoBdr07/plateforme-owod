@@ -51,7 +51,8 @@
       "EPAN": "Active fulfillment",
       "EPAN2": "Nurture your talents for the long term.",
       "EPAN3": "Offer your employees an official space to explore, create, and grow, fostering long-term engagement and retention through an integrative approach.",
-      "CREER": "Create an account"
+      "CREER": "Create an account",
+      "ANNUAIRE": "Explore company directory"
     }
   },
   "CATALOGUE": {
@@ -138,6 +139,14 @@
     "PORTFOLIO": "Link to my portfolio",
     "NOT_LOGGED": "Information reserved for AIPDA members.",
     "MEMBRE": "Join now !"
+  },
+  "COMPANY_DETAILS": {
+      "PHOTO": "Team picture",
+      "REALS": "Our works",
+      "INFOS": "Our informations",
+      "CONTACT": "Contact us",
+      "VILLE": "City",
+      "SITE": "Go to our website"
   },
   "COMPANY": {
     "INFO_IDENTITE": "Company identity",

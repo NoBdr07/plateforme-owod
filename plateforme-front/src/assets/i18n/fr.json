@@ -39,9 +39,9 @@
     "ENTREPRISE": {
       "TITRE": "Créez une synergie innovante entre vos activités d’entreprise et les aspirations de vos talents.",
       "SOUS_TITRE": "Avec OWOD, offrez à vos talents un cadre structurant pour concilier engagement professionnel et développement personnel.",
-      "DEMO": "Demandez une démo",
-      "VALORISER": "Valoriser votre entreprise tout en soutenant vos talents dans leurs projets parallèles",
-      "VALORISER2": "Créez un environnement où vos équipes se sentent soutenues, engagées et fières de contribuer à un projet collec tif aligné avec leur identité.",
+      "DEMO": "Demander une démo",
+      "VALORISER": "Valoriser votre entreprise tout en soutenant vos talents dans leurs projets parallèles.",
+      "VALORISER2": "Créez un environnement où vos équipes se sentent soutenues, engagées et fières de contribuer à un projet collectif aligné avec leur identité.",
       "CADRE": "Cadre clair",
       "CADRE2": "Sécurisez et structurez",
       "CADRE3": "Un environnement légal et éthique qui définit précisément les rôles et responsabilités, garantissant la transparence et la confiance pour tous les acteurs impliqués.",
@@ -51,7 +51,8 @@
       "EPAN": "Épanouissement actif",
       "EPAN2": "Valorisez vos talents durablement.",
       "EPAN3": "Offrez à vos collaborateurs un espace officiel pour explorer, créer et grandir, favorisant l'engagement durable et la fidélisation grâce à une approche intégrative.",
-      "CREER": "Créer un compte"
+      "CREER": "Créer un compte",
+      "ANNUAIRE": "Consulter l'annuaire entreprises"
     }
   },
   "CATALOGUE": {
@@ -141,6 +142,14 @@
     "PORTFOLIO": "Lien vers mon portfolio",
     "NOT_LOGGED": "Informations réservées aux membres de l'AIPDA.",
     "MEMBRE": "Devenir membre !"
+  },
+  "COMPANY_DETAILS": {
+      "PHOTO": "Photo de l'équipe",
+      "REALS": "Nos réalisations",
+      "INFOS": "Nos informations",
+      "CONTACT": "Nous contacter",
+      "VILLE": "Ville d'implantation",
+      "SITE": "Consulter notre site web"
   },
   "COMPANY": {
     "INFO_IDENTITE": "Identité de l'entreprise",
