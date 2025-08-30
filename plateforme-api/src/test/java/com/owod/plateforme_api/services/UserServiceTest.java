@@ -26,25 +26,6 @@ class UserServiceTest {
 
 
     @Test
-    void hasDesignerAccount() {
-        // GIVEN
-        User user = new User();
-        user.setDesignerId("123");
-
-        String id = "123";
-
-        when(userRepository.findByUserId(id)).thenReturn(Optional.of(user));
-
-        // WHEN
-        boolean hasDesignerResult = userService.hasDesignerAccount(id);
-
-        // THEN
-        assertTrue(hasDesignerResult);
-        verify(userRepository, times(1)).findByUserId(id);
-
-    }
-
-    @Test
     void isDesignerOwner_shouldReturnTrue() {
         // GIVEN
         String designerId = "designer123";

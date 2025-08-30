@@ -1,6 +1,7 @@
 package com.owod.plateforme_api.controllers;
 
 import com.owod.plateforme_api.configuration.TestSecurityConfig;
+import com.owod.plateforme_api.models.entities.AccountType;
 import com.owod.plateforme_api.models.entities.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
@@ -42,10 +44,13 @@ class UserControllerTest {
         user.setDesignerId("designer123");
         mongoTemplate.save(user);
 
+        AccountType designerAccount = AccountType.DESIGNER;
+
         // WHEN & THEN
-        mockMvc.perform(get("/users/user123/has-designer"))
+        mockMvc.perform(get("/users/user123/has-account"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("true"));
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(content().string("\"DESIGNER\""));
     }
 
     @Test
@@ -57,9 +62,10 @@ class UserControllerTest {
         mongoTemplate.save(user);
 
         // WHEN & THEN
-        mockMvc.perform(get("/users/user123/has-designer"))
+        mockMvc.perform(get("/users/user123/has-account"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("false"));
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(content().string("\"NONE\""));
     }
 
     @Test

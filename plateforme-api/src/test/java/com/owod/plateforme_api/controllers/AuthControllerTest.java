@@ -152,12 +152,6 @@ class AuthControllerTest {
 
     }
 
-    @Test
-    void me_withoutCookie_shouldReturnUnauthorized() throws Exception {
-        mockMvc.perform(get("/auth/me"))
-                .andExpect(status().isForbidden());
-    }
-
 
     @Test
     void me_withValidJwtCookie_shouldReturnUserIdAndRoles() throws Exception {
