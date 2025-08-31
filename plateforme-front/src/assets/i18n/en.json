@@ -212,7 +212,8 @@
     "CALENDRIER": "Manage my calendar",
     "PAYS": "Country of residence",
     "VILLE": "City",
-    "ADMIN": "ADMIN - Manage designers"
+    "ADMIN": "ADMIN - Manage designers",
+    "GESTION_ENTR": "ADMIN - Manage companies"
   },
   "CONTACTS": {
     "TITRE": "Saved contacts",

@@ -87,6 +87,14 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     {
+        path: 'account/admin-gestion-entreprises',
+        loadComponent: () =>
+            import(
+              './personnal-space/gestion-admin-companies/gestion-admin-companies.component'
+            ).then((c) => c.GestionAdminCompaniesComponent),
+        canActivate: [authGuard]
+    },
+    {
         path: 'dashboard',
         loadComponent: () =>
             import(

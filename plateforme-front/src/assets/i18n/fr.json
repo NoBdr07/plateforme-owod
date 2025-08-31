@@ -218,7 +218,8 @@
     "CALENDRIER": "Gérer mon calendrier",
     "PAYS": "Pays de résidence",
     "VILLE": "Ville",
-    "ADMIN": "ADMIN - Gérer les designers"
+    "ADMIN": "ADMIN - Gérer les designers",
+    "GESTION_ENTR": "ADMIN - Gérer les entreprises"
   },
   "CONTACTS": {
     "TITRE": "Contacts enregistrés",

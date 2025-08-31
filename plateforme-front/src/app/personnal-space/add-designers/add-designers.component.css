@@ -115,3 +115,28 @@
   flex-direction: column;
   gap: 20px;
 }
+
+@media screen and (max-width: 768px) {
+
+  .global-container {
+    flex-direction: column;
+    margin: 20px;
+  }
+
+  .group-title {
+    font-size: 5vw;
+  }
+
+  .infos-section {
+    flex-direction: column;
+  }
+
+  .images-section {
+    gap: 20px;
+  }
+
+  .button-header {
+    justify-content: center;
+  }
+
+}

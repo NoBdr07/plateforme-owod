@@ -142,6 +142,7 @@ h2 {
   font-weight: bold;
   border-radius: 10px;
   box-shadow: none;
+  min-width: 300px;
 }
 
 /* STYLES SI DESIGNER NON CREE */
@@ -185,7 +186,8 @@ h2 {
 
   .button,
   .red-button,
-  .button-disabled {
+  .button-disabled,
+  .purple-button {
     width: 100%;
     height: 100px !important;
     border-radius: 20px;
