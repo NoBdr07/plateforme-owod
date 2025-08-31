@@ -182,6 +182,10 @@
     position: relative;
   }
 
+  .photo-container {
+    align-items: center;
+  }
+
   .background,
   .photo {
     width: 100%;

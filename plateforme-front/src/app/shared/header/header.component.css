@@ -192,6 +192,14 @@ a.active::after {
     position: relative;
   }
 
+  .top-container {
+    margin: 30px 20px;;
+  }
+
+  .switch-company {
+    justify-content: space-between;
+  }
+
   .logo {
     height: 40px;
   }

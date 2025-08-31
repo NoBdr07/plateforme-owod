@@ -204,7 +204,7 @@ h1 {
     }
 
     h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
         padding: 0 20px;
         margin-bottom: 30px;
     }
@@ -236,36 +236,32 @@ h1 {
 
     .info-container-title {
         font-size: 1.5rem;
-        margin-bottom: -70px;
+    }
+
+    .info-sub-container {
+        flex-direction: column;
     }
 
     .info {
         height: 200px;
-        margin-top: -30px;
-    }
-
-    #info1,
-    #info2,
-    #info3 {
-        margin-left: 0;
-    }
-
-    #info3 {
-        margin-top: -70px;
-        margin-bottom: 100px;
+        margin-top: 40px;
     }
 
     .info-title {
         font-size: 1rem;
         position: static;
         margin-bottom: 15px;
-        padding: 0 20px;
     }
 
     .info-text {
         font-size: 0.8rem;
         position: static;
         padding: 0 20px;
+        margin-top: -10px;
+    }
+
+    .trait {
+        margin-bottom: 0;
     }
 
     .info-background {
