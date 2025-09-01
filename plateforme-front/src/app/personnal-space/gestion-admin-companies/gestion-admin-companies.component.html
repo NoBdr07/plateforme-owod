@@ -1,0 +1,67 @@
+<div class="arrow-container" routerLink="/account">
+    <img src="/assets/logos/arrow-back.png" alt="retour" />
+    <p>{{ "DASHBOARD.BACK" | translate }}</p>
+</div>
+
+<div class="global-container">
+    <div class="companies-container">
+        <h1>Gestion des entreprises</h1>
+
+        <div class="table-wrapper">
+            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z1">
+
+                <!-- Raison sociale -->
+                <ng-container matColumnDef="raisonSociale">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Entreprise</th>
+                    <td mat-cell *matCellDef="let e">{{ e.raisonSociale }}</td>
+                </ng-container>
+
+                <!-- Soutien financier -->
+                <ng-container matColumnDef="financialSupport">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Soutien financier</th>
+                    <td mat-cell *matCellDef="let e">
+                        <span class="pill" [class.pill--yes]="e.financialSupport"
+                            [class.pill--no]="!e.financialSupport">
+                            {{ e.financialSupport ? 'OUI' : 'NON' }}
+                        </span>
+                    </td>
+                </ng-container>
+
+                <!-- Stage -->
+                <ng-container matColumnDef="stage">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Développement</th>
+                    <td mat-cell *matCellDef="let e">{{ e.stage }}</td>
+                </ng-container>
+
+                <!-- Revenue -->
+                <ng-container matColumnDef="revenue">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Chiffre d'affaires</th>
+                    <td mat-cell *matCellDef="let e" class="num">{{ e.revenue }}</td>
+                </ng-container>
+
+                <!-- SIRET -->
+                <ng-container matColumnDef="siretNumber">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>SIRET</th>
+                    <td mat-cell *matCellDef="let e">{{ e.siretNumber }}</td>
+                </ng-container>
+
+                <!-- Email -->
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+                    <td mat-cell *matCellDef="let e">{{ e.email }}</td>
+                </ng-container>
+
+                <!-- Téléphone -->
+                <ng-container matColumnDef="phoneNumber">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Téléphone</th>
+                    <td mat-cell *matCellDef="let e">{{ e.phoneNumber }}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>
