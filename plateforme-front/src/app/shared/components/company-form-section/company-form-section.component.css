@@ -28,6 +28,15 @@
   margin-bottom: 20px;
 }
 
+
+::ng-deep mat-checkbox * {
+  color: black !important;
+}
+
+::ng-deep .mdc-checkbox * {
+  border-color: black !important;
+}
+
 @media screen and (max-width: 768px) {
   .form-section {
     width: 100%;

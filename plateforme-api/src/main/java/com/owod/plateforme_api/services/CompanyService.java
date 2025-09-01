@@ -29,6 +29,10 @@ public class CompanyService {
                 .toList();
     }
 
+    public List<Company> getAll() {
+        return companyRepository.findAll();
+    }
+
     public CompanyDTO getDtoById(String id) {
         return companyRepository.findById(id)
                 .map(companyMapper::toDTO)

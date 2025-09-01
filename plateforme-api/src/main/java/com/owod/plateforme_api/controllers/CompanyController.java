@@ -46,6 +46,21 @@ public class CompanyController {
     }
 
     /**
+     * Retrieves all company data as a list of Company objects.
+     * It is not DTO objects so it contains sensitive data,
+     * that's why this endpoint is restricted to admin.
+     *
+     * @return a ResponseEntity containing a list of Company objects if companies are found,
+     *         or a 404 Not Found response if the list is empty.
+     */
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/all-full")
+    public ResponseEntity<List<Company>> getAllFull() {
+        List<Company> companies = companyService.getAll();
+        return ResponseEntity.ok(companies);
+    }
+
+    /**
      * Get one company by its id,
      * public endpoint that retrieve only non confidential data
      *

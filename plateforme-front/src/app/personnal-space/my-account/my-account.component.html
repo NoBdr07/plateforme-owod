@@ -164,6 +164,7 @@
 
     </mat-tab-group>
 
+    <!-- Boutons si compte designer/entreprise pas encore crée -->
     <div class="created">
       <button class="button" mat-raised-button routerLink="/catalogue">
         {{ "MON_COMPTE.RETOUR" | translate }}
@@ -176,6 +177,10 @@
       <button *ngIf="authService.isAdmin" class="purple-button" mat-raised-button routerLink="/account/add-designers">
         {{ "MON_COMPTE.ADMIN" | translate }}
       </button>
+
+      <button *ngIf="authService.isAdmin" class="purple-button" mat-raised-button routerLink="/account/admin-gestion-entreprises">
+      {{ "MON_COMPTE.GESTION_ENTR" | translate }}
+    </button>
     </div>
   </div>
 

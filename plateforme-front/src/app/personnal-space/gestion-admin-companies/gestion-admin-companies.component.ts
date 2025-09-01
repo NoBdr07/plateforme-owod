@@ -50,7 +50,7 @@ export class GestionAdminCompaniesComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     // Récupère les données et les pousse dans la table
-    this.companyService.getAll().subscribe((companies) => {
+    this.companyService.getAllFull().subscribe((companies) => {
       this.dataSource.data = companies ?? [];
     });
 

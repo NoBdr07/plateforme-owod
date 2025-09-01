@@ -4,7 +4,6 @@
     <p class="group-title">{{ "COMPANY.INFO_IDENTITE" | translate }}</p>
     <div class="underline"></div>
     <div class="form-group">
-
       <mat-form-field appearance="fill">
         <mat-label>{{ "COMPANY.RAISON_SOCIALE" | translate }}</mat-label>
         <input matInput formControlName="raisonSociale" />
@@ -14,6 +13,19 @@
         <mat-label>{{ "COMPANY.SIRET" | translate }}</mat-label>
         <input matInput formControlName="siretNumber" />
       </mat-form-field>
+    </div>
+
+    <!-- Soutien financier-->
+    <p class="group-title">{{ "COMPANY.SOUTIEN_FIN.TITRE" | translate }}</p>
+    <div class="underline"></div>
+    <p>
+      {{ "COMPANY.SOUTIEN_FIN.EXPL" | translate }}
+    </p>
+
+    <div class="checkbox-row">
+      <mat-checkbox formControlName="financialSupport" color="primary">
+        {{ "COMPANY.SOUTIEN_FIN.BOX" | translate }}
+      </mat-checkbox>
     </div>
 
     <!-- Coordonnées -->

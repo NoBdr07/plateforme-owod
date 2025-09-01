@@ -100,9 +100,7 @@
     "SECTEUR": "Secteurs favoris",
     "NIVEAU": "Niveau professionnel",
     "SAUVEGARDER": "Sauvegarder",
-    "ENTREPRISE": {
-      
-    }
+    "ENTREPRISE": {}
   },
   "GESTION_CAL": {
     "H1": "Gestion de mes disponibilités",
@@ -144,19 +142,18 @@
     "MEMBRE": "Devenir membre !"
   },
   "COMPANY_DETAILS": {
-      "PHOTO": "Photo de l'équipe",
-      "REALS": "Nos réalisations",
-      "INFOS": "Nos informations",
-      "CONTACT": "Nous contacter",
-      "VILLE": "Ville d'implantation",
-      "SITE": "Consulter notre site web"
+    "PHOTO": "Photo de l'équipe",
+    "REALS": "Nos réalisations",
+    "INFOS": "Nos informations",
+    "CONTACT": "Nous contacter",
+    "VILLE": "Ville d'implantation",
+    "SITE": "Consulter notre site web"
   },
   "COMPANY": {
     "INFO_IDENTITE": "Identité de l'entreprise",
     "NOM": "Nom",
     "RAISON_SOCIALE": "Raison sociale",
     "SIRET": "Numéro SIRET",
-
     "COORDONNEES": "Coordonnées",
     "TELEPHONE": "Téléphone",
     "PAYS": "Pays",
@@ -168,7 +165,12 @@
     "TYPE": "Type d'entreprise",
     "SECTEURS": "Secteurs d'activité",
     "STAGE": "Stade de développement",
-    "CA": "Chiffre d'affaires"
+    "CA": "Chiffre d'affaires",
+    "SOUTIEN_FIN": {
+      "TITRE": "Soutien financier",
+      "EXPL": "En cochant cette case, votre entreprise décide de soutenir vos employés en subventionnant leur adhésion à l’AIPDA.",
+      "BOX": "Soutenir financièrement l’adhésion"
+    }
   },
   "LOGIN": {
     "TITRE": "Se connecter",
@@ -319,7 +321,6 @@
       "TEXTE": "OWOD est optimisée pour mobile et une application est en cours de développement."
     },
     "AUTRE": "Pour toute autre question, n’hésitez pas à nous contacter à l’adresse : info@aipda-design.org"
-
   },
 
   "LEGAL": {

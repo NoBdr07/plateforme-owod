@@ -141,12 +141,12 @@
     "MEMBRE": "Join now !"
   },
   "COMPANY_DETAILS": {
-      "PHOTO": "Team picture",
-      "REALS": "Our works",
-      "INFOS": "Our informations",
-      "CONTACT": "Contact us",
-      "VILLE": "City",
-      "SITE": "Go to our website"
+    "PHOTO": "Team picture",
+    "REALS": "Our works",
+    "INFOS": "Our informations",
+    "CONTACT": "Contact us",
+    "VILLE": "City",
+    "SITE": "Go to our website"
   },
   "COMPANY": {
     "INFO_IDENTITE": "Company identity",
@@ -163,7 +163,12 @@
     "TYPE": "Company type",
     "SECTEURS": "Business sectors",
     "STAGE": "Development stage",
-    "CA": "Revenue"
+    "CA": "Revenue",
+    "SOUTIEN_FIN": {
+      "TITRE": "Financial Support",
+      "SOUTIEN_FIN_EXPL": "By checking this box, your company agrees to support your employees by subsidizing their AIPDA membership.",
+      "BOX": "Financially support the membership"
+    }
   },
   "LOGIN": {
     "TITRE": "Login",
