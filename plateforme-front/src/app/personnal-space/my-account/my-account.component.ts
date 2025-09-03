@@ -8,7 +8,14 @@ import {
 } from '@angular/core';
 import { UserService } from '../../shared/services/user.service';
 import { AuthService } from '../../shared/services/auth.service';
-import { filter, firstValueFrom, Subscription, switchMap, take, tap } from 'rxjs';
+import {
+  filter,
+  firstValueFrom,
+  Subscription,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -35,6 +42,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { TypeEntreprise } from '../../shared/enums/type-entreprise.enum';
 import { NiveauDev } from '../../shared/enums/niveau-dev.enum';
 import { CompanyService } from '../../shared/services/company.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { finalize, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-my-account',
@@ -49,13 +58,14 @@ import { CompanyService } from '../../shared/services/company.service';
     ReactiveFormsModule,
     TranslateModule,
     MatDialogModule,
-    MatTabsModule
+    MatTabsModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './my-account.component.html',
   styleUrl: './my-account.component.css',
 })
 export class MyAccountComponent implements OnDestroy {
-  // Infos de l'utilisateur connecté 
+  // Infos de l'utilisateur connecté
   session$ = this.authService.session$;
 
   // Formulaire pour création du compte designer ou entreprise
@@ -79,6 +89,11 @@ export class MyAccountComponent implements OnDestroy {
   @ViewChild('confirmSuppressTemplate')
   confirmSuppressTemplate!: TemplateRef<any>;
 
+  // Pour les états de chargement des bouttons de création
+  isCreatingDesigner = false;
+  isCreatingCompany = false;
+
+  // Souscriptions
   private subs = new Subscription();
 
   constructor(
@@ -105,20 +120,24 @@ export class MyAccountComponent implements OnDestroy {
       type: ['', Validators.required],
       country: ['', Validators.required],
       city: ['', Validators.required],
-      websiteUrl: ['']
-    })
+      websiteUrl: [''],
+    });
   }
 
   onSubmitDesigner(): void {
-    if (this.accountForm.valid) {
-      const formData = this.accountForm.value;
-      let country = formData.countryOfResidence;
-      formData.countryOfResidence = this.formatCountry(country);
+    if (this.accountForm.invalid) return;
 
+    this.isCreatingDesigner = true;
+    const formData = { ...this.accountForm.value };
+    formData.countryOfResidence = this.formatCountry(
+      formData.countryOfResidence
+    );
 
-      // Envoyer la requête pour créer le designer
-      const sub = this.designerService.createDesigner(formData).subscribe({
-        next: (response) => {
+    const sub = this.designerService
+      .createDesigner(formData)
+      .pipe(finalize(() => (this.isCreatingDesigner = false)))
+      .subscribe({
+        next: () => {
           this.notificationService.success(
             'Profil designer créé avec succès !'
           );
@@ -126,73 +145,80 @@ export class MyAccountComponent implements OnDestroy {
         },
         error: (err) => {
           console.error('Erreur lors de la création du designer :', err);
+          this.notificationService.error(
+            'Erreur lors de la création du designer.'
+          );
         },
       });
 
-      this.subs.add(sub);
-
-    } else {
-      console.error('Formulaire invalide.');
-    }
+    this.subs.add(sub);
   }
 
   onSubmitCompany(): void {
     if (this.companyForm.invalid) return;
 
-    const formData = this.companyForm.value;
-    let country = formData.country;
-    formData.country = this.formatCountry(country);
+    this.isCreatingCompany = true;
+
+    const formData = { ...this.companyForm.value };
+    formData.country = this.formatCountry(formData.country);
 
     const logoFile: File = this.companyForm.get('logo')?.value;
 
-    // envoyer requête pour création du compte entreprise
-    const sub = this.companyService.createCompany(formData).subscribe({
-      next: (created) => {
+    const sub = this.companyService
+      .createCompany(formData)
+      .pipe(
+        switchMap((created) =>
+          this.companyService.updateLogo(created.id, logoFile).pipe(
+            map(() => created) // on repasse l'objet created au next
+          )
+        ),
+        finalize(() => (this.isCreatingCompany = false))
+      )
+      .subscribe({
+        next: () => {
+          this.notificationService.success(
+            'Compte entreprise créé avec succès.'
+          );
+          this.subs.add(this.authService.refreshSession().subscribe());
+        },
+        error: (err) => {
+          console.error(
+            'Erreur lors de la création du compte entreprise : ',
+            err
+          );
+          this.notificationService.error(
+            'Erreur lors de la création du compte.'
+          );
+        },
+      });
 
-        const sub2 = this.companyService.updateLogo(created.id, logoFile).subscribe({
-          next: () => {
-            this.notificationService.success('Compte entreprise créé avec succès.');
-            this.subs.add(this.authService.refreshSession().subscribe());
-            this.subs.add(sub);
-            this.subs.add(sub2);
-          },
-          error: (err) => {
-            this.notificationService.error('Erreur lors de la création du compte.');
-            console.error(err);
-          }
-        })
-
-      },
-      error: (err) => {
-        console.error('Erreur lors de la création du compte entreprise : ', err);
-        this.notificationService.error('Erreur lors de la création du compte.');
-      }
-    })
+    this.subs.add(sub);
   }
 
   /**
    * Formattage des pays
-   * 
-   * @param country 
-   * @returns 
+   *
+   * @param country
+   * @returns
    */
   formatCountry(country: String): String {
     if (country !== 'USA') {
-      country = country.charAt(0).toUpperCase() + country.slice(1).toLowerCase();
+      country =
+        country.charAt(0).toUpperCase() + country.slice(1).toLowerCase();
     }
     return country;
   }
 
   /**
    * Relie le fichier image du logo au form de création d'entreprise
-   * 
+   *
    * @param event qui contient le fichier uploadé
    */
   onLogoSelected(event: Event): void {
-    console.log("appel de onLogoSelected");
+    console.log('appel de onLogoSelected');
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      console.log("if dans onLogoSelected");
+      console.log('if dans onLogoSelected');
       const file = input.files[0];
       this.companyForm.get('logo')?.setValue(file);
       this.companyForm.get('logo')?.updateValueAndValidity();
@@ -217,11 +243,13 @@ export class MyAccountComponent implements OnDestroy {
       switch (s.accountType) {
         case AccountType.DESIGNER: {
           if (!s.userId || !s.designerId) {
-            this.notificationService.error("Erreur lors de la suppression.");
+            this.notificationService.error('Erreur lors de la suppression.');
             this.dialog.closeAll();
             break;
           }
-          await firstValueFrom(this.designerService.deleteDesigner(s.userId, s.designerId));
+          await firstValueFrom(
+            this.designerService.deleteDesigner(s.userId, s.designerId)
+          );
           this.dialog.closeAll();
           this.notificationService.success('Profil designer supprimé.');
 
@@ -230,7 +258,7 @@ export class MyAccountComponent implements OnDestroy {
 
         case AccountType.COMPANY: {
           if (!s.userId || !s.companyId) {
-            this.notificationService.error("Erreur lors de la suppression.");
+            this.notificationService.error('Erreur lors de la suppression.');
             this.dialog.closeAll();
             break;
           }
@@ -241,7 +269,7 @@ export class MyAccountComponent implements OnDestroy {
         }
 
         default: {
-          this.notificationService.error("Aucun type de compte à supprimer");
+          this.notificationService.error('Aucun type de compte à supprimer');
           this.dialog.closeAll();
           break;
         }
@@ -250,11 +278,9 @@ export class MyAccountComponent implements OnDestroy {
       await firstValueFrom(this.authService.refreshSession());
     } catch (err) {
       console.error('Erreur suppression compte : ', err);
-      this.notificationService.error("Erreur lors de la suppression");
+      this.notificationService.error('Erreur lors de la suppression');
     }
-
   }
-
 
   /**
    * Ouverture du dialog de confirmation en cas de suppression du profil designer

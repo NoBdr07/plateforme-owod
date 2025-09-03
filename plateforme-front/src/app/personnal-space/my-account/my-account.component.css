@@ -76,6 +76,59 @@ h2 {
   line-height: 25px;
 }
 
+/* BOUTONS */
+
+.btn-with-spinner .mdc-button__label {
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-with-spinner {
+  background-color: var(--accent-color) !important;
+  color: var(--dark-color) !important;
+  height: 45px;
+  font-weight: 600;
+}
+
+.btn-spinner {
+  width: 20px;
+  height: 20px;
+  gap: 8px;    
+  color: black;
+}
+
+.button-disabled {
+  flex: 1;
+  height: 100px;
+  background-color: lightgray !important;
+  color: var(--dark-color) !important;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: none;
+  min-width: 300px;
+}
+
+.red-button {
+  flex: 1;
+  height: 100px;
+  background-color: #ebb8b8 !important;
+  color: var(--dark-color) !important;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+.purple-button {
+  flex: 1;
+  height: 100px;
+  background-color: #51235e !important;
+  color: white !important;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: none;
+  min-width: 300px;
+}
+
 /* STYLE DU MAT TAB */
 
 ::ng-deep .mdc-tab__text-label {
@@ -107,38 +160,6 @@ h2 {
   height: 100px;
   background-color: var(--accent-color) !important;
   color: var(--dark-color) !important;
-  font-weight: bold;
-  border-radius: 10px;
-  box-shadow: none;
-  min-width: 300px;
-}
-
-.button-disabled {
-  flex: 1;
-  height: 100px;
-  background-color: lightgray !important;
-  color: var(--dark-color) !important;
-  font-weight: bold;
-  border-radius: 10px;
-  box-shadow: none;
-  min-width: 300px;
-}
-
-.red-button {
-  flex: 1;
-  height: 100px;
-  background-color: #ebb8b8 !important;
-  color: var(--dark-color) !important;
-  font-weight: bold;
-  border-radius: 10px;
-  box-shadow: none;
-}
-
-.purple-button {
-  flex: 1;
-  height: 100px;
-  background-color: #51235e !important;
-  color: white !important;
   font-weight: bold;
   border-radius: 10px;
   box-shadow: none;

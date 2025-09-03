@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,7 +98,7 @@ public class CompanyService {
     public Company addWorks(String id, List<MultipartFile> files) {
         try {
             var entity = companyRepository.findById(id).orElseThrow();
-            var urls = new java.util.ArrayList<>(entity.getWorksUrl() != null ? entity.getWorksUrl() : List.of());
+            var urls = new ArrayList<>(entity.getWorksUrl() != null ? entity.getWorksUrl() : List.of());
             for (var f : files) {
                 String url = imageStorageService.uploadImage(f);
                 urls.add(url);

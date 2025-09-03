@@ -1,5 +1,4 @@
-<div class="global-container" *ngIf="(authService.session$ | async ) as s">
-
+<div class="global-container" *ngIf="authService.session$ | async as s">
   <!-- === HEADER === -->
   <div class="top-container">
     <div class="text-container">
@@ -11,18 +10,22 @@
       <div class="top-right-container">
         <h2>{{ "MON_COMPTE.BIENVENUE" | translate }}</h2>
 
-        <ng-container *ngIf="s.accountType !== AccountType.NONE; else noAccountTexts ">
-
-          <ng-container *ngIf="s.accountType === AccountType.DESIGNER ">
-            <p class="small">{{ "MON_COMPTE.CREATED_1_DESIGNER" | translate }}</p>
+        <ng-container
+          *ngIf="s.accountType !== AccountType.NONE; else noAccountTexts"
+        >
+          <ng-container *ngIf="s.accountType === AccountType.DESIGNER">
+            <p class="small">
+              {{ "MON_COMPTE.CREATED_1_DESIGNER" | translate }}
+            </p>
             <p class="small">{{ "MON_COMPTE.CREATED_2" | translate }}</p>
           </ng-container>
 
-          <ng-container *ngIf="s.accountType === AccountType.COMPANY ">
-            <p class="small">{{ "MON_COMPTE.CREATED_1_COMPANY" | translate }}</p>
+          <ng-container *ngIf="s.accountType === AccountType.COMPANY">
+            <p class="small">
+              {{ "MON_COMPTE.CREATED_1_COMPANY" | translate }}
+            </p>
             <p class="small">{{ "MON_COMPTE.CREATED_2" | translate }}</p>
           </ng-container>
-
         </ng-container>
 
         <ng-template #noAccountTexts>
@@ -30,7 +33,6 @@
           <p class="small">{{ "MON_COMPTE.INFO_2" | translate }}</p>
           <p class="small">{{ "MON_COMPTE.INFO_3" | translate }}</p>
         </ng-template>
-
       </div>
     </div>
     <img src="assets/images/back-dark.png" class="background" />
@@ -38,14 +40,15 @@
 
   <!-- === AUCUN COMPTE (création) === -->
   <div *ngIf="s.accountType === AccountType.NONE" class="not-created">
-
     <!-- Onglets Designer / Entreprise -->
     <mat-tab-group>
-
       <!-- Onglet Designer -->
       <mat-tab label="Créer un compte professionnel">
-
-        <form class="form" [formGroup]="accountForm" (ngSubmit)="onSubmitDesigner()">
+        <form
+          class="form"
+          [formGroup]="accountForm"
+          (ngSubmit)="onSubmitDesigner()"
+        >
           <mat-form-field appearance="fill">
             <mat-label>{{ "DASHBOARD.PROFESSION" | translate }}</mat-label>
             <mat-select formControlName="profession">
@@ -58,7 +61,10 @@
           <mat-form-field appearance="fill">
             <mat-label>{{ "DASHBOARD.SPECIALITE" | translate }}</mat-label>
             <mat-select formControlName="specialties" multiple>
-              <mat-option *ngFor="let specialty of specialties" [value]="specialty">
+              <mat-option
+                *ngFor="let specialty of specialties"
+                [value]="specialty"
+              >
                 {{ specialty }}
               </mat-option>
             </mat-select>
@@ -67,7 +73,10 @@
           <mat-form-field appearance="fill">
             <mat-label>{{ "DASHBOARD.SPHERE" | translate }}</mat-label>
             <mat-select formControlName="spheresOfInfluence" multiple>
-              <mat-option *ngFor="let sphere of spheresOfInfluence" [value]="sphere">
+              <mat-option
+                *ngFor="let sphere of spheresOfInfluence"
+                [value]="sphere"
+              >
                 {{ sphere }}
               </mat-option>
             </mat-select>
@@ -76,7 +85,10 @@
           <mat-form-field appearance="fill">
             <mat-label>{{ "DASHBOARD.SECTEUR" | translate }}</mat-label>
             <mat-select formControlName="favoriteSectors" multiple>
-              <mat-option *ngFor="let sector of favoriteSectors" [value]="sector">
+              <mat-option
+                *ngFor="let sector of favoriteSectors"
+                [value]="sector"
+              >
                 {{ sector }}
               </mat-option>
             </mat-select>
@@ -87,19 +99,35 @@
             <input matInput formControlName="countryOfResidence" />
           </mat-form-field>
 
-          <button mat-raised-button color="primary" type="submit">
-            {{ "MON_COMPTE.CREER_DESIGNER" | translate }}
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="isCreatingDesigner || accountForm.invalid"
+            class="btn-with-spinner"
+          >
+            <mat-progress-spinner
+              *ngIf="isCreatingDesigner"
+              mode="indeterminate"
+              [diameter]="18"
+              class="btn-spinner"
+            ></mat-progress-spinner>
+            <span>{{
+              isCreatingDesigner
+                ? ""
+                : ("MON_COMPTE.CREER_DESIGNER" | translate)
+            }}</span>
           </button>
-
         </form>
-
       </mat-tab>
 
       <!-- Onglet Entreprise -->
       <mat-tab label="Créer un compte entreprise">
-
-        <form class="form" [formGroup]="companyForm" (ngSubmit)="onSubmitCompany()">
-
+        <form
+          class="form"
+          [formGroup]="companyForm"
+          (ngSubmit)="onSubmitCompany()"
+        >
           <mat-form-field appearance="fill">
             <mat-label>Raison sociale</mat-label>
             <input matInput formControlName="raisonSociale" />
@@ -108,23 +136,33 @@
           <mat-form-field appearance="fill" class="logo-field">
             <mat-label>Logo</mat-label>
             <!-- input file caché -->
-            <input #logoInput type="file" accept="image/*" (change)="onLogoSelected($event)" hidden />
+            <input
+              #logoInput
+              type="file"
+              accept="image/*"
+              (change)="onLogoSelected($event)"
+              hidden
+            />
 
             <!-- affichage du nom du fichier -->
             <input matInput [value]="companyLogoName || ''" readonly />
 
-            <button mat-button type="button" (click)="logoInput.click()">Choisir un fichier</button>
+            <button mat-button type="button" (click)="logoInput.click()">
+              Choisir un fichier
+            </button>
 
             <mat-error *ngIf="companyForm.get('logo')?.hasError('required')">
               Le logo est requis.
             </mat-error>
-
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>{{ "DASHBOARD.SECTEUR" | translate }}</mat-label>
             <mat-select formControlName="sectors" multiple>
-              <mat-option *ngFor="let sector of favoriteSectors" [value]="sector">
+              <mat-option
+                *ngFor="let sector of favoriteSectors"
+                [value]="sector"
+              >
                 {{ sector }}
               </mat-option>
             </mat-select>
@@ -154,14 +192,27 @@
             <input matInput formControlName="websiteUrl" />
           </mat-form-field>
 
-          <button mat-raised-button color="primary" type="submit">
-            {{ "MON_COMPTE.CREER_ENTREPRISE" | translate }}
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="isCreatingCompany || companyForm.invalid"
+            class="btn-with-spinner"
+          >
+            <mat-progress-spinner
+              *ngIf="isCreatingCompany"
+              mode="indeterminate"
+              [diameter]="18"
+              class="btn-spinner"
+            ></mat-progress-spinner>
+            <span>{{
+              isCreatingCompany
+                ? ""
+                : ("MON_COMPTE.CREER_ENTREPRISE" | translate)
+            }}</span>
           </button>
-
         </form>
-
       </mat-tab>
-
     </mat-tab-group>
 
     <!-- Boutons si compte designer/entreprise pas encore crée -->
@@ -174,13 +225,23 @@
         {{ "MON_COMPTE.DECONNECTER" | translate }}
       </button>
 
-      <button *ngIf="authService.isAdmin" class="purple-button" mat-raised-button routerLink="/account/add-designers">
+      <button
+        *ngIf="authService.isAdmin"
+        class="purple-button"
+        mat-raised-button
+        routerLink="/account/add-designers"
+      >
         {{ "MON_COMPTE.ADMIN" | translate }}
       </button>
 
-      <button *ngIf="authService.isAdmin" class="purple-button" mat-raised-button routerLink="/account/admin-gestion-entreprises">
-      {{ "MON_COMPTE.GESTION_ENTR" | translate }}
-    </button>
+      <button
+        *ngIf="authService.isAdmin"
+        class="purple-button"
+        mat-raised-button
+        routerLink="/account/admin-gestion-entreprises"
+      >
+        {{ "MON_COMPTE.GESTION_ENTR" | translate }}
+      </button>
     </div>
   </div>
 
@@ -190,11 +251,21 @@
       {{ "MON_COMPTE.RETOUR" | translate }}
     </button>
 
-    <button *ngIf="authService.isAdmin" class="purple-button" mat-raised-button routerLink="/account/add-designers">
+    <button
+      *ngIf="authService.isAdmin"
+      class="purple-button"
+      mat-raised-button
+      routerLink="/account/add-designers"
+    >
       {{ "MON_COMPTE.ADMIN" | translate }}
     </button>
 
-    <button *ngIf="authService.isAdmin" class="purple-button" mat-raised-button routerLink="/account/admin-gestion-entreprises">
+    <button
+      *ngIf="authService.isAdmin"
+      class="purple-button"
+      mat-raised-button
+      routerLink="/account/admin-gestion-entreprises"
+    >
       {{ "MON_COMPTE.GESTION_ENTR" | translate }}
     </button>
 
@@ -206,7 +277,11 @@
       {{ "MON_COMPTE.CONTACT" | translate }}
     </button>
 
-    <button class="button" mat-raised-button routerLink="/account/gestion-calendrier">
+    <button
+      class="button"
+      mat-raised-button
+      routerLink="/account/gestion-calendrier"
+    >
       {{ "MON_COMPTE.CALENDRIER" | translate }}
     </button>
 
@@ -220,7 +295,7 @@
   </div>
 
   <!-- === AFFICHAGES DES OPTIONS SI COMPTE ENTREPRISE === -->
-  <div *ngIf="s.accountType === AccountType.COMPANY " class="created">
+  <div *ngIf="s.accountType === AccountType.COMPANY" class="created">
     <button class="button" mat-raised-button routerLink="/catalogue">
       {{ "MON_COMPTE.RETOUR" | translate }}
     </button>
@@ -229,11 +304,21 @@
       {{ "MON_COMPTE.CONFIGURER" | translate }}
     </button>
 
-    <button class="button-disabled" mat-raised-button routerLink="/account/teams" disabled>
+    <button
+      class="button-disabled"
+      mat-raised-button
+      routerLink="/account/teams"
+      disabled
+    >
       Gérer mes équipes (à venir)
     </button>
 
-    <button class="button-disabled" mat-raised-button routerLink="/account/gestion-historique" disabled>
+    <button
+      class="button-disabled"
+      mat-raised-button
+      routerLink="/account/gestion-historique"
+      disabled
+    >
       Gérer historique (à venir)
     </button>
 
